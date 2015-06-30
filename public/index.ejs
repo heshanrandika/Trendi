@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html ng-app="mainTrendiModule">
+  <head>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <base href="/main">
+<!--      <link rel='stylesheet' href='stylesheets/libs/bootstrap.css'/>
+      <link rel='stylesheet' href='stylesheets/libs/bootstrap-social.css'/>
+      <link rel="stylesheet" href="stylesheets/libs/font-awesome.min.css">
+      <link rel='stylesheet' href='stylesheets/libs/ng-grid.css'/>
+      <link rel='stylesheet' type="text/css" href='stylesheets/libs/ng-animation.css'/>
+      <link rel='stylesheet' href='stylesheets/libs/jquery.bxslider.css'/>
+
+      <link rel="stylesheet" href="javascripts/libs/toastr/toastr.min.css">
+      <link rel="stylesheet" href="javascripts/libs/angular-busy/dist/angular-busy.min.css">
+      <link rel='stylesheet' href='stylesheets/style.css'/>
+
+      <link rel='stylesheet' href='stylesheets/libs/fraction/fractionslider.css'/>
+      <link rel='stylesheet' href='stylesheets/libs/fraction/reset.css'/>
+      <link rel='stylesheet' href='stylesheets/libs/fraction/style.css'/>-->
+
+
+
+      <link href="css/loader.css" rel="stylesheet">
+      <!-- Bootstrap core CSS -->
+      <link href="css/bootstrap.min.css" rel="stylesheet">
+      <!-- Custom styles for this template -->
+      <link href="css/fashion.css" rel="stylesheet">
+      <!-- CSS modules -->
+      <link href="css/icomoon.css" rel="stylesheet">
+      <link href="css/fontello.css" rel="stylesheet">
+      <link href="css/flexslider.css" rel="stylesheet">
+      <link href="css/jcarousel.css" rel="stylesheet">
+      <link href="css/owl.carousel.css" rel="stylesheet">
+      <link href="css/owl.theme.css" rel="stylesheet">
+      <link href="css/cloudzoom.css" rel="stylesheet">
+      <link href="css/sfmenu.css" rel="stylesheet">
+      <link href="css/isotope.css" rel="stylesheet">
+      <link href="css/smoothness/jquery-ui-1.10.3.custom.min.css" rel="stylesheet">
+      <link href="css/jquery.fancybox.css" rel="stylesheet">
+      <link href="css/hoverfold.css" rel="stylesheet">
+      <!-- SLIDER REVOLUTION 4.x CSS SETTINGS -->
+      <link rel="stylesheet" type="text/css" href="rs-plugin/css/settings.css" media="screen" />
+      <link rel="stylesheet" type="text/css" href="rs-plugin/css/extralayers.css" media="screen" />
+
+      <title>Trendi</title>
+  </head>
+  <body ng-controller="trendiMainController" class="body_bg span12 page-header-fixed" ng-cloak>
+  <ui-view>
+
+  </ui-view>
+  <script type="text/javascript" src="javascripts/libs/underscore/underscore.js"></script>
+
+
+  <script type="text/javascript" src="javascripts/libs/jquery/dist/jquery.min.js"></script>
+  <script type="text/javascript" src="javascripts/libs/jquery.bxslider.js"></script>
+  <script type="text/javascript" src="javascripts/libs/fractionJs/jquery.fractionslider.js"></script>
+  <script type="text/javascript" src="javascripts/libs/angular/angular.js"></script>
+  <script type="text/javascript" src="javascripts/libs/ngstorage/ngStorage.min.js"></script>
+  <script type="text/javascript" src="javascripts/libs/angular-animate/angular-animate.min.js"></script>
+  <script type="text/javascript" src="javascripts/libs/angular-touch/angular-touch.min.js"></script>
+  <script type="text/javascript" src="javascripts/libs/facebook/openfb.js"></script>
+  <script type="text/javascript" src="javascripts/libs/facebook/ngopenfb.js"></script>
+  <script type="text/javascript" src="javascripts/libs/angular-cookies/angular-cookies.min.js"></script>
+  <script type="text/javascript" src="javascripts/libs/angular-sanitize/angular-sanitize.js"></script>
+
+
+
+  <script type="text/javascript" src="javascripts/libs/angular-translate/angular-translate.js"></script>
+  <script type="text/javascript" src="javascripts/libs/angular-ui-router/release/angular-ui-router.js"></script>
+  <script type="text/javascript" src="javascripts/libs/ui-router-extras/release/ct-ui-router-extras.js"></script>
+  <script type="text/javascript" src="javascripts/libs/ng-grid/ng-grid-2.0.13.min.js"></script>
+  <script type="text/javascript" src="javascripts/libs/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+  <script type="text/javascript" src="javascripts/libs/toastr/toastr.min.js"></script>
+  <script type="text/javascript" src="javascripts/libs/angular-busy/dist/angular-busy.min.js"></script>
+
+  <script type="text/javascript" src="javascripts/config/appConfig.js"></script>
+
+  <script type="text/javascript" src="javascripts/modules/mainModule/index.js"></script>
+  <script type="text/javascript" src="javascripts/modules/mainModule/config.js"></script>
+  <script type="text/javascript" src="javascripts/modules/mainModule/directive.js"></script>
+  <script type="text/javascript" src="javascripts/modules/mainModule/controller.js"></script>
+
+  <script type="text/javascript" src="javascripts/modules/ladiesModule/index.js"></script>
+  <script type="text/javascript" src="javascripts/modules/ladiesModule/config.js"></script>
+  <script type="text/javascript" src="javascripts/modules/ladiesModule/controller.js"></script>
+
+  <script type="text/javascript" src="javascripts/modules/gentsModule/index.js"></script>
+  <script type="text/javascript" src="javascripts/modules/gentsModule/config.js"></script>
+  <script type="text/javascript" src="javascripts/modules/gentsModule/controller.js"></script>
+
+  <script type="text/javascript" src="javascripts/modules/babiesModule/index.js"></script>
+  <script type="text/javascript" src="javascripts/modules/babiesModule/config.js"></script>
+  <script type="text/javascript" src="javascripts/modules/babiesModule/controller.js"></script>
+
+  <script type="text/javascript" src="javascripts/modules/shopModule/index.js"></script>
+  <script type="text/javascript" src="javascripts/modules/shopModule/config.js"></script>
+  <script type="text/javascript" src="javascripts/modules/shopModule/controller.js"></script>
+
+  <script type="text/javascript" src="javascripts/modules/adminModule/index.js"></script>
+  <script type="text/javascript" src="javascripts/modules/adminModule/config.js"></script>
+  <script type="text/javascript" src="javascripts/modules/adminModule/controller.js"></script>
+
+  <script type="text/javascript" src="javascripts/modules/authModule/index.js"></script>
+  <script type="text/javascript" src="javascripts/modules/authModule/controller.js"></script>
+  <script type="text/javascript" src="javascripts/modules/authModule/directive.js"></script>
+
+  <script type="text/javascript" src="javascripts/modules/coreModule/index.js"></script>
+  <script type="text/javascript" src="javascripts/modules/coreModule/animations.js"></script>
+  <script type="text/javascript" src="javascripts/modules/coreModule/controller.js"></script>
+  <script type="text/javascript" src="javascripts/modules/coreModule/directive.js"></script>
+
+  </body>
+</html>
