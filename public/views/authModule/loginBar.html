@@ -1,0 +1,102 @@
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <a class="navbar-brand" >Trendi</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+             <ul class="nav navbar-nav">
+                 <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
+                 <li><a href="#">Link</a></li>
+                 <li class="dropdown">
+                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Dropdown <span class="caret"></span></a>
+                     <ul class="dropdown-menu" role="menu">
+                         <li><a href="#">Action</a></li>
+                         <li><a href="#">Another action</a></li>
+                         <li><a href="#">Something else here</a></li>
+                         <li class="divider"></li>
+                         <li><a href="#">Separated link</a></li>
+                         <li class="divider"></li>
+                         <li><a href="#">One more separated link</a></li>
+                     </ul>
+                 </li>
+             </ul>
+             <form class="navbar-form navbar-left" role="search">
+                 <div class="form-group">
+                     <input type="text" class="form-control" placeholder="Search">
+                 </div>
+                 <button type="submit" class="btn btn-default">Submit</button>
+             </form>-->
+        <div >
+            <ul class="nav navbar-nav navbar-right">
+                <div ng-class="!login_open && 'dropdown open'" class="trendi-nav-button" >
+                    <!-- <a class="dropdown-toggle"  ng-click="click_login()" aria-expanded="false" >Sign In<span class="caret"></span></a>
+     -->
+                    <a class="btn btn-block btn-social btn-facebook" aria-expanded="false" ng-click="click_login()">
+                        <i class="fa fa-user"></i> Sign in
+                    </a>
+
+                    <ul class="dropdown-menu">
+                        <li>
+                            <div class="login-form">
+                                <form>
+                                    <div class="form-group">
+                                        <div>
+                                            <input id="ath_login_uname" required class="form-control placeholder-no-fix" type="text" ng-model="credentials.username" autocomplete="off" placeholder="Username" name="username"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div>
+                                            <input id="ath_login_pwod" required class="form-control placeholder-no-fix" type="password" ng-model="credentials.password" autocomplete="off" placeholder="Password" name="password"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="login-btn">
+                                            <a class="btn btn-block btn-primary" ng-click="login()">
+                                                Sign in
+                                            </a>
+                                        </div>
+                                        <div class="login-btn">
+                                            <a class="btn btn-block btn-default" ng-click="login_close()">
+                                                Close
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="text-center help-text">
+                                            Don't you have an account? <a ng-click="click_register(1)">Sing Up</a>.
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </ul>
+            <div class="nav navbar-nav pull-right trendi-nav-button">
+                <a class="btn btn-block btn-social btn-facebook" ng-click="fbLogin()">
+                    <i class="fa fa-facebook"></i> Sign in with Facebook
+                </a>
+            </div>
+
+        </div>
+        <div>
+            <div class="nav navbar-nav pull-right trendi-nav-button">
+                <a class="btn btn-block btn-social btn-adn" ng-click="fbLogin()">
+                    <i class="fa fa-shopping-cart"></i> Watch List
+                </a>
+            </div>
+            <div class="nav navbar-nav pull-right trendi-nav-button">
+                <a class="btn btn-block btn-social btn-adn" ng-click="fbLogin()">
+                    <i class="fa fa-sign-out"></i> Sign Out
+                </a>
+            </div>
+        </div>
+
+
+
+    </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+</nav>
