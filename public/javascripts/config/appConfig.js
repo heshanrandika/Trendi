@@ -9,6 +9,7 @@ window.com = {TRENDI:{CATEGORY:{modules:{}}}};
         MODULES:[
             'ui.router',
             'ngAnimate',
+            'ngMaterial',
             'ui.bootstrap',
             'ngStorage',
             'mainTrendiModule',

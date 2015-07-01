@@ -1,40 +1,62 @@
 <div>
-    <div><div><trendi-login-bar ng-model="slider" ></trendi-login-bar></div></div>
-    <div>
-        body
-        <div>
-            <label ng-click="removeItem()">
-            Showv: Hello, world !
-            </label>
+    <div layout="column">
+        <md-content class="md-padding" layout="column">
+            <p>
+                You may supply a direction of <code>left</code>, <code>up</code>, <code>down</code>, or
+                <code>right</code> through the <code>md-direction</code> attribute.
+            </p>
+            <div class="lock-size" layout="row" layout-align="center center">
+                <md-fab-speed-dial md-open="isOpen" md-direction="{{selectedDirection}}"
+                                   ng-class="selectedMode">
+                    <md-fab-trigger>
+                        <md-button aria-label="menu" class="md-fab md-warn">
+                            <md-icon md-svg-src="img/icons/menu.svg"></md-icon>
+                        </md-button>
+                    </md-fab-trigger>
+                    <md-fab-actions>
 
+                        <div>
+                            <ul>
+                                <li><a href="#">Account fbd fdf gdf gdfgdfgdf gdfg dfgdfgdfgdfgdfgdf gdfgdfgdfg</a></li>
+                                <li><a href="#">Wishlist</a></li>
+                                <li><a href="#">Checkout</a></li>
+                            </ul>
+                        </div>
 
-            <label ng-click="addItem()">
-                Show:
-                <input type="checkbox" ng-model="showDiv" />
-            </label>
-            <hr />
-            <h1 ng-class="animatv" ng-show="showDiv">
-                Hello, world !
-            </h1>
-
-
-
-<!--            <div class="sidebar">
-                <div class="btn block" ng-click="autoPlayAnimation(0)"><i class="icon-play-circled2"></i> Play All</div>
-                <div ng-repeat="animation in animations" class="btn block" ng-click="addItem(animation)" ng-class="{'active' : animation == currentAnimation}">{{animation}}</div>
+                    </md-fab-actions>
+                </md-fab-speed-dial>
             </div>
-
-            <div class="controls">
-                <div class="btn" ng-class="{'active' : layoutMode == 0}" ng-click="switchGridMode()"><i class="icon-th-large"></i> Grid</div>
-                <div class="btn" ng-class="{'active' : layoutMode == 1}" ng-click="switchListMode()"><i class="icon-th-list"></i> List</div>
-                <div class="btn" ng-click="toggle()"><i class="icon-desktop"></i> Toggle</div>
-                <div class="btn red" ng-click="cleanList()"><i class="icon-trash"></i> Clean</div>
-            </div>-->
-
-            <ul class="item-container">
-                <li class="item"  ng-class="animatv" ng-repeat="item in list" >{{item.title}}</li>
-            </ul>
-        </div>
+            <div layout="row" layout-align="space-around">
+                <div layout="column">
+                    <b>Direction</b>
+                    <md-radio-group ng-model="selectedDirection">
+                        <md-radio-button ng-repeat="direction in availableDirections"
+                                         ng-value="direction" class="text-capitalize">
+                            {{direction}}
+                        </md-radio-button>
+                    </md-radio-group>
+                </div>
+                <div layout="column">
+                    <b>Open/Closed</b>
+                    <md-radio-group ng-model="isOpen">
+                        <md-radio-button ng-value="true">Open</md-radio-button>
+                        <md-radio-button ng-value="false">Closed</md-radio-button>
+                    </md-radio-group>
+                </div>
+                <div layout="column">
+                    <b>Animation Modes</b>
+                    <md-radio-group ng-model="selectedMode">
+                        <md-radio-button ng-repeat="mode in availableModes" ng-value="mode">
+                            {{mode}}
+                        </md-radio-button>
+                    </md-radio-group>
+                </div>
+            </div>
+            <p class="note">
+                Note that you can also hover over the directive's area or tab through each button to open and
+                activate the speed dial menu.
+            </p>
+        </md-content>
     </div>
 </div>
 
