@@ -2,7 +2,27 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9c8f99a5-4a54-4121-9b15-01dbc631f6ba" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/views/coreModule/isotop.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/javascripts/libs/bxSlider/jquery.bxslider.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/images/header-logo.png" afterPath="$PROJECT_DIR$/public/images/header-logo.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/images/products/product-01.jpg" afterPath="$PROJECT_DIR$/public/images/products/product-01.jpg" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/images/products/product-02.jpg" afterPath="$PROJECT_DIR$/public/images/products/product-02.jpg" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/images/products/product-03.jpg" afterPath="$PROJECT_DIR$/public/images/products/product-03.jpg" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/images/products/product-04.jpg" afterPath="$PROJECT_DIR$/public/images/products/product-04.jpg" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/images/products/product-05.jpg" afterPath="$PROJECT_DIR$/public/images/products/product-05.jpg" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/images/products/product-07.jpg" afterPath="$PROJECT_DIR$/public/images/products/product-07.jpg" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/images/products/product-08.jpg" afterPath="$PROJECT_DIR$/public/images/products/product-08.jpg" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/images/products/product-09.jpg" afterPath="$PROJECT_DIR$/public/images/products/product-09.jpg" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/images/products/product-10.jpg" afterPath="$PROJECT_DIR$/public/images/products/product-10.jpg" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/images/products/product-11.jpg" afterPath="$PROJECT_DIR$/public/images/products/product-11.jpg" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/images/products/product-12.jpg" afterPath="$PROJECT_DIR$/public/images/products/product-12.jpg" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/javascripts/config/appConfig.js" afterPath="$PROJECT_DIR$/public/javascripts/config/appConfig.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/bower.json" afterPath="$PROJECT_DIR$/public/bower.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/javascripts/modules/coreModule/directive.js" afterPath="$PROJECT_DIR$/public/javascripts/modules/coreModule/directive.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/css/fashion.css" afterPath="$PROJECT_DIR$/public/css/fashion.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/index.ejs" afterPath="$PROJECT_DIR$/public/index.ejs" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/views/ladiesModule/ladiesHome.html" afterPath="$PROJECT_DIR$/public/views/ladiesModule/ladiesHome.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/views/mainModule/mainTemplate.html" afterPath="$PROJECT_DIR$/public/views/mainModule/mainTemplate.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="trendi.iws" />
@@ -36,11 +56,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="test.css" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/public/css/test.css">
+      <file leaf-file-name="directive.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/public/javascripts/modules/coreModule/directive.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="306">
-              <caret line="10" column="18" selection-start-line="10" selection-start-column="18" selection-end-line="10" selection-end-column="18" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="1207" max-vertical-offset="2210">
+              <caret line="104" column="14" selection-start-line="104" selection-start-column="14" selection-end-line="104" selection-end-column="14" />
               <folding />
             </state>
           </provider>
@@ -49,42 +69,73 @@
       <file leaf-file-name="mainTemplate.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public/views/mainModule/mainTemplate.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-7.8461537" vertical-offset="204" max-vertical-offset="16048">
-              <caret line="24" column="205" selection-start-line="24" selection-start-column="205" selection-end-line="32" selection-end-column="13" />
+            <state vertical-scroll-proportion="146.11539" vertical-offset="8729" max-vertical-offset="17425">
+              <caret line="474" column="54" selection-start-line="474" selection-start-column="54" selection-end-line="474" selection-end-column="54" />
               <folding>
+                <element signature="tag#ul#0;tag#nav#0;tag#div#0" expanded="false" />
                 <element signature="tag#dd#8;tag#dl#0;tag#div#0;tag#div#0;tag#section#0;tag#header#0;tag#div#0;tag#div#0;tag#div#0" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ladiesHome.html" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/public/views/ladiesModule/ladiesHome.html">
+      <file leaf-file-name="jquery.bxslider.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/public/javascripts/libs/bxSlider/jquery.bxslider.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.41415313" vertical-offset="0" max-vertical-offset="1156">
-              <caret line="21" column="65" selection-start-line="21" selection-start-column="65" selection-end-line="21" selection-end-column="65" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="controller.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/public/javascripts/modules/ladiesModule/controller.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="425">
-              <caret line="15" column="8" selection-start-line="15" selection-start-column="8" selection-end-line="15" selection-end-column="8" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="22797">
+              <caret line="31" column="21" selection-start-line="31" selection-start-column="21" selection-end-line="31" selection-end-column="21" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
       <file leaf-file-name="directive.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/public/javascripts/modules/coreModule/directive.js">
+        <entry file="file://$PROJECT_DIR$/public/javascripts/modules/mainModule/directive.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="204">
-              <caret line="94" column="7" selection-start-line="94" selection-start-column="7" selection-end-line="94" selection-end-column="7" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="969">
+              <caret line="17" column="25" selection-start-line="14" selection-start-column="11" selection-end-line="17" selection-end-column="25" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="isotop.html" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/public/views/coreModule/isotop.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.66372794" vertical-offset="85" max-vertical-offset="918">
+              <caret line="36" column="91" selection-start-line="36" selection-start-column="91" selection-end-line="36" selection-end-column="91" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="fashion.css" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/public/css/fashion.css">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="111128" max-vertical-offset="122893">
+              <caret line="6562" column="66" selection-start-line="6562" selection-start-column="66" selection-end-line="6562" selection-end-column="66" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="appConfig.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/public/javascripts/config/appConfig.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="578">
+              <caret line="23" column="12" selection-start-line="23" selection-start-column="12" selection-end-line="23" selection-end-column="28" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ladiesHome.html" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/public/views/ladiesModule/ladiesHome.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-12.333333" vertical-offset="459" max-vertical-offset="1241">
+              <caret line="64" column="0" selection-start-line="64" selection-start-column="0" selection-end-line="64" selection-end-column="0" />
               <folding>
-                <element signature="e#136#3151#0" expanded="false" />
+                <element signature="n#style#0;n#div#0;n#md-fab-actions#0;n#md-fab-speed-dial#0;n#div#0;n#md-content#0;n#div#0;n#div#0;n#!!top" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -93,28 +144,8 @@
       <file leaf-file-name="index.ejs" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public/index.ejs">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-18.307692" vertical-offset="306" max-vertical-offset="2261">
-              <caret line="46" column="49" selection-start-line="46" selection-start-column="49" selection-end-line="46" selection-end-column="49" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="angular-animate.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/public/javascripts/libs/angular-animate/angular-animate.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="36006">
-              <caret line="2112" column="0" selection-start-line="2112" selection-start-column="0" selection-end-line="2112" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="angular-material.css" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/public/css/angular-material.css">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="124066">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state vertical-scroll-proportion="-11.423077" vertical-offset="893" max-vertical-offset="2295">
+              <caret line="70" column="104" selection-start-line="70" selection-start-column="104" selection-end-line="70" selection-end-column="104" />
               <folding />
             </state>
           </provider>
@@ -133,9 +164,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/public/javascripts/modules/gentsModule/config.js" />
-        <option value="$PROJECT_DIR$/public/javascripts/modules/gentsModule/controller.js" />
-        <option value="$PROJECT_DIR$/public/javascripts/modules/babyModule/index.js" />
         <option value="$PROJECT_DIR$/public/javascripts/modules/babyModule/controller.js" />
         <option value="$PROJECT_DIR$/public/javascripts/modules/babyModule/config.js" />
         <option value="$PROJECT_DIR$/public/javascripts/modules/adminModule/controller.js" />
@@ -176,14 +204,17 @@
         <option value="$PROJECT_DIR$/public/stylesheets/libs/trendi/fontello.css" />
         <option value="$PROJECT_DIR$/public/views/coreModule/revolutionSlider.html" />
         <option value="$PROJECT_DIR$/public/plugins/rs-plugin/js/jquery.themepunch.revolution.js" />
-        <option value="$PROJECT_DIR$/public/views/mainModule/mainTemplate.html" />
-        <option value="$PROJECT_DIR$/public/javascripts/modules/coreModule/directive.js" />
-        <option value="$PROJECT_DIR$/public/javascripts/config/appConfig.js" />
         <option value="$PROJECT_DIR$/public/css/test" />
-        <option value="$PROJECT_DIR$/public/index.ejs" />
         <option value="$PROJECT_DIR$/public/javascripts/modules/ladiesModule/controller.js" />
         <option value="$PROJECT_DIR$/public/css/test.css" />
+        <option value="$PROJECT_DIR$/public/javascripts/libs/angular-isotope/demo/menu.html" />
+        <option value="$PROJECT_DIR$/public/index.ejs" />
         <option value="$PROJECT_DIR$/public/views/ladiesModule/ladiesHome.html" />
+        <option value="$PROJECT_DIR$/public/views/mainModule/mainTemplate.html" />
+        <option value="$PROJECT_DIR$/public/javascripts/config/appConfig.js" />
+        <option value="$PROJECT_DIR$/public/javascripts/modules/coreModule/directive.js" />
+        <option value="$PROJECT_DIR$/public/css/fashion.css" />
+        <option value="$PROJECT_DIR$/public/views/coreModule/isotop.html" />
       </list>
     </option>
   </component>
@@ -331,10 +362,6 @@
               <option name="myItemId" value="javascripts" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="modules" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -354,11 +381,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="modules" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ladiesModule" />
+              <option name="myItemId" value="config" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -376,7 +399,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="javascripts" />
+              <option name="myItemId" value="images" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -413,21 +436,22 @@
     <property name="options.splitter.main.proportions" value="0.3" />
     <property name="options.splitter.details.proportions" value="0.2" />
     <property name="options.searchVisible" value="true" />
+    <property name="LayoutCode.rearrangeEntriesHTML" value="false" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="G:\MyProjects\Current\Trendi-UI\NEWUI\Trendi\public\javascripts\libs\bxSlider" />
       <recent name="G:\MyProjects\Current\Trendi-UI\NEWUI\Trendi\public\css" />
       <recent name="G:\MyProjects\Current\Trendi-UI\trendi\public\plugins" />
       <recent name="G:\MyProjects\Current\Trendi-UI\trendi\public\stylesheets\libs" />
       <recent name="G:\MyProjects\Current\Trendi-UI\trendi\public\stylesheets\fonts" />
-      <recent name="G:\MyProjects\Current\Trendi-UI\trendi\public\stylesheets\libs\trendi" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="G:\MyProjects\Current\Trendi-UI\NEWUI\Trendi\public\javascripts\libs\angular-isotope" />
       <recent name="G:\MyProjects\Current\Trendi-UI\trendi\public\images\sliderImg" />
       <recent name="G:\MyProjects\Current\Trendi-UI\trendi\public\stylesheets\fonts" />
       <recent name="G:\MyProjects\Current\Trendi-UI\trendi\public\stylesheets" />
       <recent name="G:\MyProjects\Current\Trendi-UI\trendi\public\stylesheets\libs\fonts" />
-      <recent name="G:\MyProjects\Current\Trendi-UI\trendi\public\stylesheets\libs" />
     </key>
   </component>
   <component name="RunManager" selected="Node.js.bin\www">
@@ -503,11 +527,11 @@
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.61235356" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2538178" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.28067404" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.1373802" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.08519702" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -560,14 +584,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/public/javascripts/modules/mainModule/controller.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3128">
-          <caret line="16" column="77" selection-start-line="16" selection-start-column="77" selection-end-line="16" selection-end-column="77" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/public/javascripts/modules/coreModule/directive.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="5780" max-vertical-offset="5882">
@@ -583,6 +599,7 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="5855" max-vertical-offset="16048">
           <caret line="433" column="39" selection-start-line="433" selection-start-column="39" selection-end-line="433" selection-end-column="39" />
           <folding>
+            <element signature="tag#ul#0;tag#nav#0;tag#div#0" expanded="false" />
             <element signature="tag#dd#8;tag#dl#0;tag#div#0;tag#div#0;tag#section#0;tag#header#0;tag#div#0;tag#div#0;tag#div#0" expanded="false" />
           </folding>
         </state>
@@ -769,13 +786,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="15861">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/javascripts/modules/mainModule/directive.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="969">
-          <caret line="36" column="25" selection-start-line="36" selection-start-column="25" selection-end-line="36" selection-end-column="25" />
           <folding />
         </state>
       </provider>
@@ -816,16 +826,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/javascripts/modules/coreModule/directive.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="204">
-          <caret line="94" column="7" selection-start-line="94" selection-start-column="7" selection-end-line="94" selection-end-column="7" />
-          <folding>
-            <element signature="e#136#3151#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/public/javascripts/libs/angular-animate/README.md">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-0.34387353" vertical-offset="261" max-vertical-offset="1020">
@@ -858,22 +858,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/javascripts/config/appConfig.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.36862245" vertical-offset="0" max-vertical-offset="784">
-          <caret line="17" column="26" selection-start-line="17" selection-start-column="26" selection-end-line="17" selection-end-column="26" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/index.ejs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-18.307692" vertical-offset="306" max-vertical-offset="2261">
-          <caret line="46" column="49" selection-start-line="46" selection-start-column="49" selection-end-line="46" selection-end-column="49" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/public/javascripts/modules/ladiesModule/controller.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="425">
@@ -890,14 +874,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/javascripts/modules/mainModule/controller.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="816" max-vertical-offset="3128">
-          <caret line="58" column="51" selection-start-line="58" selection-start-column="51" selection-end-line="58" selection-end-column="51" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/public/javascripts/libs/angular-animate/angular-animate.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="36006">
@@ -906,20 +882,92 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/public/images/products/product-01.jpg">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/views/ladiesModule/ladiesHome.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-12.333333" vertical-offset="459" max-vertical-offset="1241">
+          <caret line="64" column="0" selection-start-line="64" selection-start-column="0" selection-end-line="64" selection-end-column="0" />
+          <folding>
+            <element signature="n#style#0;n#div#0;n#md-fab-actions#0;n#md-fab-speed-dial#0;n#div#0;n#md-content#0;n#div#0;n#div#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/javascripts/libs/bxSlider/jquery.bxslider.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="22797">
+          <caret line="31" column="21" selection-start-line="31" selection-start-column="21" selection-end-line="31" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/index.ejs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-11.423077" vertical-offset="893" max-vertical-offset="2295">
+          <caret line="70" column="104" selection-start-line="70" selection-start-column="104" selection-end-line="70" selection-end-column="104" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/javascripts/modules/mainModule/directive.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="969">
+          <caret line="17" column="25" selection-start-line="14" selection-start-column="11" selection-end-line="17" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/javascripts/modules/mainModule/controller.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="816" max-vertical-offset="3128">
+          <caret line="58" column="51" selection-start-line="58" selection-start-column="51" selection-end-line="58" selection-end-column="51" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/javascripts/config/appConfig.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="578">
+          <caret line="23" column="12" selection-start-line="23" selection-start-column="12" selection-end-line="23" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/public/views/mainModule/mainTemplate.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-7.8461537" vertical-offset="204" max-vertical-offset="16048">
-          <caret line="24" column="205" selection-start-line="24" selection-start-column="205" selection-end-line="32" selection-end-column="13" />
+        <state vertical-scroll-proportion="146.11539" vertical-offset="8729" max-vertical-offset="17425">
+          <caret line="474" column="54" selection-start-line="474" selection-start-column="54" selection-end-line="474" selection-end-column="54" />
           <folding>
+            <element signature="tag#ul#0;tag#nav#0;tag#div#0" expanded="false" />
             <element signature="tag#dd#8;tag#dl#0;tag#div#0;tag#div#0;tag#section#0;tag#header#0;tag#div#0;tag#div#0;tag#div#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/views/ladiesModule/ladiesHome.html">
+    <entry file="file://$PROJECT_DIR$/public/javascripts/modules/coreModule/directive.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.41415313" vertical-offset="0" max-vertical-offset="1156">
-          <caret line="21" column="65" selection-start-line="21" selection-start-column="65" selection-end-line="21" selection-end-column="65" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="1207" max-vertical-offset="2210">
+          <caret line="104" column="14" selection-start-line="104" selection-start-column="14" selection-end-line="104" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/css/fashion.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="111128" max-vertical-offset="122893">
+          <caret line="6562" column="66" selection-start-line="6562" selection-start-column="66" selection-end-line="6562" selection-end-column="66" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/views/coreModule/isotop.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.66372794" vertical-offset="85" max-vertical-offset="918">
+          <caret line="36" column="91" selection-start-line="36" selection-start-column="91" selection-end-line="36" selection-end-column="91" />
           <folding />
         </state>
       </provider>

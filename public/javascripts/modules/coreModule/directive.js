@@ -93,4 +93,33 @@
             }
         };
     });
+
+
+
+    mod.directive('isotoplist',[function($timeout){
+        return {
+            restrict: 'A',
+            replace: true,
+            scope: {
+                isotoplist: '='
+            },
+            templateUrl: '/views/coreModule/isotop.html',
+            link: function(scope, elm, attrs) {
+                scope.key = "1360413309421";
+                scope.xList=[
+                    {name:'a', number:'1', date:'1360413309421', src:'../../images/products/product-01.jpg' , class:'purple'}
+                    ,{name:'b', number:'5', date:'1360213309423', src:'../../images/products/product-02.jpg', class:'orange'}
+                    ,{name:'c', number:'10', date:'1360113309421', src:'../../images/products/product-03.jpg', class:'purple'}
+                    ,{name:'d', number:'2', date:'1360113309422', src:'../../images/products/product-04.jpg', class:'green'}
+                    ,{name:'e', number:'6', date:'1360413309421', src:'../../images/products/product-05.jpg', class:'purple'}
+                    ,{name:'f', number:'21', date:'1360113309422', src:'../../images/products/product-03.jpg', class:'green'}
+                    ,{name:'f', number:'21', date:'1360113309422', src:'../../images/products/product-03.jpg', class:'green'}
+                    ,{name:'g', number:'3', date:'1360213309423', src:'../../images/products/product-02.jpg', class:'orange'}
+                    ,{name:'h', number:'7', date:'1360113309422', src:'../../images/products/product-01.jpg', class:'blue'}
+                    ,{name:'i', number:'22', date:'1360413309421', src:'../../images/products/product-04.jpg', class:'blue'}
+                ];
+            }
+        };
+    }]);
+
 })(com.TRENDI.CATEGORY.modules.coreModule);

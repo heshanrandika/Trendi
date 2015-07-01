@@ -20,7 +20,8 @@ window.com = {TRENDI:{CATEGORY:{modules:{}}}};
             'babiesModule',
             'shopModule',
             'ngOpenFB',
-            'authModule'
+            'authModule',
+            'iso.directives'
 
 
         ]

@@ -1,15 +1,5 @@
-/*
-* Megatron Templates Style
-*/
-/* Table of Content
-==================================================
-	#Custom Fonts
-	#Site Styles
-	#Media Queries
-*/
 
-/* #Custom Fonts
-================================================== */
+/* Fashion.lk CSS */
 
 @font-face {
 	font-family: Mavenpro;
@@ -317,7 +307,7 @@ label {
 	margin-left: 4px
 }
 .label-mega {
-	background: #ee3b27
+	background: #ff6683;
 }
 .radio input[type=radio] {
 	position: relative;
@@ -6562,7 +6552,7 @@ transform:rotate(0deg)
 	animation-name: swing
 }
 .animate, .animate-delay {
-	opacity: 0;/*	-webkit-perspective:1000
+	/*	-webkit-perspective:1000
 */
 }
 .touch .animate, .touch .animate-delay {
