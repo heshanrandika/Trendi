@@ -94,9 +94,7 @@
         };
     });
 
-
-
-    mod.directive('isotoplist',[function($timeout){
+    mod.directive('isotoplist',['$timeout',function($timeout){
         return {
             restrict: 'A',
             replace: true,
@@ -118,8 +116,28 @@
                     ,{name:'h', number:'7', date:'1360113309422', src:'../../images/products/product-01.jpg', class:'blue'}
                     ,{name:'i', number:'22', date:'1360413309421', src:'../../images/products/product-04.jpg', class:'blue'}
                 ];
+
+                scope.$on('test', function(ngRepeatFinishedEvent) {
+                    $timeout(function () {
+                        scope.$emit('iso-method', {name:'shuffle', params:null})
+                    },100);
+                });
+
             }
         };
+    }]);
+
+    mod.directive('onFinishRender', ['$timeout',function ($timeout) {
+        return {
+            restrict: 'A',
+            link: function (scope, element, attr) {
+                if (scope.$last === true) {
+                    $timeout(function () {
+                        scope.$emit(attr.onFinishRender);
+                    });
+                }
+            }
+        }
     }]);
 
 })(com.TRENDI.CATEGORY.modules.coreModule);

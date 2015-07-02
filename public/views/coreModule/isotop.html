@@ -18,7 +18,7 @@
 
     <div class="row">
         <ul id="isotopeContainer" isotope-container ng-cloak class="ng-cloak">
-            <li ng-repeat="x in xList " isotope-item class="kindling {{x.class}}" onClick="removeItem(this)">
+            <li ng-repeat="x in xList " isotope-item class="kindling {{x.class}}" onClick="removeItem(this)" on-finish-render="test">
                 <div class="product-preview category2">
                     <div class="preview animate scale"> <a href="product_default.html" class="preview-image"><img class="img-responsive animate scale" src="{{x.src}}" width="270" height="328" alt=""></a>
                         <ul class="product-controls-list right">
