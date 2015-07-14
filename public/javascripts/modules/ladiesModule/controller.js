@@ -13,6 +13,8 @@
         $scope.availableDirections = ['up', 'down', 'left', 'right'];
         $scope.selectedDirection = 'up';
 
+
+
     }]);
 
 

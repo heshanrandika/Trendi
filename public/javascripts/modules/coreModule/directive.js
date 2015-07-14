@@ -127,6 +127,249 @@
         };
     }]);
 
+    mod.directive('trendibxslider',[function() {
+        return {
+            restrict: 'A',
+            replace: true,
+            scope: {
+                trendibxslider: '=',
+                type: '@'
+            },
+            templateUrl:'/views/coreModule/bxSlider.html',
+            link: function(scope, elm, attrs) {
+                scope.slides = scope.trendibxslider;
+                var slider;
+                scope.$on('test', function(ngRepeatFinishedEvent) {
+                    /*  $(document).on("click", ".bx-pager-link", function() {
+                     console.log("click");
+                     slider.stopAuto();
+                     slider.startAuto();
+                     });*/
+                    if(scope.type == 'v'){
+                        elm.ready(function () {
+                            slider = elm.bxSlider({
+                                auto: true,
+                                minSlides: 3,
+                                maxSlides: 4,
+                                slideWidth: 300,
+                                slideMargin: 10,
+                                onSliderLoad: function () {
+                                    $(document).on("click", ".bx-pager-link", function() {
+                                        slider.stopAuto();
+                                        slider.startAuto();
+                                        return false;
+                                    });
+                                    $(document).on("click", ".bx-next", function() {
+                                        slider.stopAuto();
+                                        slider.startAuto();
+                                        return false;
+                                    });
+                                    $(document).on("click", ".bx-prev", function() {
+                                        slider.stopAuto();
+                                        slider.startAuto();
+                                        return false;
+                                    });
+                                }
+                            });
+
+
+                        });
+                    }else{
+                        elm.ready(function () {
+                            var slider = elm.bxSlider({
+                                auto: true,
+                                minSlides: 3,
+                                maxSlides: 4,
+                                slideWidth: 300,
+                                slideMargin: 10,
+                                onSliderLoad: function () {
+                                    $(document).on("click", ".bx-pager-link", function() {
+                                        slider.stopAuto();
+                                        slider.startAuto();
+                                        return false;
+                                    });
+                                    $(document).on("click", ".bx-next", function() {
+                                        slider.stopAuto();
+                                        slider.startAuto();
+                                        return false;
+                                    });
+                                    $(document).on("click", ".bx-prev", function() {
+                                        slider.stopAuto();
+                                        slider.startAuto();
+                                        return false;
+                                    });
+                                }
+                            });
+
+
+                        });
+                    }
+
+                })
+            }
+        };
+    }]);
+
+
+
+    mod.directive('trendiBrandSlider',[function() {
+        return {
+            restrict: 'E',
+            replace: true,
+            scope: {
+                brands: '=',
+                type: '@'
+            },
+            templateUrl:'/views/coreModule/brandSlider.html',
+            link: function(scope, elm, attrs) {
+                scope.slides = scope.brands;
+                var slider;
+                scope.$on('test', function(ngRepeatFinishedEvent) {
+                        elm.ready(function () {
+                            var slider = elm.bxSlider({
+                                auto: true,
+                                minSlides: 3,
+                                maxSlides: 4,
+                                slideWidth: 200,
+                                slideMargin: 10,
+                                onSliderLoad: function () {
+                                    $(document).on("click", ".bx-pager-link", function() {
+                                        slider.stopAuto();
+                                        slider.startAuto();
+                                        return false;
+                                    });
+                                    $(document).on("click", ".bx-next", function() {
+                                        slider.stopAuto();
+                                        slider.startAuto();
+                                        return false;
+                                    });
+                                    $(document).on("click", ".bx-prev", function() {
+                                        slider.stopAuto();
+                                        slider.startAuto();
+                                        return false;
+                                    });
+                                }
+                            });
+
+
+                        });
+
+
+                })
+            }
+        };
+    }]);
+
+
+    mod.directive('trendiVerticalSlider',[function() {
+        return {
+            restrict: 'E',
+            replace: true,
+            scope: {
+                images: '='
+            },
+            templateUrl:'/views/coreModule/verticalSlider.html',
+            link: function(scope, elm, attrs) {
+                scope.slides = [];
+                for (var index = 0; index<scope.images.length; index+=3) {
+                    if(scope.images.length >= index+3)
+                        scope.slides.push(scope.images.slice(index,index+3));
+                }
+                scope.$on('test', function(ngRepeatFinishedEvent) {
+                    elm.ready(function () {
+                        var slider = elm.bxSlider({
+                            minSlides: 1,
+                            maxSlides: 1,
+                            slideWidth:300,
+                            slideMargin: 5,
+                            mode: 'vertical'
+                        });
+
+
+                    });
+
+
+                })
+            }
+        };
+    }]);
+
+
+    mod.directive('trendiOwlSlider',[function() {
+        return {
+            restrict: 'E',
+            replace: true,
+            scope: {
+                images: '=',
+                slideSpeed : '@',
+                paginationSpeed:'@',
+                stopOnHover : '@',
+                autoPlay : '@',
+                pagination : '@',
+                rewindSpeed:'@',
+                responsive:'@',
+                items : '@'
+
+            },
+            templateUrl: function(elem,attrs) {
+                var url = '/views/coreModule/'+(attrs.template? attrs.template : 'owlSlider')+'.html';
+                return url;
+            },
+            link: function(scope, elm, attrs) {
+                scope.slides = scope.images;
+                var stopOnHover = Boolean(scope.stopOnHover)? Boolean(scope.stopOnHover) : false;
+                var slideSpeed = scope.slideSpeed? parseInt(scope.slideSpeed) : 200;
+                var items = scope.items? parseInt(scope.items) : 1;
+                var paginationSpeed = scope.paginationSpeed? parseInt(scope.paginationSpeed) :800;
+                var rewindSpeed = scope.rewindSpeed? scope.rewindSpeed : 1000;
+                var autoPlay = Boolean(scope.autoPlay)? Boolean(scope.autoPlay) : false;
+                var pagination = Boolean(scope.pagination)? Boolean(scope.pagination) : true;
+                var responsive = Boolean(scope.responsive)? Boolean(scope.responsive) : true;
+
+
+
+                var slider;
+                scope.$on('test', function(ngRepeatFinishedEvent) {
+                    elm.ready(function () {
+                        var slider = elm.owlCarousel({
+                            items : items,
+
+                            slideSpeed : slideSpeed,
+                            paginationSpeed : paginationSpeed,
+                            rewindSpeed : rewindSpeed,
+
+                            //Autoplay
+                            autoPlay : autoPlay,
+                            stopOnHover :stopOnHover,
+
+                            // Navigation
+                            navigation : false,
+                            navigationText : ["prev","next"],
+                            rewindNav : true,
+                            scrollPerPage : false,
+
+                            //Pagination
+                            pagination : pagination,
+
+                            // Responsive
+                            responsive: responsive,
+                            responsiveRefreshRate : 200,
+                            responsiveBaseWidth: window
+
+                        });
+
+
+                    });
+
+
+                })
+            }
+
+        };
+    }]);
+
+
+
     mod.directive('onFinishRender', ['$timeout',function ($timeout) {
         return {
             restrict: 'A',
