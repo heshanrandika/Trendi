@@ -308,7 +308,8 @@
                 pagination : '@',
                 rewindSpeed:'@',
                 responsive:'@',
-                items : '@'
+                items : '@',
+                itemDisplay:'@'
 
             },
             templateUrl: function(elem,attrs) {
@@ -325,6 +326,10 @@
                 var autoPlay = Boolean(scope.autoPlay)? Boolean(scope.autoPlay) : false;
                 var pagination = Boolean(scope.pagination)? Boolean(scope.pagination) : true;
                 var responsive = Boolean(scope.responsive)? Boolean(scope.responsive) : true;
+                var itemsDesktop = Boolean(scope.itemDisplay)? Boolean(scope.itemDisplay) : 4;
+                var itemsDesktopSmall = Boolean(scope.itemDisplay)? Boolean(scope.itemDisplay) : 3;
+                var itemsTablet = Boolean(scope.itemDisplay)? Boolean(scope.itemDisplay) : 2;
+                var itemsMobile = Boolean(scope.itemDisplay)? Boolean(scope.itemDisplay) : 1;
 
 
 
@@ -354,8 +359,12 @@
                             // Responsive
                             responsive: responsive,
                             responsiveRefreshRate : 200,
-                            responsiveBaseWidth: window
+                            responsiveBaseWidth: window,
 
+                            itemsDesktop : [1199,itemsDesktop],
+                            itemsDesktopSmall:[979,itemsDesktopSmall],
+                            itemsTablet	: [768,itemsTablet],
+                            itemsMobile	:[479,itemsMobile]
                         });
 
 
