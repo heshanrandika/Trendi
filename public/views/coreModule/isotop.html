@@ -15,11 +15,12 @@
         </div>
     </section>
 
-
+   <section class="container content slider-products">
     <div class="row">
-        <ul id="isotopeContainer" isotope-container ng-cloak class="ng-cloak">
-            <li ng-repeat="x in xList " isotope-item class="kindling {{x.class}}" onClick="removeItem(this)" on-finish-render="test">
-                <div class="product-preview category2">
+
+        <div class="products-list-isotope" id="isotopeContainer" isotope-container ng-cloak class="ng-cloak">
+            <div class="product-preview category2" ng-repeat="x in xList " isotope-item class="kindling {{x.class}}" onClick="removeItem(this)" on-finish-render="test">
+
                     <div class="preview animate scale"> <a href="product_default.html" class="preview-image"><img class="img-responsive animate scale" src="{{x.src}}" width="270" height="328" alt=""></a>
                         <ul class="product-controls-list right">
                             <li><span class="label label-sale">SALE</span></li>
@@ -39,11 +40,13 @@
                         <div class="product-options"> <i class="icon icon-color icon-color-white" data-href="images/products/product-12.jpg"></i> <i class="icon icon-color icon-color-beige" data-href="images/products/product-17.jpg"></i> <i class="icon icon-color icon-color-red" data-href="images/products/product-25.jpg"></i> <i class="icon icon-color icon-color-pink" data-href="images/products/product-31.jpg"></i> <i class="icon icon-color icon-color-magneta"  data-href="images/products/product-07.jpg"></i> <i class="disable icon icon-color icon-color-green"  data-href="images/products/product-11.jpg"></i> <i class="disable icon icon-color icon-color-gray"></i> <i class="disable icon icon-color icon-color-brown"></i> </div>
                     </div>
                     <span class="price old">Rs 2100</span> <span class="price new">Ra 1500</span>
-                </div>
-            </li>
 
-        </ul>
-    </div>
+            </div>
+
+        </div>
+       </div>
+
+   </section>
 
 
 </div>
