@@ -1,0 +1,59 @@
+<div class="mobile-nav row">
+    <div class="nav-item item-01"><a id="off-canvas-menu-toggle"><span class="icon icon-list-4"></span></a>
+        <!--<nav id="off-canvas-menu" >
+            <div id="off-canvas-menu-title">MENU<span class="icon icon-cancel-3" id="off-canvas-menu-close"></span></div>
+            <trendi-expand-menu></trendi-expand-menu>
+        </nav>-->
+        <div class="tab-content">
+            <ul class="menu-list">
+                <trendi-expand-menu></trendi-expand-menu>
+            </ul>
+        </div>
+    </div>
+    <div class="nav-item item-02"><a><span class="icon icon-vcard"></span></a>
+        <div class="tab-content">
+            <ul class="menu-list">
+                <li><a href="#">Account</a></li>
+                <li><a href="#">Wishlist</a></li>
+                <li><a href="#">Checkout</a></li>
+                <li><a href="login.html">Log In</a></li>
+                <li><a href="login.html">Sign Up</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="nav-item item-03"><a><span class="icon icon-search-2"></span></a>
+        <div class="tab-content"> <!-- Search -->
+            <form class="navbar-search form-inline" role="form">
+                <div class="form-group">
+                    <button type="submit" class="button"><span class="icon-search-2"></span></button>
+                    <input type="text" class="form-control" value="Search" onblur="if (this.value == '') {this.value = 'Search';}" onfocus="if(this.value == 'Search') {this.value = '';}">
+                </div>
+            </form>
+            <!-- //end Search -->
+        </div>
+    </div>
+    <div class="nav-item item-04"><a><span class="icon-xcart-white">3</span></a>
+        <div class="tab-content">
+            <div class="shoppingcart-box">
+                <div class="title">Recently added item(s)</div>
+                <ul class="list">
+                    <li class="item">
+                        <div class="icon-product-edit"><a class="icon icon-edit" href="#"></a></div>
+                        <div class="icon-product-delete"><a class="icon icon-trash-2" href="#"></a></div>
+                        <a href="product_default.html" class="preview-image"><img class="preview" src="images/products/product-02-small.jpg" alt=""></a>
+                        <div class="description"> <a href="#">Silk Saree</a> <strong class="price">1 x Rs 2000</strong> </div>
+                    </li>
+                    <li class="item">
+                        <div class="icon-product-edit"><a class="icon icon-edit" href="#"></a></div>
+                        <div class="icon-product-delete"><a class="icon icon-trash-2" href="#"></a></div>
+                        <a href="product_default.html" class="preview-image"><img class="preview" src="images/products/product-03-small.jpg" alt=""></a>
+                        <div class="description"> <a href="#">Frock ladies vest</a> <strong class="price">2 x Rs 750</strong> </div>
+                    </li>
+                </ul>
+                <div class="total">Total: <strong>Rs 3500</strong></div>
+                <a href="#" class="btn btn-mega">Visit Store</a>
+                <div class="view-link"><a href="shopping_cart.html">View Bag </a></div>
+            </div>
+        </div>
+    </div>
+</div>

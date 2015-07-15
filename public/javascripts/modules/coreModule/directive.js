@@ -378,6 +378,76 @@
     }]);
 
 
+    mod.directive('trendiMenuBar',[function() {
+        return {
+            restrict: 'E',
+            replace: true,
+            scope: {},
+            templateUrl:'/views/coreModule/menuBar.html',
+            link: function(scope, elm, attrs) {
+                scope.slides = [];
+                    elm.ready(function () {
+                        var menu = elm.supersubs({
+                            minWidth:	12,	 // minimum width of submenus in em units
+                            maxWidth:	27,	 // maximum width of submenus in em units
+                            extraWidth:	1	 // extra width can ensure lines don't sometimes turn over
+                            // due to slight rounding differences and font-family
+                        }).superfish();
+
+
+                    });
+
+            }
+        };
+    }]);
+
+
+    mod.directive('trendiMobileMenu',[function() {
+        return {
+            restrict: 'E',
+            replace: true,
+            scope: {},
+            templateUrl:'/views/coreModule/trendiMobileMenu.html',
+            link: function(scope, elm, attrs) {
+                scope.slides = [];
+                elm.ready(function () {
+                    var menu = elm.trendiMenu({
+                        minWidth:	12,	 // minimum width of submenus in em units
+                        maxWidth:	27,	 // maximum width of submenus in em units
+                        extraWidth:	1	 // extra width can ensure lines don't sometimes turn over
+                        // due to slight rounding differences and font-family
+                    });
+
+
+                });
+
+            }
+        };
+    }]);
+
+    mod.directive('trendiExpandMenu',[function() {
+        return {
+            restrict: 'E',
+            replace: true,
+            scope: {},
+            templateUrl:'/views/coreModule/trendiExpandMenu.html',
+            link: function(scope, elm, attrs) {
+                scope.slides = [];
+                elm.ready(function () {
+                    var menu = elm.trendiExpander({
+                        minWidth:	12,	 // minimum width of submenus in em units
+                        maxWidth:	27,	 // maximum width of submenus in em units
+                        extraWidth:	1	 // extra width can ensure lines don't sometimes turn over
+                        // due to slight rounding differences and font-family
+                    });
+
+
+                });
+
+            }
+        };
+    }]);
+
 
     mod.directive('onFinishRender', ['$timeout',function ($timeout) {
         return {
