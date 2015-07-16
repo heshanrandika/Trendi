@@ -4,6 +4,30 @@
 ;(function($){
     $.fn.trendiHideMenu = function(options) {
         "use strict";
+
+        function calculateMenuItemsInRow(row) {
+            $(row).children(".item").each(function () {
+                if ($(this).prev().prev().length > 0) {
+                    if ($(this).position().top != $(this).prev().prev().position().top) {
+                        if ($("body").hasClass("rtl")) {
+                            var rightMargin = $('.navbar-main-menu').width() - $('.navbar-main-menu .item:first').position().left - $('.navbar-main-menu .item:first').width();
+                            $(this).css({
+                                'marginRight': rightMargin
+                            });
+                        } else {
+                            var leftMargin = $('.navbar-main-menu .item:first').position().left;
+                            $(this).css({
+                                'marginLeft': leftMargin
+                            });
+                        }
+                        $(this).before('<div class="navbar-main-menu-divider clearfix"></div>');
+                        return false;
+                    };
+                }
+            });
+        };
+
+
         function checkMenuOverlay() {
 
             var overlaps = (function () {
