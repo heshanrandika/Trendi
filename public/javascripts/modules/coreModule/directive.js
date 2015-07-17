@@ -305,7 +305,8 @@
                 paginationSpeed:'@',
                 stopOnHover : '@',
                 autoPlay : '@',
-                pagination : '@',
+                paginationDisplay : '@',
+                navigationDisplay : '@',
                 rewindSpeed:'@',
                 responsive:'@',
                 items : '@',
@@ -324,7 +325,8 @@
                 var paginationSpeed = scope.paginationSpeed? parseInt(scope.paginationSpeed) :800;
                 var rewindSpeed = scope.rewindSpeed? scope.rewindSpeed : 1000;
                 var autoPlay = Boolean(scope.autoPlay)? Boolean(scope.autoPlay) : false;
-                var pagination = Boolean(scope.pagination)? Boolean(scope.pagination) : true;
+                var pagination = Boolean(scope.paginationDisplay)? Boolean(scope.paginationDisplay) : false;
+                var navigation = Boolean(scope.navigationDisplay)? Boolean(scope.navigationDisplay) : false;
                 var responsive = Boolean(scope.responsive)? Boolean(scope.responsive) : true;
                 var itemsDesktop = Boolean(scope.itemDisplay)? Boolean(scope.itemDisplay) : 4;
                 var itemsDesktopSmall = Boolean(scope.itemDisplay)? Boolean(scope.itemDisplay) : 3;
@@ -348,8 +350,8 @@
                             stopOnHover :stopOnHover,
 
                             // Navigation
-                            navigation : false,
-                            navigationText : ["prev","next"],
+                            navigation : navigation,
+                            navigationText : ["",""],
                             rewindNav : true,
                             scrollPerPage : false,
 
