@@ -10,7 +10,7 @@
             scope: {
                 revolutionslider: '='
             },
-            templateUrl: '/views/coreModule/revolutionSlider.html',
+            templateUrl: '/views/coreModule/slider/trendi.slider.revolution.html',
             link: function(scope, elm, attrs) {
                 scope.slides = scope.revolutionslider;
                 elm.ready(function () {
@@ -101,7 +101,7 @@
             scope: {
                 isotoplist: '='
             },
-            templateUrl: '/views/coreModule/isotop.html',
+            templateUrl: '/views/coreModule/isotop/trendi.main.isotop.html',
             link: function(scope, elm, attrs) {
                 scope.key = "1360413309421";
                 scope.xList=[
@@ -135,7 +135,7 @@
                 trendibxslider: '=',
                 type: '@'
             },
-            templateUrl:'/views/coreModule/bxSlider.html',
+            templateUrl:'/views/coreModule/imageSlider/trendi.slider.bxSlider.html',
             link: function(scope, elm, attrs) {
                 scope.slides = scope.trendibxslider;
                 var slider;
@@ -220,7 +220,7 @@
                 brands: '=',
                 type: '@'
             },
-            templateUrl:'/views/coreModule/brandSlider.html',
+            templateUrl:'/views/coreModule/imageSlider/trendi.slider.brand.html',
             link: function(scope, elm, attrs) {
                 scope.slides = scope.brands;
                 var slider;
@@ -268,7 +268,7 @@
             scope: {
                 images: '='
             },
-            templateUrl:'/views/coreModule/verticalSlider.html',
+            templateUrl:'/views/coreModule/imageSlider/trendi.vertical.slider.html',
             link: function(scope, elm, attrs) {
                 scope.slides = [];
                 for (var index = 0; index<scope.images.length; index+=3) {
@@ -314,7 +314,7 @@
 
             },
             templateUrl: function(elem,attrs) {
-                var url = '/views/coreModule/'+(attrs.template? attrs.template : 'owlSlider')+'.html';
+                var url = '/views/coreModule/owlSlider/'+(attrs.template? attrs.template : 'owlSlider')+'.html';
                 return url;
             },
             link: function(scope, elm, attrs) {
@@ -385,7 +385,7 @@
             restrict: 'E',
             replace: true,
             scope: {},
-            templateUrl:'/views/coreModule/menuBar.html',
+            templateUrl:'/views/coreModule/menu/trendi.menu.main.html',
             link: function(scope, elm, attrs) {
                 scope.slides = [];
                     elm.ready(function () {
@@ -409,7 +409,7 @@
             restrict: 'E',
             replace: true,
             scope: {},
-            templateUrl:'/views/coreModule/trendiMobileMenu.html',
+            templateUrl:'/views/coreModule/menu/trendi.menu.mobile.html',
             link: function(scope, elm, attrs) {
                 scope.slides = [];
                 elm.ready(function () {
@@ -432,7 +432,7 @@
             restrict: 'E',
             replace: true,
             scope: {},
-            templateUrl:'/views/coreModule/trendiExpandMenu.html',
+            templateUrl:'/views/coreModule/menu/trendi.menu.expand.html',
             link: function(scope, elm, attrs) {
                 scope.slides = [];
                 elm.ready(function () {
