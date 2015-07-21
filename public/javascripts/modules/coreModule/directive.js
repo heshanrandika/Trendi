@@ -314,7 +314,7 @@
 
             },
             templateUrl: function(elem,attrs) {
-                var url = '/views/coreModule/owlSlider/'+(attrs.template? attrs.template : 'owlSlider')+'.html';
+                var url = '/views/coreModule/owlSlider/'+(attrs.template? attrs.template : 'trendi.slider.owl')+'.html';
                 return url;
             },
             link: function(scope, elm, attrs) {
