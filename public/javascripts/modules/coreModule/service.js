@@ -9,31 +9,22 @@
      * Data Service to access the server
      * */
 
-    mod.service('coreDataService', [function () {
+    mod.factory('Data.Comm', ['$http', '$rootScope',function ($http, $rootScope) {
 
+        var URL = "/";
 
-/*
-        var _getDashBoardHeaderList = function(){
-            return CORE_Comm.postPromise(coreServiceCalls.getDashBoardHeaderList());
+        var _getPromise = function (p) {
+            return $http.get(URL, (p) ? p : {});
         };
 
-        *//*
-         * Get List for dashboard
-         * *//*
-
-        var _getDashBoardApplicationList = function(){
-            return CORE_Comm.postPromise(coreServiceCalls.getDashBoardApplicationList())
+        var _postPromise = function (p) {
+            return $http.post(URL, (p) ? p : {});
         };
-
 
         return {
-
-            getDashBoardHeaderList : _getDashBoardHeaderList,
-            getDashBoardApplicationList : _getDashBoardApplicationList
-
-
-
-        };*/
+            getPromise: _getPromise,
+            postPromise: _postPromise
+        };
 
     }]);
 

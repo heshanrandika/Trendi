@@ -32,7 +32,11 @@
                 controller: 'shopHomeController'
             }
 
+        },REQ_CONFIG: {
+            FUNC_1000: 1000,
+            FUNC_1001: 1001
         }
+
     };
 
     mod.config(['$provide', function ($provide) {

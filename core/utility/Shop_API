@@ -1,0 +1,120 @@
+[
+    /*
+     Get Shop List
+     */
+
+    {
+        "functionId":2000,
+        "params":{
+            "Email":"h.r.randika@gmail.com",
+            "Password":"123456",
+            "session":"489t789erghfdjigheru89yghruig",
+            "userType":1,
+            "skip":0,
+            "limit":10
+        }
+    },
+
+
+    /*
+     Get Rated Shop List
+     */
+
+    {
+        "functionId":2001,
+        "params":{
+            "Email":"h.r.randika@gmail.com",
+            "Password":"123456",
+            "session":"489t789erghfdjigheru89yghruig",
+            "userType":1,
+            "skip":0,
+            "limit":7
+        }
+    },
+
+
+    /*
+     Add Shop
+     */
+
+    {
+        "functionId": 2003,
+        "params": {
+            "Email": "h.r.randika@gmail.com",
+            "Password": "123456",
+            "session": "489t789erghfdjigheru89yghruig",
+            "userType": 1,
+            "Shop": {
+                "like": 0,
+                "seen": 0,
+                "point":0,
+                "shopName": "ODEL",
+                "address": "N0 : 60, Davidson road, Wellawatte",
+                "hotline": "0112748728",
+                "mobile" : "0712345385",
+                "Pos": [87.80676, 41.80556],
+                "Description":"Label change TR List Add user has to be change to a meaningful word",
+                "image": ""
+            }
+        }
+    },
+
+    /*
+     Get Shop
+     */
+
+    {
+        "functionId":2004,
+        "params":{
+            "Email":"h.r.randika@gmail.com",
+            "Password":"123456",
+            "session":"489t789erghfdjigheru89yghruig",
+            "userType":1,
+            "ShopID":1
+
+        }
+    },
+
+    /*
+     Remove Shop
+     */
+
+    {
+        "functionId":2005,
+        "params":{
+            "Email":"h.r.randika@gmail.com",
+            "Password":"123456",
+            "session":"489t789erghfdjigheru89yghruig",
+            "userType":1,
+            "ShopID":1
+
+        }
+    },
+
+    /*
+     Update Shop
+     */
+
+    {
+        "functionId":2006,
+        "params":{
+            "Email":"h.r.randika@gmail.com",
+            "Password":"123456",
+            "session":"489t789erghfdjigheru89yghruig",
+            "userType":1,
+            "ShopID":0,
+            "Shop": {
+                "like": 0,
+                "seen": 0,
+                "point":0,
+                "shopName": "ODEL",
+                "address": "N0 : 60, Davidson road, Wellawatte",
+                "hotline": "0112748728",
+                "mobile" : "0712345385",
+                "Pos": [87.80676, 41.80556],
+                "Description":"Label change TR List Add user has to be change to a meaningful word",
+                "image": ""
+            }
+        }
+    }
+]
