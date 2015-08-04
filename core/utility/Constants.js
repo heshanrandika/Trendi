@@ -12,7 +12,13 @@ const MESSAGE = "MESSAGE";
 const BLOG_COLLECTION = "BLOG";
 const MAX_DISTANCE = 0.90;
 const PASSWORD_SEPARATOR = "$";
+const ON_SALE = 1;
+const NEW_PRODUCT = 2;
+const TOP_RATED = 3;
 const HASHING_ALGO = "SHA1";
+
+const ERROR_INVALID_PARAMETER = "Invalid Parameters";
+
 
 module.exports.USER = USER;
 module.exports.SHOP = SHOP;
@@ -25,4 +31,9 @@ module.exports.PROMOTION_COLLECTION = PROMOTION_COLLECTION;
 module.exports.MESSAGE = MESSAGE;
 module.exports.BLOG_COLLECTION = BLOG_COLLECTION;
 module.exports.PASSWORD_SEPARATOR = PASSWORD_SEPARATOR;
+module.exports.ON_SALE = ON_SALE;
+module.exports.NEW_PRODUCT = NEW_PRODUCT;
+module.exports.TOP_RATED = TOP_RATED;
 module.exports.HASHING_ALGO = HASHING_ALGO;
+
+module.exports.ERROR_INVALID_PARAMETER = ERROR_INVALID_PARAMETER;

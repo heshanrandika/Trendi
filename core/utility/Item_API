@@ -45,6 +45,7 @@
         "session": "489t789erghfdjigheru89yghruig",
         "userType": 1,
         "mainItem": {
+            "onSale": 1,
             "like": 0,
             "seen": 0,
             "price": "350",

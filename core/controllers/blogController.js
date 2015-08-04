@@ -20,8 +20,16 @@ function getBlogList(req,callback){
     console.log("$$$$$$$  GetBlogList $$$$$$");
     var params = (req.body.params) ? req.body.params : {};
     var query = {};
-    daf.Find(query,CONSTANT.BLOG_COLLECTION, function(err , dataList){
-        callback(err ,dataList);
+    var  option = {};
+
+    var data = [];
+    var dbCon = daf.FindWithSorting(query,CONSTANT.BLOG_COLLECTION,option);
+    dbCon.on('data', function(doc){
+        data.push(doc);
+    });
+
+    dbCon.on('end', function(){
+        callback(null,data);
     });
 };
 

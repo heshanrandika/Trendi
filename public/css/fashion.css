@@ -1153,7 +1153,7 @@ label {
 	position: absolute;
 	top: -14px;
 	left: -15px;
-	background: url(../images/quotes.png) no-repeat 0 0
+	//background: url(../images/quotes.png) no-repeat 0 0
 }
 .quote-block:after {
 	content: " ";
@@ -1163,10 +1163,10 @@ label {
 	position: absolute;
 	bottom: -13px;
 	right: -5px;
-	background: url(../images/quotes.png) no-repeat -54px 0
+	//background: url(../images/quotes.png) no-repeat -54px 0
 }
 .quote-block .media-heading {
-	font-size: 1em;
+	font-size: 1em;/
 	padding-bottom: 0
 }
 .quote-block .pull-left {
@@ -1203,7 +1203,7 @@ header.variant4 .navbar .background {
 .navbar-main-menu, .navbar-main-menu .item {
 	-webkit-box-sizing: content-box;
 	-moz-box-sizing: content-box;
- box- sizing:content-box
+ box-sizing:content-box
 }
 .navbar-main-menu-outer {
 	margin-top: 12px;
@@ -1263,7 +1263,7 @@ body.back-bg .navbar-compact .background, body.back-bg .navbar-compact .backgrou
 	border-color: #ee3b27
 }
 .navbar-height-inner {
-	height: 145px
+	height: 114px
 }
 body.back-bg .navbar-height-inner {
 	height: 111px

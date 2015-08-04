@@ -11,8 +11,8 @@
         var commonCallObj = {};
 
         var _getCObj = function () {
-            var userData = JSON.parse($window.localStorage.getItem('__'));
-            commonCallObj = {userName: userData.username, sessionId: userData.sessionId};
+          /*  var userData = JSON.parse($window.localStorage.getItem('__'));
+            commonCallObj = {userName: userData.username, sessionId: userData.sessionId};*/
             return commonCallObj;
         };
 
@@ -24,44 +24,40 @@
             return angular.extend({functionId: MAIN_MOD_CONFIG.REQ_CONFIG.FUNC_1001}, _getCObj());
         };
 
-        serviceCalls.getFullItemListDao = function () {
-            return angular.extend({functionId: MAIN_MOD_CONFIG.REQ_CONFIG.FUNC_1001}, _getCObj());
-        };
-
-        serviceCalls.getOfferListDao = function () {
-            return angular.extend({functionId: MAIN_MOD_CONFIG.REQ_CONFIG.FUNC_1001}, _getCObj());
-        };
-
-        serviceCalls.getMostTrendyListDao = function () {
-            return angular.extend({functionId: MAIN_MOD_CONFIG.REQ_CONFIG.FUNC_1001}, _getCObj());
-        };
-
-        serviceCalls.getBlogListDao = function () {
-            return angular.extend({functionId: MAIN_MOD_CONFIG.REQ_CONFIG.FUNC_1001}, _getCObj());
-        };
-
-        serviceCalls.getBestSellerListDao = function () {
-            return angular.extend({functionId: MAIN_MOD_CONFIG.REQ_CONFIG.FUNC_1001}, _getCObj());
-        };
-
-        serviceCalls.getOnSaleListDao = function () {
-            return angular.extend({functionId: MAIN_MOD_CONFIG.REQ_CONFIG.FUNC_1001}, _getCObj());
-        };
-
-        serviceCalls.getNewProductListDao = function () {
-            return angular.extend({functionId: MAIN_MOD_CONFIG.REQ_CONFIG.FUNC_1001}, _getCObj());
-        };
-
-        serviceCalls.getTopRatedListDao = function () {
-            return angular.extend({functionId: MAIN_MOD_CONFIG.REQ_CONFIG.FUNC_1001}, _getCObj());
+        serviceCalls.getLatestItemDao = function () {
+            return angular.extend({functionId: MAIN_MOD_CONFIG.REQ_CONFIG.FUNC_GetLatestItem}, _getCObj());
         };
 
         serviceCalls.getPromotionListDao = function () {
-            return angular.extend({functionId: MAIN_MOD_CONFIG.REQ_CONFIG.FUNC_1001}, _getCObj());
+            return angular.extend({functionId: MAIN_MOD_CONFIG.REQ_CONFIG.FUNC_GetPromotionList}, _getCObj());
+        };
+
+        serviceCalls.getMostTrendyListDao = function () {
+            return angular.extend({functionId: MAIN_MOD_CONFIG.REQ_CONFIG.FUNC_GetMostTrendyItems}, _getCObj());
+        };
+
+        serviceCalls.getBlogListDao = function () {
+            return angular.extend({functionId: MAIN_MOD_CONFIG.REQ_CONFIG.FUNC_GetBlogList}, _getCObj());
+        };
+
+        serviceCalls.getBestSellerListDao = function () {
+            return angular.extend({functionId: MAIN_MOD_CONFIG.REQ_CONFIG.FUNC_GetShop}, _getCObj());
+        };
+
+        serviceCalls.getOnSaleListDao = function () {
+            return angular.extend({functionId: MAIN_MOD_CONFIG.REQ_CONFIG.FUNC_GetCommonItemList}, _getCObj());
+        };
+
+        serviceCalls.getNewProductListDao = function () {
+            return angular.extend({functionId: MAIN_MOD_CONFIG.REQ_CONFIG.FUNC_GetCommonItemList}, _getCObj());
+        };
+
+        serviceCalls.getTopRatedListDao = function () {
+            return angular.extend({functionId: MAIN_MOD_CONFIG.REQ_CONFIG.FUNC_GetCommonItemList}, _getCObj());
         };
 
         serviceCalls.getShopListDao = function () {
-            return angular.extend({functionId: MAIN_MOD_CONFIG.REQ_CONFIG.FUNC_1001}, _getCObj());
+            return angular.extend({functionId: MAIN_MOD_CONFIG.REQ_CONFIG.FUNC_GetRatedShopList}, _getCObj());
         };
 
         serviceCalls.getSocketLogoutDao = function () {

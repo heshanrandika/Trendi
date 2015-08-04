@@ -4,22 +4,26 @@
 (function (mod) {
     "use strict";
 
-    mod.controller('trendiMainController', ['$scope', '$rootScope','$state', function ($scope, $rootScope, $state) {
+    mod.controller('trendiMainController', ['$scope', '$rootScope','$state','mainDataService', function ($scope, $rootScope, $state, mainDataService) {
 
-        $scope.windowType = "Tarnsaction";
-        $scope.largeIcon = "row";
-        $scope.tabicon = "row";
         $scope.slider ;
         $scope.showSlider = true;
 
-/*        $scope.images = [{imageSource : "/images/splash.png" , visible : false },
-            {imageSource : "/images/icon-trendi1.png" , visible : false },
-            {imageSource : "/images/icon-trenditest.png" , visible : false },
-            {imageSource : "/images/passenger.jpg" , visible : false },
-            {imageSource : "/images/taxi.png" , visible : false },
-            {imageSource : "/images/taxidi.png" , visible : false }];*/
 
-        $scope.base = 'http://bxslider.com';
+        $scope.initWindow = function(){
+            $scope.latestItemShow = false;
+
+            mainDataService.getLatestItem({}).then(function(response){
+                $scope.latestItems = response.data.responData.data;
+                $scope.latestItemShow = true;
+            }, function(error){
+                $scope.latestItemShow = false;
+            });
+        };
+
+        $scope.initWindow();
+
+
         $scope.images=[
             {name:'a', number:'1', date:'1360413309421', src:'../../images/products/product-01.jpg' , class:'purple'}
             ,{name:'b', number:'5', date:'1360213309423', src:'../../images/products/product-02.jpg', class:'orange'}

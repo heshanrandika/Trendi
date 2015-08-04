@@ -8,8 +8,7 @@
         URL_CONFIG: {
             'main': {
                 url: '/main',
-                templateUrl: 'views/mainModule/mainTemplate.html',
-                controller: 'trendiMainController'
+                templateUrl: 'views/mainModule/mainTemplate.html'
             },
             'ladies': {
                 url: '/ladies',
@@ -33,15 +32,29 @@
             }
 
         },REQ_CONFIG: {
-            FUNC_1000: 1000,
-            FUNC_1001: 1001
+            FUNC_GetLatestItem:         1001,
+            FUNC_GetMostTrendyItems:    1002,
+            FUNC_GetSubItem:            1004,
+            FUNC_GetRelatedItems:       1005,
+            FUNC_GetCommonItemList:     1008,
+            FUNC_GetShopList:           2000,
+            FUNC_GetRatedShopList:      2001,
+            FUNC_GetNearestShopList:    2002,
+            FUNC_GetShop:               2004,
+            FUNC_GetPromotionList:      3000,
+            FUNC_GetRatedPromotionList: 3001,
+            FUNC_GetPromotion:          3005,
+            FUNC_GetBlogList:           6000
+
+
         }
 
     };
 
     mod.config(['$provide', function ($provide) {
         $provide.constant('MAIN_MOD_CONFIG', {
-            'URL_CONFIG': defs.URL_CONFIG
+            URL_CONFIG: defs.URL_CONFIG,
+            REQ_CONFIG: defs.REQ_CONFIG
         });
 
     }]);

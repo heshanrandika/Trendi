@@ -14,9 +14,16 @@ function getPromotionList(req,callback){
 
     var option = {skip:skip, limit:limit, sort:sorter};
     var query = {Delete:0};
-    daf.FindWithPagination(query,CONSTANT.PROMOTION_COLLECTION,option, function(err , dataList){
-        callback(err ,dataList);
+    var data = [];
+    var dbCon = daf.FindWithPagination(query,CONSTANT.PROMOTION_COLLECTION,option);
+    dbCon.on('data', function(doc){
+        data.push(doc);
     });
+
+    dbCon.on('end', function(){
+        callback(null,data);
+    });
+
 };
 
 function getRatedPromotionList(req,callback){
@@ -28,8 +35,14 @@ function getRatedPromotionList(req,callback){
 
     var option = {skip:skip, limit:limit, sort:sorter};
     var query = {Delete:0};
-    daf.FindWithPagination(query,CONSTANT.PROMOTION_COLLECTION,option, function(err , dataList){
-        callback(err ,dataList);
+    var data = [];
+    var dbCon = daf.FindWithPagination(query,CONSTANT.PROMOTION_COLLECTION,option);
+    dbCon.on('data', function(doc){
+        data.push(doc);
+    });
+
+    dbCon.on('end', function(){
+        callback(null,data);
     });
 };
 

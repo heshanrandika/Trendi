@@ -4,6 +4,7 @@
  */
 var mongodb = require('mongodb');
 var mdbc = this;
+var EventEmitter = require('events').EventEmitter;
 
 
 mdbc.dbServer = new mongodb.Server('127.0.0.1',parseInt('27017'));
@@ -25,26 +26,44 @@ function findOne(query,fromCollection,callback){
 }
 
 function find(query,fromCollection,callback){
+
+    var event = new EventEmitter();
     query = (query) ? query : {};
-    mdbc.db.collection(fromCollection).find(query).toArray(function(err, records) {
-        callback(err,records);
+    var stream = mdbc.db.collection(fromCollection).find(query).stream();
+    stream.on('data', function(doc){
+        event.emit('data', doc);
     });
+    stream.on('end', function () {
+        event.emit('end');
+    });
+    return event;
 }
 
-function findWithPagination(query,fromCollection,condition,callback){
+function findWithPagination(query,fromCollection,condition){
+
+    var event = new EventEmitter();
     query = (query) ? query : {};
-    mdbc.db.collection(fromCollection).find(query,condition).toArray(function(err, records) {
-        if (err) { throw err; }
-        callback(err,records);
+    var stream = mdbc.db.collection(fromCollection).find(query,condition).stream();
+    stream.on('data', function(doc){
+        event.emit('data', doc);
     });
+    stream.on('end', function () {
+        event.emit('end');
+    });
+    return event;
 }
 
-function findWithSorting(query,fromCollection,condition,callback){
+function findWithSorting(query,fromCollection,condition){
+    var event = new EventEmitter();
     query = (query) ? query : {};
-    mdbc.db.collection(fromCollection).find(query,condition).toArray(function(err, records) {
-        if (err) { throw err; }
-        callback(records);
+    var stream = mdbc.db.collection(fromCollection).find(query,condition).stream();
+    stream.on('data', function(doc){
+       event.emit('data', doc);
     });
+    stream.on('end', function () {
+        event.emit('end');
+    });
+    return event;
 }
 
 function insert(doc, toCollection, callback){

@@ -14,8 +14,14 @@ function getShopList(req,callback){
 
     var option = {skip:skip, limit:limit, sort:sorter};
     var query = {Delete:0};
-    daf.FindWithPagination(query,CONSTANT.SHOP_COLLECTION,option, function(err , dataList){
-        callback(err ,dataList);
+    var data = [];
+    var dbCon = daf.FindWithPagination(query,CONSTANT.SHOP_COLLECTION,option);
+    dbCon.on('data', function(doc){
+        data.push(doc);
+    });
+
+    dbCon.on('end', function(){
+        callback(null,data);
     });
 };
 
@@ -29,8 +35,14 @@ function getRatedShopList(req,callback){
 
     var option = {skip:skip, limit:limit, sort:sorter};
     var query = {Delete:0};
-    daf.FindWithPagination(query,CONSTANT.SHOP_COLLECTION,option, function(err , dataList){
-        callback(err ,dataList);
+    var data = [];
+    var dbCon = daf.FindWithPagination(query,CONSTANT.SHOP_COLLECTION,option);
+    dbCon.on('data', function(doc){
+        data.push(doc);
+    });
+
+    dbCon.on('end', function(){
+        callback(null,data);
     });
 };
 
@@ -108,14 +120,15 @@ function getNearestShopList(req,callback){
     var params = (req.body.params) ? req.body.params : {};
     var Pos = params.Pos;
     var query =  {$and:[{"pos" : {$near: Pos}}]};
+    var option = {};
+    var data = [];
+    var dbCon = daf.FindWithSorting(query,CONSTANT.SHOP_COLLECTION,option);
+    dbCon.on('data', function(doc){
+        data.push(doc);
+    });
 
-    daf.Find(query,CONSTANT.SHOP_COLLECTION,function(err , data){
-        var len = found.length;
-        if(len > 0){
-            callback(err,data);
-        }else{
-            callback(err,{"ERROR":"Near Points Not Available"});
-        }
+    dbCon.on('end', function(){
+        callback(null,data);
     });
 };
 

@@ -168,36 +168,42 @@ function authentication(req, callback) {
     var Session  = (params.Session)?params.Session:'';
     var userType = (params.userType)?params.userType: 0;
 
-    var query = {'Email':Email,'Session':Session};
+    if(Email != '' && Session != ''){
+        var query = {$and: [ { 'Email':Email}, { 'Session':Session} ]};
+        console.log("^^^^^^^  Authentication ^^^^^^^ : ");
+        if(userType == CONSTANT.SHOP){
+            daf.FindOne(query,CONSTANT.SHOP_COLLECTION,function(err, user){
+                if (err){
+                    callback(err, null);
 
-    if(userType == CONSTANT.SHOP){
-        daf.FindOne(query,CONSTANT.SHOP_COLLECTION,function(err, user){
-            if (err){
-                callback(err, null);
+                }else if (user.length) {
+                    callback(null, user);
 
-            }else if (user.length) {
-                callback(null, user);
+                }else{
+                    callback(("User: " + Email + " does not exist"), null);
+                }
 
-            }else{
-                callback(("User: " + Email + " does not exist"), null);
-            }
+            });
+        }else if (userType === CONSTANT.USER){
+            daf.FindOne(query,CONSTANT.USER_COLLECTION,function(err, user){
+                if (err){
+                    callback(err, null);
 
-        });
-    }else if (userType === CONSTANT.USER){
-        daf.FindOne(query,CONSTANT.USER_COLLECTION,function(err, user){
-            if (err){
-                callback(err, null);
+                }else if (user.length) {
+                    callback(null, user);
 
-            }else if (user.length) {
-                callback(null, user);
-
-            }else{
-                callback(("User: " + Email + " does not exist"), null);
-            }
-        });
+                }else{
+                    callback(("User: " + Email + " does not exist"), null);
+                }
+            });
+        }else{
+            callback("User Type Error",null);
+        }
     }else{
-       callback("User Type Error",null);
+        callback(CONSTANT.ERROR_INVALID_PARAMETER,null);
     }
+
+
 
 }
 

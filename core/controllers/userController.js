@@ -16,22 +16,14 @@ function getUserList(req,callback){
 
     var option = {skip:skip, limit:limit, sort:sorter};
     var query = "";
-    daf.FindWithPagination(query,CONSTANT.MAIN_ITEM_COLLECTION,option, function(err , dataList){
-        if(dataList){
-            if(organize == "1"){
-                var itemList =[];
-                for (var index = 0; index<dataList.length; index+=3) {
-                    if(dataList.length >= index+3)
-                        itemList.push(dataList.slice(index,index+3));
-                }
-                callback(err ,itemList);
-            }else{
-                callback(err ,dataList);
-            }
+    var data = [];
+    var dbCon = daf.FindWithPagination(query,CONSTANT.USER_COLLECTION,option);
+    dbCon.on('data', function(doc){
+        data.push(doc);
+    });
 
-        }else{
-            callback(err ,dataList);
-        }
+    dbCon.on('end', function(){
+        callback(null,data);
     });
 };
 
@@ -45,9 +37,16 @@ function getUser(req,callback){
 
     var option = {skip:skip, limit:limit, sort:sorter};
     var query = "";
-    daf.FindWithPagination(query,CONSTANT.MAIN_ITEM_COLLECTION,option, function(err , data){
-        callback(err ,data);
+    var data = [];
+    var dbCon = daf.FindWithPagination(query,CONSTANT.USER_COLLECTION,option);
+    dbCon.on('data', function(doc){
+        data.push(doc);
     });
+
+    dbCon.on('end', function(){
+        callback(null,data);
+    });
+
 };
 
 function updateUser(req,callback){

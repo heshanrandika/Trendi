@@ -2,8 +2,8 @@
     <div ng-repeat="slide in slides" on-finish-render="test">
         <div class="item">
             <div class="product-preview">
-                <div class="preview animate scale"> <a  class="preview-image"><img class="img-responsive animate scale" src="{{slide.src}}" width="270" height="328" alt=""></a>
-                    <ul class="product-controls-list right">
+                <div class="preview animate scale"> <a  class="preview-image"><img class="img-responsive animate scale" ng-src="data:image/JPEG;base64,{{slide.Item.image}}" width="270" height="328" alt=""></a>
+                    <ul class="product-controls-list right" ng-if="slide.Item.onSale">
                         <li><span class="label label-sale">SALE</span></li>
                         <li><span class="label">-20%</span></li>
                     </ul>

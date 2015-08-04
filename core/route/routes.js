@@ -18,7 +18,7 @@ module.exports = function(app) {
 
         if(req.method =='GET'){
             if(req.path == '/'){
-                res.sendfile('./public/index.html'); // load the single view file (angular will handle the page changes on the front-end)
+                res.render('index', {});// load the single view file (angular will handle the page changes on the front-end)
             }else{
                 res.status(404);
                 res.send("Page requested is not available!!!");
@@ -44,7 +44,6 @@ module.exports = function(app) {
                 var Email   = (params.Email)?params.Email:'';
                 if(Email == ''){
                     NormalUser.NormalRequestRoute(req, res);
-
                 }else{
                     var resObject = {
                         "resStatus": 0,

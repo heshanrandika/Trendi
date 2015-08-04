@@ -434,55 +434,7 @@
 <!-- Mobile menu -->
 <div class="container visible-xs">
     <trendi-mobile-menu></trendi-mobile-menu>
-    <!--<div class="mobile-nav row">
-        <div class="nav-item item-01"><a id="off-canvas-menu-toggle"><span class="icon icon-list-4"></span></a></div>
-        <div class="nav-item item-02"><a><span class="icon icon-vcard"></span></a>
-            <div class="tab-content">
-                <ul class="menu-list">
-                    <li><a href="#">Account</a></li>
-                    <li><a href="#">Wishlist</a></li>
-                    <li><a href="#">Checkout</a></li>
-                    <li><a href="login.html">Log In</a></li>
-                    <li><a href="login.html">Sign Up</a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="nav-item item-03"><a><span class="icon icon-search-2"></span></a>
-            <div class="tab-content"> &lt;!&ndash; Search &ndash;&gt;
-                <form class="navbar-search form-inline" role="form">
-                    <div class="form-group">
-                        <button type="submit" class="button"><span class="icon-search-2"></span></button>
-                        <input type="text" class="form-control" value="Search" onblur="if (this.value == '') {this.value = 'Search';}" onfocus="if(this.value == 'Search') {this.value = '';}">
-                    </div>
-                </form>
-                &lt;!&ndash; //end Search &ndash;&gt;
-            </div>
-        </div>
-        <div class="nav-item item-04"><a><span class="icon-xcart-white">3</span></a>
-            <div class="tab-content">
-                <div class="shoppingcart-box">
-                    <div class="title">Recently added item(s)</div>
-                    <ul class="list">
-                        <li class="item">
-                            <div class="icon-product-edit"><a class="icon icon-edit" href="#"></a></div>
-                            <div class="icon-product-delete"><a class="icon icon-trash-2" href="#"></a></div>
-                            <a href="product_default.html" class="preview-image"><img class="preview" src="images/products/product-02-small.jpg" alt=""></a>
-                            <div class="description"> <a href="#">Silk Saree</a> <strong class="price">1 x Rs 2000</strong> </div>
-                        </li>
-                        <li class="item">
-                            <div class="icon-product-edit"><a class="icon icon-edit" href="#"></a></div>
-                            <div class="icon-product-delete"><a class="icon icon-trash-2" href="#"></a></div>
-                            <a href="product_default.html" class="preview-image"><img class="preview" src="images/products/product-03-small.jpg" alt=""></a>
-                            <div class="description"> <a href="#">Frock ladies vest</a> <strong class="price">2 x Rs 750</strong> </div>
-                        </li>
-                    </ul>
-                    <div class="total">Total: <strong>Rs 3500</strong></div>
-                    <a href="#" class="btn btn-mega">Visit Store</a>
-                    <div class="view-link"><a href="shopping_cart.html">View Bag </a></div>
-                </div>
-            </div>
-        </div>
-    </div>-->
+
 </div>
 
 <!-- //end Mobile menu -->
@@ -541,7 +493,7 @@
 </section>
 <!-- //end Social widgets -->
 
-<div class="container">
+<div class="container" ng-show="latestItemShow">
     <!-- Featured Products -->
     <section class="content slider-products">
         <h3>Today's Featured </h3>
@@ -549,20 +501,19 @@
         <!-- Products list -->
         <div class="row">
             <div class="product-carousel">
-                <trendi-owl-slider images="images" items="4" stop-on-hover="true"  auto-play="true" navigation-display="true"></trendi-owl-slider>
-                <!--<div trendibxslider="images"></div>-->
+                <trendi-owl-slider images="latestItems" items="4" stop-on-hover="true"  auto-play="true" navigation-display="true"></trendi-owl-slider>
             </div>
         </div>
         <!-- //end Products list -->
 
         <!-- Product view compact -->
-        <div class="product-view-ajax">
+<!--        <div class="product-view-ajax">
             <div class="ajax-loader progress progress-striped active">
                 <div class="progress-bar progress-bar-danger" role="progressbar"></div>
             </div>
             <div class="layar"></div>
             <div class="product-view-container"> </div>
-        </div>
+        </div>-->
         <!-- //end Product view compact -->
     </section>
 
@@ -584,7 +535,7 @@
             </div>
             <div class="brands-carousel">
                <!--<trendi-brand-slider brands="brands"></trendi-brand-slider>-->
-                <trendi-owl-slider images="brands" items="4" stop-on-hover="true" template="brandSlider" auto-play="true" navigation-display="true"></trendi-owl-slider>
+                <trendi-owl-slider images="brands" items="4" stop-on-hover="true" template="trendi.slider.brand" auto-play="true" navigation-display="true"></trendi-owl-slider>
             </div>
         </div>
     </section>
@@ -598,25 +549,6 @@
     <div class="container content">
         <h3>From the BLOG</h3>
         <div class="posts flexslider">
-           <!-- <ul class="slides">
-                <li>
-                    <div class="image-cell"><a href="blog.html"><img src="images/temp/block-image-02-176x119.jpg" class="img-responsive animate scale" alt=""></a></div>
-                    <div class="offset-image">
-                        <h4><a href="blog.html">THESE ARE THE 50 MOST POPULAR LIP COLORS AROUND THE WORLD</a></h4>
-                        <p> <span class="rating"> <i class="icon-star-3"></i> <i class="icon-star-3"></i> <i class="icon-star-3"></i> <i class="icon-star-3"></i> <i class="icon-star-empty"></i> </span> &nbsp;&nbsp; <a href="blog.html">5 Comments</a> </p>
-                        <p>London's Heathrow airport is more than just an international travel hub, it's also a major shopping destination, boasting an impressive directory that ranges from high fashion labels like Burberry, Hermès and Gucci, to luxury beauty boutiques such as Chanel and MAC. And with upwards of 200,000 people passing through the terminals each day, Heathrow has a pretty good idea of what's trending with its worldly shoppers.</P>
-                    </div>
-                </li>
-                <li>
-                    <div class="image-cell"><a href="blog.html"><img src="images/temp/block-image-02-176x119.jpg" class="img-responsive animate scale" alt=""></a></div>
-                    <div class="offset-image">
-                        <h4><a href="blog.html">THESE ARE THE 50 MOST POPULAR LIP COLORS AROUND THE WORLD</a></h4>
-                        <p> <span class="rating"> <i class="icon-star-3"></i> <i class="icon-star-3"></i> <i class="icon-star-3"></i> <i class="icon-star-3"></i> <i class="icon-star-empty"></i> </span> &nbsp;&nbsp; <a href="blog.html">5 Comments</a> </p>
-                        <p>London's Heathrow airport is more than just an international travel hub, it's also a major shopping destination, boasting an impressive directory that ranges from high fashion labels like Burberry, Hermès and Gucci, to luxury beauty boutiques such as Chanel and MAC. And with upwards of 200,000 people passing through the terminals each day, Heathrow has a pretty good idea of what's trending with its worldly shoppers.</P>
-                    </div>
-                </li>
-            </ul>-->
-            
             <trendi-owl-slider navigation-display="true" images="images" items="1" stop-on-hover="true" template="trendi.slider.blog" auto-play="false" item-display="1"></trendi-owl-slider>
         </div>
     </div>
@@ -629,38 +561,6 @@
     <div class="col-sm-6 col-md-3 col-lg-3">
         <h3><a href="listing.html">BEST SELLERS</a></h3>
         <div class="products-widget jcarousel-skin-previews vertical">
-           <!-- <ul class="slides">
-                <li>
-                    <div class="product"> <a href="product_default.html" class="preview-image"><img class="img-responsive animate scale" src="images/products/product-18-small.jpg" alt=""></a>
-                        <p class="name"><a href="product_default.html" class="preview-image">Layered Cami Dress Black</a></p>
-                        <span class="rating"> <i class="icon-star-3"></i> <i class="icon-star-3"></i> <i class="icon-star-3"></i> <i class="icon-star-3"></i> <i class="icon-star-empty"></i> </span> <span class="price">Rs 1500</span> </div>
-                </li>
-                <li>
-                    <div class="product"> <a href="product_default.html" class="preview-image"><img class="img-responsive animate scale" src="images/products/product-18-small.jpg" alt=""></a>
-                        <p class="name"><a href="product_default.html" class="preview-image">Layered Cami Dress Black</a></p>
-                        <span class="rating"> <i class="icon-star-3"></i> <i class="icon-star-3"></i> <i class="icon-star-3"></i> <i class="icon-star-3"></i> <i class="icon-star-empty"></i> </span> <span class="price">Rs 1500</span> </div>
-                </li>
-                <li>
-                    <div class="product"> <a href="product_default.html" class="preview-image"><img class="img-responsive animate scale" src="images/products/product-18-small.jpg" alt=""></a>
-                        <p class="name"><a href="product_default.html" class="preview-image">Layered Cami Dress Black</a></p>
-                        <span class="rating"> <i class="icon-star-3"></i> <i class="icon-star-3"></i> <i class="icon-star-3"></i> <i class="icon-star-3"></i> <i class="icon-star-empty"></i> </span> <span class="price">Rs 1500</span> </div>
-                </li>
-                <li>
-                    <div class="product"> <a href="product_default.html" class="preview-image"><img class="img-responsive animate scale" src="images/products/product-18-small.jpg" alt=""></a>
-                        <p class="name"><a href="product_default.html" class="preview-image">Layered Cami Dress Black</a></p>
-                        <span class="rating"> <i class="icon-star-3"></i> <i class="icon-star-3"></i> <i class="icon-star-3"></i> <i class="icon-star-3"></i> <i class="icon-star-empty"></i> </span> <span class="price">Rs 1500</span> </div>
-                </li>
-                <li>
-                    <div class="product"> <a href="product_default.html" class="preview-image"><img class="img-responsive animate scale" src="images/products/product-18-small.jpg" alt=""></a>
-                        <p class="name"><a href="product_default.html" class="preview-image">Layered Cami Dress Black</a></p>
-                        <span class="rating"> <i class="icon-star-3"></i> <i class="icon-star-3"></i> <i class="icon-star-3"></i> <i class="icon-star-3"></i> <i class="icon-star-empty"></i> </span> <span class="price">Rs 1500</span> </div>
-                </li>
-                <li>
-                    <div class="product"> <a href="product_default.html" class="preview-image"><img class="img-responsive animate scale" src="images/products/product-18-small.jpg" alt=""></a>
-                        <p class="name"><a href="product_default.html" class="preview-image">Layered Cami Dress Black</a></p>
-                        <span class="rating"> <i class="icon-star-3"></i> <i class="icon-star-3"></i> <i class="icon-star-3"></i> <i class="icon-star-3"></i> <i class="icon-star-empty"></i> </span> <span class="price">Rs 1500</span> </div>
-                </li>
-            </ul>-->
             <trendi-vertical-slider images="images"></trendi-vertical-slider>
 
         </div>
@@ -690,86 +590,6 @@
 </div>
 </section>
 <!-- //end Products widget -->
-
-<!-- Products widgets mobile -->
-<!--<section class="container content visible-xs">
-    <div class="product-widgets">
-        <div class="item">
-            <h3><a href="listing.html">BEST SELLERS</a></h3>
-            <div class="products-widget">
-                <ul class="slides">
-                    <li>
-                        <div class="product"> <a href="product_default.html" class="preview-image"><img class="img-responsive animate scale" src="images/products/product-16-small.jpg" alt=""></a>
-                            <p class="name"><a href="product_default.html" class="preview-image">Layered Cami Dress</a></p>
-                            <span class="rating"> <i class="icon-star-3"></i> <i class="icon-star-3"></i> <i class="icon-star-3"></i> <i class="icon-star-3"></i> <i class="icon-star-empty"></i> </span> <span class="price">Rs 2100</span> </div>
-                    </li>
-                    <li>
-                        <div class="product"> <a href="product_default.html" class="preview-image"><img class="img-responsive animate scale" src="images/products/product-16-small.jpg" alt=""></a>
-                            <p class="name"><a href="product_default.html" class="preview-image">Layered Cami Dress</a></p>
-                            <span class="rating"> <i class="icon-star-3"></i> <i class="icon-star-3"></i> <i class="icon-star-3"></i> <i class="icon-star-3"></i> <i class="icon-star-empty"></i> </span> <span class="price">Rs 2100</span> </div>
-                    </li>
-                    <li>
-                        <div class="product"> <a href="product_default.html" class="preview-image"><img class="img-responsive animate scale" src="images/products/product-16-small.jpg" alt=""></a>
-                            <p class="name"><a href="product_default.html" class="preview-image">Layered Cami Dress</a></p>
-                            <span class="rating"> <i class="icon-star-3"></i> <i class="icon-star-3"></i> <i class="icon-star-3"></i> <i class="icon-star-3"></i> <i class="icon-star-empty"></i> </span> <span class="price">Rs 2100</span> </div>
-                    </li>
-                </ul>
-            </div>
-        </div>
-        <div class="item">
-            <h3><a href="listing.html">NEW PRODUCTS</a></h3>
-            <div class="products-widget">
-                <ul class="slides">
-                    <li>
-                        <div class="product"> <a href="product_default.html" class="preview-image"><img class="img-responsive animate scale" src="images/products/product-16-small.jpg" alt=""></a>
-                            <p class="name"><a href="product_default.html" class="preview-image">Layered Cami Dress</a></p>
-                            <span class="rating"> <i class="icon-star-3"></i> <i class="icon-star-3"></i> <i class="icon-star-3"></i> <i class="icon-star-3"></i> <i class="icon-star-empty"></i> </span> <span class="price">Rs 2100</span> </div>
-                    </li>
-                    <li>
-                        <div class="product"> <a href="product_default.html" class="preview-image"><img class="img-responsive animate scale" src="images/products/product-16-small.jpg" alt=""></a>
-                            <p class="name"><a href="product_default.html" class="preview-image">Layered Cami Dress</a></p>
-                            <span class="rating"> <i class="icon-star-3"></i> <i class="icon-star-3"></i> <i class="icon-star-3"></i> <i class="icon-star-3"></i> <i class="icon-star-empty"></i> </span> <span class="price">Rs 2100</span> </div>
-                    </li>
-                    <li>
-                        <div class="product"> <a href="product_default.html" class="preview-image"><img class="img-responsive animate scale" src="images/products/product-16-small.jpg" alt=""></a>
-                            <p class="name"><a href="product_default.html" class="preview-image">Layered Cami Dress</a></p>
-                            <span class="rating"> <i class="icon-star-3"></i> <i class="icon-star-3"></i> <i class="icon-star-3"></i> <i class="icon-star-3"></i> <i class="icon-star-empty"></i> </span> <span class="price">Rs 2100</span> </div>
-                    </li>
-                </ul>
-            </div>
-        </div>
-        <div class="item">
-            <h3><a href="listing.html">ON SALE</a></h3>
-           &lt;!&ndash; <div class="products-widget">
-                <trendi-common-slider images="onSale" minSlide="1" maxSlides="1"></trendi-common-slider>
-            </div>&ndash;&gt;
-        </div>
-        <div class="item">
-            <h3><a href="listing.html">TOP RATED</a></h3>
-            <div class="products-widget">
-                <ul class="slides">
-                    <li>
-                        <div class="product"> <a href="product_default.html" class="preview-image"><img class="img-responsive animate scale" src="images/products/product-16-small.jpg" alt=""></a>
-                            <p class="name"><a href="product_default.html" class="preview-image">Layered Cami Dress</a></p>
-                            <span class="rating"> <i class="icon-star-3"></i> <i class="icon-star-3"></i> <i class="icon-star-3"></i> <i class="icon-star-3"></i> <i class="icon-star-empty"></i> </span> <span class="price">Rs 2100</span> </div>
-                    </li>
-                    <li>
-                        <div class="product"> <a href="product_default.html" class="preview-image"><img class="img-responsive animate scale" src="images/products/product-16-small.jpg" alt=""></a>
-                            <p class="name"><a href="product_default.html" class="preview-image">Layered Cami Dress</a></p>
-                            <span class="rating"> <i class="icon-star-3"></i> <i class="icon-star-3"></i> <i class="icon-star-3"></i> <i class="icon-star-3"></i> <i class="icon-star-empty"></i> </span> <span class="price">Rs 2100</span> </div>
-                    </li>
-                    <li>
-                        <div class="product"> <a href="product_default.html" class="preview-image"><img class="img-responsive animate scale" src="images/products/product-16-small.jpg" alt=""></a>
-                            <p class="name"><a href="product_default.html" class="preview-image">Layered Cami Dress</a></p>
-                            <span class="rating"> <i class="icon-star-3"></i> <i class="icon-star-3"></i> <i class="icon-star-3"></i> <i class="icon-star-3"></i> <i class="icon-star-empty"></i> </span> <span class="price">Rs 2100</span> </div>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</section>-->
-
-
 <!-- Social navbar -->
 <section class="content content-border nopad-xs social-widget">
     <div class="container">

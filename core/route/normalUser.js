@@ -5,6 +5,7 @@
 var ITEM = require("../controllers/itemController");
 var SHOP = require("../controllers/shopController");
 var PROMOTION = require("../controllers/promotionController");
+var BLOG = require("../controllers/blogController");
 
 var normalRequestRoute = function(req,res){
     var functionId = parseInt(req.body.functionId);
@@ -78,6 +79,26 @@ var normalRequestRoute = function(req,res){
         case 1005:
 
             ITEM.GetRelatedItems(req, function (err, data) {
+                if (err) {
+                    resObject.resStatus = 0;
+                    resObject.responData.Error = err.toString();
+                    res.status(500);
+                    res.send(resObject);
+
+                } else if (data) {
+
+                    resObject.resStatus = 1;
+                    resObject.responData.data = data;
+                    res.send(resObject);
+
+                }
+
+            });
+            break;
+
+        case 1008:
+
+            ITEM.GetCommonItemList(req, function (err, data) {
                 if (err) {
                     resObject.resStatus = 0;
                     resObject.responData.Error = err.toString();
@@ -219,26 +240,6 @@ var normalRequestRoute = function(req,res){
             break;
 
         case 3005:
-
-            SHOP.GetPromotion(req, function (err, data) {
-                if (err) {
-                    resObject.resStatus = 0;
-                    resObject.responData.Error = err.toString();
-                    res.status(500);
-                    res.send(resObject);
-
-                } else if (data) {
-
-                    resObject.resStatus = 1;
-                    resObject.responData.data = data;
-                    res.send(resObject);
-
-                }
-
-            });
-            break;
-
-        case 4005:
 
             SHOP.GetPromotion(req, function (err, data) {
                 if (err) {

@@ -3,15 +3,15 @@
  */
 (function(mod){
     mod.service('mainDataService',['$window','Data.Comm','mainServiceCalls',function($window, Data_Comm,mainServiceCalls){
-        var _getFullItemList = function(){
-            return Data_Comm.postPromise(angular.extend({},mainServiceCalls.getFullItemListDao()));
+        var _getLatestItem = function(){
+            return Data_Comm.postPromise(angular.extend({},mainServiceCalls.getLatestItemDao()));
         };
 
-        var _getOfferList = function(){
-            return Data_Comm.postPromise(angular.extend({},mainServiceCalls.getOfferListDao()));
+        var _getPromotionList = function(){
+            return Data_Comm.postPromise(angular.extend({},mainServiceCalls.getPromotionListDao()));
         };
 
-        var _getMostTrendyList = function(){
+        var _getMostTrendyItems = function(){
             return Data_Comm.postPromise(angular.extend({},mainServiceCalls.getMostTrendyListDao()));
         };
 
@@ -19,24 +19,20 @@
             return Data_Comm.postPromise(angular.extend({},mainServiceCalls.getBlogListDao()));
         };
 
-        var _getBestSellerList = function(){
+        var _getBestSellerList = function(){ //TODO
             return Data_Comm.postPromise(angular.extend({},mainServiceCalls.getBestSellerListDao()));
         };
 
-        var _getOnSaleList = function(){
+        var _getOnSaleList = function(){ //TODO
             return Data_Comm.postPromise(angular.extend({},mainServiceCalls.getOnSaleListDao()));
         };
 
-        var _getNewProductList = function(){
+        var _getNewProductList = function(){ //TODO
             return Data_Comm.postPromise(angular.extend({},mainServiceCalls.getNewProductListDao()));
         };
 
-        var _getTopRatedList = function(){
+        var _getTopRatedList = function(){ //TODO
             return Data_Comm.postPromise(angular.extend({},mainServiceCalls.getTopRatedListDao()));
-        };
-
-        var _getPromotionList = function(){
-            return Data_Comm.postPromise(angular.extend({},mainServiceCalls.getPromotionListDao()));
         };
 
         var _getShopList = function(){
@@ -44,15 +40,14 @@
         };
 
         return{
-            getFullItemList:_getFullItemList,
-            getOfferList:_getOfferList,
-            getMostTrendyList:_getMostTrendyList,
+            getLatestItem:_getLatestItem,
+            getPromotionList:_getPromotionList,
+            getMostTrendyItems:_getMostTrendyItems,
             getBlogList:_getBlogList,
             getBestSellerList:_getBestSellerList,
             getOnSaleList:_getOnSaleList,
             getNewProductList:_getNewProductList,
             getTopRatedList:_getTopRatedList,
-            getPromotionList:_getPromotionList,
             getShopList:_getShopList
         }
     }]);
