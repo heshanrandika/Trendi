@@ -56,4 +56,4 @@
             getShopList:_getShopList
         }
     }]);
-})(com.TRENDI.CATEGORY.modules.mainTrendiModule);
+})(com.TRENDI.CATEGORY.modules.adminModule);

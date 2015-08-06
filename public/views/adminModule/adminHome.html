@@ -2,9 +2,99 @@
     <div>Login Directive</div>
     <div>
         body
-        <div>
-           Admin Home Page
-        </div>
+        <form id="addItemForm">
+            <div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label class="control-label col-md-3">Name: <span
+                                class="required-astric">*</span></label>
+
+                        <div class="col-md-9">
+                            <input type="text" class="form-control" ng-model="generalInfoForm.nin"
+                                   required/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3">Price:</label>
+
+                        <div class="col-md-9">
+                            <input type="number" class="form-control"
+                                   ng-model="generalInfoForm.organization"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3">Size:</label>
+
+                        <div class="col-md-9">
+                            <input type="number" class="form-control"
+                                   ng-model="generalInfoForm.organization"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3">Description:</label>
+
+                        <div class="col-md-9">
+                            <input type="number" class="form-control"
+                                   ng-model="generalInfoForm.organization"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3">Colors:</label>
+
+                        <div class="col-md-9">
+                            <input type="number" class="form-control"
+                                   ng-model="generalInfoForm.organization"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3">On Sale: <span
+                                class="required-astric">*</span></label>
+
+                        <div class="col-md-9">
+                            <input type="checkbox" class="form-control" ng-model="generalInfoForm.employNo"
+                                   required/>
+                        </div>
+                        <div>
+                            <label class="control-label col-md-3">Discount: <span
+                                    class="required-astric">*</span></label>
+                            <div class="col-md-9">
+                                <input type="number" class="form-control" ng-model="generalInfoForm.employNo" min="0" max="100"
+                                       required/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3">Type:</label>
+
+                        <div class="col-md-9">
+                            <select id="select_department" ng-model="dropdownData.applicationId"
+                                    ng-options="data.value for data in appList"
+                                    class="form-control form-filter srch-select-col"  ng-change="changeApp(dropdownData.applicationId)"></select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3">Designation:</label>
+
+                        <div class="col-md-9">
+                            <select id="select_designation" ng-model="dropdownData.selectedGrant"
+                                    ng-options="data.desc for data in grantList"
+                                    class="form-control form-filter srch-select-col"></select>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <trendi-file-upload files="mainImage"></trendi-file-upload>
+
+
+
+            <button class="btn btn-success"
+                    data-ng-click="saveItem()">Save
+            </button>
+        </form>
     </div>
 </div>
+
 

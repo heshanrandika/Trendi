@@ -3,7 +3,7 @@
  */
 (function (mod) {
     "use strict";
-    mod.directive('revolutionslider',function($timeout) {
+    mod.directive('revolutionslider',function() {
         return {
             restrict: 'A',
             replace: true,
@@ -94,29 +94,16 @@
         };
     });
 
-    mod.directive('isotoplist',['$timeout',function($timeout){
+    mod.directive('trendiIsotop',['$timeout',function($timeout){
         return {
-            restrict: 'A',
+            restrict: 'E',
             replace: true,
             scope: {
-                isotoplist: '='
+                items: '='
             },
             templateUrl: '/views/coreModule/isotop/trendi.main.isotop.html',
             link: function(scope, elm, attrs) {
-                scope.key = "1360413309421";
-                scope.xList=[
-                    {name:'a', number:'1', date:'1360413309421', src:'../../images/products/product-01.jpg' , class:'purple'}
-                    ,{name:'b', number:'5', date:'1360213309423', src:'../../images/products/product-02.jpg', class:'orange'}
-                    ,{name:'c', number:'10', date:'1360113309421', src:'../../images/products/product-03.jpg', class:'purple'}
-                    ,{name:'d', number:'2', date:'1360113309422', src:'../../images/products/product-04.jpg', class:'green'}
-                    ,{name:'e', number:'6', date:'1360413309421', src:'../../images/products/product-05.jpg', class:'purple'}
-                    ,{name:'f', number:'21', date:'1360113309422', src:'../../images/products/product-03.jpg', class:'green'}
-                    ,{name:'f', number:'21', date:'1360113309422', src:'../../images/products/product-03.jpg', class:'green'}
-                    ,{name:'g', number:'3', date:'1360213309423', src:'../../images/products/product-02.jpg', class:'orange'}
-                    ,{name:'h', number:'7', date:'1360113309422', src:'../../images/products/product-01.jpg', class:'blue'}
-                    ,{name:'i', number:'22', date:'1360413309421', src:'../../images/products/product-04.jpg', class:'blue'}
-                ];
-
+                scope.xList = scope.items;
                 scope.$on('test', function(ngRepeatFinishedEvent) {
                     $timeout(function () {
                         scope.$emit('iso-method', {name:'shuffle', params:null})
@@ -483,5 +470,127 @@
             }
         }
     }]);
+
+
+
+    mod.directive('trendiFileUpload',[function() {
+        return {
+            restrict: 'E',
+            replace: true,
+            scope: {
+                files : '='
+            },
+            templateUrl: function(elem,attrs) {
+                var url = '/views/coreModule/fileUpload/'+(attrs.template? attrs.template : 'trendi.fileupload.main')+'.html';
+                return url;
+            },
+            link: function(scope, elm, attrs) {
+                scope.files = [];
+                var dropbox = angular.element('#dropbox').context;
+                scope.dropText = 'Drop files here...';
+                scope.successfullyUploaded = false;
+                // init event handlers
+                function dragEnterLeave(evt) {
+                    evt.stopPropagation();
+                    evt.preventDefault();
+                    scope.$apply(function () {
+                        scope.dropText = 'Drop files here...';
+                        scope.dropClass = '';
+                    });
+                }
+
+                dropbox.addEventListener("dragenter", dragEnterLeave, false);
+                dropbox.addEventListener("dragleave", dragEnterLeave, false);
+                dropbox.addEventListener("dragover", function (evt) {
+                    evt.stopPropagation();
+                    evt.preventDefault();
+                    var clazz = 'not-available';
+                    var ok = evt.dataTransfer && evt.dataTransfer.types && evt.dataTransfer.types.indexOf('Files') >= 0;
+                    scope.$apply(function () {
+                        scope.dropText = ok ? 'Drop files here...' : 'Only files are allowed!';
+                        scope.dropClass = ok ? 'over' : 'not-available';
+                    });
+                }, false);
+
+                //============== DRAG & DROP =============
+                dropbox.addEventListener("drop", function (evt) {
+                    evt.stopPropagation();
+                    evt.preventDefault();
+                    scope.$apply(function () {
+                        scope.dropText = 'Drop files here...';
+                        scope.dropClass = '';
+                    });
+                    var files = evt.dataTransfer.files;
+                    if (files.length > 0) {
+                        scope.$apply(function () {
+                            scope.progressVisible = false;
+                            scope.successfullyUploaded = false;
+                            for (var i = 0; i < files.length; i++) {
+                                if (files[i].size < 1000000) {
+                                   // scope.files.push(files[i]);
+                                       scope.getFileContent(files[i]);
+                                } else {
+                                    if (files[i].size > 1000000) {
+
+                                    }
+                                }
+
+                            }
+                        });
+                    }
+                }, false);
+
+
+                scope.setFiles = function (element) {
+                    scope.progressVisible = false;
+                    scope.successfullyUploaded = false;
+                        // Turn the FileList object into an Array
+                        for (var i = 0; i < element.files.length; i++) {
+                            if (element.files[i].size < 1000000) {
+                               // scope.files.push(element.files[i]);
+                                scope.getFileContent(element.files[i]);
+                            }
+                        }
+                        scope.progressVisible = false;
+
+                };
+
+                function uploadCanceled(evt) {
+                    scope.$apply(function () {
+                        scope.progressVisible = false;
+                    });
+                    alert("The upload has been canceled by the user or the browser dropped the connection.");
+                }
+
+
+                scope.removeFile = function (index) {
+                    scope.files.splice(index, 1);
+                    scope.fileContent = '';
+                };
+
+                scope.getFileContent = function(file) {
+                    var data = '';
+                    var r;
+                    r = new FileReader();
+                    r.onloadend = function (e) {
+                        var fileDetail = {
+                            size : file.size,
+                            name : file.name,
+                            type : file.type,
+                            image : e.target.result
+                        };
+                        scope.$apply(function (scope) {
+                        scope.files.push(fileDetail);
+                        });
+                    };
+
+                    r.readAsDataURL(file);
+                }
+
+
+            }
+        };
+    }]);
+
 
 })(com.TRENDI.CATEGORY.modules.coreModule);

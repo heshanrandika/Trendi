@@ -523,7 +523,10 @@
 </div>
 
 <!-- Filters -->
-<div isotoplist="selectedDirection"></div>
+<div ng-show="mainItemShow">
+    <trendi-isotop items="mainItems"></trendi-isotop>
+</div>
+
 <!-- Brands -->
 
 <div class="container">
@@ -562,7 +565,6 @@
         <h3><a href="listing.html">BEST SELLERS</a></h3>
         <div class="products-widget jcarousel-skin-previews vertical">
             <trendi-vertical-slider images="images"></trendi-vertical-slider>
-
         </div>
     </div>
     <div class="col-sm-6 col-md-3 col-lg-3">
@@ -572,11 +574,11 @@
         </div>
     </div>
     <section class="col-sm-6 col-md-3 col-lg-3  slider-products module">
-        <h3><a href="listing.html">On Sale</a></h3>
+        <h3><a href="listing.html">Trending Now</a></h3>
 
         <!-- Products list -->
         <div class="row">
-            <trendi-owl-slider images="onSale" items="1" stop-on-hover="true" auto-play="true" item-display="1" navigation-display="true"></trendi-owl-slider>
+            <trendi-owl-slider images="trendItems" items="1" stop-on-hover="true" auto-play="true" item-display="1" navigation-display="true"></trendi-owl-slider>
         </div>
         <!-- //end Products list -->
 
@@ -669,7 +671,7 @@
                     <h3>CONTACT US<a class="expander visible-xs" href="#TabBlock-6">+</a></h3>
                     <div  class="tabBlock" id="TabBlock-6">
                         <ul class="menu">
-                            <li><span class="icon icon-house"></span> Moratuwa Sri Lanks</li>
+                            <li><span class="icon icon-house"></span> Moratuwa Sri Lanka</li>
                             <li><span class="icon icon-phone-4"></span> +94 123456</li>
                             <li><span class="icon icon-envelop"></span> <a href="#">pathumpmg.com</a></li>
                             <li><span class="icon icon-skype-2"></span> <a href="#">www.fashion.lk</a></li>

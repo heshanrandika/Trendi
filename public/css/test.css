@@ -11,3 +11,113 @@
     height: 300px;
     margin-left: auto;
     margin-right: auto; }
+
+.fl-up .percent {
+    position: absolute;
+    width: 300px;
+    height: 14px;
+    z-index: 1;
+    text-align: center;
+    font-size: 0.8em;
+    color: white;
+}
+
+.fl-up .progress-bar {
+    width: 300px;
+    height: 14px;
+    border-radius: 10px;
+    border: 1px solid #CCC;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#6666cc), to(#4b4b95));
+}
+
+.fl-up .uploaded {
+    padding: 0;
+    height: 14px;
+    border-radius: 10px;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#66cc00), to(#4b9500));
+}
+
+.fl-up .dropbox {
+    width: 100%;
+    height: 200px;
+    border: 1px solid #DDD;
+    border-radius: 8px;
+    background-color: #f7f7f7;
+    background-image: url('../img/upload-bg.png');
+    background-repeat: no-repeat;
+    /*background-position: 482px 90px;*/
+    background-position: center 40%;
+    text-align: center;
+    color: #BBB;
+    font-size: 2em;
+    margin-bottom: 10px;
+    position: relative;
+}
+
+
+.fl-up .dropbox span.drop-txt {
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    top: calc(50% + 50px);
+    left: 0;
+    padding-left: 25px;
+    opacity: 0.6;
+    filter: alpha(opacity=60);
+}
+
+.fl-up .dropbox.not-available {
+    background-color: #F88;
+}
+
+.fl-up .dropbox.over {
+    background-color: #bfb;
+}
+
+.fl-up .fl-block {
+    padding: 20px 15px;
+    vertical-align: top;
+}
+
+.fl-up .up-file-icon {
+    font-size: 40px;
+}
+
+.fl-up .up-file-nm {
+    font-size: 13px;
+    line-height: 1em;
+}
+
+.fl-up .txt-note {
+    margin-left: 6px;
+}
+
+.fl-up .shw-uploaded {
+    float: left;
+    position: relative;
+}
+
+.fl-up .fl-up-cont {
+    position: absolute;
+    right: 16px;
+    width: 56%;
+    height: 348px;
+    float: right;
+}
+
+.fl-up .fl-up-cont p {
+    font-size: 12px;
+    text-align: left;
+}
+
+.fl-up .fl-up-cont .modal-body {
+    max-height: 290px;
+    padding: 0px;
+    border: 1px solid #ccc;
+    overflow: auto;
+}
+
+.fl-up .fl-up-cont .modal-body pre {
+    border: none;
+    overflow: visible;
+}

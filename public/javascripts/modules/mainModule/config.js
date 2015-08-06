@@ -29,6 +29,11 @@
                 url: '/shop',
                 templateUrl: 'views/shopModule/shopHome.html',
                 controller: 'shopHomeController'
+            },
+            'admin': {
+                url: '/admin',
+                templateUrl: 'views/adminModule/adminHome.html',
+                controller: 'adminController'
             }
 
         },REQ_CONFIG: {
@@ -37,6 +42,7 @@
             FUNC_GetSubItem:            1004,
             FUNC_GetRelatedItems:       1005,
             FUNC_GetCommonItemList:     1008,
+            FUNC_GetMainItemList:       1009,
             FUNC_GetShopList:           2000,
             FUNC_GetRatedShopList:      2001,
             FUNC_GetNearestShopList:    2002,

@@ -8,17 +8,30 @@
 
         $scope.slider ;
         $scope.showSlider = true;
-
+        $scope.latestItemShow = false;
+        $scope.mainItemShow = false;
 
         $scope.initWindow = function(){
-            $scope.latestItemShow = false;
 
-            mainDataService.getLatestItem({}).then(function(response){
+            mainDataService.getLatestItem({skip:0,limit:16}).then(function(response){
                 $scope.latestItems = response.data.responData.data;
                 $scope.latestItemShow = true;
             }, function(error){
                 $scope.latestItemShow = false;
             });
+
+            mainDataService.getMainItemList({skip:0,limit:16}).then(function(response){
+                $scope.mainItems = response.data.responData.data;
+                $scope.mainItemShow = true;
+            }, function(error){
+                $scope.mainItemShow = false;
+            });
+
+            mainDataService.getMostTrendyItems({skip:0,limit:8}).then(function(response){
+                $scope.trendItems = response.data.responData.data;
+            }, function(error){
+            });
+
         };
 
         $scope.initWindow();

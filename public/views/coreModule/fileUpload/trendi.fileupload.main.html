@@ -1,0 +1,79 @@
+<div>
+    <div class="row top-sp-lg">
+        <div class="col-md-12">
+            <div class="form-group">
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                <div class="fl-up">
+                                    <div>
+                                        <input type="file" ng-model-instant class="fl-upload"
+                                               id="fileToUpload" multiple
+                                               onchange="angular.element(this).scope().setFiles(this)"/>
+                                        <label for="fileToUpload" class="fl-sel-btn">Select a
+                                            File to Upload</label>
+                                        <small class="txt-note"><strong>Note:</strong>Maximum
+                                            file size limit-1MB
+                                        </small>
+                                    </div>
+                                    <br/>
+
+                                    <div id="dropbox"  class="dropbox" ng-class="dropClass">
+                                        <span class="drop-txt">{{dropText}}</span>
+                                        <table class="shw-uploaded">
+                                            <tr>
+                                                <td class="fl-block"
+                                                    ng-repeat="file in files.slice(0)">
+                                                   <!-- <i class="fa fa-file up-file-icon"></i><br/>-->
+                                                    <img class="img-responsive animate scale" ng-src="{{file.image}}" width="270" height="328" alt="">
+                                                    <span class="up-file-nm">{{file.name}}</span><br/>
+
+                                                    <button ng-click="removeFile($index)"
+                                                            class="btn btn-warning btn-sm"
+                                                            value="remove" data-dismiss="modal">
+                                                        Remove
+                                                    </button>
+
+                                                    <div ng-show="progressVisible">
+                                                        <img src="../../../../img/uploading.GIF"
+                                                             alt="uploading..."/>
+                                                    </div>
+                                                    <div ng-show="successfullyUploaded">
+                                                        <span class="up-file-nm">Successfully Uploaded.</span><br/>
+                                                    </div>
+
+                                                </td>
+                                            </tr>
+                                        </table>
+                                        <div class="fl-up-cont alert alert-info"
+                                             ng-if="fileContent">
+                                            <div class="modal-title">
+                                                <button type="button" class="close"
+                                                        data-dismiss="modal" aria-hidden="true"
+                                                        data-ng-click="fileContentClose()"></button>
+                                                <h4 class="txt-align-left"><strong>Content of
+                                                    {{fileName}}</strong></h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                <pre class="txt-align-left">{{fileContent}}</pre>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="uploadBtn" class="pull-right top-sp-sm">
+                                        <button ng-show="files.length > 0 "
+                                                ng-click="uploadFiles()"
+                                                class="btn btn-default blue"><i
+                                                class="fa fa-upload"></i>Upload
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

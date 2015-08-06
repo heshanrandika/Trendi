@@ -5,10 +5,9 @@
                 <div class="text-center">
                     <ul class="option-set" opt-kind ok-key="filter">
                         <li><a  ok-sel="*" class="selected">all</a></li>
-                        <li><a  ok-sel=".purple">BEST SELLERS</a></li>
-                        <li><a  ok-sel=".orange">NEW PRODUCTS</a></li>
-                        <li><a  ok-sel=".blue">ON SALE</a></li>
-                        <li><a  ok-sel=".green">TOP RATED</a></li>
+                        <li><a  ok-sel=".onSale">ON SALE</a></li>
+                        <li><a  ok-sel=".topRated">TOP RATED</a></li>
+                        <li><a  ok-sel=".promotion">PROMOTION</a></li>
                     </ul>
                 </div>
             </div>
@@ -21,7 +20,7 @@
         <div class="products-list-isotope" id="isotopeContainer" isotope-container ng-cloak class="ng-cloak">
             <div class="kindling {{x.class}} product-preview " ng-repeat="x in xList " isotope-item  onClick="removeItem(this)" on-finish-render="test">
 
-                    <div class="preview animate scale"> <a href="product_default.html" class="preview-image"><img class="img-responsive animate scale" src="{{x.src}}" width="270" height="328" alt=""></a>
+                    <div class="preview animate scale"> <a href="product_default.html" class="preview-image"><img class="img-responsive animate scale" ng-src="data:image/JPEG;base64,{{x.Item.image}}" width="270" height="328" alt=""></a>
                         <ul class="product-controls-list right">
                             <li><span class="label label-sale">SALE</span></li>
                             <li><span class="label">-20%</span></li>

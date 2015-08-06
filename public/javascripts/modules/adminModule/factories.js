@@ -72,4 +72,4 @@
 
     }]);
 
-})(com.TRENDI.CATEGORY.modules.mainTrendiModule);
+})(com.TRENDI.CATEGORY.modules.adminModule);

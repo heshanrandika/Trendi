@@ -5,10 +5,11 @@
     "use strict";
 
     mod.controller('adminController', ['$scope', '$rootScope','$state', function ($scope, $rootScope, $state) {
-        $scope.click = function () {
-            $scope.data = "";
-           // $state.go("admin");
-        }
+        $scope.mainImage = [];
+        $scope.saveItem = function () {
+
+
+        };
 
     }]);
 

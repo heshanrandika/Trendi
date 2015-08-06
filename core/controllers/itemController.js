@@ -90,7 +90,7 @@ function getMainItemList(req,callback){
 
     getExist(function(idArray){
         skip = 0;
-        limit = 10;
+        limit = 5;
         query = {$and: [ {'Item.onSale' : 0}, {"ItemID": { $nin: idArray }} ]};
         sorter = [["Item.like",-1],["Item.trend",-1]];
         option = {skip:skip, limit:limit, sort:sorter};
