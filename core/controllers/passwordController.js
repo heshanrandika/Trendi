@@ -15,11 +15,11 @@ function passwordReset(req,callback){
 
     var query = {Email:email};
     daf.FindOne(query,CONSTANT.USER_COLLECTION,function(err, userArray){
-        var user = userArray[0];
+        var user = userArray;
         if(err){
             callback(err, user);
             return;
-        }else if(userArray.length){
+        }else if(userArray){
             PWD.VerifyPassword(oldPassword,user.Password,function(err, state){
                 if(err){
                     callback(err, state);
@@ -51,7 +51,7 @@ function forgotPassword(req,callback){
             if(success){
                 daf.FindOne(query,CONSTANT.USER_COLLECTION, function(err , user){
                     console.log("GGGGGGGGGGGGGGGGGGGGG EMAIL FIND"+user);
-                    EMAIL.Send(user[0],function(err, success){
+                    EMAIL.Send(user,function(err, success){
                         console.log("GGGGGGGGGGGGGGGGGGGGG EMAIL SEND"+success);
                         callback(err, success);
                     });
@@ -87,7 +87,7 @@ function checkHashId(req,callback){
         if(err){
             callback(err,user);
         }else if(user.length){
-            callback(err,user[0]);
+            callback(err,user);
         }else{
             callback("Hash ID not Available",null);
         }

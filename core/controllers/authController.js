@@ -18,12 +18,11 @@ function login(req,callback) {
 
     if(userType === CONSTANT.SHOP){
 
-        daf.FindOne(query,CONSTANT.SHOP_COLLECTION,function(err, userArray){
-            var user = userArray[0];
+        daf.FindOne(query,CONSTANT.SHOP_COLLECTION,function(err, user){
            if(err){
                callback(err, user);
                return;
-           }else if(userArray.length){
+           }else if(user){
                PWD.VerifyPassword(Password,user.Password,function(err, state){
                    if(err){
                        callback(err, state);
@@ -51,12 +50,11 @@ function login(req,callback) {
             }
         });
     }else if(userType === CONSTANT.USER){
-        daf.FindOne(query,CONSTANT.USER_COLLECTION,function(err, userArray){
-            var user = userArray[0];
+        daf.FindOne(query,CONSTANT.USER_COLLECTION,function(err, user){
             if(err){
                 callback(err, user);
                 return;
-            }else if(userArray.length){
+            }else if(user){
                 PWD.VerifyPassword(Password,user.Password,function(err, state){
                     if(err){
                         callback(err, state);
@@ -103,7 +101,8 @@ function register(req,callback) {
                 callback(err,null);
                 return;
             }
-            if(!found.length){
+            if(!found){
+                //TODO with update Doc
               //  var query = {'Name' : RegUser.Name, 'Email':RegUser.Email, 'Password':HashPWD, 'Session':'', 'Rating':'', 'pos':RegUser.pos};
                 daf.Count('', CONSTANT.SHOP_COLLECTION, function (err, count) {
                     if (count) {
@@ -137,7 +136,7 @@ function register(req,callback) {
                 callback(err,null);
                 return;
             }
-            if(!found.length){
+            if(!found){
                 var query = {'FirstName' : RegUser.FirstName, 'LastName' : RegUser.LastName, 'Dob':RegUser.DOB, 'Mobile':RegUser.Mobile, 'Email':RegUser.Email, 'Password':HashPWD, 'Session':'', 'watchList':[],'recentlyView':[]};
                 daf.Insert(query,CONSTANT.USER_COLLECTION,function(err,success){
                     console.log("^^^^^^^  Shop Added ^^^^^^^ : ");
@@ -176,7 +175,7 @@ function authentication(req, callback) {
                 if (err){
                     callback(err, null);
 
-                }else if (user.length) {
+                }else if (user) {
                     callback(null, user);
 
                 }else{
@@ -189,7 +188,7 @@ function authentication(req, callback) {
                 if (err){
                     callback(err, null);
 
-                }else if (user.length) {
+                }else if (user) {
                     callback(null, user);
 
                 }else{

@@ -4,7 +4,7 @@
 (function (mod) {
     "use strict";
 
-    mod.controller('adminController', ['$scope', '$rootScope','$state', function ($scope, $rootScope, $state) {
+    mod.controller('adminController', ['$scope', '$rootScope','$state','adminDataService', function ($scope, $rootScope, $state, adminDataService) {
         $scope.mainImage = [];
         $scope.saveItem = function () {
 

@@ -3,6 +3,7 @@
  */
 var daf = require('../persistence/MongoPersistence');
 var CONSTANT = require('../utility/Constants');
+var UTIL = require('./utilController');
 var _ = require('lodash');
 
 function getLatestItems(req,callback){
@@ -222,10 +223,10 @@ function editItems(req,callback){
     var mainItem = {};
     daf.FindOne(query,CONSTANT.MAIN_ITEM_COLLECTION, function(err , data){
         if(data) {
-            mainItem = data[0].Item;
+            mainItem = data.Item;
             daf.FindOne(query, CONSTANT.SUB_ITEM_COLLECTION, function (err, data) {
                 if(data){
-                    itemList.subItem = data[0].ItemList;
+                    itemList.subItem = data.ItemList;
                     itemList.mainItem = mainItem;
                     callback(err, itemList);
                 }else{
@@ -290,33 +291,35 @@ function addItems(req,callback) {
     var params = (req.body.params) ? req.body.params : {};
     var mainItem = (params.mainItem) ? params.mainItem : {};
     var subItem = (params.subItem) ? params.subItem : {};
-    if(params.mainItem && params.subItem){
-        daf.Count('', CONSTANT.MAIN_ITEM_COLLECTION, function (err, count) {
-            if (count) {
-                console.log("$$$$$$$  AddItems $$$$$$ Count : " + count);
-                itemID = count;
-                var doc = {ItemID: itemID, Date: new Date(), Item: mainItem};
-                daf.Insert(doc, CONSTANT.MAIN_ITEM_COLLECTION, function (err, success) {
-                    console.log("^^^^^^^  Add Main Items ^^^^^^^ : ");
-                    if (success) {
-                        console.log("^^^^^^^  Add Sub Items ^^^^^^^ : ");
-                        doc = {ItemID: itemID, ItemList: subItem};
-                        daf.Insert(doc, CONSTANT.SUB_ITEM_COLLECTION, function (err, success) {
-                            if (success) {
-                                callback(err, success);
+    if(params.mainItem){
+
+        UTIL.UpdateCount(CONSTANT.MAIN_ITEM_COLLECTION, function (err, count) {
+                    if (count) {
+                        console.log("$$$$$$$  AddItems $$$$$$ Count : " + doc);
+                        itemID = count;
+                        var doc = {ItemID: itemID, Date: new Date(), Item: mainItem};
+                        daf.Insert(doc, CONSTANT.MAIN_ITEM_COLLECTION, function (err, success) {
+                            console.log("^^^^^^^  Add Main Items ^^^^^^^ : ");
+                            if (success && params.subItem) {
+                                console.log("^^^^^^^  Add Sub Items ^^^^^^^ : ");
+                                doc = {ItemID: itemID, ItemList: subItem};
+                                daf.Insert(doc, CONSTANT.SUB_ITEM_COLLECTION, function (err, success) {
+                                    if (success) {
+                                        callback(err, success);
+                                    } else {
+                                        callback(err, success);
+                                    }
+                                });
                             } else {
                                 callback(err, success);
                             }
-                        });
+                        })
                     } else {
-                        callback(err, success);
+                        callback(err, doc);
                     }
-                })
-            } else {
-                callback(err, count);
-            }
 
-        });
+                });
+
     }else{
         var err = "Item details not available";
         callback(err);

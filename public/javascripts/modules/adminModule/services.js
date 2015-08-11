@@ -2,58 +2,34 @@
  * Created by Heshanr on 7/20/2015.
  */
 (function(mod){
-    mod.service('mainDataService',['$window','Data.Comm','mainServiceCalls',function($window, Data_Comm,mainServiceCalls){
-        var _getLatestItem = function(d){
-            return Data_Comm.postPromise(angular.extend({params:d},mainServiceCalls.getLatestItemDao()));
+    mod.service('adminDataService',['$window','Data.Comm','adminServiceCalls',function($window, Data_Comm, adminServiceCalls){
+        var _getItemList = function(d){
+            return Data_Comm.postPromise(angular.extend({params:d},adminServiceCalls.getItemListDao()));
         };
 
-        var _getMainItemList = function(d){
-            return Data_Comm.postPromise(angular.extend({params:d},mainServiceCalls.getMainItemListDao()));
+        var _addItem = function(d){
+            return Data_Comm.postPromise(angular.extend({params:d},adminServiceCalls.addItemDao()));
         };
 
-        var _getPromotionList = function(){
-            return Data_Comm.postPromise(angular.extend({},mainServiceCalls.getPromotionListDao()));
+        var _updateItem = function(){
+            return Data_Comm.postPromise(angular.extend({},adminServiceCalls.updateItemDao()));
         };
 
-        var _getMostTrendyItems = function(){
-            return Data_Comm.postPromise(angular.extend({},mainServiceCalls.getMostTrendyListDao()));
+        var _getItem = function(){
+            return Data_Comm.postPromise(angular.extend({},adminServiceCalls.getItemDao()));
         };
 
-        var _getBlogList = function(){
-            return Data_Comm.postPromise(angular.extend({},mainServiceCalls.getBlogListDao()));
+        var _removeItem = function(){
+            return Data_Comm.postPromise(angular.extend({},adminServiceCalls.removeItemDao()));
         };
 
-        var _getBestSellerList = function(){ //TODO
-            return Data_Comm.postPromise(angular.extend({},mainServiceCalls.getBestSellerListDao()));
-        };
-
-        var _getOnSaleList = function(){ //TODO
-            return Data_Comm.postPromise(angular.extend({},mainServiceCalls.getOnSaleListDao()));
-        };
-
-        var _getNewProductList = function(){ //TODO
-            return Data_Comm.postPromise(angular.extend({},mainServiceCalls.getNewProductListDao()));
-        };
-
-        var _getTopRatedList = function(){ //TODO
-            return Data_Comm.postPromise(angular.extend({},mainServiceCalls.getTopRatedListDao()));
-        };
-
-        var _getShopList = function(){
-            return Data_Comm.postPromise(angular.extend({},mainServiceCalls.getShopListDao()));
-        };
 
         return{
-            getLatestItem:_getLatestItem,
-            getMainItemList:_getMainItemList,
-            getPromotionList:_getPromotionList,
-            getMostTrendyItems:_getMostTrendyItems,
-            getBlogList:_getBlogList,
-            getBestSellerList:_getBestSellerList,
-            getOnSaleList:_getOnSaleList,
-            getNewProductList:_getNewProductList,
-            getTopRatedList:_getTopRatedList,
-            getShopList:_getShopList
+            getItemList:_getItemList,
+            addItem:_addItem,
+            updateItem:_updateItem,
+            getItem:_getItem,
+            removeItem:_removeItem
         }
     }]);
 })(com.TRENDI.CATEGORY.modules.adminModule);

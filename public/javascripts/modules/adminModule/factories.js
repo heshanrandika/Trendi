@@ -5,68 +5,39 @@
 (function (mod) {
     "use strict";
 
-    mod.factory('mainServiceCalls', ['MAIN_MOD_CONFIG', '$window', function (MAIN_MOD_CONFIG, $window) {
+    mod.factory('adminServiceCalls', ['ADMIN_MOD_CONFIG', '$window', function (ADMIN_MOD_CONFIG, $window) {
 
         var serviceCalls = {};
         var commonCallObj = {};
 
         var _getCObj = function () {
-          /*  var userData = JSON.parse($window.localStorage.getItem('__'));
-            commonCallObj = {userName: userData.username, sessionId: userData.sessionId};*/
+          /*  var userData = JSON.parse($window.localStorage.getItem('__'));*/
+            commonCallObj = {Email: '', sessionId: ''};
             return commonCallObj;
         };
 
-        serviceCalls.getLoginDao = function () {
-            return {functionId: MAIN_MOD_CONFIG.REQ_CONFIG.FUNC_1000};
+
+
+        serviceCalls.getItemListDao = function () {
+            return angular.extend({functionId: ADMIN_MOD_CONFIG.REQ_CONFIG.FUNC_GetItemList}, _getCObj());
         };
 
-        serviceCalls.getLogoutDao = function () {
-            return angular.extend({functionId: MAIN_MOD_CONFIG.REQ_CONFIG.FUNC_1001}, _getCObj());
+        serviceCalls.addItemDao = function () {
+            return angular.extend({functionId: ADMIN_MOD_CONFIG.REQ_CONFIG.FUNC_AddItems}, _getCObj());
         };
 
-        serviceCalls.getLatestItemDao = function () {
-            return angular.extend({functionId: MAIN_MOD_CONFIG.REQ_CONFIG.FUNC_GetLatestItem}, _getCObj());
+        serviceCalls.updateItemDao = function () {
+            return angular.extend({functionId: ADMIN_MOD_CONFIG.REQ_CONFIG.FUNC_UpdateItem}, _getCObj());
         };
 
-        serviceCalls.getMainItemListDao = function () {
-            return angular.extend({functionId: MAIN_MOD_CONFIG.REQ_CONFIG.FUNC_GetMainItemList}, _getCObj());
+        serviceCalls.getItemDao = function () {
+            return angular.extend({functionId: ADMIN_MOD_CONFIG.REQ_CONFIG.FUNC_GetItem}, _getCObj());
         };
 
-        serviceCalls.getPromotionListDao = function () {
-            return angular.extend({functionId: MAIN_MOD_CONFIG.REQ_CONFIG.FUNC_GetPromotionList}, _getCObj());
+        serviceCalls.removeItemDao = function () {
+            return angular.extend({functionId: ADMIN_MOD_CONFIG.REQ_CONFIG.FUNC_RemoveItems}, _getCObj());
         };
 
-        serviceCalls.getMostTrendyListDao = function () {
-            return angular.extend({functionId: MAIN_MOD_CONFIG.REQ_CONFIG.FUNC_GetMostTrendyItems}, _getCObj());
-        };
-
-        serviceCalls.getBlogListDao = function () {
-            return angular.extend({functionId: MAIN_MOD_CONFIG.REQ_CONFIG.FUNC_GetBlogList}, _getCObj());
-        };
-
-        serviceCalls.getBestSellerListDao = function () {
-            return angular.extend({functionId: MAIN_MOD_CONFIG.REQ_CONFIG.FUNC_GetShop}, _getCObj());
-        };
-
-        serviceCalls.getOnSaleListDao = function () {
-            return angular.extend({functionId: MAIN_MOD_CONFIG.REQ_CONFIG.FUNC_GetCommonItemList}, _getCObj());
-        };
-
-        serviceCalls.getNewProductListDao = function () {
-            return angular.extend({functionId: MAIN_MOD_CONFIG.REQ_CONFIG.FUNC_GetCommonItemList}, _getCObj());
-        };
-
-        serviceCalls.getTopRatedListDao = function () {
-            return angular.extend({functionId: MAIN_MOD_CONFIG.REQ_CONFIG.FUNC_GetCommonItemList}, _getCObj());
-        };
-
-        serviceCalls.getShopListDao = function () {
-            return angular.extend({functionId: MAIN_MOD_CONFIG.REQ_CONFIG.FUNC_GetRatedShopList}, _getCObj());
-        };
-
-        serviceCalls.getSocketLogoutDao = function () {
-            return _getCObj();
-        };
 
         return serviceCalls;
 

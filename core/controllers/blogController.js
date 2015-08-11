@@ -52,7 +52,7 @@ function getBlog(req,callback){
     var query = {Email:Email};
 
     daf.FindOne(query, CONSTANT.BLOG_COLLECTION,function(err , blog){
-        callback(err ,blog[0]);
+        callback(err ,blog);
     });
 
 };

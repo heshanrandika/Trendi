@@ -10,6 +10,7 @@ const MAIN_ITEM_COLLECTION = "MAINITEMS";
 const PROMOTION_COLLECTION = "PROMOTIONS";
 const MESSAGE = "MESSAGE";
 const BLOG_COLLECTION = "BLOG";
+const DOC_COUNT = "COUNT";
 const MAX_DISTANCE = 0.90;
 const PASSWORD_SEPARATOR = "$";
 const ON_SALE = 1;
@@ -35,5 +36,6 @@ module.exports.ON_SALE = ON_SALE;
 module.exports.NEW_PRODUCT = NEW_PRODUCT;
 module.exports.TOP_RATED = TOP_RATED;
 module.exports.HASHING_ALGO = HASHING_ALGO;
+module.exports.DOC_COUNT = DOC_COUNT;
 
 module.exports.ERROR_INVALID_PARAMETER = ERROR_INVALID_PARAMETER;

@@ -20,7 +20,7 @@ mdbc.connectDb();
 
 
 function findOne(query,fromCollection,callback){
-    mdbc.db.collection(fromCollection).find(query).toArray(function(err, found) {
+    mdbc.db.collection(fromCollection).findOne(query,function(err, found) {
         callback(err,found);
     });
 }
