@@ -15,10 +15,6 @@ window.com = {TRENDI:{CATEGORY:{modules:{}}}};
             'mainTrendiModule',
             'coreModule',
             'adminModule',
-            'gentsModule',
-            'ladiesModule',
-            'babiesModule',
-            'shopModule',
             'ngOpenFB',
             'authModule',
             'iso.directives'

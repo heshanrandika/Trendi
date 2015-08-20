@@ -1,0 +1,21 @@
+<div>
+    <trendi-search actions="search"></trendi-search>
+    <div style="padding-top: 150px;">
+        <div style="padding-top: 20px;">
+            <md-list>
+                <md-list-item ng-repeat="person in people" ng-click="goToPerson(person.name, $event)">
+                    <img alt="{{ person.name }}" ng-src="{{ person.img }}" class="md-avatar" />
+                    <p>{{ person.name }}</p>
+                   <!-- <md-svg-icon class="ic_24px" icon="{{person.iconimg}}"></md-svg-icon>-->
+                    <md-icon md-svg-icon="communication:ic_settings" ng-click="doSecondaryAction($event)" aria-label="Open Chat" class="md-secondary md-hue-3" ng-class="{'md-primary': person.newMessage}"></md-icon>
+                </md-list-item>
+            </md-list>
+        </div>
+
+
+
+    </div>
+
+</div>
+
+

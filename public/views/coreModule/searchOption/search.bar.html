@@ -1,0 +1,71 @@
+<div class="col-md-12 adv-search">
+    <form name="searchForm" ng-submit="searchCustomer('S')">
+        <div class="well">
+            <div class="row">
+                <div class="slc-dt-opt col-xs-12 col-sm-12 col-md-12 col-lg-6">
+                    <div class="slc-radio">
+                        <div class="cal-rad">
+                            <input type="radio" id="from_date" ng-model="dateSelection" value="SD" ng-change="change()">
+                            <label>Single Day
+                            </label>
+                        </div>
+                        <div class="cal-rad clr-flt">
+                            <input type="radio" id="to_date" ng-model="dateSelection" value="DR"
+                                   ng-change="change_range()" class="dt-range">
+                            <label>Date Range</label>
+                        </div>
+                    </div>
+                    <div class="slcDateFrom">
+                        <div class="col-md-6">
+                            <p class="input-group">
+                                <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="dt_from" is-open="status.opened_from" min-date="minDate" max-date="'2020-06-22'"  date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
+              <span class="input-group-btn">
+                <button type="button" class="btn btn-default" ng-click="open_from($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+              </span>
+                            </p>
+                        </div>
+                    </div>
+                    <div ng-show="dateSelection ==='DR'" class="slcDateTo"><div class="col-md-6">
+                        <p class="input-group">
+                            <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="dt_to" is-open="status.opened_to" min-date="minDate" max-date="'2020-06-22'"  date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
+              <span class="input-group-btn">
+                <button type="button" class="btn btn-default" ng-click="open_to($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+              </span>
+                        </p>
+                    </div>
+                    </div>
+                </div>
+                <div class="kyc-search col-xs-12 col-sm-12 col-md-12 col-lg-6">
+                    <!-- placeholder div for dice field.  -->
+                    <div ng-hide="diceSelected == 16 || diceSelected == 17" class="col-xs-2 col-sm-2"></div>
+                    <!-- placeholder div for dice field -->
+                    <div class="col-xs-3 col-sm-3">
+                        <select id="kyc_select_first" ng-model="selectedCollectionOption"
+                                ng-options="data.keyc for data in collectionDropDown"
+                                class="form-control form-filter srch-select-col"></select>
+                    </div>
+                    <div class="col-xs-3 col-sm-3">
+                        <select id="kyc_select_scnd" ng-model="selectedOption"
+                                ng-options="data.key for data in seachDropdownData"
+                                class="form-control form-filter srch-select-opt"
+                                ng-change="seachDropdownDataChange(selectedOption)"></select>
+                    </div>
+                    <div class="col-xs-3 col-sm-3">
+                        <input id="kyc_search_input" type="search" class="form-control"
+                               ng-class="(diceSelected != 0 && (search_key == '' || search_key == undefined)) && 'field-mandatory'"
+                               name="search" placeholder="search" ng-model="search_key" dfn-number/>
+                        <!--ng-pattern="validationPattern"-->
+                    </div>
+                    <div ng-if="diceSelected == 16 || diceSelected == 17" class="col-xs-2 col-sm-2">
+                        <input id="kyc_search_percentage" type="search" class="form-control" name="Percentage"
+                               placeholder="Percentage" ng-model="percentage_value.value"/>
+                    </div>
+   <span class="input-group-btn col-sm-1 adv-search-btn">
+   <button id="kyc_search_btn" type="submit" class="btn blue"><i class="fa fa-search"></i>
+   </button>
+								</span>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

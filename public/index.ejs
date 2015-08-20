@@ -23,7 +23,7 @@
       <link href="css/loader.css" rel="stylesheet">
       <!-- Bootstrap core CSS -->
       <link href="css/bootstrap.min.css" rel="stylesheet">
-      <link href="css/angular-material.css" rel="stylesheet">
+      <link rel='stylesheet' href='css/angular-material.min.css'/>
       <!-- Custom styles for this template -->
       <link href="css/fashion.css" rel="stylesheet">
       <!-- CSS modules -->
@@ -41,6 +41,7 @@
       <link href="css/hoverfold.css" rel="stylesheet">
       <link rel='stylesheet' href='css/jquery.bxslider.css'/>
 
+
      <!--TESTING CSS-->
       <link href="css/test.css" rel="stylesheet">
 
@@ -51,10 +52,13 @@
 
       <title>Trendi</title>
   </head>
-  <body ng-controller="trendiMainController" class="body_bg span12 page-header-fixed" ng-cloak>
+  <body class="body_bg span12 page-header-fixed" ng-cloak>
   <ui-view>
 
   </ui-view>
+
+
+
   <script type="text/javascript" src="javascripts/libs/underscore/underscore.js"></script>
 
 
@@ -65,8 +69,10 @@
 
 
   <script type="text/javascript" src="javascripts/libs/angular/angular.js"></script>
-  <script type="text/javascript" src="javascripts/libs/angular-isotope/jquery.isotope.min.js"></script>
-  <script type="text/javascript" src="javascripts/libs/angular-isotope/angular-isotope.min.js"></script>
+  <script type="text/javascript" src="javascripts/libs/angular-isotope/dist/jquery.isotope.min.js"></script>
+  <script type="text/javascript" src="javascripts/libs/angular-isotope/dist/angular-isotope.min.js"></script>
+  <script type="text/javascript" src="javascripts/libs/angular-material/angular-material.min.js"></script>
+
   <script type="text/javascript" src="javascripts/libs/bxSlider/jquery.bxslider.js"></script>
   <script type="text/javascript" src="javascripts/libs/owl-carousel/owl.carousel.js"></script>
   <script type="text/javascript" src="javascripts/libs/super-fish/superfish.js"></script>
@@ -82,7 +88,6 @@
   <script type="text/javascript" src="javascripts/libs/facebook/ngopenfb.js"></script>
   <script type="text/javascript" src="javascripts/libs/angular-cookies/angular-cookies.min.js"></script>
   <script type="text/javascript" src="javascripts/libs/angular-sanitize/angular-sanitize.js"></script>
-  <script type="text/javascript" src="javascripts/libs/angular-material/angular-material.js"></script>
 
 
 
@@ -106,24 +111,11 @@
   <script type="text/javascript" src="javascripts/modules/mainModule/services.js"></script>
   <script type="text/javascript" src="javascripts/modules/mainModule/factories.js"></script>
 
-  <script type="text/javascript" src="javascripts/modules/ladiesModule/index.js"></script>
-  <script type="text/javascript" src="javascripts/modules/ladiesModule/config.js"></script>
-  <script type="text/javascript" src="javascripts/modules/ladiesModule/controller.js"></script>
-
-  <script type="text/javascript" src="javascripts/modules/gentsModule/index.js"></script>
-  <script type="text/javascript" src="javascripts/modules/gentsModule/config.js"></script>
-  <script type="text/javascript" src="javascripts/modules/gentsModule/controller.js"></script>
-
-  <script type="text/javascript" src="javascripts/modules/babiesModule/index.js"></script>
-  <script type="text/javascript" src="javascripts/modules/babiesModule/config.js"></script>
-  <script type="text/javascript" src="javascripts/modules/babiesModule/controller.js"></script>
-
-  <script type="text/javascript" src="javascripts/modules/shopModule/index.js"></script>
-  <script type="text/javascript" src="javascripts/modules/shopModule/config.js"></script>
-  <script type="text/javascript" src="javascripts/modules/shopModule/controller.js"></script>
 
   <script type="text/javascript" src="javascripts/modules/adminModule/index.js"></script>
   <script type="text/javascript" src="javascripts/modules/adminModule/config.js"></script>
+  <script type="text/javascript" src="javascripts/modules/adminModule/factories.js"></script>
+  <script type="text/javascript" src="javascripts/modules/adminModule/services.js"></script>
   <script type="text/javascript" src="javascripts/modules/adminModule/controller.js"></script>
 
   <script type="text/javascript" src="javascripts/modules/authModule/index.js"></script>

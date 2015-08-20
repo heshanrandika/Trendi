@@ -593,4 +593,164 @@
     }]);
 
 
+    mod.directive("trendiSearch", ['$mdDialog', function (dialogs) {
+        return {
+            restrict: 'E',
+            templateUrl: '/views/coreModule/searchOption/search.bar.html',
+            scope: {
+                actions: '='
+            },
+            link: function (scope) {
+
+                scope.seachDropdownData = scope.actions.one;
+                scope.selectedOption = scope.seachDropdownData[0];
+
+                scope.collectionDropDown = scope.actions.two;
+                scope.selectedCollectionOption = scope.collectionDropDown[0];
+
+
+
+                scope.options = {};
+
+
+                scope.today = function() {
+                    scope.dt_from = new Date();
+                    scope.dt_to = new Date();
+                };
+                scope.today();
+
+                scope.clear_from = function () {
+                    scope.dt_from = null;
+                };
+
+                scope.clear_to = function () {
+                    scope.dt_to = null;
+                };
+                // Disable weekend selection
+                scope.disabled = function(date, mode) {
+                    return ( mode === 'day' && ( date.getDay() === 0 || date.getDay() === 6 ) );
+                };
+
+                scope.toggleMin = function() {
+                    scope.minDate = scope.minDate ? null : new Date();
+                };
+                scope.toggleMin();
+
+                scope.open_from = function($event) {
+                    $event.preventDefault();
+                    $event.stopPropagation();
+                    scope.status.opened_from = true;
+                };
+
+                scope.open_to = function($event) {
+                    $event.preventDefault();
+                    $event.stopPropagation();
+                    scope.status.opened_to = true;
+                };
+
+                scope.options.dateOptions = {
+                    formatYear: 'yy',
+                    startingDay: 1
+                };
+
+                scope.formats = ['dd-MM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
+                scope.format = scope.formats[0];
+
+                scope.status = {
+                    opened: false
+                };
+
+
+
+
+
+
+                scope.change_range = function () {
+                    scope.date_text = "FROM DATE";
+                    scope.dt_from = null;
+                    scope.dt_to = null;
+                };
+
+                scope.searchCustomer = function () {
+                    var dateStrToSend = undefined;
+                    var todate = undefined;
+                    var search_key = undefined;
+                    var selectedCollectionOption = undefined;
+                    var selectedOption = undefined;
+
+                    if (scope.dt_from != undefined) {
+                        dateStrToSend = com.DFN.BI.util.processDate(scope.dt_from);
+                    }
+                    if (scope.dt_to != undefined) {
+                        todate = com.DFN.BI.util.processDate(scope.dt_to);
+                    }
+                    if (!!scope.search_key) {
+                        search_key = scope.search_key;
+                    }
+                    selectedCollectionOption = scope.selectedCollectionOption.value;
+                    selectedOption = scope.selectedOption.value;
+
+                    if (scope.dateSelection === "DR") {
+                        if ((dateStrToSend == undefined) && (todate != undefined)) {
+                            dialogs.error({header: "ERROR", msg: "Please Select From Date"}, {
+                                size: 'sm',
+                                backdrop: 'static'
+                            });
+                        } else if ((dateStrToSend != undefined) && (todate == undefined)) {
+                            dialogs.error({header: "ERROR", msg: "Please Select To Date"}, {
+                                size: 'sm',
+                                backdrop: 'static'
+                            });
+                        } else if ((dateStrToSend == undefined) && (todate == undefined)) {
+                            dialogs.error({header: "ERROR", msg: "Please Select Date Range"}, {
+                                size: 'sm',
+                                backdrop: 'static'
+                            });
+                        } else if (search_key == '' || search_key == undefined) {
+                            var fromDate = new Date(dateStrToSend);
+                            var toDate = new Date(todate);
+                            if (fromDate > toDate) {
+                                dialogs.error({header: "ERROR", msg: "Please Select Valid Date Range"}, {
+                                    size: 'sm',
+                                    backdrop: 'static'
+                                });
+                            } else {
+                                dialogs.error({header: "ERROR", msg: "Please Enter Search Text"}, {
+                                    size: 'sm',
+                                    backdrop: 'static'
+                                });
+                            }
+                        } else {
+                            console.log("call the function here");
+                            scope.actions.searchDataFromServer({
+                                fromDate: dateStrToSend,
+                                toDate: todate,
+                                one: selectedCollectionOption,
+                                two: selectedOption,
+                                key: search_key
+                            });
+                        }
+                    } else {
+                        if (search_key == '' || search_key == undefined) {
+                            dialogs.error({header: "ERROR", msg: "Please Enter Search Text"}, {
+                                size: 'sm',
+                                backdrop: 'static'
+                            });
+                        } else {
+                            console.log("call the function here");
+                            scope.actions.searchDataFromServer({
+                                fromDate: dateStrToSend,
+                                toDate: dateStrToSend,
+                                one: selectedCollectionOption,
+                                two: selectedOption,
+                                key: search_key
+                            });
+                        }
+                    }
+                };
+            }
+        }
+    }]);
+
+
 })(com.TRENDI.CATEGORY.modules.coreModule);

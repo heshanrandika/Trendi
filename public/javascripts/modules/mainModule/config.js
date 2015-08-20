@@ -8,32 +8,13 @@
         URL_CONFIG: {
             'main': {
                 url: '/main',
-                templateUrl: 'views/mainModule/mainTemplate.html'
-            },
-            'ladies': {
-                url: '/ladies',
-                templateUrl: 'views/ladiesModule/ladiesHome.html',
-                controller: 'ladiesHomeController'
-            },
-            'gents': {
-                url: '/gents',
-                templateUrl: 'views/gentsModule/gentsHome.html',
-                controller: 'gentsHomeController'
-            },
-            'babies': {
-                url: '/babies',
-                templateUrl: 'views/babiesModule/babiesHome.html',
-                controller: 'babiesHomeController'
-            },
-            'shop': {
-                url: '/shop',
-                templateUrl: 'views/shopModule/shopHome.html',
-                controller: 'shopHomeController'
+                templateUrl: 'views/mainModule/main.home.html',
+                controller: 'trendiMainController'
             },
             'admin': {
                 url: '/admin',
-                templateUrl: 'views/adminModule/adminHome.html',
-                controller: 'adminController'
+                templateUrl: 'views/adminModule/admin.master.html'
+
             }
 
         },REQ_CONFIG: {
@@ -69,7 +50,7 @@
         _.each(defs.URL_CONFIG, function (e, k) {
             $stateProvider.state(k, e);
         });
-
+        $urlRouterProvider.otherwise('/err');
     }]);
 
 })(com.TRENDI.CATEGORY.modules.mainTrendiModule);

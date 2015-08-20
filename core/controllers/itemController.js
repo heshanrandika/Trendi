@@ -38,6 +38,30 @@ function getLatestItems(req,callback){
     });
 };
 
+
+function getItemByShop(req,callback){
+    console.log("$$$$$$$  Get Items by Shop $$$$$$");
+    var params = (req.body.params) ? req.body.params : {};
+
+    var skip   = (params.skip)?params.skip:0;
+    var limit  = (params.limit)?params.limit:16;
+    var shopId  = (params.shopId)?params.shopId:1;
+    var sorter = [['Date',-1]];
+
+
+    var option = {skip:skip, limit:limit, sort:sorter};
+    var query = {'Item.shopID' : shopId};
+    var data = [];
+    var dbCon = daf.FindWithPagination(query,CONSTANT.MAIN_ITEM_COLLECTION,option);
+    dbCon.on('data', function(doc){
+        data.push(doc);
+    });
+
+    dbCon.on('end', function(){
+            callback(null,data);
+    });
+};
+
 function getMostTrendyItems(req,callback){
     console.log("$$$$$$$  GetMostTrendyItems $$$$$$");
     var params = (req.body.params) ? req.body.params : {};
@@ -327,6 +351,7 @@ function addItems(req,callback) {
 };
 
 module.exports.GetLatestItem = getLatestItems;
+module.exports.GetItemByShop = getItemByShop;
 module.exports.GetMostTrendyItems = getMostTrendyItems;
 module.exports.AddItems = addItems;
 module.exports.GetSubItem = getSubItem;

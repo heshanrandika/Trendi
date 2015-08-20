@@ -15,7 +15,7 @@
             return Data_Comm.postPromise(angular.extend({},adminServiceCalls.updateItemDao()));
         };
 
-        var _getItem = function(){
+        var _getSubItem = function(){
             return Data_Comm.postPromise(angular.extend({},adminServiceCalls.getItemDao()));
         };
 
@@ -28,7 +28,7 @@
             getItemList:_getItemList,
             addItem:_addItem,
             updateItem:_updateItem,
-            getItem:_getItem,
+            getSubItem:_getSubItem,
             removeItem:_removeItem
         }
     }]);

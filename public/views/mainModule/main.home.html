@@ -493,7 +493,7 @@
 </section>
 <!-- //end Social widgets -->
 
-<div class="container" ng-show="latestItemShow">
+<div class="container" ng-if="latestItemShow">
     <!-- Featured Products -->
     <section class="content slider-products">
         <h3>Today's Featured </h3>
@@ -523,7 +523,7 @@
 </div>
 
 <!-- Filters -->
-<div ng-show="mainItemShow">
+<div ng-if="mainItemShow">
     <trendi-isotop items="mainItems"></trendi-isotop>
 </div>
 
@@ -577,7 +577,7 @@
         <h3><a href="listing.html">Trending Now</a></h3>
 
         <!-- Products list -->
-        <div class="row">
+        <div class="row" ng-if="trendItemsShow">
             <trendi-owl-slider images="trendItems" items="1" stop-on-hover="true" auto-play="true" item-display="1" navigation-display="true"></trendi-owl-slider>
         </div>
         <!-- //end Products list -->

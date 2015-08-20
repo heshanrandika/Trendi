@@ -6,18 +6,24 @@
 
     var defs = {
         URL_CONFIG: {
-            'admin.view': {
-                url: '/admin',
-                templateUrl: 'views/adminModule/adminHome.html',
+            'admin.login': {
+                url: '/login',
+                templateUrl: 'views/adminModule/admin.login.html',
+                controller: 'adminAuthController'
+            },
+
+            'admin.home': {
+                url: '/home',
+                templateUrl: 'views/adminModule/admin.home.html',
                 controller: 'adminController'
             }
 
         },REQ_CONFIG: {
-            FUNC_GetItem:         1001,
-            FUNC_AddItems:        1002,
-            FUNC_UpdateItem:      1004,
+            FUNC_GetSubItem:      1004,
+            FUNC_AddItems:        1003,
+            FUNC_UpdateItem:      1007,
             FUNC_RemoveItems:     1005,
-            FUNC_GetItemList:     1008
+            FUNC_GetItemList:     1010
         }
     };
 
@@ -33,7 +39,14 @@
         _.each(defs.URL_CONFIG, function (e, k) {
             $stateProvider.state(k, e);
         });
-
+        $urlRouterProvider.otherwise('/admin/login');
     }]);
+
+    mod.config(['$mdIconProvider', function($mdIconProvider) {
+        $mdIconProvider
+            .iconSet('social', 'images/svg/social-icons.svg', 24)
+            .iconSet('communication', 'images/svg/test.svg', 24)
+            .defaultIconSet('images/svg/core-icons.svg', 24);
+    }])
 
 })(com.TRENDI.CATEGORY.modules.adminModule);
