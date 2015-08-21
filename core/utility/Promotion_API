@@ -9,7 +9,7 @@
             "Email":"h.r.randika@gmail.com",
             "Password":"123456",
             "session":"489t789erghfdjigheru89yghruig",
-            "userType":1,
+            "UserType":1,
             "skip":0,
             "limit":10
         }
@@ -26,7 +26,7 @@
             "Email":"h.r.randika@gmail.com",
             "Password":"123456",
             "session":"489t789erghfdjigheru89yghruig",
-            "userType":1,
+            "UserType":1,
             "skip":0,
             "limit":7
         }
@@ -43,7 +43,7 @@
             "Email": "h.r.randika@gmail.com",
             "Password": "123456",
             "session": "489t789erghfdjigheru89yghruig",
-            "userType": 1,
+            "UserType": 1,
             "Promotion": {
                 "like": 0,
                 "seen": 0,
@@ -70,7 +70,7 @@
             "Email":"h.r.randika@gmail.com",
             "Password":"123456",
             "session":"489t789erghfdjigheru89yghruig",
-            "userType":1,
+            "UserType":1,
             "ShopID":1
 
         }
@@ -86,7 +86,7 @@
             "Email":"h.r.randika@gmail.com",
             "Password":"123456",
             "session":"489t789erghfdjigheru89yghruig",
-            "userType":1,
+            "UserType":1,
             "ShopID":1
 
         }
@@ -102,7 +102,7 @@
             "Email":"h.r.randika@gmail.com",
             "Password":"123456",
             "session":"489t789erghfdjigheru89yghruig",
-            "userType":1,
+            "UserType":1,
             "ShopID":0,
             "Shop": {
                 "like": 0,

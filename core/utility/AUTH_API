@@ -3,7 +3,7 @@
     /*Register Shop*/
     "functionId": 4001,
     "params": {
-        "userType": 2,
+        "UserType": 2,
         "RegUser":{
             "Name":"Heshan",
             "Email": "h.r.randika@gmail.com",
@@ -27,7 +27,7 @@
     {
         "functionId": 4001,
         "params": {
-            "userType": 1,
+            "UserType": 1,
             "RegUser":{
                 "FirstName":"Hiruni",
                 "FirstName":"Sawbhagya",

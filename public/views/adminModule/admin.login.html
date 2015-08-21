@@ -1,8 +1,30 @@
 <div>
-    <h1>TEST LOGIN</h1>
-    <input type="button" ng-click="login_user()">
+    <h1>LOGIN</h1>
 
-    <ui-view>
-
-    </ui-view>
+    <div class="login-form">
+        <form name="login_form">
+            <div class="form-group">
+                <div>
+                    <input id="ath_login_uname" required class="form-control placeholder-no-fix" type="text" ng-model="credentials.Email" autocomplete="off" placeholder="Email" name="email"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <div>
+                    <input id="ath_login_pwod" required class="form-control placeholder-no-fix" type="password" ng-model="credentials.Password" autocomplete="off" placeholder="Password" name="password"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="login-btn">
+                    <a class="btn btn-block btn-primary" ng-click="login_form.$valid && login_user(credentials)">
+                        Sign in
+                    </a>
+                </div>
+                <div class="login-btn">
+                    <a class="btn btn-block btn-default" ng-click="login_close()">
+                        Close
+                    </a>
+                </div>
+            </div>
+        </form>
+    </div>
 </div>

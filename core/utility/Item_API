@@ -9,7 +9,7 @@
             "Email":"h.r.randika@gmail.com",
             "Password":"123456",
             "session":"489t789erghfdjigheru89yghruig",
-            "userType":1,
+            "UserType":1,
             "returnType":0,
             "skip":0,
             "limit":6
@@ -26,7 +26,7 @@
             "Email":"h.r.randika@gmail.com",
             "Password":"123456",
             "session":"489t789erghfdjigheru89yghruig",
-            "userType":1,
+            "UserType":1,
             "returnType":0,
             "skip":0,
             "limit":7
@@ -43,7 +43,7 @@
         "Email": "h.r.randika@gmail.com",
         "Password": "123456",
         "session": "489t789erghfdjigheru89yghruig",
-        "userType": 1,
+        "UserType": 1,
         "mainItem": {
             "onSale": 1,
             "like": 0,
@@ -78,7 +78,7 @@
             "Email":"h.r.randika@gmail.com",
             "Password":"123456",
             "session":"489t789erghfdjigheru89yghruig",
-            "userType":1,
+            "UserType":1,
             "ItemID":3
 
         }
@@ -94,7 +94,7 @@ Get Related Items
             "Email":"h.r.randika@gmail.com",
             "Password":"123456",
             "session":"489t789erghfdjigheru89yghruig",
-            "userType":1,
+            "UserType":1,
             "ItemID":3
 
         }
@@ -110,7 +110,7 @@ Edit Item
             "Email":"h.r.randika@gmail.com",
             "Password":"123456",
             "session":"489t789erghfdjigheru89yghruig",
-            "userType":1,
+            "UserType":1,
             "ItemID":3
             "name":"silky",
             "type":"blouse"
@@ -128,7 +128,7 @@ Update Item
             "Email":"h.r.randika@gmail.com",
             "Password":"123456",
             "session":"489t789erghfdjigheru89yghruig",
-            "userType":1,
+            "UserType":1,
             "ItemID":3
           "mainItem": {
                     "like": 0,

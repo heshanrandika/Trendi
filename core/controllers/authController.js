@@ -11,16 +11,16 @@ function login(req,callback) {
 
     var Email   = (params.Email)?params.Email:'';
     var Password   = (params.Password)?params.Password:'';
-    var userType = (params.userType)?params.userType: 0;
+    var UserType = (params.UserType)?params.UserType: 0;
 
     var query = {'Email':Email};
 
 
-    if(userType === CONSTANT.SHOP){
+    if(UserType === CONSTANT.SHOP){
 
         daf.FindOne(query,CONSTANT.SHOP_COLLECTION,function(err, user){
            if(err){
-               callback(err, user);
+               callback("User Login Failed", user);
                return;
            }else if(user){
                PWD.VerifyPassword(Password,user.Password,function(err, state){
@@ -49,7 +49,7 @@ function login(req,callback) {
                callback(("Shop Not Available : "+ Email),null);
             }
         });
-    }else if(userType === CONSTANT.USER){
+    }else if(UserType === CONSTANT.USER){
         daf.FindOne(query,CONSTANT.USER_COLLECTION,function(err, user){
             if(err){
                 callback(err, user);
@@ -82,7 +82,7 @@ function login(req,callback) {
             }
         });
     }else{
-        callback("User Type Error : "+ userType,null);
+        callback("User Type Error : "+ UserType,null);
     }
 }
 
@@ -90,12 +90,12 @@ function register(req,callback) {
     var params = (req.body.params) ? req.body.params : {};
 
 
-    var userType = (params.userType)?params.userType: 0;
+    var UserType = (params.UserType)?params.UserType: 0;
     var RegUser =  (params.RegUser)?params.RegUser: 0;
 
     var query = {'Email':RegUser.Email};
     var HashPWD = PWD.GetHashedPassword(RegUser.Password,CONSTANT.HASHING_ALGO);
-    if(userType == CONSTANT.SHOP){
+    if(UserType == CONSTANT.SHOP){
         daf.FindOne(query,CONSTANT.SHOP_COLLECTION,function(err, found){
             if(err){
                 callback(err,null);
@@ -130,7 +130,7 @@ function register(req,callback) {
                 callback(err,"Already Registered : Value : "+ RegUser.Email);
             }
         });
-    }else if(userType == CONSTANT.USER){
+    }else if(UserType == CONSTANT.USER){
         daf.FindOne(query,CONSTANT.USER_COLLECTION,function(err,found){
             if(err){
                 callback(err,null);
@@ -155,7 +155,7 @@ function register(req,callback) {
             }
         });
     }else{
-        callback(("User Type Error : value : "+ userType),null);
+        callback(("User Type Error : value : "+ UserType),null);
     }
 
 }
@@ -165,12 +165,12 @@ function authentication(req, callback) {
 
     var Email   = (params.Email)?params.Email:'';
     var Session  = (params.Session)?params.Session:'';
-    var userType = (params.userType)?params.userType: 0;
+    var UserType = (params.UserType)?params.UserType: 0;
 
     if(Email != '' && Session != ''){
         var query = {$and: [ { 'Email':Email}, { 'Session':Session} ]};
         console.log("^^^^^^^  Authentication ^^^^^^^ : ");
-        if(userType == CONSTANT.SHOP){
+        if(UserType == CONSTANT.SHOP){
             daf.FindOne(query,CONSTANT.SHOP_COLLECTION,function(err, user){
                 if (err){
                     callback(err, null);
@@ -183,7 +183,7 @@ function authentication(req, callback) {
                 }
 
             });
-        }else if (userType === CONSTANT.USER){
+        }else if (UserType === CONSTANT.USER){
             daf.FindOne(query,CONSTANT.USER_COLLECTION,function(err, user){
                 if (err){
                     callback(err, null);

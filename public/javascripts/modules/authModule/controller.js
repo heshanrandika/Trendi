@@ -3,7 +3,7 @@
  */
 (function (mod) {
     "use strict";
-    mod.controller('adminAuthController', ['$scope', 'authDataService', 'AuthService',' $localStorage', function ( $scope, authDataService, AuthService,  $localStorage) {
+    mod.controller('adminAuthController', ['$scope', 'authDataService', '$localStorage', function ( $scope, authDataService,  $localStorage) {
 
         $scope.alerts = [];
         $scope.$storage = $localStorage;
@@ -82,28 +82,17 @@
         };
 */
         $scope.login_user = function (credentials) {
-
-           /* authDataService.login(credentials)
+            credentials.UserType = 2;
+            authDataService.loginService(credentials)
                 .then(function (response) {
 
                     var completeUser = response.data.responData.metaData.completeUser;
 
-                    $scope.first_call(completeUser.sessionId, completeUser.userName);
 
-
-                    Session.create(completeUser.sessionId, completeUser.firstName, completeUser.userName);
-                    $rootScope.$broadcast(AUTH_MOD_CONFIG.AUTH_EVENTS.loginSuccess, {
-                        sessionId: completeUser.sessionId,
-                        username: completeUser.userName,
-                        firstName: completeUser.firstName,
-                        usertype: completeUser.userGroups[0],
-                        userObj: completeUser
-                    });
                 }, function (error) {
                     $scope.alerts = [];
-                    $scope.alerts.push({type: 'danger', msg: processErrorMsg(error.data)});
-                    $rootScope.$emit(AUTH_MOD_CONFIG.AUTH_EVENTS.loginFailed);
-                });*/
+                    $scope.alerts.push({type: 'danger'});
+                });
 
         };
 
