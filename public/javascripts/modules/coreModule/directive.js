@@ -485,7 +485,8 @@
                 return url;
             },
             link: function(scope, elm, attrs) {
-                scope.files = [];
+               // scope.files = [];
+                scope.clickedDefault = false;
                 var dropbox = angular.element('#dropbox').context;
                 scope.dropText = 'Drop files here...';
                 scope.successfullyUploaded = false;
@@ -528,11 +529,13 @@
                             for (var i = 0; i < files.length; i++) {
                                 if (files[i].size < 1000000) {
                                    // scope.files.push(files[i]);
-                                       scope.getFileContent(files[i]);
-                                } else {
-                                    if (files[i].size > 1000000) {
+                                    if (files[i].type == "image/jpeg" || files[i].type == "image/png" ) {
+                                        scope.getFileContent(files[i]);
+                                    } else {
 
                                     }
+                                } else {
+
                                 }
 
                             }
@@ -544,11 +547,18 @@
                 scope.setFiles = function (element) {
                     scope.progressVisible = false;
                     scope.successfullyUploaded = false;
+                    var files = element.files;
                         // Turn the FileList object into an Array
-                        for (var i = 0; i < element.files.length; i++) {
-                            if (element.files[i].size < 1000000) {
-                               // scope.files.push(element.files[i]);
-                                scope.getFileContent(element.files[i]);
+                        for (var i = 0; i < files.length; i++) {
+                            if (files[i].size < 1000000) {
+                                // scope.files.push(files[i]);
+                                if (files[i].type == "image/jpeg" || files[i].type == "image/png" ) {
+                                    scope.getFileContent(files[i]);
+                                } else {
+
+                                }
+                            } else {
+
                             }
                         }
                         scope.progressVisible = false;
@@ -564,8 +574,27 @@
 
 
                 scope.removeFile = function (index) {
-                    scope.files.splice(index, 1);
-                    scope.fileContent = '';
+                    if(scope.files[index].default){
+                        scope.clickedDefault = false;
+                        scope.files.splice(index, 1);
+                        scope.fileContent = '';
+                        if(scope.files.length > 0)
+                            scope.files[0].default = true;
+                    }else{
+                        scope.files.splice(index, 1);
+                        scope.fileContent = '';
+                    }
+
+
+
+                };
+
+                scope.setDefault = function (index) {
+                    scope.clickedDefault = true;
+                    _.each(scope.files,function(k){
+                        k.default = false;
+                    });
+                    scope.files[index].default = true;
                 };
 
                 scope.getFileContent = function(file) {
@@ -581,6 +610,9 @@
                         };
                         scope.$apply(function (scope) {
                         scope.files.push(fileDetail);
+                            if(!scope.clickedDefault){
+                                scope.files[0].default = true;
+                            }
                         });
                     };
 
@@ -748,6 +780,44 @@
                         }
                     }
                 };
+            }
+        }
+    }]);
+
+    mod.directive('trendiChips',[function(){
+        return{
+            restrict:'E',
+            templateUrl:'/views/coreModule/chip/trendi.chip.size.html',
+            scope:{
+                selectedItems:"=",
+                placeholder:"@",
+                itemList:"="
+            },
+            link:function(scope, elm, attrs){
+                scope.selectedItem = null;
+                scope.searchText = null;
+                scope.querySearch = querySearch;
+                scope.items = loadItems();
+
+
+                function querySearch (query) {
+                    var results = query ? scope.items.filter(createFilterFor(query)) : [];
+                    return results;
+                }
+
+                function createFilterFor(query) {
+                    var lowercaseQuery = angular.lowercase(query);
+                    return function filterFn(item) {
+                        return (item._lowername.indexOf(lowercaseQuery) === 0);
+                    };
+                }
+                function loadItems() {
+                    var items = scope.itemList;
+                    return items.map(function (item) {
+                        item._lowername = item.value.toLowerCase();
+                        return item;
+                    });
+                }
             }
         }
     }]);

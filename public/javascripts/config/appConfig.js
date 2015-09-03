@@ -12,6 +12,7 @@ window.com = {TRENDI:{CATEGORY:{modules:{}}}};
             'ngMaterial',
             'ui.bootstrap',
             'ngStorage',
+            'ngMessages',
             'mainTrendiModule',
             'coreModule',
             'adminModule',

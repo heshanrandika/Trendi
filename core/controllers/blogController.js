@@ -7,8 +7,8 @@ var CONSTANT = require('../utility/Constants');
 function upsertBlog(req,callback){
     console.log("$$$$$$$  AddBlog $$$$$$");
     var params = (req.body.params) ? req.body.params : {};
-    var Email = params.Email;
-    var query = {Email:Email};
+    var email = params.email;
+    var query = {email:email};
     var blog = params.Blog;
     daf.Upsert(query, blog, CONSTANT.BLOG_COLLECTION, function(err , dataList){
         callback(err ,dataList);
@@ -36,7 +36,7 @@ function getBlogList(req,callback){
 function removeBlog(req,callback){
     console.log("$$$$$$$  Remove Blog $$$$$$");
     var params = (req.body.params) ? req.body.params : {};
-    var query = {Email:params.Email};
+    var query = {email:params.email};
 
     daf.Remove(query,CONSTANT.BLOG_COLLECTION,function(err , success){
         callback(err ,success);
@@ -48,8 +48,8 @@ function getBlog(req,callback){
     console.log("$$$$$$$ Get Blog  $$$$$$");
     var params = (req.body.params) ? req.body.params : {};
 
-    var Email = params.Email;
-    var query = {Email:Email};
+    var email = params.email;
+    var query = {email:email};
 
     daf.FindOne(query, CONSTANT.BLOG_COLLECTION,function(err , blog){
         callback(err ,blog);

@@ -40,9 +40,8 @@ module.exports = function(app) {
     app.use(function(req, res, next){
         authCtrl.Authentication(req, function(err, userObj){
             if(err){
-                var params = (req.body.params) ? req.body.params : {};
-                var Email   = (params.Email)?params.Email:'';
-                if(Email == ''){
+                var email   = (req.body.email)?req.body.email:'';
+                if(email == ''){
                     NormalUser.NormalRequestRoute(req, res);
                 }else{
                     var resObject = {

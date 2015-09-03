@@ -132,3 +132,6 @@
     border-radius: 32px;
     color: black;
 }
+
+.inputdemoErrors .inputErrorsApp {
+    min-height: 48px; }

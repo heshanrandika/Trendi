@@ -11,7 +11,7 @@ function getUserList(req,callback){
     var skip   = (params.skip)?params.skip:0;
     var limit  = (params.limit)?params.limit:18;
     var organize = (params.organize)?params.organize:"1";
-    var sorter = [['Item.trend',-1]];
+    var sorter = [['item.trend',-1]];
 
 
     var option = {skip:skip, limit:limit, sort:sorter};
@@ -33,7 +33,7 @@ function getUser(req,callback){
 
     var skip = params.skip;
     var limit = params.limit;
-    var sorter = [["Item.seen",-1],["Item.like",-1],["Item.trend",-1]];
+    var sorter = [["item.seen",-1],["item.like",-1],["item.trend",-1]];
 
     var option = {skip:skip, limit:limit, sort:sorter};
     var query = "";
@@ -51,8 +51,8 @@ function getUser(req,callback){
 
 function updateUser(req,callback){
     var params = (req.body.params) ? req.body.params : {};
-    var query = {'ItemID':params.ItemID};
-    var changeDoc ={$inc:{ 'Item.seen': 1}};
+    var query = {'itemId':params.itemId};
+    var changeDoc ={$inc:{ 'item.seen': 1}};
     daf.Update(query,changeDoc,CONSTANT.MAIN_ITEM_COLLECTION,function(err , data){
         daf.FindOne(query,CONSTANT.SUB_ITEM_COLLECTION, function(err , data){
             callback(err ,data);
@@ -63,8 +63,8 @@ function updateUser(req,callback){
 
 function addItemToList(req,callback){
     var params = (req.body.params) ? req.body.params : {};
-    var query = {'ItemID':params.ItemID};
-    var changeDoc ={$inc:{ 'Item.seen': 1}};
+    var query = {'itemId':params.itemId};
+    var changeDoc ={$inc:{ 'item.seen': 1}};
     daf.Update(query,changeDoc,CONSTANT.MAIN_ITEM_COLLECTION,function(err , data){
         daf.FindOne(query,CONSTANT.SUB_ITEM_COLLECTION, function(err , data){
             callback(err ,data);
@@ -75,8 +75,8 @@ function addItemToList(req,callback){
 
 function removeItemFromList(req,callback){
     var params = (req.body.params) ? req.body.params : {};
-    var query = {'ItemID':params.ItemID};
-    var changeDoc ={$inc:{ 'Item.seen': 1}};
+    var query = {'itemId':params.itemId};
+    var changeDoc ={$inc:{ 'item.seen': 1}};
     daf.Update(query,changeDoc,CONSTANT.MAIN_ITEM_COLLECTION,function(err , data){
         daf.FindOne(query,CONSTANT.SUB_ITEM_COLLECTION, function(err , data){
             callback(err ,data);
@@ -87,8 +87,8 @@ function removeItemFromList(req,callback){
 
 function getListItem(req,callback){
     var params = (req.body.params) ? req.body.params : {};
-    var query = {'ItemID':params.ItemID};
-    var changeDoc ={$inc:{ 'Item.seen': 1}};
+    var query = {'itemId':params.itemId};
+    var changeDoc ={$inc:{ 'item.seen': 1}};
     daf.Update(query,changeDoc,CONSTANT.MAIN_ITEM_COLLECTION,function(err , data){
         daf.FindOne(query,CONSTANT.SUB_ITEM_COLLECTION, function(err , data){
             callback(err ,data);

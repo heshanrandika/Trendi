@@ -11,16 +11,20 @@
             return Data_Comm.postPromise(angular.extend({params:d},adminServiceCalls.addItemDao()));
         };
 
-        var _updateItem = function(){
-            return Data_Comm.postPromise(angular.extend({},adminServiceCalls.updateItemDao()));
+        var _updateItem = function(d){
+            return Data_Comm.postPromise(angular.extend({params:d},adminServiceCalls.updateItemDao()));
         };
 
-        var _getSubItem = function(){
-            return Data_Comm.postPromise(angular.extend({},adminServiceCalls.getItemDao()));
+        var _getSubItem = function(d){
+            return Data_Comm.postPromise(angular.extend({params:d},adminServiceCalls.getSubItemDao()));
         };
 
-        var _removeItem = function(){
-            return Data_Comm.postPromise(angular.extend({},adminServiceCalls.removeItemDao()));
+        var _removeItem = function(d){
+            return Data_Comm.postPromise(angular.extend({params:d},adminServiceCalls.removeItemDao()));
+        };
+
+        var _shopData = function(){
+            return adminServiceCalls.shopDataDao();
         };
 
 
@@ -29,7 +33,8 @@
             addItem:_addItem,
             updateItem:_updateItem,
             getSubItem:_getSubItem,
-            removeItem:_removeItem
+            removeItem:_removeItem,
+            shopData:_shopData
         }
     }]);
 })(com.TRENDI.CATEGORY.modules.adminModule);

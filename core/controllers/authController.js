@@ -9,29 +9,29 @@ var PWD = require('../utility/GeneralFunctions');
 function login(req,callback) {
     var params = (req.body.params) ? req.body.params : {};
 
-    var Email   = (params.Email)?params.Email:'';
-    var Password   = (params.Password)?params.Password:'';
-    var UserType = (params.UserType)?params.UserType: 0;
+    var email   = (params.email)?params.email:'';
+    var password   = (params.password)?params.password:'';
+    var userType = (params.userType)?params.userType: 0;
 
-    var query = {'Email':Email};
+    var query = {'email':email};
 
 
-    if(UserType === CONSTANT.SHOP){
+    if(userType === CONSTANT.SHOP){
 
         daf.FindOne(query,CONSTANT.SHOP_COLLECTION,function(err, user){
            if(err){
                callback("User Login Failed", user);
                return;
            }else if(user){
-               PWD.VerifyPassword(Password,user.Password,function(err, state){
+               PWD.VerifyPassword(password,user.password,function(err, state){
                    if(err){
                        callback(err, state);
                    }else if(state){
-                       PWD.GenerateSession(function(Session){
-                           var changeDoc = {$set:{'Session':Session}};
+                       PWD.GenerateSession(function(session){
+                           var changeDoc = {$set:{'session':session}};
                            daf.Update(query,changeDoc,CONSTANT.SHOP_COLLECTION,function(err, success){
                                if(success){
-                                   user.Session = Session;
+                                   user.session = session;
                                    callback(err, user);
                                }else{
                                    callback(err, null);
@@ -46,24 +46,24 @@ function login(req,callback) {
                });
 
             }else{
-               callback(("Shop Not Available : "+ Email),null);
+               callback(("Shop Not Available : "+ email),null);
             }
         });
-    }else if(UserType === CONSTANT.USER){
+    }else if(userType === CONSTANT.USER){
         daf.FindOne(query,CONSTANT.USER_COLLECTION,function(err, user){
             if(err){
                 callback(err, user);
                 return;
             }else if(user){
-                PWD.VerifyPassword(Password,user.Password,function(err, state){
+                PWD.VerifyPassword(password,user.password,function(err, state){
                     if(err){
                         callback(err, state);
                     }else if(state){
-                        PWD.GenerateSession(function(Session){
-                            var changeDoc = {$set:{'Session':Session}};
+                        PWD.GenerateSession(function(session){
+                            var changeDoc = {$set:{'session':session}};
                             daf.Update(query,changeDoc,CONSTANT.USER_COLLECTION,function(err, success){
                                 if(success){
-                                    user.Session = Session;
+                                    user.session = session;
                                     callback(err, user);
                                 }else{
                                     callback(err, null);
@@ -78,11 +78,11 @@ function login(req,callback) {
                 });
 
             }else{
-                callback(("User Not Available : "+ Email),null);
+                callback(("User Not Available : "+ email),null);
             }
         });
     }else{
-        callback("User Type Error : "+ UserType,null);
+        callback("User Type Error : "+ userType,null);
     }
 }
 
@@ -90,31 +90,28 @@ function register(req,callback) {
     var params = (req.body.params) ? req.body.params : {};
 
 
-    var UserType = (params.UserType)?params.UserType: 0;
-    var RegUser =  (params.RegUser)?params.RegUser: 0;
+    var userType = (params.userType)?params.userType: 0;
+    var regUser =  (params.regUser)?params.regUser: 0;
 
-    var query = {'Email':RegUser.Email};
-    var HashPWD = PWD.GetHashedPassword(RegUser.Password,CONSTANT.HASHING_ALGO);
-    if(UserType == CONSTANT.SHOP){
+    var query = {'email':regUser.email};
+    var HashPWD = PWD.GetHashedPassword(regUser.password,CONSTANT.HASHING_ALGO);
+    if(userType == CONSTANT.SHOP){
         daf.FindOne(query,CONSTANT.SHOP_COLLECTION,function(err, found){
-            if(err){
-                callback(err,null);
-                return;
-            }
             if(!found){
                 //TODO with update Doc
-              //  var query = {'Name' : RegUser.Name, 'Email':RegUser.Email, 'Password':HashPWD, 'Session':'', 'Rating':'', 'pos':RegUser.pos};
+              //  var query = {'Name' : regUser.Name, 'email':regUser.email, 'password':HashPWD, 'session':'', 'Rating':'', 'pos':regUser.pos};
                 daf.Count('', CONSTANT.SHOP_COLLECTION, function (err, count) {
                     if (count) {
                         console.log("$$$$$$$  Add Shop $$$$$$ Count : " + count);
-                        shopID = count;
-                        var doc = {ShopID: shopID, Date: new Date(), Delete: 0, 'Name' : RegUser.Name, 'Email':RegUser.Email, 'Password':HashPWD, 'Shop':RegUser.Shop, 'Session':''};
+                        shopId = count;
+                        regUser.shop.shopId = shopId;
+                        var doc = {shopId: shopId, date: new Date(), delete: 0, 'name' : regUser.name, 'email':regUser.email, 'password':HashPWD, 'shop':regUser.shop, 'session':'', 'userType':userType};
                         daf.Insert(doc, CONSTANT.SHOP_COLLECTION, function (err, success) {
                             if(err){
                                 callback(("Registration Failed :"+err),null);
                             }else {
                                 console.log("^^^^^^^  Shop Added ^^^^^^^ : ");
-                                var messageDoc = {Email: RegUser.Email, SENTITEM: [], NEWMESSAGE: [], INBOX: []};
+                                var messageDoc = {email: regUser.email, SENTITEM: [], NEWMESSAGE: [], INBOX: []};
                                 daf.Insert(messageDoc, CONSTANT.MESSAGE, function (err, success) {
                                     console.log("^^^^^^^  Message Added ^^^^^^^ : ");
                                     callback(err,("Successfully Registered :"+success));
@@ -127,23 +124,20 @@ function register(req,callback) {
 
                 });
             }else{
-                callback(err,"Already Registered : Value : "+ RegUser.Email);
+                callback(err,"Already Registered : Value : "+ regUser.email);
             }
         });
-    }else if(UserType == CONSTANT.USER){
+    }else if(userType == CONSTANT.USER){
         daf.FindOne(query,CONSTANT.USER_COLLECTION,function(err,found){
-            if(err){
-                callback(err,null);
-                return;
-            }
+
             if(!found){
-                var query = {'FirstName' : RegUser.FirstName, 'LastName' : RegUser.LastName, 'Dob':RegUser.DOB, 'Mobile':RegUser.Mobile, 'Email':RegUser.Email, 'Password':HashPWD, 'Session':'', 'watchList':[],'recentlyView':[]};
+                var query = {'userType':CONSTANT.USER , 'firstName' : regUser.firstName, 'lastName' : regUser.lastName, 'dob':regUser.dob, 'mobile':regUser.mobile, 'email':regUser.email, 'password':HashPWD, 'session':'', 'watchList':[],'recentlyView':[]};
                 daf.Insert(query,CONSTANT.USER_COLLECTION,function(err,success){
                     console.log("^^^^^^^  Shop Added ^^^^^^^ : ");
                     if(err){
                         callback(("Registration Failed :"+err),null);
                     }else{
-                        var messageDoc = {Email:RegUser.Email,SENTITEM:[],NEWMESSAGE:[],INBOX:[]};
+                        var messageDoc = {email:regUser.email,SENTITEM:[],NEWMESSAGE:[],INBOX:[]};
                         daf.Insert(messageDoc,CONSTANT.MESSAGE, function(err, success){
                             console.log("^^^^^^^  Message Added ^^^^^^^ : ");
                             callback(err,("Successfully Registered :"+success));
@@ -151,26 +145,26 @@ function register(req,callback) {
                     }
                 });
             }else{
-                callback(("Already Registered : Value : "+ RegUser.Email),null);
+                callback(("Already Registered : Value : "+ regUser.email),null);
             }
         });
     }else{
-        callback(("User Type Error : value : "+ UserType),null);
+        callback(("User Type Error : value : "+ userType),null);
     }
 
 }
 
 function authentication(req, callback) {
-    var params = (req.body.params) ? req.body.params : {};
+   // var params = (req.body) ? req.body : {};
 
-    var Email   = (params.Email)?params.Email:'';
-    var Session  = (params.Session)?params.Session:'';
-    var UserType = (params.UserType)?params.UserType: 0;
+    var email   = (req.body.email)?req.body.email:'';
+    var session  = (req.body.session)?req.body.session:'';
+    var userType = (req.body.userType)?req.body.userType: 0;
 
-    if(Email != '' && Session != ''){
-        var query = {$and: [ { 'Email':Email}, { 'Session':Session} ]};
+    if(email != '' && session != ''){
+        var query = {$and: [ { 'email':email}, { 'session':session} ]};
         console.log("^^^^^^^  Authentication ^^^^^^^ : ");
-        if(UserType == CONSTANT.SHOP){
+        if(userType == CONSTANT.SHOP){
             daf.FindOne(query,CONSTANT.SHOP_COLLECTION,function(err, user){
                 if (err){
                     callback(err, null);
@@ -179,11 +173,11 @@ function authentication(req, callback) {
                     callback(null, user);
 
                 }else{
-                    callback(("User: " + Email + " does not exist"), null);
+                    callback(("User: " + email + " does not exist"), null);
                 }
 
             });
-        }else if (UserType === CONSTANT.USER){
+        }else if (userType === CONSTANT.USER){
             daf.FindOne(query,CONSTANT.USER_COLLECTION,function(err, user){
                 if (err){
                     callback(err, null);
@@ -192,7 +186,7 @@ function authentication(req, callback) {
                     callback(null, user);
 
                 }else{
-                    callback(("User: " + Email + " does not exist"), null);
+                    callback(("User: " + email + " does not exist"), null);
                 }
             });
         }else{

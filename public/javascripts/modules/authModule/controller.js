@@ -3,7 +3,7 @@
  */
 (function (mod) {
     "use strict";
-    mod.controller('adminAuthController', ['$scope', 'authDataService', '$localStorage', function ( $scope, authDataService,  $localStorage) {
+    mod.controller('adminAuthController', ['$scope', 'authDataService', '$localStorage','$state', function ( $scope, authDataService,  $localStorage, $state) {
 
         $scope.alerts = [];
         $scope.$storage = $localStorage;
@@ -82,12 +82,12 @@
         };
 */
         $scope.login_user = function (credentials) {
-            credentials.UserType = 2;
+            credentials.userType = 2;
             authDataService.loginService(credentials)
                 .then(function (response) {
-
-                    var completeUser = response.data.responData.metaData.completeUser;
-
+                    var completeUser = response.data.responData.data;
+                    $scope.$storage.user = completeUser;
+                    $state.go('admin.home');
 
                 }, function (error) {
                     $scope.alerts = [];

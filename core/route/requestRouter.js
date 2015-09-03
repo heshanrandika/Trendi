@@ -19,7 +19,22 @@ var requestRoute = function(req,res){
     switch (functionId) {
         case 1000:
 
-            res.send(req.user);
+            ITEM.RemoveItem(req, function (err, data) {
+                if (err) {
+                    resObject.resStatus = 0;
+                    resObject.responData.Error = err.toString();
+                    res.status(500);
+                    res.send(resObject);
+
+                } else if (data) {
+
+                    resObject.resStatus = 1;
+                    resObject.responData.data = data;
+                    res.send(resObject);
+
+                }
+
+            });
             break;
 
         case 1001:
@@ -205,7 +220,7 @@ var requestRoute = function(req,res){
 
         case 1010:
 
-            SHOP.GetItemByShop(req, function (err, data) {
+            ITEM.GetItemByShop(req, function (err, data) {
                 if (err) {
                     resObject.resStatus = 0;
                     resObject.responData.Error = err.toString();
@@ -639,6 +654,86 @@ var requestRoute = function(req,res){
         case 6003:
 
             BLOG.RemoveBlog(req, function (err, data) {
+                if (err) {
+                    resObject.resStatus = 0;
+                    resObject.responData.Error = err.toString();
+                    res.status(500);
+                    res.send(resObject);
+
+                } else if (data) {
+
+                    resObject.resStatus = 1;
+                    resObject.responData.data = data;
+                    res.send(resObject);
+
+                }
+
+            });
+            break;
+
+        case 7000:
+
+            BLOG.GetTagList(req, function (err, data) {
+                if (err) {
+                    resObject.resStatus = 0;
+                    resObject.responData.Error = err.toString();
+                    res.status(500);
+                    res.send(resObject);
+
+                } else if (data) {
+
+                    resObject.resStatus = 1;
+                    resObject.responData.data = data;
+                    res.send(resObject);
+
+                }
+
+            });
+            break;
+
+        case 7001:
+
+            BLOG.GetBlog(req, function (err, data) {
+                if (err) {
+                    resObject.resStatus = 0;
+                    resObject.responData.Error = err.toString();
+                    res.status(500);
+                    res.send(resObject);
+
+                } else if (data) {
+
+                    resObject.resStatus = 1;
+                    resObject.responData.data = data;
+                    res.send(resObject);
+
+                }
+
+            });
+            break;
+
+        case 7002:
+
+            BLOG.UpsertBlog(req, function (err, data) {
+                if (err) {
+                    resObject.resStatus = 0;
+                    resObject.responData.Error = err.toString();
+                    res.status(500);
+                    res.send(resObject);
+
+                } else if (data) {
+
+                    resObject.resStatus = 1;
+                    resObject.responData.data = data;
+                    res.send(resObject);
+
+                }
+
+            });
+            break;
+
+        case 7003:
+
+            BLOG.RemoveTag(req, function (err, data) {
                 if (err) {
                     resObject.resStatus = 0;
                     resObject.responData.Error = err.toString();

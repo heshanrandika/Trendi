@@ -87,8 +87,7 @@ function update(query, changeDoc, fromCollection, callback){
 
 function remove(query, fromCollection, callback){
     mdbc.db.collection(fromCollection).remove(query , function(err, remDoc){
-        if (err) { throw err; }
-        if(remDoc) { callback(remDoc); }
+        callback(err,remDoc);
     });
 }
 

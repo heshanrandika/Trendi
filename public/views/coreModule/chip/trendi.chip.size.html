@@ -1,0 +1,15 @@
+<md-chips ng-model="selectedItems" md-autocomplete-snap md-require-match="true">
+    <md-autocomplete
+            md-selected-item="selectedItem"
+            md-search-text="searchText"
+            md-items="item in querySearch(searchText)"
+            md-item-text="item.value"
+            placeholder="{{placeholder}}">
+        <span md-highlight-text="searchText">{{item.value}}</span>
+    </md-autocomplete>
+    <md-chip-template>
+                                                    <span>
+                                                        <strong>{{$chip.value}}</strong>
+                                                    </span>
+    </md-chip-template>
+</md-chips>

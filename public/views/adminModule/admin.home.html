@@ -1,13 +1,14 @@
 <div>
     <trendi-search actions="search"></trendi-search>
     <div style="padding-top: 150px;">
+        <md-button class="md-raised md-primary" ng-click="goToItem('',$event)"><md-icon md-svg-src="add-circle"></md-icon> Add New Item</md-button>
         <div style="padding-top: 20px;">
             <md-list>
-                <md-list-item ng-repeat="person in people" ng-click="goToPerson(person.name, $event)">
-                    <img alt="{{ person.name }}" ng-src="{{ person.img }}" class="md-avatar" />
-                    <p>{{ person.name }}</p>
+                <md-list-item ng-repeat="item in itemList" ng-click="goToItem(item, $event)">
+                    <img alt="{{ item.item.name }}" ng-src="{{item.item.image}}" class="md-avatar" />
+                    <p>{{ item.item.name }}</p>
                    <!-- <md-svg-icon class="ic_24px" icon="{{person.iconimg}}"></md-svg-icon>-->
-                    <md-icon md-svg-icon="communication:ic_settings" ng-click="doSecondaryAction($event)" aria-label="Open Chat" class="md-secondary md-hue-3" ng-class="{'md-primary': person.newMessage}"></md-icon>
+                    <md-icon md-svg-icon="communication:ic_settings" ng-click="goToItem(item, $event)" aria-label="Open Chat" class="md-secondary md-hue-3" ng-class="{'md-primary': item.item.name}"></md-icon>
                 </md-list-item>
             </md-list>
         </div>
@@ -15,6 +16,7 @@
 
 
     </div>
+
 
 </div>
 

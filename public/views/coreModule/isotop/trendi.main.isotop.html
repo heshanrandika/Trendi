@@ -20,7 +20,7 @@
         <div class="products-list-isotope" id="isotopeContainer" isotope-container ng-cloak class="ng-cloak">
             <div class="kindling {{x.class}} product-preview " ng-repeat="x in xList " isotope-item  onClick="removeItem(this)" on-finish-render="test">
 
-                    <div class="preview animate scale"> <a href="product_default.html" class="preview-image"><img class="img-responsive animate scale" ng-src="data:image/JPEG;base64,{{x.Item.image}}" width="270" height="328" alt=""></a>
+                    <div class="preview animate scale"> <a href="product_default.html" class="preview-image"><img class="img-responsive animate scale" ng-src="{{x.item.image}}" width="270" height="328" alt=""></a>
                         <ul class="product-controls-list right">
                             <li><span class="label label-sale">SALE</span></li>
                             <li><span class="label">-20%</span></li>

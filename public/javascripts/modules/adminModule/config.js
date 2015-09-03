@@ -22,7 +22,7 @@
             FUNC_GetSubItem:      1004,
             FUNC_AddItems:        1003,
             FUNC_UpdateItem:      1007,
-            FUNC_RemoveItems:     1005,
+            FUNC_RemoveItems:     1000,
             FUNC_GetItemList:     1010
         }
     };

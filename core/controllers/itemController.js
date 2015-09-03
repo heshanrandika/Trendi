@@ -13,7 +13,7 @@ function getLatestItems(req,callback){
     var skip   = (params.skip)?params.skip:0;
     var limit  = (params.limit)?params.limit:16;
     var organize = (params.organize)?params.organize:"0";
-    var sorter = [['Item.trend',-1]];
+    var sorter = [['item.trend',-1]];
 
 
     var option = {skip:skip, limit:limit, sort:sorter};
@@ -45,12 +45,12 @@ function getItemByShop(req,callback){
 
     var skip   = (params.skip)?params.skip:0;
     var limit  = (params.limit)?params.limit:16;
-    var shopId  = (params.shopId)?params.shopId:1;
-    var sorter = [['Date',-1]];
+    var shopId  = params.shopId;
+    var sorter = [['date',-1]];
 
 
     var option = {skip:skip, limit:limit, sort:sorter};
-    var query = {'Item.shopID' : shopId};
+    var query = {'item.shop.shopId' : shopId};
     var data = [];
     var dbCon = daf.FindWithPagination(query,CONSTANT.MAIN_ITEM_COLLECTION,option);
     dbCon.on('data', function(doc){
@@ -68,7 +68,7 @@ function getMostTrendyItems(req,callback){
 
     var skip = params.skip;
     var limit = params.limit;
-    var sorter = [["Item.seen",-1],["Item.like",-1],["Item.trend",-1]];
+    var sorter = [["item.seen",-1],["item.like",-1],["item.trend",-1]];
 
     var option = {skip:skip, limit:limit, sort:sorter};
     var query = "";
@@ -97,14 +97,14 @@ function getMainItemList(req,callback){
     var option = {};
 
     var getExist = function(callback){
-        sorter = [['Item.trend',-1]];
+        sorter = [['item.trend',-1]];
         skip = 0;
         limit = 1;
         var idArray = [];
-        option = {skip:skip, limit:limit, sort:sorter,fields:{ItemID:1,_id:0}};
+        option = {skip:skip, limit:limit, sort:sorter,fields:{itemId:1,_id:0}};
         var dbCon = daf.FindWithSorting(query,CONSTANT.MAIN_ITEM_COLLECTION,option);
         dbCon.on('data', function(doc){
-            idArray.push(doc.ItemID)
+            idArray.push(doc.itemId)
         });
 
         dbCon.on('end', function(){
@@ -116,8 +116,8 @@ function getMainItemList(req,callback){
     getExist(function(idArray){
         skip = 0;
         limit = 5;
-        query = {$and: [ {'Item.onSale' : 0}, {"ItemID": { $nin: idArray }} ]};
-        sorter = [["Item.like",-1],["Item.trend",-1]];
+        query = {$and: [ {'item.onSale' : 0}, {"itemId": { $nin: idArray }} ]};
+        sorter = [["item.like",-1],["item.trend",-1]];
         option = {skip:skip, limit:limit, sort:sorter};
         var dbCon = daf.FindWithSorting(query,CONSTANT.MAIN_ITEM_COLLECTION,option);
         dbCon.on('data', function(doc){
@@ -126,8 +126,8 @@ function getMainItemList(req,callback){
         });
 
         dbCon.on('end', function(){
-            query = {$and: [ {'Item.onSale' : 1}, {"ItemID": { $nin: idArray }} ]};
-            sorter = [["Item.like",-1],["Item.trend",-1]];
+            query = {$and: [ {'item.onSale' : 1}, {"itemId": { $nin: idArray }} ]};
+            sorter = [["item.like",-1],["item.trend",-1]];
             option = {skip:skip, limit:limit, sort:sorter};
             var dbCon = daf.FindWithSorting(query,CONSTANT.MAIN_ITEM_COLLECTION,option);
             dbCon.on('data', function(doc){
@@ -137,7 +137,7 @@ function getMainItemList(req,callback){
 
             dbCon.on('end', function(){
                 query = {};
-                sorter = [["Promotion.like",-1],["Promotion.trend",-1]];
+                sorter = [["promotion.like",-1],["promotion.trend",-1]];
                 option = {skip:skip, limit:limit, sort:sorter};
                 var dbCon = daf.FindWithSorting(query,CONSTANT.PROMOTION_COLLECTION,option);
                 dbCon.on('data', function(doc){
@@ -203,13 +203,20 @@ function getCommonItemList(req,callback){
 
 function getSubItem(req,callback){
     var params = (req.body.params) ? req.body.params : {};
-    var query = {'ItemID':params.ItemID};
-    var changeDoc ={$inc:{ 'Item.seen': 1}};
-    daf.Update(query,changeDoc,CONSTANT.MAIN_ITEM_COLLECTION,function(err , data){
+    var query = {'itemId':params.itemId};
+    var changeDoc ={$inc:{ 'item.seen': 1}};
+    if(params.seenEnable){
+        daf.Update(query,changeDoc,CONSTANT.MAIN_ITEM_COLLECTION,function(err , data){
+            daf.FindOne(query,CONSTANT.SUB_ITEM_COLLECTION, function(err , data){
+                callback(err ,data);
+            });
+        });
+    }else{
         daf.FindOne(query,CONSTANT.SUB_ITEM_COLLECTION, function(err , data){
             callback(err ,data);
         });
-    });
+    }
+
 
 };
 
@@ -241,16 +248,16 @@ function getRelatedItems(req,callback){
 function editItems(req,callback){
     console.log("$$$$$$$  EditItems $$$$$$");
     var params = (req.body.params) ? req.body.params : {};
-    var query = {'ItemID':params.ItemID};
+    var query = {'itemId':params.itemId};
 
     var itemList = {};
     var mainItem = {};
     daf.FindOne(query,CONSTANT.MAIN_ITEM_COLLECTION, function(err , data){
         if(data) {
-            mainItem = data.Item;
+            mainItem = data.item;
             daf.FindOne(query, CONSTANT.SUB_ITEM_COLLECTION, function (err, data) {
                 if(data){
-                    itemList.subItem = data.ItemList;
+                    itemList.subItem = data.itemList;
                     itemList.mainItem = mainItem;
                     callback(err, itemList);
                 }else{
@@ -270,18 +277,18 @@ function updateItem(req,callback){
     var params = (req.body.params) ? req.body.params : {};
     var mainItem = (params.mainItem)? params.mainItem:{};
     var subItem = (params.subItem)? params.subItem:{};
-    var ItemID = (params.ItemID)? params.ItemID:0;
-    var query = {'ItemID':ItemID};
+    var itemId = (params.itemId)? params.itemId:0;
+    var query = {'itemId':itemId};
     console.log("$$$$$$$  UpdateItem $$$$$$ : ");
     if(params.mainItem && params.subItem){
         daf.Remove(query,CONSTANT.MAIN_ITEM_COLLECTION,function(err,success){
             if(success) {
                 daf.Remove(query, CONSTANT.SUB_ITEM_COLLECTION, function (err, success) {
-                    var doc = {ItemID: ItemID, Date:new Date(), Item: mainItem};
+                    var doc = {itemId: itemId, date:new Date(), item: mainItem};
                     if (success) {
                         daf.Insert(doc, CONSTANT.MAIN_ITEM_COLLECTION, function (err, success) {
                             if (success) {
-                                doc = {ItemID: ItemID, ItemList: subItem};
+                                doc = {itemId: itemId, itemList: subItem};
                                 daf.Insert(doc, CONSTANT.SUB_ITEM_COLLECTION, function (err, success) {
                                     if (success) {
                                         callback(err, success);
@@ -319,14 +326,14 @@ function addItems(req,callback) {
 
         UTIL.UpdateCount(CONSTANT.MAIN_ITEM_COLLECTION, function (err, count) {
                     if (count) {
-                        console.log("$$$$$$$  AddItems $$$$$$ Count : " + doc);
-                        itemID = count;
-                        var doc = {ItemID: itemID, Date: new Date(), Item: mainItem};
+                        console.log("$$$$$$$  AddItems $$$$$$ Count : " + count);
+                        itemId = count;
+                        var doc = {itemId: itemId, date: new Date(), item: mainItem};
                         daf.Insert(doc, CONSTANT.MAIN_ITEM_COLLECTION, function (err, success) {
                             console.log("^^^^^^^  Add Main Items ^^^^^^^ : ");
                             if (success && params.subItem) {
                                 console.log("^^^^^^^  Add Sub Items ^^^^^^^ : ");
-                                doc = {ItemID: itemID, ItemList: subItem};
+                                doc = {itemId: itemId, itemList: subItem};
                                 daf.Insert(doc, CONSTANT.SUB_ITEM_COLLECTION, function (err, success) {
                                     if (success) {
                                         callback(err, success);
@@ -350,6 +357,24 @@ function addItems(req,callback) {
     }
 };
 
+function removeItem(req,callback){
+    var params = (req.body.params) ? req.body.params : {};
+    var itemId = (params.itemId)? params.itemId:0;
+    var query = {'itemId':itemId};
+    console.log("$$$$$$$  Remove Item  $$$$$$ : ");
+    daf.Remove(query,CONSTANT.MAIN_ITEM_COLLECTION,function(err,success){
+        if(success) {
+            daf.Remove(query, CONSTANT.SUB_ITEM_COLLECTION, function (err, success) {
+                callback(err, success);
+            });
+        }else{
+            callback(err, success);
+        }
+    });
+
+};
+
+
 module.exports.GetLatestItem = getLatestItems;
 module.exports.GetItemByShop = getItemByShop;
 module.exports.GetMostTrendyItems = getMostTrendyItems;
@@ -360,3 +385,4 @@ module.exports.EditItems = editItems;
 module.exports.UpdateItem = updateItem;
 module.exports.GetCommonItemList = getCommonItemList;
 module.exports.GetMainItemList = getMainItemList;
+module.exports.RemoveItem = removeItem;

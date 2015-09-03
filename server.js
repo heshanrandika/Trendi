@@ -18,6 +18,7 @@ var App = function(){
     var methodOverride = require('method-override');
     self.app.set('views', (__dirname + '/public'));
     self.app.set('view engine', 'ejs');
+    self.app.use(bodyParser({limit:'50mb'}));
     self.app.use(bodyParser.urlencoded());
     self.app.use(bodyParser.json());
     self.app.use(methodOverride('_method'))

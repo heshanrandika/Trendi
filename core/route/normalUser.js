@@ -304,7 +304,7 @@ var normalRequestRoute = function(req,res){
         default :
 
             res.status(500);
-            res.send("Route for requested function " + functionId + " not found");
+            res.send("Normal User Route for requested function " + functionId + " not found");
             break;
     }
 

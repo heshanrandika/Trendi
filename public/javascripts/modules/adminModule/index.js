@@ -3,7 +3,7 @@
  */
 (function (ns) {
     'use strict';
-    ns.adminModule = angular.module('adminModule', []);
+    ns.adminModule = angular.module('adminModule', ['color.picker']);
 
    /* ns.mainModule.config(['$locationProvider',function ($locationProvider) {
         $locationProvider.html5Mode(true);

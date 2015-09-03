@@ -1,137 +1,229 @@
 <md-dialog aria-label="Mango (Fruit)">
-    <form>
-        <md-toolbar>
-            <div class="md-toolbar-tools">
-                <h2>Mango (Fruit)</h2>
-                <span flex></span>
-                <md-button class="md-icon-button" ng-click="cancel()">
-                    <md-icon md-svg-src="img/icons/ic_close_24px.svg" aria-label="Close dialog"></md-icon>
-                </md-button>
-            </div>
-        </md-toolbar>
-        <md-dialog-content style="max-width:800px;max-height:810px; ">
+<form novalidate="" name="itemForm">
+<md-toolbar>
+    <div class="md-toolbar-tools">
+        <h2>{{headerText}}</h2>
+        <span flex></span>
+        <md-button></md-button>
+        <md-button class="md-icon-button" ng-click="close()">
+            <md-icon md-svg-src="communication:ic_exit_to_app" aria-label="Close dialog"></md-icon>
+        </md-button>
+
+    </div>
+</md-toolbar>
+<md-dialog-content style="width:800px;height:800px; ">
+    <div>
+
+        <!--<p>
+            The mango is a juicy stone fruit belonging to the genus Mangifera, consisting of numerous tropical fruiting trees, cultivated mostly for edible fruit. The majority of these species are found in nature as wild mangoes. They all belong to the flowering plant family Anacardiaceae. The mango is native to South and Southeast Asia, from where it has been distributed worldwide to become one of the most cultivated fruits in the tropics.
+        </p>-->
+        <div>
+            <div>Admin Upload</div>
             <div>
+                <div class="col-md-12">
+                    <!--<md-content layout-padding class="autoScroll">-->
+                    <md-input-container class="md-icon-float" >
+                        <!-- Use floating label instead of placeholder -->
+                        <label>Name</label>
+                        <md-icon md-svg-src="img/icons/ic_person_24px.svg" class="name"></md-icon>
+                        <input ng-model="mainItem.name" name="name" type="text" ng-required="true">
+                        <div ng-messages="itemForm.name.$error">
+                            <div ng-message="required">This is required.</div>
+                        </div>
 
-                <p>
-                    The mango is a juicy stone fruit belonging to the genus Mangifera, consisting of numerous tropical fruiting trees, cultivated mostly for edible fruit. The majority of these species are found in nature as wild mangoes. They all belong to the flowering plant family Anacardiaceae. The mango is native to South and Southeast Asia, from where it has been distributed worldwide to become one of the most cultivated fruits in the tropics.
-                </p>
-                <img style="margin: auto; max-width: 100%;" alt="Lush mango tree" src="img/mangues.jpg">
-               <!-- <p>
-                    The highest concentration of Mangifera genus is in the western part of Malesia (Sumatra, Java and Borneo) and in Burma and India. While other Mangifera species (e.g. horse mango, M. foetida) are also grown on a more localized basis, Mangifera indica&mdash;the "common mango" or "Indian mango"&mdash;is the only mango tree commonly cultivated in many tropical and subtropical regions.
-                </p>
-                <p>
-                    It originated in Indian subcontinent (present day India and Pakistan) and Burma. It is the national fruit of India, Pakistan, and the Philippines, and the national tree of Bangladesh. In several cultures, its fruit and leaves are ritually used as floral decorations at weddings, public celebrations, and religious ceremonies.
-                </p>-->
-                <div>
-                    <div>Admin Upload</div>
+                    </md-input-container>
+
+                    <md-input-container class="md-icon-float" >
+                        <!-- Use floating label instead of placeholder -->
+                        <label>Price</label>
+                        <md-icon md-svg-src="img/icons/ic_person_24px.svg" class="name"></md-icon>
+                        <input ng-model="mainItem.price" type="number" ng-required="true" name="price">
+                        <div ng-messages="itemForm.price.$error">
+                            <div ng-message="required">This is required.</div>
+                        </div>
+                    </md-input-container>
+
+                    <md-input-container class="md-icon-float" >
+                        <!-- Use floating label instead of placeholder -->
+                        <label>Description</label>
+                        <md-icon md-svg-src="img/icons/ic_person_24px.svg" class="name"></md-icon>
+                        <input md-maxlength="30" ng-required="true" name="description" ng-model="mainItem.description">
+                        <div ng-messages="itemForm.description.$error">
+                            <div ng-message="required">This is required.</div>
+                            <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
+                        </div>
+                    </md-input-container>
+
+                    <md-input-container md-no-float>
+                        <md-icon md-svg-src="img/icons/ic_phone_24px.svg"></md-icon>
+                        <trendi-chips selected-items="slectedSizes" item-list="sizes" placeholder="Enter Available Sizes"></trendi-chips>
+                    </md-input-container>
+
+                    <md-input-container md-no-float>
+                        <md-icon md-svg-src="img/icons/ic_phone_24px.svg"></md-icon>
+                        <trendi-chips selected-items="slectedTypes" item-list="types" placeholder="Enter Type Tags"></trendi-chips>
+                    </md-input-container>
+                    <!--<md-input-container class="md-icon-float">
+                        <label>Description</label>
+                        <input md-maxlength="30" required name="description" ng-model="mainItem.description">
+                        <div ng-if="addItemForm.$error">
+                            <div>This is required.</div>
+                            <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
+                        </div>
+                    </md-input-container>-->
+
+                    <md-input-container md-no-float>
+                        <md-checkbox ng-model="mainItem.onSale" aria-label="Checkbox 1">
+                            On Sale
+                        </md-checkbox>
+                    </md-input-container>
+
+                    <md-input-container  ng-show="mainItem.onSale" class="md-icon-float">
+                        <!-- Use floating placeholder instead of label -->
+                        <label>Discount (%)</label>
+                        <md-icon md-svg-src="img/icons/ic_person_24px.svg" class="name"></md-icon>
+                        <input ng-model="mainItem.discount" type="number" ng-required="mainItem.onSale">
+                    </md-input-container>
+
+
+
                     <div>
-                        <form id="addItemForm">
-                            <div>
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label class="control-label col-md-3">Name: <span
-                                                class="required-astric">*</span></label>
+                        <md-icon md-svg-src="img/icons/ic_place_24px.svg" style="display:inline-block;"></md-icon>
+                        <div ng-repeat="color in selectedColors">
+                            <color-picker color-picker-format="'hex'" ng-model="color.color"></color-picker>
+                        </div>
 
-                                        <div class="col-md-9">
-                                            <input type="text" class="form-control" ng-model="generalInfoForm.nin"
-                                                   required/>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="control-label col-md-3">Price:</label>
-
-                                        <div class="col-md-9">
-                                            <input type="number" class="form-control"
-                                                   ng-model="generalInfoForm.organization"/>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="control-label col-md-3">Size:</label>
-
-                                        <div class="col-md-9">
-                                            <input type="number" class="form-control"
-                                                   ng-model="generalInfoForm.organization"/>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="control-label col-md-3">Description:</label>
-
-                                        <div class="col-md-9">
-                                            <input type="number" class="form-control"
-                                                   ng-model="generalInfoForm.organization"/>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="control-label col-md-3">Colors:</label>
-
-                                        <div class="col-md-9">
-                                            <input type="number" class="form-control"
-                                                   ng-model="generalInfoForm.organization"/>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="control-label col-md-3">On Sale: <span
-                                                class="required-astric">*</span></label>
-
-                                        <div class="col-md-9">
-                                            <input type="checkbox" class="form-control" ng-model="generalInfoForm.employNo"
-                                                   required/>
-                                        </div>
-                                        <div>
-                                            <label class="control-label col-md-3">Discount: <span
-                                                    class="required-astric">*</span></label>
-                                            <div class="col-md-9">
-                                                <input type="number" class="form-control" ng-model="generalInfoForm.employNo" min="0" max="100"
-                                                       required/>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="control-label col-md-3">Type:</label>
-
-                                        <div class="col-md-9">
-                                            <select id="select_department" ng-model="dropdownData.applicationId"
-                                                    ng-options="data.value for data in appList"
-                                                    class="form-control form-filter srch-select-col"  ng-change="changeApp(dropdownData.applicationId)"></select>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="control-label col-md-3">Designation:</label>
-
-                                        <div class="col-md-9">
-                                            <select id="select_designation" ng-model="dropdownData.selectedGrant"
-                                                    ng-options="data.desc for data in grantList"
-                                                    class="form-control form-filter srch-select-col"></select>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-
-
-                            <trendi-file-upload files="mainImage"></trendi-file-upload>
-
-
-
-                            <button class="btn btn-success"
-                                    data-ng-click="saveItem()">Save
-                            </button>
-                        </form>
                     </div>
+
+
+                    <!-- </md-content>-->
+
+
+
+
+                    <!-- <div class="form-group">
+                         <label class="control-label col-md-3">Name :<span
+                                 class="required-astric">*</span></label>
+
+                         <div class="col-md-9">
+                             <input type="text" class="form-control" ng-model="mainItem.name"
+                                    required/>
+                         </div>
+                     </div>
+                     <div class="form-group">
+                         <label class="control-label col-md-3">Price :</label>
+
+                         <div class="col-md-9">
+                             <input type="number" class="form-control"
+                                    ng-model="mainItem.price"/>
+                         </div>
+                     </div>
+                     <div class="form-group">
+                         <label class="control-label col-md-3">Colors :</label>
+
+                         <div class="col-md-9">
+                             <input type="number" class="form-control"
+                                    ng-model="mainItem.sizes"/>
+                         </div>
+                     </div>
+                     <div class="form-group">
+                         <label class="control-label col-md-3">Description :</label>
+
+                         <div class="col-md-9">
+                             <input type="number" class="form-control"
+                                    ng-model="generalInfoForm.organization"/>
+                         </div>
+                     </div>
+                     <div class="form-group">
+                         <label class="control-label col-md-3">Sizes:</label>
+
+                         <div class="col-md-9">
+                             <trendi-chips selected-items="slectedSizes" item-list="sizes" placeholder="Enter Available Sizes"></trendi-chips>
+                         </div>
+                     </div>
+                     <div class="form-group">
+                         <label class="control-label col-md-3">On Sale: <span
+                                 class="required-astric">*</span></label>
+
+                         <div class="col-md-9">
+                             <input type="checkbox" class="form-control" ng-model="generalInfoForm.employNo"
+                                    required/>
+                         </div>
+                         <div>
+                             <label class="control-label col-md-3">Discount: <span
+                                     class="required-astric">*</span></label>
+                             <div class="col-md-9">
+                                 <input type="number" class="form-control" ng-model="generalInfoForm.employNo" min="0" max="100"
+                                        required/>
+                             </div>
+                         </div>
+                     </div>
+                     <div class="form-group">
+                         <label class="control-label col-md-3">Type:</label>
+
+                         <div class="col-md-9">
+                             <select id="select_department" ng-model="dropdownData.applicationId"
+                                     ng-options="data.value for data in appList"
+                                     class="form-control form-filter srch-select-col"  ng-change="changeApp(dropdownData.applicationId)"></select>
+                         </div>
+                     </div>
+                     <div class="form-group">
+                         <label class="control-label col-md-3">Designation:</label>
+
+                         <div class="col-md-9">
+                             <select id="select_designation" ng-model="dropdownData.selectedGrant"
+                                     ng-options="data.desc for data in grantList"
+                                     class="form-control form-filter srch-select-col"></select>
+                         </div>
+                     </div>
+                 </div>
+
+             </div>
+-->
+                    <md-input-container class="md-icon-float" >
+                        <!-- Use floating label instead of placeholder -->
+                        <label>Like</label>
+                        <md-icon md-svg-src="img/icons/ic_person_24px.svg" class="name"></md-icon>
+                        <input ng-model="mainItem.like" type="number"  name="like" ng-disabled="true">
+                    </md-input-container>
+
+                    <md-input-container class="md-icon-float" >
+                        <!-- Use floating label instead of placeholder -->
+                        <label>Seen</label>
+                        <md-icon md-svg-src="img/icons/ic_person_24px.svg" class="name"></md-icon>
+                        <input ng-model="mainItem.seen" type="number" name="seen" ng-disabled="true">
+                    </md-input-container>
+
+
+                    <div>
+                        <trendi-file-upload files="mainImage"></trendi-file-upload>
+                    </div>
+
                 </div>
             </div>
-        </md-dialog-content>
-        <div class="md-actions" layout="row">
-            <md-button href="http://en.wikipedia.org/wiki/Mango" target="_blank" md-autofocus>
-                More on Wikipedia
-            </md-button>
-            <span flex></span>
-            <md-button ng-click="answer('not useful')" >
-                Not Useful
-            </md-button>
-            <md-button ng-click="answer('useful')" style="margin-right:20px;" >
-                Useful
-            </md-button>
         </div>
-    </form>
+    </div>
+</md-dialog-content>
+<div class="md-actions" layout="row">
+    <div ng-if="addNew">
+        <md-button  class="md-raised md-primary" ng-disabled="itemForm.$invalid || mainImage.length == 0" ng-click="answer(1)" md-autofocus>
+            Save
+        </md-button>
+        <span flex></span>
+    </div>
+    <div ng-if="!addNew">
+        <md-button class="md-raised md-primary" ng-disabled="itemForm.$invalid || mainImage.length == 0" ng-click="answer(2)" md-autofocus>
+            Update
+        </md-button>
+        <span flex></span>
+        <md-button class="md-raised md-warn" ng-click="answer(0)" >
+            Remove
+        </md-button>
+    </div>
+
+    <md-button ng-click="close('2')" style="margin-right:20px;" >
+        Close
+    </md-button>
+</div>
+</form>
 </md-dialog>

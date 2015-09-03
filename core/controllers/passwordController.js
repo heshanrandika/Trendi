@@ -11,20 +11,20 @@ function passwordReset(req,callback){
     var params = (req.body.params) ? req.body.params : {};
     var oldPassword = params.OldPassword;
     var newPassword = PWD.GetHashedPassword(params.NewPassword,CONSTANT.HASHING_ALGO);
-    var email = params.Email;
+    var email = params.email;
 
-    var query = {Email:email};
+    var query = {email:email};
     daf.FindOne(query,CONSTANT.USER_COLLECTION,function(err, userArray){
         var user = userArray;
         if(err){
             callback(err, user);
             return;
         }else if(userArray){
-            PWD.VerifyPassword(oldPassword,user.Password,function(err, state){
+            PWD.VerifyPassword(oldPassword,user.password,function(err, state){
                 if(err){
                     callback(err, state);
                 }else if(state){
-                        var changeDoc = {$set:{'Password':newPassword}};
+                        var changeDoc = {$set:{'password':newPassword}};
                         daf.Update(query,changeDoc,CONSTANT.USER_COLLECTION,function(err, success){
                             callback(err, success);
                         });
@@ -33,7 +33,7 @@ function passwordReset(req,callback){
                 }
             });
         }else{
-            callback(("User Not Available : "+ Email),null);
+            callback(("User Not Available : "+ email),null);
         }
     });
 };
@@ -41,10 +41,10 @@ function passwordReset(req,callback){
 function forgotPassword(req,callback){
     console.log("$$$$$$$  GetLatestItems $$$$$$");
     var params = (req.body.params) ? req.body.params : {};
-    var Email = (params.Email)?params.Email:0;
+    var email = (params.email)?params.email:0;
     PWD.GenerateSession(function(hashId){
         var HashID = hashId;
-        var query = {Email:Email};
+        var query = {email:email};
         var changeDoc = {$set:{'ForgotPassword':HashID}};
         daf.Update(query,changeDoc,CONSTANT.USER_COLLECTION, function(err , success){
             console.log("GGGGGGGGGGGGGGGGGGGGG EMAIL UPDATE"+success);
@@ -69,10 +69,10 @@ function changePassword(req,callback){
     console.log("$$$$$$$  Change Password $$$$$$");
     var params = (req.body.params) ? req.body.params : {};
 
-    var email = params.Email;
+    var email = params.email;
     var HashPWD = PWD.GetHashedPassword(params.NewPassword,CONSTANT.HASHING_ALGO);
-    var query = {Email:email};
-    var changeDoc = {Password : HashPWD}
+    var query = {email:email};
+    var changeDoc = {password : HashPWD}
     daf.Update(query,changeDoc,CONSTANT.USER_COLLECTION, function(err , success){
         callback(err, success);
     });
