@@ -4,6 +4,7 @@
 var daf = require('../persistence/MongoPersistence');
 var CONSTANT = require('../utility/Constants');
 var PWD = require('../utility/GeneralFunctions');
+var _ = require('lodash');
 
 
 function login(req,callback) {
@@ -105,7 +106,7 @@ function register(req,callback) {
                         console.log("$$$$$$$  Add Shop $$$$$$ Count : " + count);
                         shopId = count;
                         regUser.shop.shopId = shopId;
-                        var doc = {shopId: shopId, date: new Date(), delete: 0, 'name' : regUser.name, 'email':regUser.email, 'password':HashPWD, 'shop':regUser.shop, 'session':'', 'userType':userType};
+                        var doc = {shopId: shopId, date: new Date(), delete: 0, 'name' : regUser.name, 'email':regUser.email, 'password':HashPWD, 'shop':regUser.shop, 'session':'', 'userType':userType, 'entitlements':regUser.entitlements, 'superAdmin':true};
                         daf.Insert(doc, CONSTANT.SHOP_COLLECTION, function (err, success) {
                             if(err){
                                 callback(("Registration Failed :"+err),null);
@@ -154,6 +155,52 @@ function register(req,callback) {
 
 }
 
+
+
+
+function addShopUser(req,callback) {
+    var params = (req.body.params) ? req.body.params : {};
+
+
+    var userType = (params.userType)?params.userType: 0;
+    var regUser =  (params.regUser)?params.regUser: 0;
+
+    var query = {'email':regUser.email};
+    var HashPWD = PWD.GetHashedPassword(regUser.password,CONSTANT.HASHING_ALGO);
+    if(userType == CONSTANT.SHOP){
+        daf.FindOne(query,CONSTANT.SHOP_COLLECTION,function(err, found){
+            if(!found){
+                        var doc = {shopId: regUser.shop.shopId, date: new Date(), delete: 0, 'name' : regUser.name, 'email':regUser.email, 'password':HashPWD, 'shop':regUser.shop, 'session':'', 'userType':userType, 'title':regUser.title, 'entitlements':regUser.entitlements};
+                        daf.Insert(doc, CONSTANT.SHOP_COLLECTION, function (err, success) {
+                            if(err){
+                                callback(("Registration Failed :"+err),null);
+                            }else {
+                                console.log("^^^^^^^  Shop Added ^^^^^^^ : ");
+                                var messageDoc = {email: regUser.email, SENTITEM: [], NEWMESSAGE: [], INBOX: []};
+                                daf.Insert(messageDoc, CONSTANT.MESSAGE, function (err, success) {
+                                    console.log("^^^^^^^  Message Added ^^^^^^^ : ");
+                                    callback(err,("Successfully Registered :"+success));
+                                })
+                            }
+                        })
+
+
+
+            }else{
+                callback(err,"Already Registered : Value : "+ regUser.email);
+            }
+        });
+    }else{
+        callback(("User Type Error : value : "+ userType),null);
+    }
+
+}
+
+
+
+
+
+
 function authentication(req, callback) {
    // var params = (req.body) ? req.body : {};
 
@@ -201,6 +248,25 @@ function authentication(req, callback) {
 }
 
 
+
+function authorization(req, callback) {
+    var entitlements =  req.user.entitlements;
+    var functionId = parseInt(req.body.functionId);
+    var authorized = _.filter(entitlements, { '_id': functionId});
+    if(authorized.length > 0){
+        if(authorized.expDate > new Date()){
+            callback(null, true);
+        }else{
+            callback(CONSTANT.ERROR_FAIL_AUTHORIZATION_EXP_DATE, true);
+        }
+
+    }else{
+        callback(CONSTANT.ERROR_NOT_AUTHORIZED,null);
+    }
+}
+
 module.exports.Login = login;
 module.exports.Register = register;
 module.exports.Authentication = authentication;
+module.exports.Authorization = authorization;
+module.exports.AddShopUser = addShopUser;

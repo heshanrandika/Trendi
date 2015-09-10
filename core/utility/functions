@@ -1,0 +1,197 @@
+{
+    "functionList": [
+        {
+            "_id": 1000,
+            "functionName": "RemoveItem",
+            "description": "Remove Item",
+            "category": "Item"
+        },
+        {
+            "_id": 1001,
+            "functionName": "GetLatestItem",
+            "description": "Get Latest Item",
+            "belongingModule": "Item"
+        },
+        {
+            "_id": 1002,
+            "functionName": "GetLatestItem",
+            "description": "Get Latest Item",
+            "belongingModule": "Item"
+        },
+        {
+            "_id": 1003,
+            "functionName": "GetLatestItem",
+            "description": "Get Latest Item",
+            "belongingModule": "Item"
+        },
+        {
+            "_id": 1004,
+            "functionName": "GetSubItem",
+            "description": "Get Sub Item",
+            "belongingModule": "Item"
+        },
+        {
+            "_id": 1005,
+            "functionName": "GetRelatedItems",
+            "description": "Get Related Items",
+            "belongingModule": "Item"
+        },
+        {
+            "_id": 1006,
+            "functionName": "EditItems",
+            "description": "Get Item to Edit",
+            "belongingModule": "Item"
+        },
+        {
+            "_id": 1007,
+            "functionName": "UpdateItem",
+            "description": "Update Item",
+            "belongingModule": "Item"
+        },
+        {
+            "_id": 1008,
+            "functionName": "GetCommonItemList",
+            "description": "Get Common Item List",
+            "belongingModule": "Item"
+        },
+        {
+            "_id": 1009,
+            "functionName": "GetMainItemList",
+            "description": "Get Main Item List",
+            "belongingModule": "Item"
+        },
+        {
+            "_id": 1010,
+            "functionName": "GetItemByShop",
+            "description": "Update Item",
+            "belongingModule": "Item"
+        },
+        {
+            "_id": 2000,
+            "functionName": "GetShopList",
+            "description": "Get Shop List",
+            "belongingModule": "Shop"
+        },
+        {
+            "_id": 2001,
+            "functionName": "GetRatedShopList",
+            "description": "Get Rated Shop List",
+            "belongingModule": "Shop"
+        },
+        {
+            "_id": 2002,
+            "functionName": "GetNearestShopList",
+            "description": "Get Nearest Shop List",
+            "belongingModule": "Shop"
+        },
+        {
+            "_id": 2003,
+            "functionName": "AddShop",
+            "description": "Add Shop",
+            "belongingModule": "Shop"
+        },
+        {
+            "_id": 2004,
+            "functionName": "GetShop",
+            "description": "Get Shop",
+            "belongingModule": "Shop"
+        },
+        {
+            "_id": 2005,
+            "functionName": "RemoveShop",
+            "description": "Remove Shop",
+            "belongingModule": "Shop"
+        },
+        {
+            "_id": 2006,
+            "functionName": "UpdateShop",
+            "description": "Update Shop",
+            "belongingModule": "Shop"
+        },
+        {
+            "_id": 2007,
+            "functionName": "AddShopUser",
+            "description": "Add Shop User",
+            "belongingModule": "Shop"
+        },
+        {
+            "_id": 3000,
+            "functionName": "GetPromotionList",
+            "description": "Get Promotion List",
+            "belongingModule": "Promotion"
+        },
+        {
+            "_id": 3001,
+            "functionName": "GetRatedPromotionList",
+            "description": "Get Rated Promotion List",
+            "belongingModule": "Promotion"
+        },
+        {
+            "_id": 3002,
+            "functionName": "AddPromotion",
+            "description": "Add Promotion",
+            "belongingModule": "Promotion"
+        },
+        {
+            "_id": 3003,
+            "functionName": "UpdatePromotion",
+            "description": "Update Promotion",
+            "belongingModule": "Promotion"
+        },
+        {
+            "_id": 3004,
+            "functionName": "RemovePromotion",
+            "description": "Remove Promotion",
+            "belongingModule": "Promotion"
+        },
+        {
+            "_id": 3005,
+            "functionName": "GetPromotion",
+            "description": "Get Promotion",
+            "belongingModule": "Promotion"
+        },
+        {
+            "_id": 5000,
+            "functionName": "GetMessageList",
+            "description": "Get Message List",
+            "belongingModule": "Message"
+        },
+        {
+            "_id": 5001,
+            "functionName": "SendMessage",
+            "description": "Send Message",
+            "belongingModule": "Message"
+        },
+        {
+            "_id": 5002,
+            "functionName": "UpdateMessageBox",
+            "description": "Update Message Box",
+            "belongingModule": "Message"
+        },
+        {
+            "_id": 6000,
+            "functionName": "GetBlogList",
+            "description": "Get Blog List",
+            "belongingModule": "Blog"
+        },
+        {
+            "_id": 6001,
+            "functionName": "GetBlog",
+            "description": "Get Blog",
+            "belongingModule": "Blog"
+        },
+        {
+            "_id": 6002,
+            "functionName": "UpsertBlog",
+            "description": "Upsert Blog",
+            "belongingModule": "Blog"
+        },
+        {
+            "_id": 6003,
+            "functionName": "RemoveBlog",
+            "description": "Remove Blog",
+            "belongingModule": "Blog"
+        }
+
+    ]
+}

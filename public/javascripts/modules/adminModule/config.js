@@ -14,8 +14,8 @@
 
             'admin.home': {
                 url: '/home',
-                templateUrl: 'views/adminModule/admin.home.html',
-                controller: 'adminController'
+                templateUrl: 'views/adminModule/admin.items.html',
+                controller: 'adminItemController'
             }
 
         },REQ_CONFIG: {

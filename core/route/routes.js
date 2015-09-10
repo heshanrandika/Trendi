@@ -65,6 +65,31 @@ module.exports = function(app) {
 
     });
 
+
+    app.use(function(req, res, next){
+        authCtrl.Authorization(req, function(err, authorized){
+            if(err){
+                var resObject = {
+                    "resStatus": 0,
+                    "responData": {}
+                };
+                resObject.responData.Error = err.toString();
+                console.log("Error occurred while authorization ");
+                res.status(500);
+                res.send(resObject);
+
+
+
+            }else if(authorized){
+                next();
+
+            }
+
+        });
+
+    });
+
+
     app.use(function(req, res, next){
 
         RequestRouter.RequestRoute(req, res);
