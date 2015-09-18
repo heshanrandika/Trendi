@@ -5,6 +5,8 @@ const USER = 1;
 const SHOP = 2;
 const USER_COLLECTION = "USER";
 const SHOP_COLLECTION = "SHOP";
+const SHOP_BRANCH = "SHOPBRANCH";
+const SHOP_USER= "SHOPUSER";
 const SUB_ITEM_COLLECTION = "SUBITEMS";
 const PROFILE_COLLECTION = "PROFILE";
 const ENTITLEMENTS_COLLECTION = "ENTITLEMENTS";
@@ -27,6 +29,8 @@ const ERROR_FAIL_AUTHORIZATION_EXP_DATE = "Authorization expired";
 
 module.exports.USER = USER;
 module.exports.SHOP = SHOP;
+module.exports.SHOP_BRANCH = SHOP_BRANCH;
+module.exports.SHOP_USER = SHOP_USER;
 module.exports.MAX_DISTANCE = MAX_DISTANCE;
 module.exports.USER_COLLECTION = USER_COLLECTION;
 module.exports.SHOP_COLLECTION = SHOP_COLLECTION;

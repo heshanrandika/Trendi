@@ -97,26 +97,58 @@ function register(req,callback) {
     var query = {'email':regUser.email};
     var HashPWD = PWD.GetHashedPassword(regUser.password,CONSTANT.HASHING_ALGO);
     if(userType == CONSTANT.SHOP){
-        daf.FindOne(query,CONSTANT.SHOP_COLLECTION,function(err, found){
+        daf.FindOne(query,CONSTANT.SHOP_USER,function(err, found){
             if(!found){
-                //TODO with update Doc
-              //  var query = {'Name' : regUser.Name, 'email':regUser.email, 'password':HashPWD, 'session':'', 'Rating':'', 'pos':regUser.pos};
                 daf.Count('', CONSTANT.SHOP_COLLECTION, function (err, count) {
                     if (count) {
                         console.log("$$$$$$$  Add Shop $$$$$$ Count : " + count);
                         shopId = count;
                         regUser.shop.shopId = shopId;
-                        var doc = {shopId: shopId, date: new Date(), delete: 0, 'name' : regUser.name, 'email':regUser.email, 'password':HashPWD, 'shop':regUser.shop, 'session':'', 'userType':userType, 'entitlements':regUser.entitlements, 'superAdmin':true};
-                        daf.Insert(doc, CONSTANT.SHOP_COLLECTION, function (err, success) {
+                        regUser.shop.regDate = new Date();
+                        regUser.shop.shopEmail = regUser.email;
+
+                        var branchDoc = {
+                            shopId: shopId,
+                            branchId:0,
+                            addDate: new Date(),
+                            delete: 0,
+                            shop:regUser.shop
+                        };
+
+                        var userDoc = {
+                            shopId: shopId,
+                            name : regUser.name,
+                            email:regUser.email,
+                            password:HashPWD,
+                            session:'',
+                            branch:branchDoc,
+                            userType:userType,
+                            entitlements:regUser.entitlements,
+                            superAdmin:true
+                        };
+
+                        daf.Insert(userDoc, CONSTANT.SHOP_USER, function (err, success) {
                             if(err){
-                                callback(("Registration Failed :"+err),null);
+                                callback(("Shop User Registration Failed :"+err),null);
                             }else {
-                                console.log("^^^^^^^  Shop Added ^^^^^^^ : ");
-                                var messageDoc = {email: regUser.email, SENTITEM: [], NEWMESSAGE: [], INBOX: []};
-                                daf.Insert(messageDoc, CONSTANT.MESSAGE, function (err, success) {
-                                    console.log("^^^^^^^  Message Added ^^^^^^^ : ");
-                                    callback(err,("Successfully Registered :"+success));
-                                })
+                                daf.Insert(regUser.shop, CONSTANT.SHOP_COLLECTION, function (err, success) {
+                                    if(err){
+                                        callback(("Shop Registration Failed :"+err),null);
+                                    }else {
+                                        daf.Insert(branchDoc, CONSTANT.SHOP_BRANCH, function (err, success) {
+                                            if(err){
+                                                callback(("Branch Registration Failed :"+err),null);
+                                            }else {
+                                                console.log("^^^^^^^  Shop Added ^^^^^^^ : ");
+                                                var messageDoc = {email: regUser.email, SENTITEM: [], NEWMESSAGE: [], INBOX: []};
+                                                daf.Insert(messageDoc, CONSTANT.MESSAGE, function (err, success) {
+                                                    console.log("^^^^^^^  Message Added ^^^^^^^ : ");
+                                                    callback(err,("Successfully Registered :"+success));
+                                                })
+                                            }
+                                        });
+                                    }
+                                });
                             }
                         })
                     } else {
@@ -168,19 +200,25 @@ function addShopUser(req,callback) {
     var query = {'email':regUser.email};
     var HashPWD = PWD.GetHashedPassword(regUser.password,CONSTANT.HASHING_ALGO);
     if(userType == CONSTANT.SHOP){
-        daf.FindOne(query,CONSTANT.SHOP_COLLECTION,function(err, found){
+        daf.FindOne(query,CONSTANT.SHOP_USER,function(err, found){
             if(!found){
-                        var doc = {shopId: regUser.shop.shopId, date: new Date(), delete: 0, 'name' : regUser.name, 'email':regUser.email, 'password':HashPWD, 'shop':regUser.shop, 'session':'', 'userType':userType, 'title':regUser.title, 'entitlements':regUser.entitlements};
-                        daf.Insert(doc, CONSTANT.SHOP_COLLECTION, function (err, success) {
+                        var doc = {
+                            shopId: regUser.shopId,
+                            date: new Date(),
+                            name : regUser.name,
+                            email:regUser.email,
+                            password:HashPWD,
+                            branch:regUser.branch,
+                            session:'',
+                            userType:userType,
+                            title:regUser.title,
+                            entitlements:regUser.entitlements
+                        };
+                        daf.Insert(doc, CONSTANT.SHOP_USER, function (err, success) {
                             if(err){
                                 callback(("Registration Failed :"+err),null);
                             }else {
-                                console.log("^^^^^^^  Shop Added ^^^^^^^ : ");
-                                var messageDoc = {email: regUser.email, SENTITEM: [], NEWMESSAGE: [], INBOX: []};
-                                daf.Insert(messageDoc, CONSTANT.MESSAGE, function (err, success) {
-                                    console.log("^^^^^^^  Message Added ^^^^^^^ : ");
-                                    callback(err,("Successfully Registered :"+success));
-                                })
+                                callback(err,("Successfully Registered :"+success));
                             }
                         })
 

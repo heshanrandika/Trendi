@@ -14,6 +14,7 @@ window.com = {TRENDI:{CATEGORY:{modules:{}}}};
             'ngStorage',
             'ngMessages',
             'mainTrendiModule',
+            'uiGmapgoogle-maps',
             'coreModule',
             'adminModule',
             'ngOpenFB',

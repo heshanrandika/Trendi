@@ -135,3 +135,10 @@
 
 .inputdemoErrors .inputErrorsApp {
     min-height: 48px; }
+
+
+.map_container{
+    overflow: hidden;
+    margin-bottom: 10px;
+    max-height: 300px;
+}

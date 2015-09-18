@@ -48,16 +48,24 @@ function getRatedShopList(req,callback){
 
 function addShop(req,callback){
     console.log("$$$$$$$  AddShop $$$$$$");
-    var itemID = 0;
+    var branchId = 0;
     var params = (req.body.params) ? req.body.params : {};
     var shop = (params.shop)? params.shop:{};
+    var shopId = params.shopId;
     if(params.shop) {
-        daf.Count('', CONSTANT.SHOP_COLLECTION, function (err, count) {
+        var query = {shopId:shopId};
+        daf.Count(query, CONSTANT.SHOP_BRANCH, function (err, count) {
             if (count) {
                 console.log("$$$$$$$  Add Shop $$$$$$ Count : " + count);
-                itemID = count;
-                var doc = {shopId: itemID, date: new Date(), shop: shop, delete: 0};
-                daf.Insert(doc, CONSTANT.SHOP_COLLECTION, function (err, success) {
+                branchId = count;
+                var doc = {
+                    shopId: shopId,
+                    branchId:branchId,
+                    addDate: new Date(),
+                    delete: 0,
+                    shop:shop
+                };
+                daf.Insert(doc, CONSTANT.SHOP_BRANCH, function (err, success) {
                     console.log("^^^^^^^  Shop Added ^^^^^^^ : ");
                     callback(err, success);
                 })

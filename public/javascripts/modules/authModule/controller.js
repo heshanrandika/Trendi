@@ -87,7 +87,7 @@
                 .then(function (response) {
                     var completeUser = response.data.responData.data;
                     $scope.$storage.user = completeUser;
-                    $state.go('admin.home');
+                    $state.go('admin.items');
 
                 }, function (error) {
                     $scope.alerts = [];

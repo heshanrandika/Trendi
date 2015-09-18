@@ -23,6 +23,10 @@
             return Data_Comm.postPromise(angular.extend({params:d},adminServiceCalls.removeItemDao()));
         };
 
+        var _getShopList = function(){
+            return Data_Comm.postPromise(adminServiceCalls.removeItemDao());
+        };
+
         var _shopData = function(){
             return adminServiceCalls.shopDataDao();
         };
@@ -34,7 +38,8 @@
             updateItem:_updateItem,
             getSubItem:_getSubItem,
             removeItem:_removeItem,
-            shopData:_shopData
+            shopData:_shopData,
+            getShopList:_getShopList
         }
     }]);
 })(com.TRENDI.CATEGORY.modules.adminModule);

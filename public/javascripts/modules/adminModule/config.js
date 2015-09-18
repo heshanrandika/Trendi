@@ -12,10 +12,67 @@
                 controller: 'adminAuthController'
             },
 
-            'admin.home': {
-                url: '/home',
+            'admin.map': {
+                url: '/map',
+                templateUrl: 'views/adminModule/admin.map.html',
+                controller: 'adminShopsController',
+                access: {
+                    requiresLogin: true
+                }
+            },
+
+            'admin.items': {
+                url: '/items',
                 templateUrl: 'views/adminModule/admin.items.html',
-                controller: 'adminItemController'
+                controller: 'adminItemController',
+                access: {
+                    requiresLogin: true
+                }
+            },
+
+            'admin.shops': {
+                url: '/shops',
+                templateUrl: 'views/adminModule/admin.shops.html',
+                controller: 'adminShopsController',
+                access: {
+                    requiresLogin: true
+                }
+            },
+
+            'admin.promotions': {
+                url: '/promotions',
+                templateUrl: 'views/adminModule/admin.promotions.html',
+                controller: 'adminPromotionsController',
+                access: {
+                    requiresLogin: true
+                }
+            },
+
+            'admin.users': {
+                url: '/users',
+                templateUrl: 'views/adminModule/admin.users.html',
+                controller: 'adminUsersController',
+                access: {
+                    requiresLogin: true
+                }
+            },
+
+            'admin.branches': {
+                url: '/branches',
+                templateUrl: 'views/adminModule/admin.branches.html',
+                controller: 'adminBranchesController',
+                access: {
+                    requiresLogin: true
+                }
+            },
+
+            'admin.blogs': {
+                url: '/blogs',
+                templateUrl: 'views/adminModule/admin.blogs.html',
+                controller: 'adminBlogsController',
+                access: {
+                    requiresLogin: true
+                }
             }
 
         },REQ_CONFIG: {
@@ -23,7 +80,9 @@
             FUNC_AddItems:        1003,
             FUNC_UpdateItem:      1007,
             FUNC_RemoveItems:     1000,
-            FUNC_GetItemList:     1010
+            FUNC_GetItemList:     1010,
+            //++++++shop function list++++++++++++++++
+            FUNC_GetShopList:     2000
         }
     };
 
