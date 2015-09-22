@@ -5,17 +5,18 @@
     'use strict';
     ns.mainTrendiModule = angular.module('mainTrendiModule', com.TRENDI.CATEGORY.config.MODULES);
 
-   /* ns.mainModule.config(['$locationProvider',function ($locationProvider) {
+    ns.mainTrendiModule.config(['$locationProvider',function ($locationProvider) {
         $locationProvider.html5Mode(true);
-    }]);*/
+    }]);
+
     ns.mainTrendiModule.value("rndAddToLatLon", function () {
         return Math.floor(((Math.random() < 0.5 ? -1 : 1) * 2) + 1);
     });
 
     ns.mainTrendiModule.config(['uiGmapGoogleMapApiProvider', function (GoogleMapApi) {
             GoogleMapApi.configure({
-//    key: 'your api key',
-                // v: '3.20',
+              /*  key: "AIzaSyBc0hlX12uRJKKte6Gk43GzMKZGS0sroJU",
+                v: '3.21',*/
                 libraries: 'weather,geometry,visualization'
             });
     }]);

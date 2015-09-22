@@ -12,15 +12,6 @@
                 controller: 'adminAuthController'
             },
 
-            'admin.map': {
-                url: '/map',
-                templateUrl: 'views/adminModule/admin.map.html',
-                controller: 'adminShopsController',
-                access: {
-                    requiresLogin: true
-                }
-            },
-
             'admin.items': {
                 url: '/items',
                 templateUrl: 'views/adminModule/admin.items.html',
@@ -82,7 +73,8 @@
             FUNC_RemoveItems:     1000,
             FUNC_GetItemList:     1010,
             //++++++shop function list++++++++++++++++
-            FUNC_GetShopList:     2000
+            FUNC_GetShopList:     2008,
+            FUNC_RegisterShop:    2009
         }
     };
 

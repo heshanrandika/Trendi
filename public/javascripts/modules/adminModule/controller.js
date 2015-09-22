@@ -10,6 +10,8 @@
 
         //=======Item Edit Window================
         $scope.mainImage = [];
+        $scope.imageSize = {value:1000000, text:'1MB'};
+        $scope.imageCount = 5;
         $scope.subItem = [];
         $scope.headerText = '';
         $scope.addNew = true;
@@ -245,6 +247,7 @@
 
         //=======Item Edit Window================
         $scope.mainImage = [];
+        $scope.imageSize = [];
         $scope.subItem = [];
         $scope.headerText = '';
         $scope.addNew = true;
@@ -474,16 +477,23 @@
     }]);
 
 
-    mod.controller('adminShopsController', ['$scope', '$rootScope','$state','adminDataService', function ($scope, $rootScope, $state, adminDataService) {
-        $scope.testPoint = {
-            long : 28,
-            lat : 23
-        };
+    mod.controller('adminShopsController', ['$scope', '$rootScope','$state','adminDataService','Data.Toast','$mdToast','$document', function ($scope, $rootScope, $state, adminDataService, Data_Toast, $mdToast,$document) {
+
         $scope.shopList = [];
         $scope.userList = [];
         $scope.branchList = [];
         $scope.regUser = {};
         $scope.shop = {};
+        $scope.shop.pos = [];
+        $scope.shop.iconImage = [];
+        $scope.bannerImage = [];
+        $scope.regUser.profilePic = [];
+        $scope.iconSize = {value:10000, text:'10kB'};
+        $scope.bannerSize = {value:1000000, text:'1MB'};
+        $scope.profilePicSize = {value:100000, text:'100kB'};
+        $scope.iconCount = 1;
+        $scope.bannerCount = 1;
+        $scope.profilePicCount = 1;
 
         $scope.headerText = '';
         $scope.addNew = true;
@@ -540,6 +550,10 @@
             $scope.branchList = [];
             $scope.regUser = {};
             $scope.shop = {};
+            $scope.shop.pos = [];
+            $scope.shop.iconImage = [];
+            $scope.bannerImage = [];
+            $scope.regUser.profilePic = [];
             $scope.headerText = '';
             $scope.addNew = '';
         };
@@ -550,7 +564,9 @@
             }
         });
 
+
         $scope.EditViewController = function(shopData) {
+
             $scope.shopId = shopData.shopId;
             $scope.resetForm();
             $scope.selectedIndex = 1;
@@ -573,11 +589,9 @@
                         });
                     }
                 });
-                $scope.headerText = 'Edit Shop #'+itemData.itemId;
+                $scope.headerText = 'Edit Shop #'+ $scope.shopId;
                 $scope.addNew = false;
             }else{
-
-                $scope.mainItem = {};
                 $scope.headerText = 'Add New Shop';
                 $scope.addNew = true;
             }
@@ -590,37 +604,29 @@
 
         $scope.answer = function(option) {
             if(option){
-                if(($scope.mainItem.name == '' || $scope.mainItem.name == undefined) &&
-                    ($scope.mainItem.price == '' || $scope.mainItem.price == undefined) &&
-                    ($scope.mainItem.description == '' || $scope.mainItem.description == undefined) &&
-                    $scope.mainImage.length == 0){
+                if($scope.shop.name == ''){
 
                 }else {
-                    _.each($scope.mainImage, function (k) {
-                        if (k.default) {
-                            $scope.mainItem.image = k.image;
-                        } else {
-                            $scope.subItem.push({image: k.image});
-                        }
-                    });
-                    $scope.mainItem.shop = shopDetails.shop;
-                    $scope.mainItem.types = $scope.slectedTypes;
-                    $scope.mainItem.sizes = $scope.slectedSizes;
-                    $scope.mainItem.colors = $scope.selectedColors;
-                    var itemDetail = {};
+                    var shopDetails = {};
                     switch (option) {
                         case 1 :
-                            itemDetail = {mainItem: $scope.mainItem, subItem: $scope.subItem};
-                            adminDataService.addItem(itemDetail).then(function (response) {
+                            shopDetails = {shop: $scope.shop, regUser: $scope.regUser, bannerImage:$scope.bannerImage[0]};
+                            adminDataService.registerShop(shopDetails).then(function (response) {
                                 initData();
                                 $scope.selectedIndex = 0;
+                                Data_Toast.success('Successfully saved');
+                            },function (error) {
+                                Data_Toast.error('Fail to Save ');
                             });
                             break;
                         case 2 :
-                            itemDetail = {mainItem: $scope.mainItem, subItem: $scope.subItem, itemId:$scope.itemId};
-                            adminDataService.updateItem(itemDetail).then(function (response) {
+                            shopDetails = {shop: $scope.shop, regUser: $scope.regUser};
+                            adminDataService.updateItem(shopDetails).then(function (response) {
                                 initData();
                                 $scope.selectedIndex = 0;
+                                Data_Toast.success('Successfully saved');
+                            },function (error) {
+                                Data_Toast.error('Fail to Save ');
                             });
                             break;
                         default :
@@ -630,10 +636,13 @@
                 }
 
             }else{
-                var itemDetail={itemId:$scope.itemId};
-                adminDataService.removeItem(itemDetail).then(function(response){
+                var shopDetails={shopId: $scope.shopId};
+                adminDataService.removeItem(shopDetails).then(function(response){
                     initData();
                     $scope.selectedIndex = 0;
+                    Data_Toast.success('Successfully removed');
+                },function (error) {
+                    Data_Toast.error('Fail to Remove ');
                 });
             }
 

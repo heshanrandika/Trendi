@@ -142,3 +142,24 @@
     margin-bottom: 10px;
     max-height: 300px;
 }
+
+.md-toast.error {
+    background-color: red;
+    position: fixed;
+    height: auto;
+    max-height: inherit
+}
+
+.md-toast.success {
+    background-color: #4ce859;
+    position: fixed;
+    height: auto;
+    max-height: inherit
+}
+
+.md-toast.warning {
+    background-color: yellow;
+    position: fixed;
+    height: auto;
+    max-height: inherit
+}

@@ -90,77 +90,11 @@ function login(req,callback) {
 function register(req,callback) {
     var params = (req.body.params) ? req.body.params : {};
 
-
     var userType = (params.userType)?params.userType: 0;
     var regUser =  (params.regUser)?params.regUser: 0;
-
     var query = {'email':regUser.email};
     var HashPWD = PWD.GetHashedPassword(regUser.password,CONSTANT.HASHING_ALGO);
-    if(userType == CONSTANT.SHOP){
-        daf.FindOne(query,CONSTANT.SHOP_USER,function(err, found){
-            if(!found){
-                daf.Count('', CONSTANT.SHOP_COLLECTION, function (err, count) {
-                    if (count) {
-                        console.log("$$$$$$$  Add Shop $$$$$$ Count : " + count);
-                        shopId = count;
-                        regUser.shop.shopId = shopId;
-                        regUser.shop.regDate = new Date();
-                        regUser.shop.shopEmail = regUser.email;
-
-                        var branchDoc = {
-                            shopId: shopId,
-                            branchId:0,
-                            addDate: new Date(),
-                            delete: 0,
-                            shop:regUser.shop
-                        };
-
-                        var userDoc = {
-                            shopId: shopId,
-                            name : regUser.name,
-                            email:regUser.email,
-                            password:HashPWD,
-                            session:'',
-                            branch:branchDoc,
-                            userType:userType,
-                            entitlements:regUser.entitlements,
-                            superAdmin:true
-                        };
-
-                        daf.Insert(userDoc, CONSTANT.SHOP_USER, function (err, success) {
-                            if(err){
-                                callback(("Shop User Registration Failed :"+err),null);
-                            }else {
-                                daf.Insert(regUser.shop, CONSTANT.SHOP_COLLECTION, function (err, success) {
-                                    if(err){
-                                        callback(("Shop Registration Failed :"+err),null);
-                                    }else {
-                                        daf.Insert(branchDoc, CONSTANT.SHOP_BRANCH, function (err, success) {
-                                            if(err){
-                                                callback(("Branch Registration Failed :"+err),null);
-                                            }else {
-                                                console.log("^^^^^^^  Shop Added ^^^^^^^ : ");
-                                                var messageDoc = {email: regUser.email, SENTITEM: [], NEWMESSAGE: [], INBOX: []};
-                                                daf.Insert(messageDoc, CONSTANT.MESSAGE, function (err, success) {
-                                                    console.log("^^^^^^^  Message Added ^^^^^^^ : ");
-                                                    callback(err,("Successfully Registered :"+success));
-                                                })
-                                            }
-                                        });
-                                    }
-                                });
-                            }
-                        })
-                    } else {
-                        callback(err, count);
-                    }
-
-                });
-            }else{
-                callback(err,"Already Registered : Value : "+ regUser.email);
-            }
-        });
-    }else if(userType == CONSTANT.USER){
+    if(userType == CONSTANT.USER){
         daf.FindOne(query,CONSTANT.USER_COLLECTION,function(err,found){
 
             if(!found){
@@ -187,8 +121,108 @@ function register(req,callback) {
 
 }
 
+function shopRegistration(req,callback) {
+    var params = (req.body.params) ? req.body.params : {};
 
 
+    var userType = (params.userType)?params.userType: 0;
+    var regUser =  (params.regUser)?params.regUser: 0;
+    var shop =  (params.shop)?params.shop: {};
+    var bannerImage =  (params.bannerImage)?params.bannerImage: '';
+
+    var query = {'email':regUser.email};
+    var HashPWD = PWD.GetHashedPassword(regUser.password,CONSTANT.HASHING_ALGO);
+    if(userType == CONSTANT.SHOP){
+        daf.FindOne(query,CONSTANT.SHOP_USER,function(err, found){
+            if(!found){
+                daf.Count('', CONSTANT.SHOP_COLLECTION, function (err, count) {
+                    if (count) {
+                        console.log("$$$$$$$  Add Shop $$$$$$ Count : " + count);
+                        shopId = count;
+                        shop.shopId = shopId;
+                        shop.regDate = new Date();
+                        shop.shopEmail = regUser.email;
+
+                        var branchDoc = {
+                            shopId: shopId,
+                            branchId:0,
+                            addDate: new Date(),
+                            delete: 0,
+                            shop:shop
+                        };
+
+                        var userDoc = {
+                            shopId: shopId,
+                            name : regUser.name,
+                            email:regUser.email,
+                            password:HashPWD,
+                            session:'',
+                            branch:branchDoc,
+                            userType:userType,
+                            entitlements:regUser.entitlements,
+                            superAdmin:true
+                        };
+                        var messageDoc = {
+                            email: regUser.email,
+                            SENTITEM: [],
+                            NEWMESSAGE: [],
+                            INBOX: []
+                        };
+
+                        var bannerDoc = {
+                            shopId: shopId,
+                            image : bannerImage
+                        };
+
+                        daf.Insert(userDoc, CONSTANT.SHOP_USER, function (err, success) {
+                            if(err){
+                                callback(("Shop User Registration Failed :"+err),null);
+                            }else {
+                                daf.Insert(shop, CONSTANT.SHOP_COLLECTION, function (err, success) {
+                                    if(err){
+                                        callback(("Shop Registration Failed :"+err),null);
+                                    }else {
+                                        daf.Insert(branchDoc, CONSTANT.SHOP_BRANCH, function (err, success) {
+                                            if(err){
+                                                callback(("Branch Registration Failed :"+err),null);
+                                            }else {
+                                                console.log("^^^^^^^  Shop Added ^^^^^^^ : ");
+                                                daf.Insert(messageDoc, CONSTANT.MESSAGE, function (err, success) {
+                                                    if(err){
+                                                        callback(("Message Adding Failed :"+err),null);
+                                                    }else{
+                                                        daf.Insert(bannerDoc, CONSTANT.BANNER_IMAGE, function (err, success) {
+                                                            if(err){
+                                                                callback(err,("Banner Image Adding Failed :"+success));
+                                                            }else{
+                                                                callback(err,("Successfully Registered :"+success));
+                                                            }
+                                                        });
+
+                                                    }
+
+                                                })
+                                            }
+                                        });
+                                    }
+                                });
+                            }
+                        })
+                    } else {
+                        callback(err, count);
+                    }
+
+                });
+            }else{
+                callback(err,"Already Registered : Value : "+ regUser.email);
+            }
+        });
+
+    }else{
+        callback(("User Type Error : value : "+ userType),null);
+    }
+
+}
 
 function addShopUser(req,callback) {
     var params = (req.body.params) ? req.body.params : {};
@@ -233,11 +267,6 @@ function addShopUser(req,callback) {
     }
 
 }
-
-
-
-
-
 
 function authentication(req, callback) {
    // var params = (req.body) ? req.body : {};
@@ -285,8 +314,6 @@ function authentication(req, callback) {
 
 }
 
-
-
 function authorization(req, callback) {
     var entitlements =  req.user.entitlements;
     var functionId = parseInt(req.body.functionId);
@@ -308,3 +335,4 @@ module.exports.Register = register;
 module.exports.Authentication = authentication;
 module.exports.Authorization = authorization;
 module.exports.AddShopUser = addShopUser;
+module.exports.ShopRegistration = shopRegistration;

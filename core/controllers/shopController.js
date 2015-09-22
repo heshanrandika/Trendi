@@ -140,6 +140,27 @@ function getNearestShopList(req,callback){
     });
 };
 
+function adminGetShopList(req,callback){
+    console.log("$$$$$$$  adminGetShopList $$$$$$");
+    var params = (req.body.params) ? req.body.params : {};
+
+    var skip =(params.skip)?params.skip:0;
+    var limit  = (params.limit)?params.limit:18;
+    var sorter = params.sorter;
+
+    var option = {skip:skip, limit:limit, sort:sorter};
+    var query = {delete:0};
+    var data = [];
+    var dbCon = daf.FindWithPagination(query,CONSTANT.SHOP_COLLECTION,option);
+    dbCon.on('data', function(doc){
+        data.push(doc);
+    });
+
+    dbCon.on('end', function(){
+        callback(null,data);
+    });
+};
+
 
 module.exports.GetShopList = getShopList;
 module.exports.GetRatedShopList = getRatedShopList;
@@ -148,3 +169,4 @@ module.exports.RemoveShop = removeShop;
 module.exports.GetShop = getShop;
 module.exports.GetNearestShopList = getNearestShopList;
 module.exports.UpdateShop = updateShop;
+module.exports.AdminGetShopList = adminGetShopList;

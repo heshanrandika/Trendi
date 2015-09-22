@@ -39,8 +39,8 @@
                                                 <md-input-container flex>
                                                     <!-- Use floating label instead of placeholder -->
                                                     <label>Shop Name</label>
-                                                    <input ng-model="shop.name" name="name" type="text" ng-required="true">
-                                                    <div ng-messages="itemForm.name.$error">
+                                                    <input ng-model="shop.name" name="shopName" type="text" ng-required="true">
+                                                    <div ng-messages="itemForm.shopName.$error">
                                                         <div ng-message="required">This is required.</div>
                                                     </div>
 
@@ -91,7 +91,7 @@
                                                 <md-input-container flex>
                                                     <!-- Use floating label instead of placeholder -->
                                                     <label>Name</label>
-                                                    <input ng-model="user.name" name="name" type="text" ng-required="true">
+                                                    <input ng-model="regUser.name" name="name" type="text" ng-required="true">
                                                     <div ng-messages="itemForm.name.$error">
                                                         <div ng-message="required">This is required.</div>
                                                     </div>
@@ -101,7 +101,7 @@
                                                 <md-input-container flex>
                                                     <!-- Use floating label instead of placeholder -->
                                                     <label>Email</label>
-                                                    <input ng-model="user.email" name="email" type="email" ng-required="true">
+                                                    <input ng-model="regUser.email" name="email" type="email" ng-required="true">
                                                     <div ng-messages="itemForm.email.$error">
                                                         <div ng-message="required">This is required.</div>
                                                     </div>
@@ -111,7 +111,7 @@
                                                 <md-input-container flex>
                                                     <!-- Use floating label instead of placeholder -->
                                                     <label>Password</label>
-                                                    <input ng-model="user.password" name="password" type="password" ng-required="true">
+                                                    <input ng-model="regUser.password" name="password" type="password" ng-required="true">
                                                     <div ng-messages="itemForm.password.$error">
                                                         <div ng-message="required">This is required.</div>
                                                     </div>
@@ -121,11 +121,11 @@
                                                 <div layout layout-sm="column">
                                                     <md-input-container flex>
                                                         <label>Telephone</label>
-                                                        <input ng-model="user.hotline">
+                                                        <input ng-model="regUser.hotline">
                                                     </md-input-container>
                                                     <md-input-container flex>
                                                         <label>Mobile</label>
-                                                        <input ng-model="user.mobile">
+                                                        <input ng-model="regUser.mobile">
                                                     </md-input-container>
                                                 </div>
 
@@ -134,11 +134,19 @@
                                         </div>
 
                                         <div>
-                                            <trendi-file-upload files="mainImage"></trendi-file-upload>
+                                            <trendi-file-upload files="regUser.profilePic" image-size="profilePicSize" image-count="1"></trendi-file-upload>
+                                        </div>
+
+                                        <div>
+                                            <trendi-file-upload files="shop.iconImage" image-size="iconSize"  image-count="1"></trendi-file-upload>
+                                        </div>
+
+                                        <div>
+                                            <trendi-file-upload files="bannerImage" image-size="bannerSize" image-count="1"></trendi-file-upload>
                                         </div>
 
                                         <div class="map_container" >
-                                            <trendi-map get-point="testPoint"></trendi-map>
+                                            <trendi-map get-point="shop.pos"></trendi-map>
                                         </div>
 
 
