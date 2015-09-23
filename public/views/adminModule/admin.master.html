@@ -1,5 +1,26 @@
 <div style="background-color: #e4e4e4">
     <h1>Admin View</h1>
+    <div>
+        <div class="page-sidebar-wrapper">
+            <div class="page-sidebar navbar-collapse collapse">
+                <!-- BEGIN SIDEBAR MENU -->
+                <ul class="page-sidebar-menu" data-auto-scroll="true" data-slide-speed="200">
+                    <br/>
+                    <li ng-repeat="menu in menuList" ng-class="{active: isActive(menu.key)}" ng-if="initMenu(menu)">
+                        <a ng-click="menuClick(menu)">
+                            <i class="fa fa-tachometer"></i>
+                        <span class="title">
+                            {{menu.value}}
+                        </span>
+                        <span class="selected">
+                        </span>
+                        </a>
+                    </li>
+                </ul>
+                <!-- END SIDEBAR MENU -->
+            </div>
+        </div>
+    </div>
     <!--TODO add some side menu here-->
     <ui-view>
 

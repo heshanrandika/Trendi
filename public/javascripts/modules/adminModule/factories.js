@@ -53,6 +53,14 @@
             return $storage.user;
         };
 
+        serviceCalls.fullUserDataDao = function () {
+            return $storage.user;
+        };
+
+        serviceCalls.isAuthenticatedDao = function () {
+            return (!!$storage.user);
+        };
+
 
 
 

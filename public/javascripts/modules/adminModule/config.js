@@ -6,11 +6,17 @@
 
     var defs = {
         URL_CONFIG: {
-            'admin.login': {
+            'admin': {
+                url: '/admin',
+                templateUrl: 'views/adminModule/admin.master.html',
+                controller: 'adminMasterController'
+
+            },
+          /*  'admin.login': {
                 url: '/login',
                 templateUrl: 'views/adminModule/admin.login.html',
                 controller: 'adminAuthController'
-            },
+            },*/
 
             'admin.items': {
                 url: '/items',
@@ -66,7 +72,9 @@
                 }
             }
 
-        },REQ_CONFIG: {
+        },
+        REQ_CONFIG: {
+
             FUNC_GetSubItem:      1004,
             FUNC_AddItems:        1003,
             FUNC_UpdateItem:      1007,
@@ -75,13 +83,33 @@
             //++++++shop function list++++++++++++++++
             FUNC_GetShopList:     2008,
             FUNC_RegisterShop:    2009
-        }
+        },
+        MENU_CONFIG:[
+            {
+                value:'Shop Configurations',
+                key:'admin.shops',
+                authorization: 2008
+            },
+            {
+                value:'Item Configurations',
+                key:'admin.items',
+                authorization: 1010
+            },
+            {
+                value:'User Configurations',
+                key:'admin.users',
+                authorization: 3000
+            }
+        ]
+
+
     };
 
     mod.config(['$provide', function ($provide) {
         $provide.constant('ADMIN_MOD_CONFIG', {
             'URL_CONFIG': defs.URL_CONFIG,
-            'REQ_CONFIG': defs.REQ_CONFIG
+            'REQ_CONFIG': defs.REQ_CONFIG,
+            'MENU_CONFIG':defs.MENU_CONFIG
         });
 
     }]);

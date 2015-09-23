@@ -10,12 +10,13 @@
                 url: '/main',
                 templateUrl: 'views/mainModule/main.home.html',
                 controller: 'trendiMainController'
-            },
+            }/*,
             'admin': {
                 url: '/admin',
-                templateUrl: 'views/adminModule/admin.master.html'
+                templateUrl: 'views/adminModule/admin.master.html',
+                controller: 'trendiAdminMasterController'
 
-            }
+            }*/
 
         },REQ_CONFIG: {
             FUNC_GetLatestItem:         1001,

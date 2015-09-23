@@ -35,6 +35,14 @@
             return adminServiceCalls.shopDataDao();
         };
 
+        var _fullUserData = function(){
+            return adminServiceCalls.fullUserDataDao();
+        };
+
+        var _isAuthenticated = function(){
+            return adminServiceCalls.isAuthenticatedDao();
+        };
+
 
         return{
             getItemList:_getItemList,
@@ -44,7 +52,9 @@
             removeItem:_removeItem,
             shopData:_shopData,
             getShopList:_getShopList,
-            registerShop:_registerShop
+            registerShop:_registerShop,
+            isAuthenticated: _isAuthenticated,
+            fullUserData:_fullUserData
         }
     }]);
 })(com.TRENDI.CATEGORY.modules.adminModule);

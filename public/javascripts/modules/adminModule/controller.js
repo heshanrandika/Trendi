@@ -4,7 +4,29 @@
 (function (mod) {
     "use strict";
 
-    mod.controller('adminItemController', ['$scope', '$rootScope','$state','adminDataService', function ($scope, $rootScope, $state, adminDataService) {
+    mod.controller('adminMasterController',['$scope', '$rootScope','$state','ADMIN_MOD_CONFIG','adminDataService',function($scope, $rootScope, $state, ADMIN_MOD_CONFIG, adminDataService){
+        $scope.menuList = ADMIN_MOD_CONFIG.MENU_CONFIG;
+        $scope.userData = adminDataService.fullUserData;
+        var entitlementList = [];
+        if($scope.userData.entitlements > 0){
+            entitlementList = _.pluck($scope.userData.entitlements, 'authorization');
+        }
+
+        $scope.initMenu = function(menu){
+            return _.contains(entitlementList, menu.authorization);
+        };
+
+        $scope.menuClick= function(menu){
+            $state.go(menu.key);
+        };
+
+        $scope.isActive = function (viewLocation) {
+            return (viewLocation.split('.')[0] === $state.current.name.split('.')[0] && viewLocation.split('.')[1] === $state.current.name.split('.')[1]);
+        };
+
+    }]);
+
+    mod.controller('adminItemController', ['$scope', '$rootScope','$state','adminDataService','Data.Toast','MESSAGE_CONFIG', function ($scope, $rootScope, $state, adminDataService, Data_Toast, MESSAGE_CONFIG) {
         $scope.itemList = [];
         var shopDetails = {};
 
@@ -171,11 +193,11 @@
 
         $scope.answer = function(option) {
             if(option){
-                if(($scope.mainItem.name == '' || $scope.mainItem.name == undefined) &&
-                    ($scope.mainItem.price == '' || $scope.mainItem.price == undefined) &&
-                    ($scope.mainItem.description == '' || $scope.mainItem.description == undefined) &&
+                if(($scope.mainItem.name == '' || $scope.mainItem.name == undefined) ||
+                    ($scope.mainItem.price == '' || $scope.mainItem.price == undefined) ||
+                    ($scope.mainItem.description == '' || $scope.mainItem.description == undefined) ||
                     $scope.mainImage.length == 0){
-
+                    Data_Toast.warning(MESSAGE_CONFIG.ERROR_REQUIRED_FIELDS);
                 }else {
                     _.each($scope.mainImage, function (k) {
                         if (k.default) {
@@ -195,6 +217,9 @@
                             adminDataService.addItem(itemDetail).then(function (response) {
                                 initData();
                                 $scope.selectedIndex = 0;
+                                Data_Toast.success(MESSAGE_CONFIG.SUCCESS_SAVED_SUCCESSFULLY);
+                            },function(error){
+                                Data_Toast.error(MESSAGE_CONFIG.ERROR_SAVE_FAIL);
                             });
                             break;
                         case 2 :
@@ -202,6 +227,9 @@
                             adminDataService.updateItem(itemDetail).then(function (response) {
                                 initData();
                                 $scope.selectedIndex = 0;
+                                Data_Toast.success(MESSAGE_CONFIG.SUCCESS_UPDATE_SUCCESSFULLY);
+                            },function(error){
+                                Data_Toast.error(MESSAGE_CONFIG.ERROR_UPDATE_FAIL);
                             });
                             break;
                         default :
@@ -215,6 +243,9 @@
                 adminDataService.removeItem(itemDetail).then(function(response){
                     initData();
                     $scope.selectedIndex = 0;
+                    Data_Toast.error(MESSAGE_CONFIG.SUCCESS_REMOVED_SUCCESSFULLY);
+                },function(){
+                    Data_Toast.error(MESSAGE_CONFIG.ERROR_REMOVE_FAIL);
                 });
             }
 
@@ -239,7 +270,6 @@
 
 
     }]);
-
 
     mod.controller('adminBranchesController', ['$scope', '$rootScope','$state','adminDataService', function ($scope, $rootScope, $state, adminDataService) {
         $scope.itemList = [];
@@ -476,8 +506,7 @@
 
     }]);
 
-
-    mod.controller('adminShopsController', ['$scope', '$rootScope','$state','adminDataService','Data.Toast','$mdToast','$document', function ($scope, $rootScope, $state, adminDataService, Data_Toast, $mdToast,$document) {
+    mod.controller('adminShopsController', ['$scope', '$rootScope','$state','adminDataService','Data.Toast','MESSAGE_CONFIG', function ($scope, $rootScope, $state, adminDataService, Data_Toast, MESSAGE_CONFIG) {
 
         $scope.shopList = [];
         $scope.userList = [];
@@ -604,8 +633,11 @@
 
         $scope.answer = function(option) {
             if(option){
-                if($scope.shop.name == ''){
-
+                if(($scope.shop.name == '' || $scope.shop.name == undefined) ||
+                    ($scope.regUser.email == '' || $scope.regUser.email == undefined) ||
+                    ($scope.regUser.password == '' || $scope.regUser.password == undefined)
+                    ){
+                    Data_Toast.warning(MESSAGE_CONFIG.ERROR_REQUIRED_FIELDS);
                 }else {
                     var shopDetails = {};
                     switch (option) {
@@ -614,9 +646,9 @@
                             adminDataService.registerShop(shopDetails).then(function (response) {
                                 initData();
                                 $scope.selectedIndex = 0;
-                                Data_Toast.success('Successfully saved');
+                                Data_Toast.success(MESSAGE_CONFIG.SUCCESS_SAVED_SUCCESSFULLY);
                             },function (error) {
-                                Data_Toast.error('Fail to Save ');
+                                Data_Toast.error(MESSAGE_CONFIG.ERROR_SAVE_FAIL);
                             });
                             break;
                         case 2 :
@@ -624,9 +656,9 @@
                             adminDataService.updateItem(shopDetails).then(function (response) {
                                 initData();
                                 $scope.selectedIndex = 0;
-                                Data_Toast.success('Successfully saved');
+                                Data_Toast.success(MESSAGE_CONFIG.SUCCESS_UPDATE_SUCCESSFULLY);
                             },function (error) {
-                                Data_Toast.error('Fail to Save ');
+                                Data_Toast.error(MESSAGE_CONFIG.ERROR_UPDATE_FAIL);
                             });
                             break;
                         default :
@@ -640,9 +672,9 @@
                 adminDataService.removeItem(shopDetails).then(function(response){
                     initData();
                     $scope.selectedIndex = 0;
-                    Data_Toast.success('Successfully removed');
+                    Data_Toast.success(MESSAGE_CONFIG.SUCCESS_REMOVED_SUCCESSFULLY);
                 },function (error) {
-                    Data_Toast.error('Fail to Remove ');
+                    Data_Toast.error(MESSAGE_CONFIG.ERROR_REMOVE_FAIL);
                 });
             }
 
