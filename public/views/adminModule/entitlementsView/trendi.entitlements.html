@@ -1,0 +1,29 @@
+<div>
+    <md-content>
+            <div class="md-3-line" ng-repeat="entitlementObj in entitlementGroups">
+                <div class="">
+                    <i class="pull-right" ng-click="entitlementObj.isCollapsed = !entitlementObj.isCollapsed" ng-class="{'glyphicon-chevron-down': entitlementObj.isCollapsed, 'glyphicon-chevron-right': !entitlementObj.isCollapsed}"></i>
+                    <div>
+                        <md-checkbox ng-model="entitlementObj.select" ng-change="selectAll(entitlementObj)" aria-label="Entitlements">
+                           Select All Entitlements - {{entitlementObj.category}}
+                        </md-checkbox>
+                    </div>
+                </div>
+                <div collapse="!entitlementObj.isCollapsed">
+                        <md-list>
+                            <md-list-item class="md-3-line" ng-repeat="entitlement in entitlementObj.entitlements">
+                                <div class="md-list-item-text">
+                                    <md-checkbox ng-model="entitlement.select" class="md-primary" ng-change="initSelect(entitlementObj)">
+                                        {{entitlement._id}} - {{entitlement.description}}
+                                    </md-checkbox>
+                                </div>
+                                <md-divider ng-if="!$last"></md-divider>
+                            </md-list-item>
+                        </md-list>
+                </div>
+                <md-divider ng-if="!$last"></md-divider>
+            </div>
+
+    </md-content>
+
+</div>

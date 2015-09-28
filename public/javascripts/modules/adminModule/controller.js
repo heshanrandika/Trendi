@@ -6,10 +6,10 @@
 
     mod.controller('adminMasterController',['$scope', '$rootScope','$state','ADMIN_MOD_CONFIG','adminDataService',function($scope, $rootScope, $state, ADMIN_MOD_CONFIG, adminDataService){
         $scope.menuList = ADMIN_MOD_CONFIG.MENU_CONFIG;
-        $scope.userData = adminDataService.fullUserData;
+        $scope.userData = adminDataService.fullUserData();
         var entitlementList = [];
-        if($scope.userData.entitlements > 0){
-            entitlementList = _.pluck($scope.userData.entitlements, 'authorization');
+        if($scope.userData.entitlements.length > 0){
+            entitlementList = _.pluck($scope.userData.entitlements, '_id');
         }
 
         $scope.initMenu = function(menu){
@@ -511,12 +511,21 @@
         $scope.shopList = [];
         $scope.userList = [];
         $scope.branchList = [];
+        $scope.tmp = {};
+        $scope.userData = {};
         $scope.regUser = {};
         $scope.shop = {};
         $scope.shop.pos = [];
-        $scope.shop.iconImage = [];
-        $scope.bannerImage = [];
-        $scope.regUser.profilePic = [];
+        $scope.shop.iconImage = '';
+        $scope.bannerImage = '';
+        $scope.regUser.profilePic = '';
+        $scope.tmp.entitlements = [];
+        $scope.tmp.oldEntitlements = [];
+        $scope.tmp.allEntitlements = [];
+        $scope.tmp.iconImage = [];
+        $scope.tmp.profilePic = [];
+        $scope.tmp.bannerImage = [];
+        $scope.regUser.entitlements = [];
         $scope.iconSize = {value:10000, text:'10kB'};
         $scope.bannerSize = {value:1000000, text:'1MB'};
         $scope.profilePicSize = {value:100000, text:'100kB'};
@@ -527,6 +536,7 @@
         $scope.headerText = '';
         $scope.addNew = true;
         $scope.selectedIndex = 0;
+
 
         var initData = function(){
             adminDataService.getShopList().then(function(response){
@@ -579,48 +589,63 @@
             $scope.branchList = [];
             $scope.regUser = {};
             $scope.shop = {};
+            $scope.tmp = {};
             $scope.shop.pos = [];
-            $scope.shop.iconImage = [];
-            $scope.bannerImage = [];
-            $scope.regUser.profilePic = [];
+            $scope.shop.iconImage = '';
+            $scope.bannerImage = '';
+            $scope.regUser.profilePic = '';
+            $scope.tmp.entitlements = [];
+            $scope.tmp.oldEntitlements = [];
+            $scope.regUser.entitlements = [];
             $scope.headerText = '';
             $scope.addNew = '';
+            $scope.tmp.allEntitlements = [];
+            $scope.tmp.iconImage = [];
+            $scope.tmp.profilePic = [];
+            $scope.tmp.bannerImage = [];
         };
 
         $scope.$watch('selectedIndex', function(current, old){
-            if(current<old){
+            if(current<= old){
                 $scope.headerText = '';
+                $scope.initDirective = false;
+            }else{
+                $scope.initDirective = true;
             }
+
         });
 
 
         $scope.EditViewController = function(shopData) {
-
+            $scope.loadEntitlements = false;
             $scope.shopId = shopData.shopId;
             $scope.resetForm();
-            $scope.selectedIndex = 1;
+            adminDataService.getEntitlements().then(function(response){
+                $scope.tmp.allEntitlements = response.data.responData.data;
+                $scope.selectedIndex = 1;
+            });
+
             if(shopData){
-
-
-                adminDataService.getBranchList({itemId : itemData.itemId, seenEnable:false}).then(function(response){
-                    var subItemList = response.data.responData.data.itemList;
-                    if(subItemList.length > 0){
-                        _.each(subItemList,function(k){
-                            $scope.mainImage.push({image: k.image,default:false});
-                        });
-                    }
+                $scope.shop = shopData;
+                adminDataService.getUserList({shopId :  $scope.shopId, superAdmin : true}).then(function(response){
+                    var adminUser = response.data.responData.data[0];
+                    $scope.tmp.oldEntitlements = adminUser.entitlements;
+                    $scope.regUser = adminUser;
+                    $scope.loadEntitlements = true;
                 });
-                adminDataService.getUserList({itemId : itemData.itemId, seenEnable:false}).then(function(response){
-                    var subItemList = response.data.responData.data.itemList;
-                    if(subItemList.length > 0){
-                        _.each(subItemList,function(k){
-                            $scope.mainImage.push({image: k.image,default:false});
-                        });
-                    }
+
+                adminDataService.getBranchList({shopId : $scope.shopId}).then(function(response){
+                    var subItemList = response.data.responData.data;
                 });
+                adminDataService.getUserList({shopId :  $scope.shopId}).then(function(response){
+                    var userList = response.data.responData.data;
+                });
+
                 $scope.headerText = 'Edit Shop #'+ $scope.shopId;
                 $scope.addNew = false;
+
             }else{
+                $scope.loadEntitlements = true;
                 $scope.headerText = 'Add New Shop';
                 $scope.addNew = true;
             }
@@ -639,7 +664,23 @@
                     ){
                     Data_Toast.warning(MESSAGE_CONFIG.ERROR_REQUIRED_FIELDS);
                 }else {
+
+                    $scope.shop.iconImage = $scope.tmp.iconImage[0].image;
+                    $scope.bannerImage = $scope.tmp.bannerImage[0].image;
+                    $scope.regUser.profilePic = $scope.regUser.profilePic[0].image;
                     var shopDetails = {};
+
+                    _.each($scope.tmp.entitlements,function(group){
+                        angular.extend($scope.regUser.entitlements, _.chain(group.entitlements)
+                            .filter(function(obj) {
+                                return obj.select;
+                            })
+                            .map(function(obj) {
+                                return _.omit(obj,'select')
+                            })
+                            .value())
+                    });
+
                     switch (option) {
                         case 1 :
                             shopDetails = {shop: $scope.shop, regUser: $scope.regUser, bannerImage:$scope.bannerImage[0]};

@@ -161,6 +161,43 @@ function adminGetShopList(req,callback){
     });
 };
 
+function adminGetBranchList(req,callback){
+    console.log("$$$$$$$  adminGetShopList $$$$$$");
+    var params = (req.body.params) ? req.body.params : {};
+    var shopId = (params.shopId)? params.shopId:0;
+
+    var query = {shopId:shopId, delete:0};
+    var data = [];
+    var dbCon = daf.Find(query,CONSTANT.SHOP_BRANCH);
+    dbCon.on('data', function(doc){
+        data.push(doc);
+    });
+
+    dbCon.on('end', function(){
+        callback(null,data);
+    });
+};
+
+function adminGetUserList(req,callback){
+    console.log("$$$$$$$  GetShop $$$$$$");
+    var params = (req.body.params) ? req.body.params : {};
+    var shopId = (params.shopId)? params.shopId:0;
+    var superAdmin = (params.superAdmin)? params.superAdmin:false;
+
+    var query = {shopId:shopId, superAdmin:superAdmin};
+
+    console.log("$$$$$$$  UpdateItem $$$$$$ : ");
+    var data = [];
+    var dbCon = daf.Find(query,CONSTANT.SHOP_USER);
+    dbCon.on('data', function(doc){
+        data.push(doc);
+    });
+
+    dbCon.on('end', function(){
+        callback(null,data);
+    });
+};
+
 
 module.exports.GetShopList = getShopList;
 module.exports.GetRatedShopList = getRatedShopList;
@@ -170,3 +207,5 @@ module.exports.GetShop = getShop;
 module.exports.GetNearestShopList = getNearestShopList;
 module.exports.UpdateShop = updateShop;
 module.exports.AdminGetShopList = adminGetShopList;
+module.exports.AdminGetUserList = adminGetUserList;
+module.exports.AdminGetBranchList = adminGetBranchList;

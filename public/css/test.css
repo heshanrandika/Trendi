@@ -138,6 +138,8 @@
 
 
 .map_container{
+    min-height: 300px;
+    width: 100%;
     overflow: hidden;
     margin-bottom: 10px;
     max-height: 300px;

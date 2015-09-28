@@ -23,8 +23,16 @@
             return Data_Comm.postPromise(angular.extend({params:d},adminServiceCalls.removeItemDao()));
         };
 
-        var _registerShop = function(){
+        var _registerShop = function(d){
             return Data_Comm.postPromise(angular.extend({params:d},adminServiceCalls.registerShopDao()));
+        };
+
+        var _getUserList = function(d){
+            return Data_Comm.postPromise(angular.extend({params:d},adminServiceCalls.getUserListDao()));
+        };
+
+        var _getBranchList = function(d){
+            return Data_Comm.postPromise(angular.extend({params:d},adminServiceCalls.getBranchListDao()));
         };
 
         var _getShopList = function(){
@@ -43,6 +51,12 @@
             return adminServiceCalls.isAuthenticatedDao();
         };
 
+        var _getEntitlements = function(){
+            return Data_Comm.postPromise(adminServiceCalls.getEntitlementsDao());
+        };
+
+
+
 
         return{
             getItemList:_getItemList,
@@ -53,8 +67,11 @@
             shopData:_shopData,
             getShopList:_getShopList,
             registerShop:_registerShop,
+            getUserList:_getUserList,
+            getBranchList:_getBranchList,
             isAuthenticated: _isAuthenticated,
-            fullUserData:_fullUserData
+            fullUserData:_fullUserData,
+            getEntitlements:_getEntitlements
         }
     }]);
 })(com.TRENDI.CATEGORY.modules.adminModule);

@@ -82,7 +82,10 @@
             FUNC_GetItemList:     1010,
             //++++++shop function list++++++++++++++++
             FUNC_GetShopList:     2008,
-            FUNC_RegisterShop:    2009
+            FUNC_RegisterShop:    2009,
+            FUNC_GetEntitlements: 2010,
+            FUNC_GetBranchList:   2011,
+            FUNC_GetUserList:     2012
         },
         MENU_CONFIG:[
             {

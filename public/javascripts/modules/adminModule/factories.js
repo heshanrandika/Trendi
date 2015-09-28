@@ -49,6 +49,18 @@
             return angular.extend({functionId: ADMIN_MOD_CONFIG.REQ_CONFIG.FUNC_RegisterShop}, _getCObj());
         };
 
+        serviceCalls.getUserListDao = function () {
+            return angular.extend({functionId: ADMIN_MOD_CONFIG.REQ_CONFIG.FUNC_GetUserList}, _getCObj());
+        };
+
+        serviceCalls.getBranchListDao = function () {
+            return angular.extend({functionId: ADMIN_MOD_CONFIG.REQ_CONFIG.FUNC_GetBranchList}, _getCObj());
+        };
+
+        serviceCalls.getEntitlementsDao = function () {
+            return angular.extend({functionId: ADMIN_MOD_CONFIG.REQ_CONFIG.FUNC_GetEntitlements}, _getCObj());
+        };
+
         serviceCalls.shopDataDao = function () {
             return $storage.user;
         };

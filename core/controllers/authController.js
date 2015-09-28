@@ -19,7 +19,7 @@ function login(req,callback) {
 
     if(userType === CONSTANT.SHOP){
 
-        daf.FindOne(query,CONSTANT.SHOP_COLLECTION,function(err, user){
+        daf.FindOne(query,CONSTANT.SHOP_USER,function(err, user){
            if(err){
                callback("User Login Failed", user);
                return;
@@ -30,7 +30,7 @@ function login(req,callback) {
                    }else if(state){
                        PWD.GenerateSession(function(session){
                            var changeDoc = {$set:{'session':session}};
-                           daf.Update(query,changeDoc,CONSTANT.SHOP_COLLECTION,function(err, success){
+                           daf.Update(query,changeDoc,CONSTANT.SHOP_USER,function(err, success){
                                if(success){
                                    user.session = session;
                                    callback(err, user);
@@ -121,11 +121,24 @@ function register(req,callback) {
 
 }
 
+function getEntitlements(req, callback){
+    var email = (req.body.email)? req.body.email : {};
+    var query = {'email':email};
+    daf.FindOne(query,CONSTANT.SHOP_USER,function(err,user){
+        if(user){
+            callback(null, user.entitlements)
+        }else{
+            callback(("Shop user not found "+ email),null);
+        }
+    });
+
+}
+
 function shopRegistration(req,callback) {
     var params = (req.body.params) ? req.body.params : {};
 
 
-    var userType = (params.userType)?params.userType: 0;
+    var userType = (req.body.userType)?req.body.userType: 0;
     var regUser =  (params.regUser)?params.regUser: 0;
     var shop =  (params.shop)?params.shop: {};
     var bannerImage =  (params.bannerImage)?params.bannerImage: '';
@@ -142,6 +155,7 @@ function shopRegistration(req,callback) {
                         shop.shopId = shopId;
                         shop.regDate = new Date();
                         shop.shopEmail = regUser.email;
+                        shop.delete = 0;
 
                         var branchDoc = {
                             shopId: shopId,
@@ -224,6 +238,77 @@ function shopRegistration(req,callback) {
 
 }
 
+function updateShop(req,callback) {
+    var params = (req.body.params) ? req.body.params : {};
+
+
+    var userType = (req.body.userType)?req.body.userType: 0;
+    var regUser =  (params.regUser)?params.regUser: 0;
+    var shop =  (params.shop)?params.shop: {};
+    var bannerImage =  (params.bannerImage)?params.bannerImage: '';
+    var query = {};
+    var changeDoc = {};
+
+
+
+    var HashPWD = PWD.GetHashedPassword(regUser.password,CONSTANT.HASHING_ALGO);
+    if(userType == CONSTANT.SHOP){
+        query = {shopId : shop.shopId};
+        changeDoc = shop;
+        var branchDoc = {
+            shopId: shopId,
+            branchId:0,
+            addDate: new Date(),
+            delete: 0,
+            shop:shop
+        };
+        daf.Update(query,changeDoc,CONSTANT.SHOP_COLLECTION,function(err, success){
+            if(err){
+                callback(("Shop User Updating Failed :"+err),null);
+            }else{
+                query = {'email':regUser.email};
+                changeDoc = {
+                    shopId: shopId,
+                    name : regUser.name,
+                    password:HashPWD,
+                    session:'',
+                    branch:branchDoc,
+                    userType:userType,
+                    entitlements:regUser.entitlements,
+                    superAdmin:true
+                };
+                daf.Update(query,changeDoc,CONSTANT.SHOP_USER,function(err, success){
+                    if(err){
+                        callback(("Shop User Registration Failed :"+err),null);
+                    }else{
+                        query = {shopId : shop.shopId};
+                        daf.Update(query,branchDoc,CONSTANT.SHOP_BRANCH,function(err, success){
+                            if(err){
+                                callback(("Shop User Registration Failed :"+err),null);
+                            }else{
+                                changeDoc = {
+                                    image : bannerImage
+                                };
+                                daf.Update(query,changeDoc,CONSTANT.BANNER_IMAGE,function(err, success){
+                                    if(err){
+                                        callback(("Shop User Registration Failed :"+err),null);
+                                    }else{
+                                        callback(err,("Successfully Registered :"+success));
+                                    }
+                                })
+                            }
+                        });
+                    }
+                })
+            }
+        });
+
+    }else{
+        callback(("User Type Error : value : "+ userType),null);
+    }
+
+}
+
 function addShopUser(req,callback) {
     var params = (req.body.params) ? req.body.params : {};
 
@@ -279,7 +364,7 @@ function authentication(req, callback) {
         var query = {$and: [ { 'email':email}, { 'session':session} ]};
         console.log("^^^^^^^  Authentication ^^^^^^^ : ");
         if(userType == CONSTANT.SHOP){
-            daf.FindOne(query,CONSTANT.SHOP_COLLECTION,function(err, user){
+            daf.FindOne(query,CONSTANT.SHOP_USER,function(err, user){
                 if (err){
                     callback(err, null);
 
@@ -319,11 +404,11 @@ function authorization(req, callback) {
     var functionId = parseInt(req.body.functionId);
     var authorized = _.filter(entitlements, { '_id': functionId});
     if(authorized.length > 0){
-        if(authorized.expDate > new Date()){
+       // if(authorized.expDate > new Date()){
             callback(null, true);
-        }else{
+       /* }else{
             callback(CONSTANT.ERROR_FAIL_AUTHORIZATION_EXP_DATE, true);
-        }
+        }*/
 
     }else{
         callback(CONSTANT.ERROR_NOT_AUTHORIZED,null);
@@ -336,3 +421,4 @@ module.exports.Authentication = authentication;
 module.exports.Authorization = authorization;
 module.exports.AddShopUser = addShopUser;
 module.exports.ShopRegistration = shopRegistration;
+module.exports.GetEntitlements = getEntitlements;

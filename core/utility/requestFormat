@@ -5,3 +5,5 @@ MongoDB 2.4 database added.  Please make note of these credentials:
    Database Name: trendi
 
 Connection URL: mongodb://$OPENSHIFT_MONGODB_DB_HOST:$OPENSHIFT_MONGODB_DB_PORT/
+
+http://docs.mongodb.org/manual/tutorial/backup-and-restore-tools/#backup-and-restore-tools
