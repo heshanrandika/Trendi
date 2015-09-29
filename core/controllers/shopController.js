@@ -198,6 +198,15 @@ function adminGetUserList(req,callback){
     });
 };
 
+function updateBranches(shopDetails,callback){
+    var query = {shopId:shopDetails.shopId};
+    var changeDoc = {$set:{shop: shopDetails}};
+
+    daf.Upsert(query,changeDoc,CONSTANT.SHOP_BRANCH,function(err,success){
+        callback(err,success)
+    });
+}
+
 
 module.exports.GetShopList = getShopList;
 module.exports.GetRatedShopList = getRatedShopList;
@@ -209,3 +218,4 @@ module.exports.UpdateShop = updateShop;
 module.exports.AdminGetShopList = adminGetShopList;
 module.exports.AdminGetUserList = adminGetUserList;
 module.exports.AdminGetBranchList = adminGetBranchList;
+module.exports.UpdateBranches = updateBranches;

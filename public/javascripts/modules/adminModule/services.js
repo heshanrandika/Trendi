@@ -27,6 +27,10 @@
             return Data_Comm.postPromise(angular.extend({params:d},adminServiceCalls.registerShopDao()));
         };
 
+        var _adminUpdateShop = function(d){
+            return Data_Comm.postPromise(angular.extend({params:d},adminServiceCalls.adminUpdateShopDao()));
+        };
+
         var _getUserList = function(d){
             return Data_Comm.postPromise(angular.extend({params:d},adminServiceCalls.getUserListDao()));
         };
@@ -67,6 +71,7 @@
             shopData:_shopData,
             getShopList:_getShopList,
             registerShop:_registerShop,
+            adminUpdateShop:_adminUpdateShop,
             getUserList:_getUserList,
             getBranchList:_getBranchList,
             isAuthenticated: _isAuthenticated,

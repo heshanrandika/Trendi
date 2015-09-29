@@ -842,18 +842,20 @@
                             labelClass: "marker-labels",
                             labelAnchor:"50 0"
                         },
-                        latitude: $scope.getPoint[0],
-                        longitude: $scope.getPoint[1]
+                        latitude: $scope.getPoint[0]?$scope.getPoint[0]:6.933,
+                        longitude: $scope.getPoint[1]?$scope.getPoint[1]:80.305
                     }
                  };
+
+                GoogleMapApi.then(function(maps) {
+                    $scope.googleVersion = maps.version;
+                    maps.visualRefresh = true;
+
+                });
             };
             initVal();
 
-            GoogleMapApi.then(function(maps) {
-                $scope.googleVersion = maps.version;
-                maps.visualRefresh = true;
 
-            });
 
             var syncVal = function(){
                 $scope.getPoint[0] = $scope.map.clickedMarker.latitude;
@@ -909,33 +911,14 @@
                                 labelAnchor: "22 0",
                                 labelClass: "marker-labels"
                             }
-                        },
-                        {
-                            id: 2,
-                            latitude: 15,
-                            longitude: 30,
-                            showWindow: false
-                        },
-                        {
-                            id: 3,
-                            icon: 'assets/images/plane.png',
-                            latitude: 37,
-                            longitude: -122,
-                            showWindow: false,
-                            title: 'Plane',
-                            options: {
-                                labelContent: 'Markers id 3',
-                                labelAnchor: "26 0",
-                                labelClass: "marker-labels"
-                            }
                         }
                     ],
                     markers2: [
                         {
                             id: 2,
                             icon: '../../images/drag_marker.png',
-                            latitude: $scope.map.clickedMarker.latitude,
-                            longitude: $scope.map.clickedMarker.longitude,
+                            latitude: $scope.getPoint[0]?$scope.getPoint[0]:6.933,
+                            longitude:$scope.getPoint[1]?$scope.getPoint[1]:80.305,
                             showWindow: false,
                             options: {
                                 labelContent: 'Drag to Shop',

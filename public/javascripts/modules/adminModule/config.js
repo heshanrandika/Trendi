@@ -85,7 +85,8 @@
             FUNC_RegisterShop:    2009,
             FUNC_GetEntitlements: 2010,
             FUNC_GetBranchList:   2011,
-            FUNC_GetUserList:     2012
+            FUNC_GetUserList:     2012,
+            FUNC_AdminUpdateShop: 2013
         },
         MENU_CONFIG:[
             {

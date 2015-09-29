@@ -665,25 +665,27 @@
                     Data_Toast.warning(MESSAGE_CONFIG.ERROR_REQUIRED_FIELDS);
                 }else {
 
-                    $scope.shop.iconImage = $scope.tmp.iconImage[0].image;
-                    $scope.bannerImage = $scope.tmp.bannerImage[0].image;
-                    $scope.regUser.profilePic = $scope.regUser.profilePic[0].image;
+                    $scope.shop.iconImage = $scope.tmp.iconImage[0]?$scope.tmp.iconImage[0].image:'';
+                    $scope.bannerImage = $scope.tmp.bannerImage[0]?$scope.tmp.bannerImage[0].image:'';
+                    $scope.regUser.profilePic = $scope.regUser.profilePic?$scope.regUser.profilePic[0].image:'';
                     var shopDetails = {};
 
+                    $scope.regUser.entitlements =[];
                     _.each($scope.tmp.entitlements,function(group){
-                        angular.extend($scope.regUser.entitlements, _.chain(group.entitlements)
+                       var valueArray =  _.chain(group.entitlements)
                             .filter(function(obj) {
                                 return obj.select;
                             })
                             .map(function(obj) {
                                 return _.omit(obj,'select')
                             })
-                            .value())
+                            .value();
+                        $scope.regUser.entitlements = $scope.regUser.entitlements.concat(valueArray);
                     });
 
                     switch (option) {
                         case 1 :
-                            shopDetails = {shop: $scope.shop, regUser: $scope.regUser, bannerImage:$scope.bannerImage[0]};
+                            shopDetails = {shop: $scope.shop, regUser: $scope.regUser, bannerImage:$scope.bannerImage};
                             adminDataService.registerShop(shopDetails).then(function (response) {
                                 initData();
                                 $scope.selectedIndex = 0;
@@ -693,8 +695,8 @@
                             });
                             break;
                         case 2 :
-                            shopDetails = {shop: $scope.shop, regUser: $scope.regUser};
-                            adminDataService.updateItem(shopDetails).then(function (response) {
+                            shopDetails = {shop: $scope.shop, regUser: $scope.regUser, bannerImage:$scope.bannerImage};
+                            adminDataService.adminUpdateShop(shopDetails).then(function (response) {
                                 initData();
                                 $scope.selectedIndex = 0;
                                 Data_Toast.success(MESSAGE_CONFIG.SUCCESS_UPDATE_SUCCESSFULLY);

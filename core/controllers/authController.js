@@ -4,6 +4,7 @@
 var daf = require('../persistence/MongoPersistence');
 var CONSTANT = require('../utility/Constants');
 var PWD = require('../utility/GeneralFunctions');
+var SHOP = require('../controllers/shopController');
 var _ = require('lodash');
 
 
@@ -238,7 +239,7 @@ function shopRegistration(req,callback) {
 
 }
 
-function updateShop(req,callback) {
+function adminUpdateShop(req,callback) {
     var params = (req.body.params) ? req.body.params : {};
 
 
@@ -250,54 +251,55 @@ function updateShop(req,callback) {
     var changeDoc = {};
 
 
-
-    var HashPWD = PWD.GetHashedPassword(regUser.password,CONSTANT.HASHING_ALGO);
     if(userType == CONSTANT.SHOP){
         query = {shopId : shop.shopId};
         changeDoc = shop;
+        delete changeDoc._id;
         var branchDoc = {
-            shopId: shopId,
+            shopId: shop.shopId,
             branchId:0,
             addDate: new Date(),
             delete: 0,
             shop:shop
         };
-        daf.Update(query,changeDoc,CONSTANT.SHOP_COLLECTION,function(err, success){
+        daf.Upsert(query,changeDoc,CONSTANT.SHOP_COLLECTION,function(err, success){
             if(err){
-                callback(("Shop User Updating Failed :"+err),null);
+                callback(("Shop Collection Updating Failed :"+err),null);
             }else{
                 query = {'email':regUser.email};
                 changeDoc = {
-                    shopId: shopId,
+                    shopId: shop.shopId,
                     name : regUser.name,
-                    password:HashPWD,
+                    password:regUser.password,
+                    email:regUser.email,
                     session:'',
                     branch:branchDoc,
                     userType:userType,
                     entitlements:regUser.entitlements,
                     superAdmin:true
                 };
-                daf.Update(query,changeDoc,CONSTANT.SHOP_USER,function(err, success){
+                daf.Upsert(query,changeDoc,CONSTANT.SHOP_USER,function(err, success){
                     if(err){
-                        callback(("Shop User Registration Failed :"+err),null);
+                        callback(("Shop User Updating Failed :"+err),null);
                     }else{
                         query = {shopId : shop.shopId};
-                        daf.Update(query,branchDoc,CONSTANT.SHOP_BRANCH,function(err, success){
+                        changeDoc = {image : bannerImage};
+                        daf.Upsert(query,changeDoc,CONSTANT.BANNER_IMAGE,function(err, success){
                             if(err){
                                 callback(("Shop User Registration Failed :"+err),null);
                             }else{
-                                changeDoc = {
-                                    image : bannerImage
-                                };
-                                daf.Update(query,changeDoc,CONSTANT.BANNER_IMAGE,function(err, success){
+                                SHOP.UpdateBranches(shop, function(err, success){
                                     if(err){
-                                        callback(("Shop User Registration Failed :"+err),null);
+                                        callback(("Shop User Updating Failed :"+err), null);
                                     }else{
-                                        callback(err,("Successfully Registered :"+success));
+                                        callback(err,("Successfully Updated :"+success));
                                     }
-                                })
+
+                                });
+
+
                             }
-                        });
+                        })
                     }
                 })
             }
@@ -422,3 +424,4 @@ module.exports.Authorization = authorization;
 module.exports.AddShopUser = addShopUser;
 module.exports.ShopRegistration = shopRegistration;
 module.exports.GetEntitlements = getEntitlements;
+module.exports.AdminUpdateShop = adminUpdateShop;

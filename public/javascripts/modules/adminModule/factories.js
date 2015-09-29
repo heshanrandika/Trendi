@@ -49,6 +49,10 @@
             return angular.extend({functionId: ADMIN_MOD_CONFIG.REQ_CONFIG.FUNC_RegisterShop}, _getCObj());
         };
 
+        serviceCalls.adminUpdateShopDao = function () {
+            return angular.extend({functionId: ADMIN_MOD_CONFIG.REQ_CONFIG.FUNC_AdminUpdateShop}, _getCObj());
+        };
+
         serviceCalls.getUserListDao = function () {
             return angular.extend({functionId: ADMIN_MOD_CONFIG.REQ_CONFIG.FUNC_GetUserList}, _getCObj());
         };
