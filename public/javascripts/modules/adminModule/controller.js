@@ -627,10 +627,14 @@
 
             if(shopData){
                 $scope.shop = shopData;
+                $scope.tmp.iconImage.push({image:shopData.iconImage});
+                $scope.tmp.bannerImage.push({});
+
                 adminDataService.getUserList({shopId :  $scope.shopId, superAdmin : true}).then(function(response){
                     var adminUser = response.data.responData.data[0];
                     $scope.tmp.oldEntitlements = adminUser.entitlements;
                     $scope.regUser = adminUser;
+                    $scope.tmp.profilePic.push({image:$scope.regUser.profilePic});
                     $scope.loadEntitlements = true;
                 });
 
@@ -667,7 +671,7 @@
 
                     $scope.shop.iconImage = $scope.tmp.iconImage[0]?$scope.tmp.iconImage[0].image:'';
                     $scope.bannerImage = $scope.tmp.bannerImage[0]?$scope.tmp.bannerImage[0].image:'';
-                    $scope.regUser.profilePic = $scope.regUser.profilePic?$scope.regUser.profilePic[0].image:'';
+                    $scope.regUser.profilePic = $scope.tmp.profilePic[0]?$scope.tmp.profilePic[0].image:'';
                     var shopDetails = {};
 
                     $scope.regUser.entitlements =[];

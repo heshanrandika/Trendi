@@ -1,16 +1,13 @@
 <div class="container">
-
     <div class="row">
-        <div class="col-md-6" ng-if="map.clickedMarker.latitude && map.clickedMarker.longitude">
-            <md-input-container class="md-icon-float" >
+        <div layout class="col-md-6">
+            <md-input-container flex>
                 <label>Latitude</label>
-                <md-icon md-svg-src="img/icons/ic_person_24px.svg" class="name"></md-icon>
-                <input ng-model="map.clickedMarker.latitude" name="name" type="text">
+                <input ng-model="map.clickedMarker.latitude">
             </md-input-container>
-            <md-input-container class="md-icon-float" >
+            <md-input-container flex>
                 <label>Longitude</label>
-                <md-icon md-svg-src="img/icons/ic_person_24px.svg" class="name"></md-icon>
-                <input ng-model="map.clickedMarker.longitude" name="name" type="text">
+                <input ng-model="map.clickedMarker.longitude">
             </md-input-container>
         </div>
     </div>

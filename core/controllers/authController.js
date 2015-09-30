@@ -171,6 +171,7 @@ function shopRegistration(req,callback) {
                             name : regUser.name,
                             email:regUser.email,
                             password:HashPWD,
+                            profilePic:regUser.profilePic,
                             session:'',
                             branch:branchDoc,
                             userType:userType,
@@ -271,6 +272,7 @@ function adminUpdateShop(req,callback) {
                     shopId: shop.shopId,
                     name : regUser.name,
                     password:regUser.password,
+                    profilePic:regUser.profilePic,
                     email:regUser.email,
                     session:'',
                     branch:branchDoc,
@@ -283,7 +285,7 @@ function adminUpdateShop(req,callback) {
                         callback(("Shop User Updating Failed :"+err),null);
                     }else{
                         query = {shopId : shop.shopId};
-                        changeDoc = {image : bannerImage};
+                        changeDoc = {shopId : shop.shopId, image : bannerImage};
                         daf.Upsert(query,changeDoc,CONSTANT.BANNER_IMAGE,function(err, success){
                             if(err){
                                 callback(("Shop User Registration Failed :"+err),null);
