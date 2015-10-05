@@ -207,6 +207,17 @@ function updateBranches(shopDetails,callback){
     });
 }
 
+function getBannerImage(req,callback){
+    console.log("$$$$$$$  Get Banner Image $$$$$$");
+    var params = (req.body.params) ? req.body.params : {};
+    var shopId = params.shopId;
+    var query = {shopId:shopId};
+
+    daf.FindOne(query,CONSTANT.BANNER_IMAGE,function(err,success){
+        callback(err , success);
+    });
+}
+
 
 module.exports.GetShopList = getShopList;
 module.exports.GetRatedShopList = getRatedShopList;
@@ -219,3 +230,4 @@ module.exports.AdminGetShopList = adminGetShopList;
 module.exports.AdminGetUserList = adminGetUserList;
 module.exports.AdminGetBranchList = adminGetBranchList;
 module.exports.UpdateBranches = updateBranches;
+module.exports.GetBannerImage = getBannerImage;

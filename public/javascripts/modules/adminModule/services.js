@@ -39,6 +39,10 @@
             return Data_Comm.postPromise(angular.extend({params:d},adminServiceCalls.getBranchListDao()));
         };
 
+        var _getBannerImage = function(d){
+            return Data_Comm.postPromise(angular.extend({params:d},adminServiceCalls.getBannerImageDao()));
+        };
+
         var _getShopList = function(){
             return Data_Comm.postPromise(adminServiceCalls.getShopListDao());
         };
@@ -76,7 +80,8 @@
             getBranchList:_getBranchList,
             isAuthenticated: _isAuthenticated,
             fullUserData:_fullUserData,
-            getEntitlements:_getEntitlements
+            getEntitlements:_getEntitlements,
+            getBannerImage:_getBannerImage
         }
     }]);
 })(com.TRENDI.CATEGORY.modules.adminModule);

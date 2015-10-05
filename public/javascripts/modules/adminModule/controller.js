@@ -627,14 +627,19 @@
 
             if(shopData){
                 $scope.shop = shopData;
-                $scope.tmp.iconImage.push({image:shopData.iconImage});
-                $scope.tmp.bannerImage.push({});
+                if(!(shopData.iconImage == '' || shopData.iconImage == undefined)){
+                    $scope.tmp.iconImage.push({image:shopData.iconImage});
+                }
+
+
 
                 adminDataService.getUserList({shopId :  $scope.shopId, superAdmin : true}).then(function(response){
                     var adminUser = response.data.responData.data[0];
                     $scope.tmp.oldEntitlements = adminUser.entitlements;
                     $scope.regUser = adminUser;
-                    $scope.tmp.profilePic.push({image:$scope.regUser.profilePic});
+                    if(!($scope.regUser.profilePic == '' || $scope.regUser.profilePic == undefined)){
+                        $scope.tmp.profilePic.push({image:$scope.regUser.profilePic});
+                    }
                     $scope.loadEntitlements = true;
                 });
 
@@ -643,6 +648,14 @@
                 });
                 adminDataService.getUserList({shopId :  $scope.shopId}).then(function(response){
                     var userList = response.data.responData.data;
+                });
+
+                adminDataService.getBannerImage({shopId :  $scope.shopId}).then(function(response){
+                    if(!(response.data.responData.data == '' || response.data.responData.data == undefined)){
+                        delete response.data.responData.data._id;
+                        $scope.tmp.bannerImage.push(response.data.responData.data);
+                    }
+
                 });
 
                 $scope.headerText = 'Edit Shop #'+ $scope.shopId;
