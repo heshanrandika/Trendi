@@ -272,68 +272,42 @@
     }]);
 
     mod.controller('adminBranchesController', ['$scope', '$rootScope','$state','adminDataService', function ($scope, $rootScope, $state, adminDataService) {
-        $scope.itemList = [];
-        var shopDetails = {};
+        $scope.shopList = [];
+        $scope.userList = [];
+        $scope.branchList = [];
+        $scope.tmp = {};
+        $scope.userData = {};
+        $scope.regUser = {};
+        $scope.shop = {};
+        $scope.shop.pos = [];
+        $scope.shop.iconImage = '';
+        $scope.bannerImage = '';
+        $scope.regUser.profilePic = '';
+        $scope.tmp.entitlements = [];
+        $scope.tmp.oldEntitlements = [];
+        $scope.tmp.allEntitlements = [];
+        $scope.tmp.iconImage = [];
+        $scope.tmp.profilePic = [];
+        $scope.tmp.bannerImage = [];
+        $scope.regUser.entitlements = [];
+        $scope.iconSize = {value:10000, text:'10kB'};
+        $scope.bannerSize = {value:1000000, text:'1MB'};
+        $scope.profilePicSize = {value:100000, text:'100kB'};
+        $scope.iconCount = 1;
+        $scope.bannerCount = 1;
+        $scope.profilePicCount = 1;
 
-        //=======Item Edit Window================
-        $scope.mainImage = [];
-        $scope.imageSize = [];
-        $scope.subItem = [];
         $scope.headerText = '';
         $scope.addNew = true;
-
-        $scope.mainItem = {};
-        $scope.selectedColors = [];
-        $scope.slectedSizes = [];
-        $scope.slectedTypes = [];
         $scope.selectedIndex = 0;
 
-        $scope.sizes = [
-            {
-                'value': 'X-small'
-            },
-            {
-                'value': 'Small'
-            },
-            {
-                'value': 'Medium'
-            },
-            {
-                'value': 'Large'
-            },
-            {
-                'value': 'X-large'
-            }
-        ];
-
-
-        $scope.types = [
-            {
-                'value': 'Blouse'
-            },
-            {
-                'value': 'High-neck'
-            },
-            {
-                'value': 'Short-skirt'
-            },
-            {
-                'value': 'Shirt'
-            },
-            {
-                'value': 'Short'
-            }
-        ];
 
         var initData = function(){
-            shopDetails = adminDataService.shopData();
-            adminDataService.getItemList(shopDetails.shop).then(function(response){
-                $scope.itemList = response.data.responData.data
+            adminDataService.getShopList().then(function(response){
+                $scope.shopList = response.data.responData.data
             },function(){
-                $scope.itemList = [];
+                $scope.shopList = [];
             });
-
-
         };
         initData();
 
@@ -375,59 +349,87 @@
         };
 
         $scope.resetForm = function(){
-            $scope.mainImage = [];
-            $scope.subItem = [];
+            $scope.userList = [];
+            $scope.branchList = [];
+            $scope.regUser = {};
+            $scope.shop = {};
+            $scope.tmp = {};
+            $scope.shop.pos = [];
+            $scope.shop.iconImage = '';
+            $scope.bannerImage = '';
+            $scope.regUser.profilePic = '';
+            $scope.tmp.entitlements = [];
+            $scope.tmp.oldEntitlements = [];
+            $scope.regUser.entitlements = [];
             $scope.headerText = '';
             $scope.addNew = '';
-            $scope.selectedColors = [];
-            $scope.slectedSizes = [];
-            $scope.slectedTypes = [];
+            $scope.tmp.allEntitlements = [];
+            $scope.tmp.iconImage = [];
+            $scope.tmp.profilePic = [];
+            $scope.tmp.bannerImage = [];
         };
 
         $scope.$watch('selectedIndex', function(current, old){
-            if(current<old){
+            if(current<= old){
                 $scope.headerText = '';
+                $scope.initDirective = false;
+            }else{
+                $scope.initDirective = true;
             }
+
         });
 
-        $scope.EditViewController = function(itemData) {
-            $scope.itemId = itemData.itemId;
+
+        $scope.EditViewController = function(shopData) {
+            $scope.loadEntitlements = false;
+            $scope.shopId = shopData.shopId;
             $scope.resetForm();
-            $scope.selectedIndex = 1;
-            if(itemData){
-                $scope.mainItem = itemData.item;
-                $scope.mainImage.push({image:$scope.mainItem.image,default:true});
+            adminDataService.getEntitlements().then(function(response){
+                $scope.tmp.allEntitlements = response.data.responData.data;
+                $scope.selectedIndex = 1;
+            });
 
-                $scope.selectedColors = itemData.item.colors;
-                $scope.slectedSizes = itemData.item.sizes?itemData.item.sizes:[];
-                $scope.slectedTypes = itemData.item.types?itemData.item.types:[];
+            if(shopData){
+                $scope.shop = shopData;
+                if(!(shopData.iconImage == '' || shopData.iconImage == undefined)){
+                    $scope.tmp.iconImage.push({image:shopData.iconImage});
+                }
 
-                adminDataService.getSubItem({itemId : itemData.itemId, seenEnable:false}).then(function(response){
-                    var subItemList = response.data.responData.data.itemList;
-                    if(subItemList.length > 0){
-                        _.each(subItemList,function(k){
-                            $scope.mainImage.push({image: k.image,default:false});
-                        });
+
+
+                adminDataService.getUserList({shopId :  $scope.shopId, superAdmin : true}).then(function(response){
+                    var adminUser = response.data.responData.data[0];
+                    $scope.tmp.oldEntitlements = adminUser.entitlements;
+                    $scope.regUser = adminUser;
+                    if(!($scope.regUser.profilePic == '' || $scope.regUser.profilePic == undefined)){
+                        $scope.tmp.profilePic.push({image:$scope.regUser.profilePic});
                     }
+                    $scope.loadEntitlements = true;
                 });
-                $scope.headerText = 'Edit Item #'+itemData.itemId;
-                $scope.addNew = false;
-            }else{
 
-                $scope.mainItem = {};
-                $scope.selectedColors = [{color:'#FFFFFF'},{color:'#FFFFFF'},{color:'#FFFFFF'},{color:'#FFFFFF'}];
-                $scope.slectedSizes = [{'value': 'X-small'}];
-                $scope.slectedTypes = [];
-                $scope.headerText = 'Add New Item';
+                adminDataService.getBranchList({shopId : $scope.shopId}).then(function(response){
+                    var subItemList = response.data.responData.data;
+                });
+                adminDataService.getUserList({shopId :  $scope.shopId}).then(function(response){
+                    var userList = response.data.responData.data;
+                });
+
+                adminDataService.getBannerImage({shopId :  $scope.shopId}).then(function(response){
+                    if(!(response.data.responData.data == '' || response.data.responData.data == undefined)){
+                        delete response.data.responData.data._id;
+                        $scope.tmp.bannerImage.push(response.data.responData.data);
+                    }
+
+                });
+
+                $scope.headerText = 'Edit Shop #'+ $scope.shopId;
+                $scope.addNew = false;
+
+            }else{
+                $scope.loadEntitlements = true;
+                $scope.headerText = 'Add New Shop';
                 $scope.addNew = true;
             }
-
-
-
-
-
-
-
 
         };
 
@@ -437,37 +439,50 @@
 
         $scope.answer = function(option) {
             if(option){
-                if(($scope.mainItem.name == '' || $scope.mainItem.name == undefined) &&
-                    ($scope.mainItem.price == '' || $scope.mainItem.price == undefined) &&
-                    ($scope.mainItem.description == '' || $scope.mainItem.description == undefined) &&
-                    $scope.mainImage.length == 0){
-
+                if(($scope.shop.name == '' || $scope.shop.name == undefined) ||
+                    ($scope.regUser.email == '' || $scope.regUser.email == undefined) ||
+                    ($scope.regUser.password == '' || $scope.regUser.password == undefined)
+                    ){
+                    Data_Toast.warning(MESSAGE_CONFIG.ERROR_REQUIRED_FIELDS);
                 }else {
-                    _.each($scope.mainImage, function (k) {
-                        if (k.default) {
-                            $scope.mainItem.image = k.image;
-                        } else {
-                            $scope.subItem.push({image: k.image});
-                        }
+
+                    $scope.shop.iconImage = $scope.tmp.iconImage[0]?$scope.tmp.iconImage[0].image:'';
+                    $scope.bannerImage = $scope.tmp.bannerImage[0]?$scope.tmp.bannerImage[0].image:'';
+                    $scope.regUser.profilePic = $scope.tmp.profilePic[0]?$scope.tmp.profilePic[0].image:'';
+                    var shopDetails = {};
+
+                    $scope.regUser.entitlements =[];
+                    _.each($scope.tmp.entitlements,function(group){
+                        var valueArray =  _.chain(group.entitlements)
+                            .filter(function(obj) {
+                                return obj.select;
+                            })
+                            .map(function(obj) {
+                                return _.omit(obj,'select')
+                            })
+                            .value();
+                        $scope.regUser.entitlements = $scope.regUser.entitlements.concat(valueArray);
                     });
-                    $scope.mainItem.shop = shopDetails.shop;
-                    $scope.mainItem.types = $scope.slectedTypes;
-                    $scope.mainItem.sizes = $scope.slectedSizes;
-                    $scope.mainItem.colors = $scope.selectedColors;
-                    var itemDetail = {};
+
                     switch (option) {
                         case 1 :
-                            itemDetail = {mainItem: $scope.mainItem, subItem: $scope.subItem};
-                            adminDataService.addItem(itemDetail).then(function (response) {
+                            shopDetails = {shop: $scope.shop, regUser: $scope.regUser, bannerImage:$scope.bannerImage};
+                            adminDataService.registerShop(shopDetails).then(function (response) {
                                 initData();
                                 $scope.selectedIndex = 0;
+                                Data_Toast.success(MESSAGE_CONFIG.SUCCESS_SAVED_SUCCESSFULLY);
+                            },function (error) {
+                                Data_Toast.error(MESSAGE_CONFIG.ERROR_SAVE_FAIL);
                             });
                             break;
                         case 2 :
-                            itemDetail = {mainItem: $scope.mainItem, subItem: $scope.subItem, itemId:$scope.itemId};
-                            adminDataService.updateItem(itemDetail).then(function (response) {
+                            shopDetails = {shop: $scope.shop, regUser: $scope.regUser, bannerImage:$scope.bannerImage};
+                            adminDataService.adminUpdateShop(shopDetails).then(function (response) {
                                 initData();
                                 $scope.selectedIndex = 0;
+                                Data_Toast.success(MESSAGE_CONFIG.SUCCESS_UPDATE_SUCCESSFULLY);
+                            },function (error) {
+                                Data_Toast.error(MESSAGE_CONFIG.ERROR_UPDATE_FAIL);
                             });
                             break;
                         default :
@@ -477,32 +492,17 @@
                 }
 
             }else{
-                var itemDetail={itemId:$scope.itemId};
-                adminDataService.removeItem(itemDetail).then(function(response){
+                var shopDetails={shopId: $scope.shopId};
+                adminDataService.removeItem(shopDetails).then(function(response){
                     initData();
                     $scope.selectedIndex = 0;
+                    Data_Toast.success(MESSAGE_CONFIG.SUCCESS_REMOVED_SUCCESSFULLY);
+                },function (error) {
+                    Data_Toast.error(MESSAGE_CONFIG.ERROR_REMOVE_FAIL);
                 });
             }
 
         };
-
-        /*  $scope.goToItem = function(item, event) {
-         $mdDialog.show({
-         locals:{itemData: item},
-         controller: DialogController,
-         templateUrl: '/views/adminModule/admin.item.modal.html',
-         parent: angular.element(document.body),
-         targetEvent: event,
-         clickOutsideToClose:false,
-         focusOnOpen:false
-         })
-         .then(function(answer) {
-         $scope.status = 'You said the information was "' + answer + '".';
-         }, function() {
-         $scope.status = 'You cancelled the dialog.';
-         });
-         };*/
-
 
     }]);
 
@@ -740,22 +740,8 @@
 
         };
 
-        /*  $scope.goToItem = function(item, event) {
-         $mdDialog.show({
-         locals:{itemData: item},
-         controller: DialogController,
-         templateUrl: '/views/adminModule/admin.item.modal.html',
-         parent: angular.element(document.body),
-         targetEvent: event,
-         clickOutsideToClose:false,
-         focusOnOpen:false
-         })
-         .then(function(answer) {
-         $scope.status = 'You said the information was "' + answer + '".';
-         }, function() {
-         $scope.status = 'You cancelled the dialog.';
-         });
-         };*/
+
+
 
 
     }]);
