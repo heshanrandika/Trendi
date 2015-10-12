@@ -164,18 +164,29 @@ function adminGetShopList(req,callback){
 function adminGetBranchList(req,callback){
     console.log("$$$$$$$  adminGetShopList $$$$$$");
     var params = (req.body.params) ? req.body.params : {};
-    var shopId = (params.shopId)? params.shopId:0;
+    var shopId = params.shopId;
 
-    var query = {shopId:shopId, delete:0};
-    var data = [];
-    var dbCon = daf.Find(query,CONSTANT.SHOP_BRANCH);
-    dbCon.on('data', function(doc){
-        data.push(doc);
-    });
+    if(shopId == "" || shopId == undefined){
+        callback("ShopId not Available",null);
+    }else{
+        var skip =(params.skip)?params.skip:0;
+        var limit  = (params.limit)?params.limit:18;
+        var sorter = params.sorter;
 
-    dbCon.on('end', function(){
-        callback(null,data);
-    });
+        var option = {skip:skip, limit:limit, sort:sorter};
+
+        var query = {shopId:shopId, delete:0};
+        var data = [];
+        var dbCon = daf.FindWithPagination(query,CONSTANT.SHOP_BRANCH,option);
+        dbCon.on('data', function(doc){
+            data.push(doc);
+        });
+
+        dbCon.on('end', function(){
+            callback(null,data);
+        });
+    }
+
 };
 
 function adminGetUserList(req,callback){

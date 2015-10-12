@@ -169,17 +169,17 @@
                         <div class="col-md-8">
                             <div class="md-actions" layout="row">
                                 <div ng-if="addNew">
-                                    <md-button  class="md-raised md-primary" ng-disabled="itemForm.$invalid || mainImage.length == 0" ng-click="answer(1)" md-autofocus>
+                                    <md-button  class="md-raised md-primary" ng-disabled="itemForm.$invalid || btnPressed" ng-click="answer(1)" md-autofocus>
                                         Save
                                     </md-button>
                                     <span flex></span>
                                 </div>
                                 <div ng-if="!addNew">
-                                    <md-button class="md-raised md-primary" ng-disabled="itemForm.$invalid || mainImage.length == 0" ng-click="answer(2)" md-autofocus>
+                                    <md-button class="md-raised md-primary" ng-disabled="itemForm.$invalid || btnPressed" ng-click="answer(2)" md-autofocus>
                                         Update
                                     </md-button>
                                     <span flex></span>
-                                    <md-button class="md-raised md-warn" ng-click="answer(0)" >
+                                    <md-button class="md-raised md-warn" ng-disabled="btnPressed" ng-click="answer(0)" >
                                         Remove
                                     </md-button>
                                 </div>

@@ -104,6 +104,11 @@
                 value:'User Configurations',
                 key:'admin.users',
                 authorization: 3000
+            },
+            {
+                value:'Branch Configurations',
+                key:'admin.branches',
+                authorization: 2011
             }
         ]
 
