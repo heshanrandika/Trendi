@@ -46,7 +46,7 @@ function getRatedShopList(req,callback){
     });
 };
 
-function addShop(req,callback){
+function addBranch(req,callback){
     console.log("$$$$$$$  AddShop $$$$$$");
     var branchId = 0;
     var params = (req.body.params) ? req.body.params : {};
@@ -66,7 +66,7 @@ function addShop(req,callback){
                     shop:shop
                 };
                 daf.Insert(doc, CONSTANT.SHOP_BRANCH, function (err, success) {
-                    console.log("^^^^^^^  Shop Added ^^^^^^^ : ");
+                    console.log("^^^^^^^  branch Added ^^^^^^^ : ");
                     callback(err, success);
                 })
             } else {
@@ -193,9 +193,13 @@ function adminGetUserList(req,callback){
     console.log("$$$$$$$  GetShop $$$$$$");
     var params = (req.body.params) ? req.body.params : {};
     var shopId = (params.shopId)? params.shopId:0;
+    var email = (params.email)? params.email:'';
     var superAdmin = (params.superAdmin)? params.superAdmin:false;
 
     var query = {shopId:shopId, superAdmin:superAdmin};
+    if(email != ''){
+        query = {shopId:shopId, superAdmin:superAdmin, email:email};
+    }
 
     console.log("$$$$$$$  UpdateItem $$$$$$ : ");
     var data = [];
@@ -232,7 +236,7 @@ function getBannerImage(req,callback){
 
 module.exports.GetShopList = getShopList;
 module.exports.GetRatedShopList = getRatedShopList;
-module.exports.AddShop = addShop;
+module.exports.AddBranch = addBranch;
 module.exports.RemoveShop = removeShop;
 module.exports.GetShop = getShop;
 module.exports.GetNearestShopList = getNearestShopList;

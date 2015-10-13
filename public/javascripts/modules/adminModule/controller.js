@@ -280,7 +280,7 @@
 
     }]);
 
-    mod.controller('adminBranchesController', ['$scope', '$rootScope','$state','adminDataService', function ($scope, $rootScope, $state, adminDataService) {
+    mod.controller('adminBranchesController', ['$scope', '$rootScope','$state','adminDataService','Data.Toast','MESSAGE_CONFIG', function ($scope, $rootScope, $state, adminDataService, Data_Toast, MESSAGE_CONFIG) {
         $scope.branchList = [];
         $scope.tmp = {};
         $scope.branch = {};
@@ -290,7 +290,7 @@
         $scope.iconSize = {value:10000, text:'10kB'};
         $scope.iconCount = 1;
         $scope.btnPressed = false;
-        var shopDetails;
+        $scope.shopDetails;
 
 
         $scope.headerText = '';
@@ -299,8 +299,8 @@
 
 
         var initData = function(){
-            shopDetails = adminDataService.shopData();
-            adminDataService.getBranchList({shopId:shopDetails.shopId}).then(function(response){
+            $scope.shopDetails = adminDataService.shopData();
+            adminDataService.getBranchList({shopId:$scope.shopDetails.shopId}).then(function(response){
                 $scope.branchList = response.data.responData.data
             },function(){
                 $scope.branchList = [];
@@ -370,52 +370,22 @@
 
         $scope.EditViewController = function(branchData) {
             $scope.loadEntitlements = false;
-            $scope.shopId = branchData.shopId;
+            $scope.shopId = branchData.branchId;
             $scope.resetForm();
-            adminDataService.getEntitlements().then(function(response){
-                $scope.tmp.allEntitlements = response.data.responData.data;
-                $scope.selectedIndex = 1;
-            });
+            $scope.selectedIndex = 1;
 
-            if(shopData){
-                $scope.shop = shopData;
-                if(!(shopData.iconImage == '' || shopData.iconImage == undefined)){
-                    $scope.tmp.iconImage.push({image:shopData.iconImage});
+
+            if(branchData.shop){
+                $scope.branch = branchData.shop;
+                if(!(branchData.shop.iconImage == '' || branchData.shop.iconImage == undefined)){
+                    $scope.tmp.iconImage.push({image:branchData.shop.iconImage});
                 }
 
-
-
-                adminDataService.getUserList({shopId :  $scope.shopId, superAdmin : true}).then(function(response){
-                    var adminUser = response.data.responData.data[0];
-                    $scope.tmp.oldEntitlements = adminUser.entitlements;
-                    $scope.regUser = adminUser;
-                    if(!($scope.regUser.profilePic == '' || $scope.regUser.profilePic == undefined)){
-                        $scope.tmp.profilePic.push({image:$scope.regUser.profilePic});
-                    }
-                    $scope.loadEntitlements = true;
-                });
-
-                adminDataService.getBranchList({shopId : $scope.shopId}).then(function(response){
-                    var subItemList = response.data.responData.data;
-                });
-                adminDataService.getUserList({shopId :  $scope.shopId}).then(function(response){
-                    var userList = response.data.responData.data;
-                });
-
-                adminDataService.getBannerImage({shopId :  $scope.shopId}).then(function(response){
-                    if(!(response.data.responData.data == '' || response.data.responData.data == undefined)){
-                        delete response.data.responData.data._id;
-                        $scope.tmp.bannerImage.push(response.data.responData.data);
-                    }
-
-                });
-
-                $scope.headerText = 'Edit Shop #'+ $scope.shopId;
+                $scope.headerText = 'Edit Branch #'+ $scope.shopId;
                 $scope.addNew = false;
 
             }else{
-                $scope.loadEntitlements = true;
-                $scope.headerText = 'Add New Shop';
+                $scope.headerText = 'Add New Branch';
                 $scope.addNew = true;
             }
 
@@ -428,36 +398,20 @@
         $scope.answer = function(option) {
             $scope.btnPressed = true;
             if(option){
-                if(($scope.shop.name == '' || $scope.shop.name == undefined) ||
-                    ($scope.regUser.email == '' || $scope.regUser.email == undefined) ||
-                    ($scope.regUser.password == '' || $scope.regUser.password == undefined)
-                    ){
+                if(($scope.branch.name == '' || $scope.branch.name == undefined) ){
                     Data_Toast.warning(MESSAGE_CONFIG.ERROR_REQUIRED_FIELDS);
                     $scope.btnPressed = false;
                 }else {
 
-                    $scope.shop.iconImage = $scope.tmp.iconImage[0]?$scope.tmp.iconImage[0].image:'';
-                    $scope.bannerImage = $scope.tmp.bannerImage[0]?$scope.tmp.bannerImage[0].image:'';
-                    $scope.regUser.profilePic = $scope.tmp.profilePic[0]?$scope.tmp.profilePic[0].image:'';
-                    var shopDetails = {};
+                    $scope.branch.iconImage = $scope.tmp.iconImage[0]?$scope.tmp.iconImage[0].image:'';
+                    var branchDetails = {};
 
-                    $scope.regUser.entitlements =[];
-                    _.each($scope.tmp.entitlements,function(group){
-                        var valueArray =  _.chain(group.entitlements)
-                            .filter(function(obj) {
-                                return obj.select;
-                            })
-                            .map(function(obj) {
-                                return _.omit(obj,'select')
-                            })
-                            .value();
-                        $scope.regUser.entitlements = $scope.regUser.entitlements.concat(valueArray);
-                    });
+
 
                     switch (option) {
                         case 1 :
-                            shopDetails = {shop: $scope.shop, regUser: $scope.regUser, bannerImage:$scope.bannerImage};
-                            adminDataService.registerShop(shopDetails).then(function (response) {
+                            branchDetails = {shopId:$scope.shopDetails.shopId, shop: $scope.branch};
+                            adminDataService.addBranch(branchDetails).then(function (response) {
                                 initData();
                                 $scope.selectedIndex = 0;
                                 Data_Toast.success(MESSAGE_CONFIG.SUCCESS_SAVED_SUCCESSFULLY);
@@ -467,8 +421,8 @@
                             });
                             break;
                         case 2 :
-                            shopDetails = {shop: $scope.shop, regUser: $scope.regUser, bannerImage:$scope.bannerImage};
-                            adminDataService.adminUpdateShop(shopDetails).then(function (response) {
+                            branchDetails = {shopId:$scope.shopDetails.shopId, shop: $scope.branch};
+                            adminDataService.adminUpdateShop(branchDetails).then(function (response) {
                                 initData();
                                 $scope.selectedIndex = 0;
                                 Data_Toast.success(MESSAGE_CONFIG.SUCCESS_UPDATE_SUCCESSFULLY);
@@ -486,8 +440,8 @@
 
             }else{
                 $scope.btnPressed = true;
-                var shopDetails={shopId: $scope.shopId};
-                adminDataService.removeItem(shopDetails).then(function(response){
+                var branchDetails={branchId: $scope.shopId, shopId:$scope.shopDetails.shopId};
+                adminDataService.removeItem(branchDetails).then(function(response){
                     initData();
                     $scope.selectedIndex = 0;
                     Data_Toast.success(MESSAGE_CONFIG.SUCCESS_REMOVED_SUCCESSFULLY);

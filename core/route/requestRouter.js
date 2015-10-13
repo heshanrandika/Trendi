@@ -304,7 +304,7 @@ var requestRoute = function(req,res){
 
         case 2003:
 
-            SHOP.AddShop(req, function (err, data) {
+            SHOP.AddBranch(req, function (err, data) {
                 if (err) {
                     resObject.resStatus = 0;
                     resObject.responData.Error = err.toString();

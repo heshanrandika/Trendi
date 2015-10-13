@@ -165,3 +165,8 @@
     height: auto;
     max-height: inherit
 }
+
+.angular-google-map-container {
+    height: 200px;
+    width: 200px;
+}

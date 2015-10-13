@@ -65,6 +65,10 @@
             return angular.extend({functionId: ADMIN_MOD_CONFIG.REQ_CONFIG.FUNC_GetBannerImage}, _getCObj());
         };
 
+        serviceCalls.addBranchDao = function () {
+            return angular.extend({functionId: ADMIN_MOD_CONFIG.REQ_CONFIG.FUNC_AddBranch}, _getCObj());
+        };
+
         serviceCalls.getEntitlementsDao = function () {
             return angular.extend({functionId: ADMIN_MOD_CONFIG.REQ_CONFIG.FUNC_GetEntitlements}, _getCObj());
         };
