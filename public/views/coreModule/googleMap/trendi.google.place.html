@@ -1,5 +1,18 @@
+<div class="raw">
+    <div layout layout-sm="column">
+        <md-checkbox  ng-model="map.lockLocation">Lock Location</md-checkbox>
+        <md-input-container flex>
+            <label>Latitude</label>
+            <input ng-model="location.latitude">
+        </md-input-container>
+        <md-input-container flex>
+            <label>Longitude</label>
+            <input ng-model="location.longitude">
+        </md-input-container>
+    </div>
+</div>
 <div class="angular-google-map-container">
-    <ui-gmap-google-map center="map.center"
+    <ui-gmap-google-map center="map.getCenter()"
                         events="map.events" zoom="map.zoom">
         <ui-gmap-marker coords="location" options="map.marker.options"
                         events="map.marker.events" idkey="key">

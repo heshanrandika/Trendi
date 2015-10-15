@@ -1097,6 +1097,7 @@
                latitude : $scope.getPoint[0],
                longitude: $scope.getPoint[1]
            };
+
             $scope.map = {
                 center: {
                     latitude: 6.933,
@@ -1125,6 +1126,16 @@
                 }
 
             };
+            $scope.map.lockLocation = false;
+            $scope.map.getCenter = function(){
+                if($scope.map.lockLocation){
+                    return $scope.map.center;
+
+                }else{
+                    return $scope.location;
+                }
+            }
+
         }];
 
         return{
