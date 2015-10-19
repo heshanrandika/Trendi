@@ -95,7 +95,7 @@
                             <md-input-container flex>
                                 <!-- Use floating label instead of placeholder -->
                                 <label>Email</label>
-                                <input ng-model="regUser.email" name="email" type="email" ng-required="true">
+                                <input ng-disabled="!addNew" ng-model="regUser.email" name="email" type="email" ng-required="true">
                                 <div ng-messages="itemForm.email.$error">
                                     <div ng-message="required">This is required.</div>
                                 </div>
@@ -105,7 +105,7 @@
                             <md-input-container flex>
                                 <!-- Use floating label instead of placeholder -->
                                 <label>Password</label>
-                                <input ng-model="regUser.password" name="password" type="password" ng-required="true">
+                                <input ng-disabled="!addNew" ng-model="regUser.password" name="password" type="password" ng-required="true">
                                 <div ng-messages="itemForm.password.$error">
                                     <div ng-message="required">This is required.</div>
                                 </div>
@@ -130,7 +130,7 @@
                     <div class="raw">
                         <div class="col-md-6">
                             <div ng-if="initDirective">
-                                <trendi-test-map get-point="shop.pos"></trendi-test-map>
+                                <trendi-map get-point="shop.pos"></trendi-map>
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -159,6 +159,34 @@
                             <accordion-group heading="Set Entitlements">
                                 <div ng-if="initDirective && loadEntitlements">
                                     <trendi-entitlements input-entitlements="tmp.allEntitlements" output-entitlements="tmp.entitlements" old-entitlements="tmp.oldEntitlements"></trendi-entitlements>
+                                </div>
+                            </accordion-group>
+                            <accordion-group heading="All Shop Users">
+                                <div>
+
+                                        <md-list>
+                                            <md-list-item ng-repeat="user in userList" ng-click="ViewController(user)">
+                                                <img alt="{{ user.name }}" ng-src="{{user.profilePic}}" class="md-avatar" />
+                                                <p>{{ user.name }}</p>
+                                                <!-- <md-svg-icon class="ic_24px" icon="{{person.iconimg}}"></md-svg-icon>-->
+                                                <md-icon md-svg-icon="communication:ic_settings" ng-click="ViewController(user)" aria-label="Open Chat" class="md-secondary md-hue-3" ng-class="{'md-primary': user.name}"></md-icon>
+                                            </md-list-item>
+                                        </md-list>
+
+                                </div>
+                            </accordion-group>
+                            <accordion-group heading="All Shop Branches">
+                                <div>
+
+                                    <md-list>
+                                        <md-list-item ng-repeat="branch in branchList" ng-click="ViewController(branch)">
+                                            <img alt="{{ branch.shop.name }}" ng-src="{{branch.shop.iconImage}}" class="md-avatar" />
+                                            <p>{{ branch.shop.name }}</p>
+                                            <!-- <md-svg-icon class="ic_24px" icon="{{person.iconimg}}"></md-svg-icon>-->
+                                            <md-icon md-svg-icon="communication:ic_settings" ng-click="ViewController(branch)" aria-label="Open Chat" class="md-secondary md-hue-3" ng-class="{'md-primary': branch.shop.name}"></md-icon>
+                                        </md-list-item>
+                                    </md-list>
+
                                 </div>
                             </accordion-group>
 

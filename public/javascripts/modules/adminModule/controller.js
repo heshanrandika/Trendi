@@ -223,7 +223,7 @@
                                 $scope.selectedIndex = 0;
                                 Data_Toast.success(MESSAGE_CONFIG.SUCCESS_SAVED_SUCCESSFULLY);
                             },function(error){
-                                Data_Toast.error(MESSAGE_CONFIG.ERROR_SAVE_FAIL);
+                                Data_Toast.error(MESSAGE_CONFIG.ERROR_SAVE_FAIL,error.data.responData.Error);
                                 $scope.btnPressed = false;
                             });
                             break;
@@ -234,7 +234,7 @@
                                 $scope.selectedIndex = 0;
                                 Data_Toast.success(MESSAGE_CONFIG.SUCCESS_UPDATE_SUCCESSFULLY);
                             },function(error){
-                                Data_Toast.error(MESSAGE_CONFIG.ERROR_UPDATE_FAIL);
+                                Data_Toast.error(MESSAGE_CONFIG.ERROR_UPDATE_FAIL,error.data.responData.Error);
                                 $scope.btnPressed = false;
                             });
                             break;
@@ -253,7 +253,7 @@
                     $scope.selectedIndex = 0;
                     Data_Toast.error(MESSAGE_CONFIG.SUCCESS_REMOVED_SUCCESSFULLY);
                 },function(){
-                    Data_Toast.error(MESSAGE_CONFIG.ERROR_REMOVE_FAIL);
+                    Data_Toast.error(MESSAGE_CONFIG.ERROR_REMOVE_FAIL.error.data.responData.Error);
                     $scope.btnPressed = false;
                 });
             }
@@ -355,6 +355,7 @@
             $scope.addNew = '';
             $scope.tmp.iconImage = [];
             $scope.btnPressed = false;
+            $scope.userList = [];
         };
 
         $scope.$watch('selectedIndex', function(current, old){
@@ -370,7 +371,7 @@
 
         $scope.EditViewController = function(branchData) {
             $scope.loadEntitlements = false;
-            $scope.shopId = branchData.branchId;
+            $scope.branchId = branchData.branchId;
             $scope.resetForm();
             $scope.selectedIndex = 1;
 
@@ -381,7 +382,11 @@
                     $scope.tmp.iconImage.push({image:branchData.shop.iconImage});
                 }
 
-                $scope.headerText = 'Edit Branch #'+ $scope.shopId;
+                adminDataService.getUserList({shopId :  $scope.shopDetails.shopId, branchId:$scope.branchId}).then(function(response){
+                    $scope.userList = response.data.responData.data;
+                });
+
+                $scope.headerText = 'Edit Branch #'+ $scope.branchId;
                 $scope.addNew = false;
 
             }else{
@@ -416,18 +421,18 @@
                                 $scope.selectedIndex = 0;
                                 Data_Toast.success(MESSAGE_CONFIG.SUCCESS_SAVED_SUCCESSFULLY);
                             },function (error) {
-                                Data_Toast.error(MESSAGE_CONFIG.ERROR_SAVE_FAIL);
+                                Data_Toast.error(MESSAGE_CONFIG.ERROR_SAVE_FAIL,error.data.responData.Error);
                                 $scope.btnPressed = false;
                             });
                             break;
                         case 2 :
-                            branchDetails = {shopId:$scope.shopDetails.shopId, shop: $scope.branch};
-                            adminDataService.adminUpdateShop(branchDetails).then(function (response) {
+                            branchDetails = {shopId:$scope.shopDetails.shopId,branchId:$scope.branchId, shop: $scope.branch};
+                            adminDataService.updateBranch(branchDetails).then(function (response) {
                                 initData();
                                 $scope.selectedIndex = 0;
                                 Data_Toast.success(MESSAGE_CONFIG.SUCCESS_UPDATE_SUCCESSFULLY);
                             },function (error) {
-                                Data_Toast.error(MESSAGE_CONFIG.ERROR_UPDATE_FAIL);
+                                Data_Toast.error(MESSAGE_CONFIG.ERROR_UPDATE_FAIL,error.data.responData.Error);
                                 $scope.btnPressed = false;
                             });
                             break;
@@ -440,13 +445,13 @@
 
             }else{
                 $scope.btnPressed = true;
-                var branchDetails={branchId: $scope.shopId, shopId:$scope.shopDetails.shopId};
-                adminDataService.removeItem(branchDetails).then(function(response){
+                var branchDetails={shopId:$scope.shopDetails.shopId,branchId:$scope.branchId};
+                adminDataService.removeBranch(branchDetails).then(function(response){
                     initData();
                     $scope.selectedIndex = 0;
                     Data_Toast.success(MESSAGE_CONFIG.SUCCESS_REMOVED_SUCCESSFULLY);
                 },function (error) {
-                    Data_Toast.error(MESSAGE_CONFIG.ERROR_REMOVE_FAIL);
+                    Data_Toast.error(MESSAGE_CONFIG.ERROR_REMOVE_FAIL,error.data.responData.Error);
                     $scope.btnPressed = false;
                 });
             }
@@ -595,10 +600,10 @@
                 });
 
                 adminDataService.getBranchList({shopId : $scope.shopId}).then(function(response){
-                    var subItemList = response.data.responData.data;
+                    $scope.branchList = response.data.responData.data;
                 });
                 adminDataService.getUserList({shopId :  $scope.shopId}).then(function(response){
-                    var userList = response.data.responData.data;
+                    $scope.userList = response.data.responData.data;
                 });
 
                 adminDataService.getBannerImage({shopId :  $scope.shopId}).then(function(response){
@@ -661,7 +666,7 @@
                                 $scope.selectedIndex = 0;
                                 Data_Toast.success(MESSAGE_CONFIG.SUCCESS_SAVED_SUCCESSFULLY);
                             },function (error) {
-                                Data_Toast.error(MESSAGE_CONFIG.ERROR_SAVE_FAIL);
+                                Data_Toast.error(MESSAGE_CONFIG.ERROR_SAVE_FAIL,error.data.responData.Error);
                                 $scope.btnPressed = false;
                             });
                             break;
@@ -672,7 +677,7 @@
                                 $scope.selectedIndex = 0;
                                 Data_Toast.success(MESSAGE_CONFIG.SUCCESS_UPDATE_SUCCESSFULLY);
                             },function (error) {
-                                Data_Toast.error(MESSAGE_CONFIG.ERROR_UPDATE_FAIL);
+                                Data_Toast.error(MESSAGE_CONFIG.ERROR_UPDATE_FAIL,error.data.responData.Error);
                                 $scope.btnPressed = false;
                             });
                             break;
@@ -685,13 +690,14 @@
 
             }else{
                 $scope.btnPressed = true;
+                //TODO SHOP REMOVE
                 var shopDetails={shopId: $scope.shopId};
                 adminDataService.removeItem(shopDetails).then(function(response){
                     initData();
                     $scope.selectedIndex = 0;
                     Data_Toast.success(MESSAGE_CONFIG.SUCCESS_REMOVED_SUCCESSFULLY);
                 },function (error) {
-                    Data_Toast.error(MESSAGE_CONFIG.ERROR_REMOVE_FAIL);
+                    Data_Toast.error(MESSAGE_CONFIG.ERROR_REMOVE_FAIL,error.data.responData.Error);
                     $scope.btnPressed = false;
                 });
             }
@@ -705,67 +711,35 @@
     }]);
 
     mod.controller('adminUsersController', ['$scope', '$rootScope','$state','adminDataService', function ($scope, $rootScope, $state, adminDataService) {
-        $scope.itemList = [];
-        var shopDetails = {};
+        $scope.userList = [];
+        $scope.tmp = {};
+        $scope.tmp.profilePic = [];
+        $scope.branchList = [];
+        $scope.tmp.selectedBranch = {};
+        $scope.regUser = {};
 
-        //=======Item Edit Window================
-        $scope.mainImage = [];
-        $scope.subItem = [];
+        $scope.profilePicSize = {value:100000, text:'100kB'};
+        $scope.profilePicCount = 1;
+        $scope.btnPressed = false;
+
         $scope.headerText = '';
         $scope.addNew = true;
-
-        $scope.mainItem = {};
-        $scope.selectedColors = [];
-        $scope.slectedSizes = [];
-        $scope.slectedTypes = [];
         $scope.selectedIndex = 0;
 
-        $scope.sizes = [
-            {
-                'value': 'X-small'
-            },
-            {
-                'value': 'Small'
-            },
-            {
-                'value': 'Medium'
-            },
-            {
-                'value': 'Large'
-            },
-            {
-                'value': 'X-large'
-            }
+        $scope.titles =[
+            {value:0 , key:'Admin'},
+            {value:1 , key:'User'}
         ];
 
 
-        $scope.types = [
-            {
-                'value': 'Blouse'
-            },
-            {
-                'value': 'High-neck'
-            },
-            {
-                'value': 'Short-skirt'
-            },
-            {
-                'value': 'Shirt'
-            },
-            {
-                'value': 'Short'
-            }
-        ];
 
         var initData = function(){
-            shopDetails = adminDataService.shopData();
-            adminDataService.getItemList(shopDetails.shop).then(function(response){
-                $scope.itemList = response.data.responData.data
+            $scope.shopDetails = adminDataService.shopData();
+            adminDataService.getAdminUserList({shopId:$scope.shopDetails.shopId}).then(function(response){
+                $scope.userList = response.data.responData.data
             },function(){
-                $scope.itemList = [];
+                $scope.userList = [];
             });
-
-
         };
         initData();
 
@@ -807,59 +781,79 @@
         };
 
         $scope.resetForm = function(){
-            $scope.mainImage = [];
-            $scope.subItem = [];
+            $scope.tmp = {};
+            $scope.tmp.profilePic = [];
+            $scope.tmp.selectedBranch = {};
+            $scope.branchList = [];
+            $scope.regUser = {};
+
             $scope.headerText = '';
             $scope.addNew = '';
-            $scope.selectedColors = [];
-            $scope.slectedSizes = [];
-            $scope.slectedTypes = [];
+            $scope.btnPressed = false;
         };
 
         $scope.$watch('selectedIndex', function(current, old){
-            if(current<old){
+            if(current<= old){
                 $scope.headerText = '';
+                $scope.initDirective = false;
+            }else{
+                $scope.initDirective = true;
             }
+
         });
 
-        $scope.EditViewController = function(itemData) {
-            $scope.itemId = itemData.itemId;
-            $scope.resetForm();
-            $scope.selectedIndex = 1;
-            if(itemData){
-                $scope.mainItem = itemData.item;
-                $scope.mainImage.push({image:$scope.mainItem.image,default:true});
 
-                $scope.selectedColors = itemData.item.colors;
-                $scope.slectedSizes = itemData.item.sizes?itemData.item.sizes:[];
-                $scope.slectedTypes = itemData.item.types?itemData.item.types:[];
-
-                adminDataService.getSubItem({itemId : itemData.itemId, seenEnable:false}).then(function(response){
-                    var subItemList = response.data.responData.data.itemList;
-                    if(subItemList.length > 0){
-                        _.each(subItemList,function(k){
-                            $scope.mainImage.push({image: k.image,default:false});
-                        });
+        var getIndex = function(itemList, item,searchKey, callback){
+            var index = 0;
+            if(!item == undefined){
+                _.each(itemList, function(k){
+                    if(k[searchKey == item[searchKey]]){
+                        callback(index);
                     }
+                    index++;
                 });
-                $scope.headerText = 'Edit Item #'+itemData.itemId;
-                $scope.addNew = false;
             }else{
-
-                $scope.mainItem = {};
-                $scope.selectedColors = [{color:'#FFFFFF'},{color:'#FFFFFF'},{color:'#FFFFFF'},{color:'#FFFFFF'}];
-                $scope.slectedSizes = [{'value': 'X-small'}];
-                $scope.slectedTypes = [];
-                $scope.headerText = 'Add New Item';
-                $scope.addNew = true;
+                callback(0);
             }
 
+        };
 
 
+        $scope.EditViewController = function(userData) {
+            $scope.loadEntitlements = false;
+            $scope.resetForm();
+            $scope.selectedIndex = 1;
 
+            adminDataService.getBranchList({shopId:$scope.shopDetails.shopId}).then(function(response){
+                $scope.branchList = response.data.responData.data;
+                $scope.tmp.selectedBranch = $scope.branchList[0];
+                getIndex($scope.branchList,userData.branch,'branchId', function(value){
+                    $scope.tmp.selectedBranch = $scope.branchList[value];
+                });
 
+            },function(){
+                $scope.branchList = [];
+            });
+            $scope.tmp.title = $scope.titles[0];
+            if(userData){
 
+                $scope.regUser = userData;
 
+                getIndex($scope.titles,userData.title,'value', function(value){
+                    $scope.tmp.title = $scope.titles[value];
+                });
+
+                if(!(userData.profilePic == '' || userData.profilePic == undefined)){
+                    $scope.tmp.profilePic.push({image:userData.profilePic});
+                }
+
+                $scope.headerText = 'Edit Branch #'+ $scope.regUser.name;
+                $scope.addNew = false;
+
+            }else{
+                $scope.headerText = 'Add New Branch';
+                $scope.addNew = true;
+            }
 
         };
 
@@ -868,72 +862,62 @@
         };
 
         $scope.answer = function(option) {
+            $scope.btnPressed = true;
             if(option){
-                if(($scope.mainItem.name == '' || $scope.mainItem.name == undefined) &&
-                    ($scope.mainItem.price == '' || $scope.mainItem.price == undefined) &&
-                    ($scope.mainItem.description == '' || $scope.mainItem.description == undefined) &&
-                    $scope.mainImage.length == 0){
-
+                if(($scope.branch.name == '' || $scope.branch.name == undefined) ){
+                    Data_Toast.warning(MESSAGE_CONFIG.ERROR_REQUIRED_FIELDS);
+                    $scope.btnPressed = false;
                 }else {
-                    _.each($scope.mainImage, function (k) {
-                        if (k.default) {
-                            $scope.mainItem.image = k.image;
-                        } else {
-                            $scope.subItem.push({image: k.image});
-                        }
-                    });
-                    $scope.mainItem.shop = shopDetails.shop;
-                    $scope.mainItem.types = $scope.slectedTypes;
-                    $scope.mainItem.sizes = $scope.slectedSizes;
-                    $scope.mainItem.colors = $scope.selectedColors;
-                    var itemDetail = {};
+
+                    $scope.branch.iconImage = $scope.tmp.iconImage[0]?$scope.tmp.iconImage[0].image:'';
+                    var branchDetails = {};
+
+
+
                     switch (option) {
                         case 1 :
-                            itemDetail = {mainItem: $scope.mainItem, subItem: $scope.subItem};
-                            adminDataService.addItem(itemDetail).then(function (response) {
+                            branchDetails = {shopId:$scope.shopDetails.shopId, shop: $scope.branch};
+                            adminDataService.addBranch(branchDetails).then(function (response) {
                                 initData();
                                 $scope.selectedIndex = 0;
+                                Data_Toast.success(MESSAGE_CONFIG.SUCCESS_SAVED_SUCCESSFULLY);
+                            },function (error) {
+                                Data_Toast.error(MESSAGE_CONFIG.ERROR_SAVE_FAIL,error.data.responData.Error);
+                                $scope.btnPressed = false;
                             });
                             break;
                         case 2 :
-                            itemDetail = {mainItem: $scope.mainItem, subItem: $scope.subItem, itemId:$scope.itemId};
-                            adminDataService.updateItem(itemDetail).then(function (response) {
+                            branchDetails = {shopId:$scope.shopDetails.shopId,branchId:$scope.branchId, shop: $scope.branch};
+                            adminDataService.updateBranch(branchDetails).then(function (response) {
                                 initData();
                                 $scope.selectedIndex = 0;
+                                Data_Toast.success(MESSAGE_CONFIG.SUCCESS_UPDATE_SUCCESSFULLY);
+                            },function (error) {
+                                Data_Toast.error(MESSAGE_CONFIG.ERROR_UPDATE_FAIL,error.data.responData.Error);
+                                $scope.btnPressed = false;
                             });
                             break;
                         default :
+                            $scope.btnPressed = false;
                             break;
                     }
 
                 }
 
             }else{
-                var itemDetail={itemId:$scope.itemId};
-                adminDataService.removeItem(itemDetail).then(function(response){
+                $scope.btnPressed = true;
+                var branchDetails={shopId:$scope.shopDetails.shopId,branchId:$scope.branchId};
+                adminDataService.removeBranch(branchDetails).then(function(response){
                     initData();
                     $scope.selectedIndex = 0;
+                    Data_Toast.success(MESSAGE_CONFIG.SUCCESS_REMOVED_SUCCESSFULLY);
+                },function (error) {
+                    Data_Toast.error(MESSAGE_CONFIG.ERROR_REMOVE_FAIL,error.data.responData.Error);
+                    $scope.btnPressed = false;
                 });
             }
 
         };
-
-        /*  $scope.goToItem = function(item, event) {
-         $mdDialog.show({
-         locals:{itemData: item},
-         controller: DialogController,
-         templateUrl: '/views/adminModule/admin.item.modal.html',
-         parent: angular.element(document.body),
-         targetEvent: event,
-         clickOutsideToClose:false,
-         focusOnOpen:false
-         })
-         .then(function(answer) {
-         $scope.status = 'You said the information was "' + answer + '".';
-         }, function() {
-         $scope.status = 'You cancelled the dialog.';
-         });
-         };*/
 
 
     }]);

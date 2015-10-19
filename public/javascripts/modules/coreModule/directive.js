@@ -829,7 +829,7 @@
     }]);
 
 
-    mod.directive('trendiMap',[function(){
+    mod.directive('trendiTestMap',[function(){
 
         var controller = ['$scope', '$timeout', 'uiGmapLogger', '$http', 'rndAddToLatLon','uiGmapGoogleMapApi', function ($scope, $timeout, $log, $http, rndAddToLatLon,GoogleMapApi) {
             $log.currentLevel = $log.LEVELS.debug;
@@ -1089,13 +1089,13 @@
     }]);
 
 
-    mod.directive('trendiTestMap',[function(){
+    mod.directive('trendiMap',[function(){
 
         var controller = ['$scope','uiGmapIsReady', '$timeout', 'uiGmapLogger', '$http', 'rndAddToLatLon','uiGmapGoogleMapApi',function ($scope, uiGmapIsReady, $timeout, $log, $http, rndAddToLatLon,GoogleMapApi) {
            $scope.key = 80;
            $scope.location={
-               latitude : $scope.getPoint[0],
-               longitude: $scope.getPoint[1]
+               latitude : $scope.getPoint[0]?$scope.getPoint[0]:6.933,
+               longitude: $scope.getPoint[1]?$scope.getPoint[1]:80.305
            };
 
             $scope.map = {
@@ -1126,7 +1126,12 @@
                 }
 
             };
-            $scope.map.lockLocation = false;
+            if($scope.getPoint[0] == undefined && $scope.getPoint[1] == undefined){
+                $scope.map.lockLocation = false;
+            }else{
+                $scope.map.lockLocation = true;
+            }
+
             $scope.map.getCenter = function(){
                 if($scope.map.lockLocation){
                     return $scope.map.center;

@@ -89,7 +89,11 @@
             FUNC_AdminUpdateShop: 2013,
             FUNC_GetBannerImage:  2014,
             //++++++++branch function list++++++++++++
-            FUNC_AddBranch:       2003
+            FUNC_AddBranch:       2003,
+            FUNC_UpdateBranch:    2006,
+            FUNC_RemoveBranch:    2005,
+            //+++++++shop user function list +++++++++
+            FUNC_AdminGetUserList:2016
         },
         MENU_CONFIG:[
             {
@@ -105,7 +109,7 @@
             {
                 value:'User Configurations',
                 key:'admin.users',
-                authorization: 3000
+                authorization: 2016
             },
             {
                 value:'Branch Configurations',

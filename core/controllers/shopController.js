@@ -84,28 +84,26 @@ function removeShop(req,callback){
     console.log("$$$$$$$  UpdateItem $$$$$$");
     var params = (req.body.params) ? req.body.params : {};
     var shopId = (params.shopId)? params.shopId:0;
-    var query = {shopId:shopId};
+    var query = {shopId:shopId,branchId:params.branchId};
     var changeDoc = { $set:{delete:1}};
     console.log("$$$$$$$  UpdateItem $$$$$$ : ");
-    daf.Update(query,changeDoc,CONSTANT.SHOP_COLLECTION,function(err,success){
+    daf.Update(query,changeDoc,CONSTANT.SHOP_BRANCH,function(err,success){
         callback(err , success);
     });
 };
 
-function updateShop(req,callback){
+function updateBranch(req,callback){
     console.log("$$$$$$$  UpdateItem $$$$$$");
     var params = (req.body.params) ? req.body.params : {};
     var shopId = (params.shopId)? params.shopId:0;
-    var query = {shopId:shopId};
+    var query = {shopId:shopId,branchId:params.branchId};
     var shop = (params.shop)? params.shop : {};
+    var changeDoc ={$set:{shop: shop}};
     if(params.shop) {
-        var doc = {shopId: itemID, date: new Date(), shop: shop, delete: 0};
-        console.log("$$$$$$$  UpdateItem $$$$$$ : ");
-        daf.Remove(query, CONSTANT.SHOP_COLLECTION, function () {
-            daf.Insert(doc, CONSTANT.SHOP_COLLECTION, function (err, success) {
+        console.log("$$$$$$$  Update Branch $$$$$$ : ");
+            daf.Update(query,changeDoc, CONSTANT.SHOP_BRANCH, function (err, success) {
                 callback(err, success);
             });
-        });
     }else{
         var err = "Shop details not available";
         callback(err);
@@ -192,16 +190,23 @@ function adminGetBranchList(req,callback){
 function adminGetUserList(req,callback){
     console.log("$$$$$$$  GetShop $$$$$$");
     var params = (req.body.params) ? req.body.params : {};
-    var shopId = (params.shopId)? params.shopId:0;
-    var email = (params.email)? params.email:'';
-    var superAdmin = (params.superAdmin)? params.superAdmin:false;
+    var shopId = params.shopId;
+    var branchId = params.branchId;
+    var superAdmin = params.superAdmin;
 
-    var query = {shopId:shopId, superAdmin:superAdmin};
-    if(email != ''){
-        query = {shopId:shopId, superAdmin:superAdmin, email:email};
+    var query = {};
+
+    if(shopId != undefined) {
+        query['shopId'] = shopId;
+    }
+    if(branchId != undefined){
+        query['branch.branchId'] = branchId;
+    }
+    if(params.superAdmin != undefined){
+        query['superAdmin'] = superAdmin;
     }
 
-    console.log("$$$$$$$  UpdateItem $$$$$$ : ");
+    console.log("$$$$$$$  GET User List $$$$$$ : ");
     var data = [];
     var dbCon = daf.Find(query,CONSTANT.SHOP_USER);
     dbCon.on('data', function(doc){
@@ -212,6 +217,61 @@ function adminGetUserList(req,callback){
         callback(null,data);
     });
 };
+
+function adminGetUser(req,callback){
+    console.log("$$$$$$$  GetShop $$$$$$");
+    var params = (req.body.params) ? req.body.params : {};
+    var shopId = (params.shopId)? params.shopId:0;
+    var email = (params.email)? params.email:'';
+    var query = {shopId:shopId, email:email};
+
+    console.log("$$$$$$$  Get user detail $$$$$$ : ");
+    var data = [];
+    var dbCon = daf.Find(query,CONSTANT.SHOP_USER);
+    dbCon.on('data', function(doc){
+        data.push(doc);
+    });
+
+    dbCon.on('end', function(){
+        callback(null,data);
+    });
+};
+
+function updateShopUser(req,callback) {
+    var params = (req.body.params) ? req.body.params : {};
+    var regUser =  (params.regUser)?params.regUser: 0;
+
+    var query = {'email':regUser.email};
+        var changeDoc = {$set: {
+            name: regUser.name,
+            branch: regUser.branch,
+            title: regUser.title,
+            entitlements: regUser.entitlements
+        }};
+        daf.Update(query,changeDoc, CONSTANT.SHOP_USER, function (err, success) {
+            if(err){
+                callback(("Failed to Update:"+err),null);
+            }else {
+                callback(err,("Successfully Updated :"+success));
+            }
+        })
+
+}
+
+function removeShopUser(req,callback) {
+    var params = (req.body.params) ? req.body.params : {};
+    var regUser =  (params.regUser)?params.regUser: 0;
+
+    var query = {'email':regUser.email};
+        daf.Remove(query, CONSTANT.SHOP_USER, function (err, success) {
+            if(err){
+                callback(("Failed to Remove :"+err),null);
+            }else {
+                callback(err,("Successfully Removed :"+success));
+            }
+        })
+
+}
 
 function updateBranches(shopDetails,callback){
     var query = {shopId:shopDetails.shopId};
@@ -234,15 +294,20 @@ function getBannerImage(req,callback){
 }
 
 
+
+
 module.exports.GetShopList = getShopList;
 module.exports.GetRatedShopList = getRatedShopList;
 module.exports.AddBranch = addBranch;
 module.exports.RemoveShop = removeShop;
 module.exports.GetShop = getShop;
 module.exports.GetNearestShopList = getNearestShopList;
-module.exports.UpdateShop = updateShop;
+module.exports.UpdateBranch = updateBranch;
 module.exports.AdminGetShopList = adminGetShopList;
 module.exports.AdminGetUserList = adminGetUserList;
 module.exports.AdminGetBranchList = adminGetBranchList;
 module.exports.UpdateBranches = updateBranches;
 module.exports.GetBannerImage = getBannerImage;
+module.exports.AdminGetUser = adminGetUser;
+module.exports.UpdateShopUser = updateShopUser;
+module.exports.RemoveShopUser = removeShopUser;

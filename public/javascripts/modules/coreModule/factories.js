@@ -12,10 +12,11 @@
 
     mod.factory('Data.Toast', ['$mdToast','$document',function ($mdToast,$document) {
 
-        var _error = function (p) {
+        var _error = function (p,err) {
             $mdToast.show({
                 controller: function($scope, $mdToast) {
                     $scope.msg = p;
+                    $scope.err = err;
                     $scope.closeToast = function() {
                         $mdToast.hide();
                     };

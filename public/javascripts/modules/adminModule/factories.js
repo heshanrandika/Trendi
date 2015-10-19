@@ -69,6 +69,18 @@
             return angular.extend({functionId: ADMIN_MOD_CONFIG.REQ_CONFIG.FUNC_AddBranch}, _getCObj());
         };
 
+        serviceCalls.updateBranchDao = function () {
+            return angular.extend({functionId: ADMIN_MOD_CONFIG.REQ_CONFIG.FUNC_UpdateBranch}, _getCObj());
+        };
+
+        serviceCalls.removeBranchDao = function () {
+            return angular.extend({functionId: ADMIN_MOD_CONFIG.REQ_CONFIG.FUNC_RemoveBranch}, _getCObj());
+        };
+
+        serviceCalls.getAdminUserListDao = function () {
+            return angular.extend({functionId: ADMIN_MOD_CONFIG.REQ_CONFIG.FUNC_AdminGetUserList}, _getCObj());
+        };
+
         serviceCalls.getEntitlementsDao = function () {
             return angular.extend({functionId: ADMIN_MOD_CONFIG.REQ_CONFIG.FUNC_GetEntitlements}, _getCObj());
         };

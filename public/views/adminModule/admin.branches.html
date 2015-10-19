@@ -84,15 +84,35 @@
                             </div>
                             <div class="raw">
                                 <div class="col-md-6">
-                                    <div class="map_container" ng-if="initDirective">
+                                    <div ng-if="initDirective">
                                         <trendi-map get-point="branch.pos"></trendi-map>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
-                                    <div ng-if="initDirective">
-                                        <trendi-file-upload files="tmp.iconImage" image-size="iconSize" image-count="1"></trendi-file-upload>
-                                    </div>
-                                </div>
+
+                            </div>
+
+                            <div class="raw">
+                                <accordion close-others="oneAtATime">
+                                    <accordion-group heading="Icon Upload">
+                                            <div ng-if="initDirective">
+                                                <trendi-file-upload files="tmp.iconImage" image-size="iconSize" image-count="1"></trendi-file-upload>
+                                            </div>
+                                    </accordion-group>
+                                    <accordion-group heading="All Users In Branch">
+                                        <div>
+
+                                            <md-list>
+                                                <md-list-item ng-repeat="user in userList" ng-click="ViewController(user)">
+                                                    <img alt="{{ user.name }}" ng-src="{{user.profilePic}}" class="md-avatar" />
+                                                    <p>{{ user.name }}</p>
+                                                    <!-- <md-svg-icon class="ic_24px" icon="{{person.iconimg}}"></md-svg-icon>-->
+                                                    <md-icon md-svg-icon="communication:ic_settings" ng-click="ViewController(user)" aria-label="Open Chat" class="md-secondary md-hue-3" ng-class="{'md-primary': user.name}"></md-icon>
+                                                </md-list-item>
+                                            </md-list>
+
+                                        </div>
+                                    </accordion-group>
+                                </accordion>
                             </div>
 
 
