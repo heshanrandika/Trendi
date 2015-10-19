@@ -67,6 +67,9 @@
                                             <div ng-messages="itemForm.confirm_password.$error">
                                                 <div ng-message="required">This is required.</div>
                                             </div>
+                                            <div ng-messages="regUser.confirm_password">
+                                                <div ng-message="regUser.confirm_password == regUser.password">Password not match.</div>
+                                            </div>
 
 
                                         </md-input-container>

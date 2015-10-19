@@ -823,6 +823,7 @@
             $scope.loadEntitlements = false;
             $scope.resetForm();
             $scope.selectedIndex = 1;
+            $scope.tmp.title = $scope.titles[0];
 
             adminDataService.getBranchList({shopId:$scope.shopDetails.shopId}).then(function(response){
                 $scope.branchList = response.data.responData.data;
@@ -834,11 +835,11 @@
             },function(){
                 $scope.branchList = [];
             });
-            $scope.tmp.title = $scope.titles[0];
+
+
             if(userData){
 
                 $scope.regUser = userData;
-
                 getIndex($scope.titles,userData.title,'value', function(value){
                     $scope.tmp.title = $scope.titles[value];
                 });
@@ -864,7 +865,9 @@
         $scope.answer = function(option) {
             $scope.btnPressed = true;
             if(option){
-                if(($scope.branch.name == '' || $scope.branch.name == undefined) ){
+                if(($scope.regUser.name == '' || $scope.regUser.name == undefined) &&
+                    ($scope.regUser.password == '' || $scope.regUser.password == undefined) &&
+                    ($scope.regUser.email == '' || $scope.regUser.email == undefined)){
                     Data_Toast.warning(MESSAGE_CONFIG.ERROR_REQUIRED_FIELDS);
                     $scope.btnPressed = false;
                 }else {

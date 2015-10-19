@@ -7,3 +7,5 @@ MongoDB 2.4 database added.  Please make note of these credentials:
 Connection URL: mongodb://$OPENSHIFT_MONGODB_DB_HOST:$OPENSHIFT_MONGODB_DB_PORT/
 
 http://docs.mongodb.org/manual/tutorial/backup-and-restore-tools/#backup-and-restore-tools
+
+mongod --dbpath H:\installation\mongo\data --port 27018
