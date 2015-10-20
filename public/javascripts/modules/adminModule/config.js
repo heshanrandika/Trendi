@@ -93,7 +93,10 @@
             FUNC_UpdateBranch:    2006,
             FUNC_RemoveBranch:    2005,
             //+++++++shop user function list +++++++++
-            FUNC_AdminGetUserList:2016
+            FUNC_AdminGetUserList:2016,
+            FUNC_AddShopUser:     2007,
+            FUNC_RemoveShopUser:  2018,
+            FUNC_UpdateShopUser:  2017
         },
         MENU_CONFIG:[
             {

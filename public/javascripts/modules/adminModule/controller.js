@@ -370,7 +370,6 @@
 
 
         $scope.EditViewController = function(branchData) {
-            $scope.loadEntitlements = false;
             $scope.branchId = branchData.branchId;
             $scope.resetForm();
             $scope.selectedIndex = 1;
@@ -710,10 +709,13 @@
 
     }]);
 
-    mod.controller('adminUsersController', ['$scope', '$rootScope','$state','adminDataService', function ($scope, $rootScope, $state, adminDataService) {
+    mod.controller('adminUsersController', ['$scope', '$rootScope','$state','adminDataService','Data.Toast','MESSAGE_CONFIG', function ($scope, $rootScope, $state, adminDataService, Data_Toast, MESSAGE_CONFIG) {
         $scope.userList = [];
         $scope.tmp = {};
         $scope.tmp.profilePic = [];
+        $scope.tmp.entitlements = [];
+        $scope.tmp.oldEntitlements = [];
+        $scope.tmp.allEntitlements = [];
         $scope.branchList = [];
         $scope.tmp.selectedBranch = {};
         $scope.regUser = {};
@@ -727,15 +729,15 @@
         $scope.selectedIndex = 0;
 
         $scope.titles =[
-            {value:0 , key:'Admin'},
-            {value:1 , key:'User'}
+            {value:0 , key:'User'},
+            {value:1 , key:'Admin'}
         ];
 
 
 
         var initData = function(){
             $scope.shopDetails = adminDataService.shopData();
-            adminDataService.getAdminUserList({shopId:$scope.shopDetails.shopId}).then(function(response){
+            adminDataService.getAdminUserList({shopId:$scope.shopDetails.shopId, notInMail : $scope.shopDetails.email, superAdmin:false}).then(function(response){
                 $scope.userList = response.data.responData.data
             },function(){
                 $scope.userList = [];
@@ -783,6 +785,9 @@
         $scope.resetForm = function(){
             $scope.tmp = {};
             $scope.tmp.profilePic = [];
+            $scope.tmp.entitlements = [];
+            $scope.tmp.oldEntitlements = [];
+            $scope.tmp.allEntitlements = [];
             $scope.tmp.selectedBranch = {};
             $scope.branchList = [];
             $scope.regUser = {};
@@ -805,9 +810,9 @@
 
         var getIndex = function(itemList, item,searchKey, callback){
             var index = 0;
-            if(!item == undefined){
+            if(!(item == undefined)){
                 _.each(itemList, function(k){
-                    if(k[searchKey == item[searchKey]]){
+                    if(k[searchKey] == item[searchKey]){
                         callback(index);
                     }
                     index++;
@@ -822,8 +827,12 @@
         $scope.EditViewController = function(userData) {
             $scope.loadEntitlements = false;
             $scope.resetForm();
-            $scope.selectedIndex = 1;
             $scope.tmp.title = $scope.titles[0];
+
+            adminDataService.getUserList({shopId :  $scope.shopId, email : $scope.shopDetails.email}).then(function(response){
+                $scope.tmp.allEntitlements = response.data.responData.data[0].entitlements;
+                $scope.selectedIndex = 1;
+            });
 
             adminDataService.getBranchList({shopId:$scope.shopDetails.shopId}).then(function(response){
                 $scope.branchList = response.data.responData.data;
@@ -839,6 +848,12 @@
 
             if(userData){
 
+                adminDataService.getUserList({shopId :  $scope.shopId, email : userData.email}).then(function(response){
+                    $scope.tmp.oldEntitlements = response.data.responData.data[0].entitlements;
+                    $scope.loadEntitlements = true;
+                });
+
+
                 $scope.regUser = userData;
                 getIndex($scope.titles,userData.title,'value', function(value){
                     $scope.tmp.title = $scope.titles[value];
@@ -848,11 +863,13 @@
                     $scope.tmp.profilePic.push({image:userData.profilePic});
                 }
 
-                $scope.headerText = 'Edit Branch #'+ $scope.regUser.name;
+                $scope.headerText = 'Edit User #'+ $scope.regUser.name;
                 $scope.addNew = false;
 
             }else{
-                $scope.headerText = 'Add New Branch';
+                $scope.loadEntitlements = true;
+                $scope.regUser.shopId = $scope.shopDetails.shopId;
+                $scope.headerText = 'Add New User';
                 $scope.addNew = true;
             }
 
@@ -871,16 +888,30 @@
                     Data_Toast.warning(MESSAGE_CONFIG.ERROR_REQUIRED_FIELDS);
                     $scope.btnPressed = false;
                 }else {
+                    $scope.regUser.shopId = $scope.shopDetails.shopId;
+                    $scope.regUser.title = $scope.tmp.title;
+                    $scope.regUser.branch = $scope.tmp.selectedBranch;
+                    $scope.regUser.profilePic = $scope.tmp.profilePic[0]?$scope.tmp.profilePic[0].image:'';
+                    $scope.regUser.entitlements =[];
+                    _.each($scope.tmp.entitlements,function(group){
+                        var valueArray =  _.chain(group.entitlements)
+                            .filter(function(obj) {
+                                return obj.select;
+                            })
+                            .map(function(obj) {
+                                return _.omit(obj,'select')
+                            })
+                            .value();
+                        $scope.regUser.entitlements = $scope.regUser.entitlements.concat(valueArray);
+                    });
 
-                    $scope.branch.iconImage = $scope.tmp.iconImage[0]?$scope.tmp.iconImage[0].image:'';
-                    var branchDetails = {};
 
-
+                    var userDetails = {};
 
                     switch (option) {
                         case 1 :
-                            branchDetails = {shopId:$scope.shopDetails.shopId, shop: $scope.branch};
-                            adminDataService.addBranch(branchDetails).then(function (response) {
+                            userDetails = {regUser:$scope.regUser};
+                            adminDataService.addShopUser(userDetails).then(function (response) {
                                 initData();
                                 $scope.selectedIndex = 0;
                                 Data_Toast.success(MESSAGE_CONFIG.SUCCESS_SAVED_SUCCESSFULLY);
@@ -890,8 +921,8 @@
                             });
                             break;
                         case 2 :
-                            branchDetails = {shopId:$scope.shopDetails.shopId,branchId:$scope.branchId, shop: $scope.branch};
-                            adminDataService.updateBranch(branchDetails).then(function (response) {
+                            userDetails = {regUser:$scope.regUser};
+                            adminDataService.updateShopUser(userDetails).then(function (response) {
                                 initData();
                                 $scope.selectedIndex = 0;
                                 Data_Toast.success(MESSAGE_CONFIG.SUCCESS_UPDATE_SUCCESSFULLY);
@@ -909,8 +940,8 @@
 
             }else{
                 $scope.btnPressed = true;
-                var branchDetails={shopId:$scope.shopDetails.shopId,branchId:$scope.branchId};
-                adminDataService.removeBranch(branchDetails).then(function(response){
+                userDetails = {regUser:{email:$scope.regUser.email}};
+                adminDataService.removeShopUser(userDetails).then(function(response){
                     initData();
                     $scope.selectedIndex = 0;
                     Data_Toast.success(MESSAGE_CONFIG.SUCCESS_REMOVED_SUCCESSFULLY);

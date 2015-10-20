@@ -1,202 +1,209 @@
 <div>
-    <md-content class="md-padding">
-        <md-tabs md-dynamic-height md-border-bottom md-selected="selectedIndex">
-            <md-tab label="Full Item List">
-                <md-content class="md-padding">
-                    <div>
-                        <trendi-search actions="search"></trendi-search>
-                        <div style="padding-top: 150px;">
-                            <md-button class="md-raised md-primary" ng-click="EditViewController('')"><md-icon md-svg-src="add-circle"></md-icon> Add New Item</md-button>
-                            <div style="padding-top: 20px;">
-                                <md-list>
-                                    <md-list-item ng-repeat="user in userList" ng-click="EditViewController(user)">
-                                        <img alt="{{ user.name }}" ng-src="{{user.profilePic}}" class="md-avatar" />
-                                        <p>{{ user.name }}</p>
-                                        <!-- <md-svg-icon class="ic_24px" icon="{{person.iconimg}}"></md-svg-icon>-->
-                                        <md-icon md-svg-icon="communication:ic_settings" ng-click="EditViewController(user)" aria-label="Open Chat" class="md-secondary md-hue-3" ng-class="{'md-primary': user.name}"></md-icon>
-                                    </md-list-item>
-                                </md-list>
-                            </div>
-                        </div>
+<md-content class="md-padding">
+<md-tabs md-dynamic-height md-border-bottom md-selected="selectedIndex">
+    <md-tab label="Full Item List">
+        <md-content class="md-padding">
+            <div>
+                <trendi-search actions="search"></trendi-search>
+                <div style="padding-top: 150px;">
+                    <md-button class="md-raised md-primary" ng-click="EditViewController('')"><md-icon md-svg-src="add-circle"></md-icon> Add New Item</md-button>
+                    <div style="padding-top: 20px;">
+                        <md-list>
+                            <md-list-item ng-repeat="user in userList" ng-click="EditViewController(user)">
+                                <img alt="{{ user.name }}" ng-src="{{user.profilePic}}" class="md-avatar" />
+                                <p>{{ user.name }}</p>
+                                <!-- <md-svg-icon class="ic_24px" icon="{{person.iconimg}}"></md-svg-icon>-->
+                                <md-icon md-svg-icon="communication:ic_settings" ng-click="EditViewController(user)" aria-label="Open Chat" class="md-secondary md-hue-3" ng-class="{'md-primary': user.name}"></md-icon>
+                            </md-list-item>
+                        </md-list>
                     </div>
-                </md-content>
-            </md-tab>
-            <md-tab label="{{headerText}}" ng-disabled="selectedIndex == 0">
-                <md-content class="md-padding">
-                    <h5 class="md-display-2">{{headerText}}</h5>
-                    <form novalidate="" name="itemForm">
-                        <div>
-                            <div class="col-md-12">
-                                <div class="raw">
-                                    <div class="col-md-6">
-                                        <h6>User Details</h6>
-                                        <md-input-container flex>
-                                            <!-- Use floating label instead of placeholder -->
-                                            <label>Name</label>
-                                            <input ng-model="regUser.name" name="name" type="text" ng-required="true">
-                                            <div ng-messages="itemForm.name.$error">
-                                                <div ng-message="required">This is required.</div>
-                                            </div>
-
-                                        </md-input-container>
-
-                                        <md-input-container flex>
-                                            <!-- Use floating label instead of placeholder -->
-                                            <label>Email</label>
-                                            <input ng-disabled="!addNew" ng-model="regUser.email" name="email" type="email" ng-required="true">
-                                            <div ng-messages="itemForm.email.$error">
-                                                <div ng-message="required">This is required.</div>
-                                            </div>
-
-                                        </md-input-container>
-
-                                        <md-input-container flex>
-                                            <!-- Use floating label instead of placeholder -->
-                                            <label>Password</label>
-                                            <input ng-disabled="!addNew" ng-model="regUser.password" name="password" type="password" ng-required="true">
-                                            <div ng-messages="itemForm.password.$error">
-                                                <div ng-message="required">This is required.</div>
-                                            </div>
-
-                                        </md-input-container>
-
-                                        <md-input-container flex ng-if="addNew">
-                                            <!-- Use floating label instead of placeholder -->
-                                            <label>Password</label>
-                                            <input ng-model="regUser.confirm_password" name="confirm_password" type="password" ng-required="true">
-                                            <div ng-messages="itemForm.confirm_password.$error">
-                                                <div ng-message="required">This is required.</div>
-                                            </div>
-                                            <div ng-messages="regUser.confirm_password">
-                                                <div ng-message="regUser.confirm_password == regUser.password">Password not match.</div>
-                                            </div>
-
-
-                                        </md-input-container>
-
-                                        <div layout layout-sm="column">
-                                            <md-input-container flex>
-                                                <label>Telephone</label>
-                                                <input ng-model="regUser.hotline">
-                                            </md-input-container>
-                                            <md-input-container flex>
-                                                <label>Mobile</label>
-                                                <input ng-model="regUser.mobile">
-                                            </md-input-container>
-                                        </div>
-                                        <div class="raw">
-                                            <div class="col-xs-6 col-sm-6">Select Title</div>
-                                            <div class="col-xs-6 col-sm-6">
-                                                <select ng-model="tmp.title" ng-options="data.key for data in titles"
-                                                        class="form-control form-filter srch-select-opt"></select>
-                                            </div>
-                                        </div>
-
-                                        <div ng-if="initDirective">
-                                            <trendi-file-upload files="tmp.profilePic" image-size="profilePicSize" image-count="1"></trendi-file-upload>
-                                        </div>
+                </div>
+            </div>
+        </md-content>
+    </md-tab>
+    <md-tab label="{{headerText}}" ng-disabled="selectedIndex == 0">
+        <md-content class="md-padding">
+            <h5 class="md-display-2">{{headerText}}</h5>
+            <form novalidate="" name="itemForm">
+                <div>
+                    <div class="col-md-12">
+                        <div class="raw">
+                            <div class="col-md-6">
+                                <h6>User Details</h6>
+                                <md-input-container flex>
+                                    <!-- Use floating label instead of placeholder -->
+                                    <label>Name</label>
+                                    <input ng-model="regUser.name" name="name" type="text" ng-required="true">
+                                    <div ng-messages="itemForm.name.$error">
+                                        <div ng-message="required">This is required.</div>
                                     </div>
-                                    <div class="col-md-6">
-                                        <h6>Branch Details</h6>
-                                        <div class="raw">
-                                            <div class="col-xs-6 col-sm-6">Select Branch</div>
-                                            <div class="col-xs-6 col-sm-6">
-                                                <select ng-model="tmp.selectedBranch" ng-options="data.shop.name for data in branchList"
-                                                        class="form-control form-filter srch-select-opt"></select>
-                                            </div>
-                                        </div>
-                                        <div class="raw">
-                                            <img ng-show="tmp.selectedBranch.shop.iconImage != ''" alt="{{ user.name }}" ng-src="{{tmp.selectedBranch.shop.iconImage}}" class="md-avatar" />
 
-                                            <md-input-container flex>
-                                                <!-- Use floating label instead of placeholder -->
-                                                <label>Branch Name</label>
-                                                <input ng-model="tmp.selectedBranch.shop.name" name="branchName" type="text"  ng-disabled="true">
-                                                <div ng-messages="itemForm.branchName.$error">
-                                                    <div ng-message="required">This is required.</div>
-                                                </div>
+                                </md-input-container>
 
-                                            </md-input-container>
+                                <md-input-container flex>
+                                    <!-- Use floating label instead of placeholder -->
+                                    <label>Email</label>
+                                    <input ng-disabled="!addNew" ng-model="regUser.email" name="email" type="email" ng-required="true">
+                                    <div ng-messages="itemForm.email.$error">
+                                        <div ng-message="required">This is required.</div>
+                                        <div ng-message="email">Invalid email address</div>
+                                    </div>
 
-                                            <md-input-container flex>
-                                                <label>Address</label>
-                                                <input ng-model="tmp.selectedBranch.shop.address.line1" ng-disabled="true">
-                                            </md-input-container>
-                                            <md-input-container flex>
-                                                <label>Address 2</label>
-                                                <input ng-model="tmp.selectedBranch.shop.address.line2" ng-disabled="true">
-                                            </md-input-container>
-                                            <div layout layout-sm="column">
-                                                <md-input-container flex>
-                                                    <label>City</label>
-                                                    <input ng-model="tmp.selectedBranch.shop.address.city" ng-disabled="true">
-                                                </md-input-container>
-                                                <md-input-container flex>
-                                                    <label>State</label>
-                                                    <input ng-model="tmp.selectedBranch.shop.address.state" ng-disabled="true">
-                                                </md-input-container>
-                                                <md-input-container flex>
-                                                    <label>Postal Code</label>
-                                                    <input ng-model="tmp.selectedBranch.shop.address.postalCode" ng-disabled="true">
-                                                </md-input-container>
-                                            </div>
-                                            <div layout layout-sm="column">
-                                                <md-input-container flex>
-                                                    <label>Hotline</label>
-                                                    <input ng-model="tmp.selectedBranch.shop.hotline" ng-disabled="true">
-                                                </md-input-container>
-                                                <md-input-container flex>
-                                                    <label>Mobile</label>
-                                                    <input ng-model="tmp.selectedBranch.shop.mobile" ng-disabled="true">
-                                                </md-input-container>
-                                            </div>
-                                            <md-input-container flex>
-                                                <label>Description</label>
-                                                <input md-maxlength="100" name="description" ng-model="tmp.selectedBranch.shop.description" ng-disabled="true">
-                                                <div ng-messages="itemForm.description.$error">
-                                                    <div ng-message="md-maxlength">The name has to be less than 100 characters long.</div>
-                                                </div>
-                                            </md-input-container>
+                                </md-input-container>
 
-                                        </div>
+                                <md-input-container flex>
+                                    <!-- Use floating label instead of placeholder -->
+                                    <label>Password</label>
+                                    <input ng-disabled="!addNew" ng-model="regUser.password" name="password" type="password" ng-required="true">
+                                    <div ng-messages="itemForm.password.$error">
+                                        <div ng-message="required">This is required.</div>
+                                    </div>
+
+                                </md-input-container>
+
+                                <md-input-container flex ng-if="addNew">
+                                    <!-- Use floating label instead of placeholder -->
+                                    <label>Confirm Password</label>
+                                    <input ng-model="regUser.confirm_password" name="confirm_password" type="password" ng-required="true" compare-to="regUser.password">
+                                    <div ng-messages="itemForm.confirm_password.$error">
+                                        <div ng-message="required">This is required.</div>
+                                        <div ng-message="compareTo">Password does not match the confirm password.</div>
+                                    </div>
+
+                                </md-input-container>
+
+                                <div layout layout-sm="column">
+                                    <md-input-container flex>
+                                        <label>Telephone</label>
+                                        <input ng-model="regUser.hotline">
+                                    </md-input-container>
+                                    <md-input-container flex>
+                                        <label>Mobile</label>
+                                        <input ng-model="regUser.mobile">
+                                    </md-input-container>
+                                </div>
+                                <div class="raw">
+                                    <div class="col-xs-6 col-sm-6">Select Title</div>
+                                    <div class="col-xs-6 col-sm-6">
+                                        <select ng-model="tmp.title" ng-options="data.key for data in titles"
+                                                class="form-control form-filter srch-select-opt"></select>
                                     </div>
                                 </div>
-
-
-
-                                <div class="raw">
-                                    <div class="col-md-8">
-                                        <div class="md-actions" layout="row">
-                                            <div ng-if="addNew">
-                                                <md-button  class="md-raised md-primary" ng-disabled="itemForm.$invalid || btnPressed" ng-click="answer(1)" md-autofocus>
-                                                    Save
-                                                </md-button>
-                                                <span flex></span>
-                                            </div>
-                                            <div ng-if="!addNew">
-                                                <md-button class="md-raised md-primary" ng-disabled="itemForm.$invalid || btnPressed" ng-click="answer(2)" md-autofocus>
-                                                    Update
-                                                </md-button>
-                                                <span flex></span>
-                                                <md-button class="md-raised md-warn" ng-disabled="btnPressed" ng-click="answer(0)" >
-                                                    Remove
-                                                </md-button>
-                                            </div>
-
-                                            <md-button ng-click="close('2')" style="margin-right:20px;" >
-                                                Close
-                                            </md-button>
+                                <accordion close-others="oneAtATime">
+                                    <accordion-group heading="Set Profile Picture">
+                                    <div ng-if="initDirective">
+                                        <trendi-file-upload files="tmp.profilePic" image-size="profilePicSize" image-count="1"></trendi-file-upload>
+                                    </div>
+                                    </accordion-group>
+                                    <accordion-group heading="Set Entitlements">
+                                        {{initDirective}}{{loadEntitlements}}
+                                        <div ng-if="initDirective && loadEntitlements">
+                                            <trendi-entitlements input-entitlements="tmp.allEntitlements" output-entitlements="tmp.entitlements" old-entitlements="tmp.oldEntitlements"></trendi-entitlements>
                                         </div>
+                                    </accordion-group>
+                                </accordion>
+                            </div>
+                            <div class="col-md-6">
+                                <h6>Branch Details</h6>
+                                <div class="raw">
+                                    <div class="col-xs-6 col-sm-6">Select Branch</div>
+                                    <div class="col-xs-6 col-sm-6">
+                                        <select ng-model="tmp.selectedBranch" ng-options="data.shop.name for data in branchList"
+                                                class="form-control form-filter srch-select-opt"></select>
                                     </div>
                                 </div>
+                                <div class="raw">
+                                    <img ng-show="tmp.selectedBranch.shop.iconImage != ''" alt="{{ user.name }}" ng-src="{{tmp.selectedBranch.shop.iconImage}}" class="md-avatar" />
 
+                                    <md-input-container flex>
+                                        <!-- Use floating label instead of placeholder -->
+                                        <label>Branch Name</label>
+                                        <input ng-model="tmp.selectedBranch.shop.name" name="branchName" type="text"  ng-disabled="true">
+                                        <div ng-messages="itemForm.branchName.$error">
+                                            <div ng-message="required">This is required.</div>
+                                        </div>
+
+                                    </md-input-container>
+
+                                    <md-input-container flex>
+                                        <label>Address</label>
+                                        <input ng-model="tmp.selectedBranch.shop.address.line1" ng-disabled="true">
+                                    </md-input-container>
+                                    <md-input-container flex>
+                                        <label>Address 2</label>
+                                        <input ng-model="tmp.selectedBranch.shop.address.line2" ng-disabled="true">
+                                    </md-input-container>
+                                    <div layout layout-sm="column">
+                                        <md-input-container flex>
+                                            <label>City</label>
+                                            <input ng-model="tmp.selectedBranch.shop.address.city" ng-disabled="true">
+                                        </md-input-container>
+                                        <md-input-container flex>
+                                            <label>State</label>
+                                            <input ng-model="tmp.selectedBranch.shop.address.state" ng-disabled="true">
+                                        </md-input-container>
+                                        <md-input-container flex>
+                                            <label>Postal Code</label>
+                                            <input ng-model="tmp.selectedBranch.shop.address.postalCode" ng-disabled="true">
+                                        </md-input-container>
+                                    </div>
+                                    <div layout layout-sm="column">
+                                        <md-input-container flex>
+                                            <label>Hotline</label>
+                                            <input ng-model="tmp.selectedBranch.shop.hotline" ng-disabled="true">
+                                        </md-input-container>
+                                        <md-input-container flex>
+                                            <label>Mobile</label>
+                                            <input ng-model="tmp.selectedBranch.shop.mobile" ng-disabled="true">
+                                        </md-input-container>
+                                    </div>
+                                    <md-input-container flex>
+                                        <label>Description</label>
+                                        <input md-maxlength="100" name="description" ng-model="tmp.selectedBranch.shop.description" ng-disabled="true">
+                                        <div ng-messages="itemForm.description.$error">
+                                            <div ng-message="md-maxlength">The name has to be less than 100 characters long.</div>
+                                        </div>
+                                    </md-input-container>
+
+                                </div>
                             </div>
                         </div>
 
-                    </form>
-                </md-content>
-            </md-tab>
-        </md-tabs>
-    </md-content>
+
+
+                        <div class="raw">
+                            <div class="col-md-8">
+                                <div class="md-actions" layout="row">
+                                    <div ng-if="addNew">
+                                        <md-button  class="md-raised md-primary" ng-disabled="itemForm.$invalid || btnPressed" ng-click="answer(1)" md-autofocus>
+                                            Save
+                                        </md-button>
+                                        <span flex></span>
+                                    </div>
+                                    <div ng-if="!addNew">
+                                        <md-button class="md-raised md-primary" ng-disabled="itemForm.$invalid || btnPressed" ng-click="answer(2)" md-autofocus>
+                                            Update
+                                        </md-button>
+                                        <span flex></span>
+                                        <md-button class="md-raised md-warn" ng-disabled="btnPressed" ng-click="answer(0)" >
+                                            Remove
+                                        </md-button>
+                                    </div>
+
+                                    <md-button ng-click="close('2')" style="margin-right:20px;" >
+                                        Close
+                                    </md-button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </form>
+        </md-content>
+    </md-tab>
+</md-tabs>
+</md-content>
 </div>
 

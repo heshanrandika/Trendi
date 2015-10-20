@@ -98,6 +98,7 @@
                                 <input ng-disabled="!addNew" ng-model="regUser.email" name="email" type="email" ng-required="true">
                                 <div ng-messages="itemForm.email.$error">
                                     <div ng-message="required">This is required.</div>
+                                    <div ng-message="email">Invalid email address</div>
                                 </div>
 
                             </md-input-container>
@@ -108,6 +109,17 @@
                                 <input ng-disabled="!addNew" ng-model="regUser.password" name="password" type="password" ng-required="true">
                                 <div ng-messages="itemForm.password.$error">
                                     <div ng-message="required">This is required.</div>
+                                </div>
+
+                            </md-input-container>
+
+                            <md-input-container flex ng-if="addNew">
+                                <!-- Use floating label instead of placeholder -->
+                                <label>Confirm Password</label>
+                                <input ng-model="regUser.confirm_password" name="confirm_password" type="password" ng-required="true" compare-to="regUser.password">
+                                <div ng-messages="itemForm.confirm_password.$error">
+                                    <div ng-message="required">This is required.</div>
+                                    <div ng-message="compareTo">Password does not match the confirm password.</div>
                                 </div>
 
                             </md-input-container>

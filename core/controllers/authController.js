@@ -176,7 +176,8 @@ function shopRegistration(req,callback) {
                             branch:branchDoc,
                             userType:userType,
                             entitlements:regUser.entitlements,
-                            superAdmin:true
+                            superAdmin:true,
+                            title:{value:10 , key:'Super Admin'}
                         };
                         var messageDoc = {
                             email: regUser.email,
@@ -317,7 +318,7 @@ function addShopUser(req,callback) {
     var params = (req.body.params) ? req.body.params : {};
 
 
-    var userType = (params.userType)?params.userType: 0;
+    var userType = (req.body.userType)?req.body.userType: 0;
     var regUser =  (params.regUser)?params.regUser: 0;
 
     var query = {'email':regUser.email};
@@ -335,7 +336,9 @@ function addShopUser(req,callback) {
                             session:'',
                             userType:userType,
                             title:regUser.title,
-                            entitlements:regUser.entitlements
+                            entitlements:regUser.entitlements,
+                            profilePic:regUser.profilePic,
+                            superAdmin:false
                         };
                         daf.Insert(doc, CONSTANT.SHOP_USER, function (err, success) {
                             if(err){

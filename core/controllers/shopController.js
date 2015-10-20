@@ -193,6 +193,8 @@ function adminGetUserList(req,callback){
     var shopId = params.shopId;
     var branchId = params.branchId;
     var superAdmin = params.superAdmin;
+    var email = params.email;
+    var notInMail = params.notInMail;
 
     var query = {};
 
@@ -204,6 +206,12 @@ function adminGetUserList(req,callback){
     }
     if(params.superAdmin != undefined){
         query['superAdmin'] = superAdmin;
+    }
+    if(params.email != undefined){
+        query['email'] = email;
+    }
+    if(params.notInMail != undefined){
+        query['email'] = { $nin: [ notInMail ] } ;
     }
 
     console.log("$$$$$$$  GET User List $$$$$$ : ");
@@ -246,6 +254,7 @@ function updateShopUser(req,callback) {
             name: regUser.name,
             branch: regUser.branch,
             title: regUser.title,
+            profilePic: regUser.profilePic,
             entitlements: regUser.entitlements
         }};
         daf.Update(query,changeDoc, CONSTANT.SHOP_USER, function (err, success) {
