@@ -1191,67 +1191,28 @@
     }]);
 
     mod.controller('adminPromotionsController', ['$scope', '$rootScope','$state','adminDataService', function ($scope, $rootScope, $state, adminDataService) {
-        $scope.itemList = [];
-        var shopDetails = {};
+        $scope.promotionList = [];
+        $scope.tmp = {};
+        $scope.tmp.profilePic = [];
 
-        //=======Item Edit Window================
-        $scope.mainImage = [];
-        $scope.subItem = [];
+        $scope.profilePicSize = {value:100000, text:'100kB'};
+        $scope.profilePicCount = 1;
+        $scope.btnPressed = false;
+
         $scope.headerText = '';
         $scope.addNew = true;
-
-        $scope.mainItem = {};
-        $scope.selectedColors = [];
-        $scope.slectedSizes = [];
-        $scope.slectedTypes = [];
         $scope.selectedIndex = 0;
 
-        $scope.sizes = [
-            {
-                'value': 'X-small'
-            },
-            {
-                'value': 'Small'
-            },
-            {
-                'value': 'Medium'
-            },
-            {
-                'value': 'Large'
-            },
-            {
-                'value': 'X-large'
-            }
-        ];
 
 
-        $scope.types = [
-            {
-                'value': 'Blouse'
-            },
-            {
-                'value': 'High-neck'
-            },
-            {
-                'value': 'Short-skirt'
-            },
-            {
-                'value': 'Shirt'
-            },
-            {
-                'value': 'Short'
-            }
-        ];
 
         var initData = function(){
-            shopDetails = adminDataService.shopData();
-            adminDataService.getItemList(shopDetails.shop).then(function(response){
-                $scope.itemList = response.data.responData.data
+            $scope.shopDetails = adminDataService.shopData();
+            adminDataService.getAdminPromotionList({shopId:$scope.shopDetails.shopId, notInMail : $scope.shopDetails.email, superAdmin:false}).then(function(response){
+                $scope.promotionList = response.data.responData.data
             },function(){
-                $scope.itemList = [];
+                $scope.promotionList = [];
             });
-
-
         };
         initData();
 
@@ -1293,59 +1254,47 @@
         };
 
         $scope.resetForm = function(){
-            $scope.mainImage = [];
-            $scope.subItem = [];
+            $scope.tmp = {};
+
+
             $scope.headerText = '';
             $scope.addNew = '';
-            $scope.selectedColors = [];
-            $scope.slectedSizes = [];
-            $scope.slectedTypes = [];
+            $scope.btnPressed = false;
         };
 
         $scope.$watch('selectedIndex', function(current, old){
-            if(current<old){
+            if(current<= old){
                 $scope.headerText = '';
+                $scope.initDirective = false;
+            }else{
+                $scope.initDirective = true;
             }
+
         });
 
-        $scope.EditViewController = function(itemData) {
-            $scope.itemId = itemData.itemId;
+
+        $scope.EditViewController = function(userData) {
+            $scope.loadEntitlements = false;
             $scope.resetForm();
-            $scope.selectedIndex = 1;
-            if(itemData){
-                $scope.mainItem = itemData.item;
-                $scope.mainImage.push({image:$scope.mainItem.image,default:true});
+            $scope.tmp.title = $scope.titles[0];
 
-                $scope.selectedColors = itemData.item.colors;
-                $scope.slectedSizes = itemData.item.sizes?itemData.item.sizes:[];
-                $scope.slectedTypes = itemData.item.types?itemData.item.types:[];
 
-                adminDataService.getSubItem({itemId : itemData.itemId, seenEnable:false}).then(function(response){
-                    var subItemList = response.data.responData.data.itemList;
-                    if(subItemList.length > 0){
-                        _.each(subItemList,function(k){
-                            $scope.mainImage.push({image: k.image,default:false});
-                        });
-                    }
-                });
-                $scope.headerText = 'Edit Item #'+itemData.itemId;
+
+
+            if(userData){
+                if(!(userData.profilePic == '' || userData.profilePic == undefined)){
+                    $scope.tmp.profilePic.push({image:userData.profilePic});
+                }
+
+                $scope.headerText = 'Edit User #'+ $scope.regUser.name;
                 $scope.addNew = false;
-            }else{
 
-                $scope.mainItem = {};
-                $scope.selectedColors = [{color:'#FFFFFF'},{color:'#FFFFFF'},{color:'#FFFFFF'},{color:'#FFFFFF'}];
-                $scope.slectedSizes = [{'value': 'X-small'}];
-                $scope.slectedTypes = [];
-                $scope.headerText = 'Add New Item';
+            }else{
+                $scope.loadEntitlements = true;
+                $scope.regUser.shopId = $scope.shopDetails.shopId;
+                $scope.headerText = 'Add New User';
                 $scope.addNew = true;
             }
-
-
-
-
-
-
-
 
         };
 
@@ -1354,72 +1303,78 @@
         };
 
         $scope.answer = function(option) {
+            $scope.btnPressed = true;
             if(option){
-                if(($scope.mainItem.name == '' || $scope.mainItem.name == undefined) &&
-                    ($scope.mainItem.price == '' || $scope.mainItem.price == undefined) &&
-                    ($scope.mainItem.description == '' || $scope.mainItem.description == undefined) &&
-                    $scope.mainImage.length == 0){
-
+                if(($scope.regUser.name == '' || $scope.regUser.name == undefined) &&
+                    ($scope.regUser.password == '' || $scope.regUser.password == undefined) &&
+                    ($scope.regUser.email == '' || $scope.regUser.email == undefined)){
+                    Data_Toast.warning(MESSAGE_CONFIG.ERROR_REQUIRED_FIELDS);
+                    $scope.btnPressed = false;
                 }else {
-                    _.each($scope.mainImage, function (k) {
-                        if (k.default) {
-                            $scope.mainItem.image = k.image;
-                        } else {
-                            $scope.subItem.push({image: k.image});
-                        }
+                    $scope.regUser.shopId = $scope.shopDetails.shopId;
+                    $scope.regUser.title = $scope.tmp.title;
+                    $scope.regUser.branch = $scope.tmp.selectedBranch;
+                    $scope.regUser.profilePic = $scope.tmp.profilePic[0]?$scope.tmp.profilePic[0].image:'';
+                    $scope.regUser.entitlements =[];
+                    _.each($scope.tmp.entitlements,function(group){
+                        var valueArray =  _.chain(group.entitlements)
+                            .filter(function(obj) {
+                                return obj.select;
+                            })
+                            .map(function(obj) {
+                                return _.omit(obj,'select')
+                            })
+                            .value();
+                        $scope.regUser.entitlements = $scope.regUser.entitlements.concat(valueArray);
                     });
-                    $scope.mainItem.shop = shopDetails.shop;
-                    $scope.mainItem.types = $scope.slectedTypes;
-                    $scope.mainItem.sizes = $scope.slectedSizes;
-                    $scope.mainItem.colors = $scope.selectedColors;
-                    var itemDetail = {};
+
+
+                    var userDetails = {};
+
                     switch (option) {
                         case 1 :
-                            itemDetail = {mainItem: $scope.mainItem, subItem: $scope.subItem};
-                            adminDataService.addItem(itemDetail).then(function (response) {
+                            userDetails = {regUser:$scope.regUser};
+                            adminDataService.addShopUser(userDetails).then(function (response) {
                                 initData();
                                 $scope.selectedIndex = 0;
+                                Data_Toast.success(MESSAGE_CONFIG.SUCCESS_SAVED_SUCCESSFULLY);
+                            },function (error) {
+                                Data_Toast.error(MESSAGE_CONFIG.ERROR_SAVE_FAIL,error.data.responData.Error);
+                                $scope.btnPressed = false;
                             });
                             break;
                         case 2 :
-                            itemDetail = {mainItem: $scope.mainItem, subItem: $scope.subItem, itemId:$scope.itemId};
-                            adminDataService.updateItem(itemDetail).then(function (response) {
+                            userDetails = {regUser:$scope.regUser};
+                            adminDataService.updateShopUser(userDetails).then(function (response) {
                                 initData();
                                 $scope.selectedIndex = 0;
+                                Data_Toast.success(MESSAGE_CONFIG.SUCCESS_UPDATE_SUCCESSFULLY);
+                            },function (error) {
+                                Data_Toast.error(MESSAGE_CONFIG.ERROR_UPDATE_FAIL,error.data.responData.Error);
+                                $scope.btnPressed = false;
                             });
                             break;
                         default :
+                            $scope.btnPressed = false;
                             break;
                     }
 
                 }
 
             }else{
-                var itemDetail={itemId:$scope.itemId};
-                adminDataService.removeItem(itemDetail).then(function(response){
+                $scope.btnPressed = true;
+                userDetails = {regUser:{email:$scope.regUser.email}};
+                adminDataService.removeShopUser(userDetails).then(function(response){
                     initData();
                     $scope.selectedIndex = 0;
+                    Data_Toast.success(MESSAGE_CONFIG.SUCCESS_REMOVED_SUCCESSFULLY);
+                },function (error) {
+                    Data_Toast.error(MESSAGE_CONFIG.ERROR_REMOVE_FAIL,error.data.responData.Error);
+                    $scope.btnPressed = false;
                 });
             }
 
         };
-
-        /*  $scope.goToItem = function(item, event) {
-         $mdDialog.show({
-         locals:{itemData: item},
-         controller: DialogController,
-         templateUrl: '/views/adminModule/admin.item.modal.html',
-         parent: angular.element(document.body),
-         targetEvent: event,
-         clickOutsideToClose:false,
-         focusOnOpen:false
-         })
-         .then(function(answer) {
-         $scope.status = 'You said the information was "' + answer + '".';
-         }, function() {
-         $scope.status = 'You cancelled the dialog.';
-         });
-         };*/
 
 
     }]);

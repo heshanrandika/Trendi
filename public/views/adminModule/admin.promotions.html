@@ -36,98 +36,36 @@
                                         <!--<md-content layout-padding class="autoScroll">-->
                                         <md-input-container class="md-icon-float" >
                                             <!-- Use floating label instead of placeholder -->
-                                            <label>Name</label>
-                                            <md-icon md-svg-src="img/icons/ic_person_24px.svg" class="name"></md-icon>
-                                            <input ng-model="mainItem.name" name="name" type="text" ng-required="true">
-                                            <div ng-messages="itemForm.name.$error">
+                                            <label>Title</label>
+                                            <input ng-model="promotion.title" name="title" type="text" ng-required="true">
+                                            <div ng-messages="itemForm.title.$error">
                                                 <div ng-message="required">This is required.</div>
                                             </div>
 
                                         </md-input-container>
 
-                                        <md-input-container class="md-icon-float" >
-                                            <!-- Use floating label instead of placeholder -->
-                                            <label>Price</label>
-                                            <md-icon md-svg-src="img/icons/ic_person_24px.svg" class="name"></md-icon>
-                                            <input ng-model="mainItem.price" type="number" ng-required="true" name="price">
-                                            <div ng-messages="itemForm.price.$error">
-                                                <div ng-message="required">This is required.</div>
+                                        <div>
+                                            <div ng-if="initDirective">
+                                                <trendi-file-upload files="tmp.iconImage" image-size="iconSize"  image-count="1"></trendi-file-upload>
                                             </div>
-                                        </md-input-container>
+                                        </div>
 
                                         <md-input-container class="md-icon-float" >
                                             <!-- Use floating label instead of placeholder -->
                                             <label>Description</label>
-                                            <md-icon md-svg-src="img/icons/ic_person_24px.svg" class="name"></md-icon>
-                                            <input md-maxlength="30" ng-required="true" name="description" ng-model="mainItem.description">
+                                            <input md-maxlength="200"  name="description" ng-model="mainItem.description">
                                             <div ng-messages="itemForm.description.$error">
-                                                <div ng-message="required">This is required.</div>
-                                                <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
+                                                <div ng-message="md-maxlength">The name has to be less than 200 characters long.</div>
                                             </div>
                                         </md-input-container>
 
-                                        <md-input-container md-no-float>
-                                            <md-icon md-svg-src="img/icons/ic_phone_24px.svg"></md-icon>
-                                            <trendi-chips selected-items="slectedSizes" item-list="sizes" placeholder="Enter Available Sizes"></trendi-chips>
-                                        </md-input-container>
 
                                         <md-input-container md-no-float>
                                             <md-icon md-svg-src="img/icons/ic_phone_24px.svg"></md-icon>
                                             <trendi-chips selected-items="slectedTypes" item-list="types" placeholder="Enter Type Tags"></trendi-chips>
                                         </md-input-container>
-                                        <!--<md-input-container class="md-icon-float">
-                                            <label>Description</label>
-                                            <input md-maxlength="30" required name="description" ng-model="mainItem.description">
-                                            <div ng-if="addItemForm.$error">
-                                                <div>This is required.</div>
-                                                <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
-                                            </div>
-                                        </md-input-container>-->
 
-                                        <md-input-container md-no-float>
-                                            <md-checkbox ng-model="mainItem.onSale" aria-label="Checkbox 1">
-                                                On Sale
-                                            </md-checkbox>
-                                        </md-input-container>
 
-                                        <md-input-container  ng-show="mainItem.onSale" class="md-icon-float">
-                                            <!-- Use floating placeholder instead of label -->
-                                            <label>Discount (%)</label>
-                                            <md-icon md-svg-src="img/icons/ic_person_24px.svg" class="name"></md-icon>
-                                            <input ng-model="mainItem.discount" type="number" ng-required="mainItem.onSale">
-                                        </md-input-container>
-
-                                        <md-radio-group ng-model="mainItem.group">
-                                            <md-radio-button value="Gents" class="md-primary"> Gents Item</md-radio-button>
-                                            <md-radio-button value="Ladies"> Ladies Item</md-radio-button>
-                                            <md-radio-button value="Babies" class="md-primary"> Babies Item</md-radio-button>
-                                        </md-radio-group>
-
-                                        <div>
-                                            <md-icon md-svg-src="img/icons/ic_place_24px.svg" style="display:inline-block;"></md-icon>
-                                            <div ng-repeat="color in selectedColors">
-                                                <color-picker color-picker-format="'hex'" ng-model="color.color"></color-picker>
-                                            </div>
-
-                                        </div>
-
-                                        <md-input-container class="md-icon-float" >
-                                            <!-- Use floating label instead of placeholder -->
-                                            <label>Like</label>
-                                            <md-icon md-svg-src="img/icons/ic_person_24px.svg" class="name"></md-icon>
-                                            <input ng-model="mainItem.like" type="number"  name="like" ng-disabled="true">
-                                        </md-input-container>
-
-                                        <md-input-container class="md-icon-float" >
-                                            <!-- Use floating label instead of placeholder -->
-                                            <label>Seen</label>
-                                            <md-icon md-svg-src="img/icons/ic_person_24px.svg" class="name"></md-icon>
-                                            <input ng-model="mainItem.seen" type="number" name="seen" ng-disabled="true">
-                                        </md-input-container>
-
-                                        <div>
-                                            <trendi-file-upload files="mainImage"></trendi-file-upload>
-                                        </div>
 
                                         <div class="md-actions" layout="row">
                                             <div ng-if="addNew">
