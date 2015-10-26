@@ -175,3 +175,15 @@
     padding-top: 5px;
     border-top: solid 1px #fdfcbc;
 }
+
+.ta-editor {
+    min-height: 300px;
+    height: auto;
+    overflow: auto;
+    font-family: inherit;
+    font-size: 100%;
+}
+
+.ta-hidden-input{
+    display: none;
+}

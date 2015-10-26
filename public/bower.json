@@ -35,6 +35,7 @@
     "angular-isotope": "~0.1.14",
     "angular-messages": "~1.4.4",
     "angularjs-color-picker": "~0.6.5",
-    "tinycolor": "~1.2.1"
+    "tinycolor": "~1.2.1",
+    "textAngular": "~1.4.6"
   }
 }

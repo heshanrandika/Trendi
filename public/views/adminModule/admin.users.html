@@ -89,14 +89,13 @@
                                                 class="form-control form-filter srch-select-opt"></select>
                                     </div>
                                 </div>
-                                <accordion close-others="oneAtATime">
+                                <accordion close-others="true">
                                     <accordion-group heading="Set Profile Picture">
                                     <div ng-if="initDirective">
                                         <trendi-file-upload files="tmp.profilePic" image-size="profilePicSize" image-count="1"></trendi-file-upload>
                                     </div>
                                     </accordion-group>
                                     <accordion-group heading="Set Entitlements">
-                                        {{initDirective}}{{loadEntitlements}}
                                         <div ng-if="initDirective && loadEntitlements">
                                             <trendi-entitlements input-entitlements="tmp.allEntitlements" output-entitlements="tmp.entitlements" old-entitlements="tmp.oldEntitlements"></trendi-entitlements>
                                         </div>

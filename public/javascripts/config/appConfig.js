@@ -19,7 +19,8 @@ window.com = {TRENDI:{CATEGORY:{modules:{}}}};
             'adminModule',
             'ngOpenFB',
             'authModule',
-            'iso.directives'
+            'iso.directives',
+            'textAngular'
 
 
         ]

@@ -248,8 +248,17 @@ function adminGetUser(req,callback){
 function updateShopUser(req,callback) {
     var params = (req.body.params) ? req.body.params : {};
     var regUser =  (params.regUser)?params.regUser: 0;
+    var profileUpdate =  (params.profileUpdate)?params.profileUpdate: false;
 
     var query = {'email':regUser.email};
+    if(profileUpdate){
+        var changeDoc = {$set: {
+            name: regUser.name,
+            hotline: regUser.hotline,
+            mobile: regUser.mobile,
+            profilePic: regUser.profilePic
+        }};
+    }else{
         var changeDoc = {$set: {
             name: regUser.name,
             branch: regUser.branch,
@@ -259,6 +268,8 @@ function updateShopUser(req,callback) {
             profilePic: regUser.profilePic,
             entitlements: regUser.entitlements
         }};
+    }
+
         daf.Update(query,changeDoc, CONSTANT.SHOP_USER, function (err, success) {
             if(err){
                 callback(("Failed to Update:"+err),null);
