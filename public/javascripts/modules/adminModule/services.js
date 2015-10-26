@@ -94,6 +94,10 @@
             return Data_Comm.postPromise(angular.extend({params:d},adminServiceCalls.adminUpdateUserDao()));
         };
 
+        var _adminResetPwd = function(d){
+            return Data_Comm.postPromise(angular.extend({params:d},adminServiceCalls.adminResetPwdDao()));
+        };
+
         var _getShopList = function(){
             return Data_Comm.postPromise(adminServiceCalls.getShopListDao());
         };
@@ -145,7 +149,8 @@
             updatePromotion:_updatePromotion,
             removePromotion:_removePromotion,
             adminGetUser:_adminGetUser,
-            adminUpdateUser:_adminUpdateUser
+            adminUpdateUser:_adminUpdateUser,
+            adminResetPwd:_adminResetPwd
         }
     }]);
 })(com.TRENDI.CATEGORY.modules.adminModule);

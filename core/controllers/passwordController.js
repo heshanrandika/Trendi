@@ -9,12 +9,12 @@ var CONSTANT = require('../utility/Constants');
 function passwordReset(req,callback){
     console.log("$$$$$$$  GetLatestItems $$$$$$");
     var params = (req.body.params) ? req.body.params : {};
-    var oldPassword = params.OldPassword;
-    var newPassword = PWD.GetHashedPassword(params.NewPassword,CONSTANT.HASHING_ALGO);
-    var email = params.email;
+    var oldPassword = params.oldPassword;
+    var newPassword = PWD.GetHashedPassword(params.newPassword,CONSTANT.HASHING_ALGO);
+    var email = req.body.email;
 
     var query = {email:email};
-    daf.FindOne(query,CONSTANT.USER_COLLECTION,function(err, userArray){
+    daf.FindOne(query,CONSTANT.SHOP_USER,function(err, userArray){
         var user = userArray;
         if(err){
             callback(err, user);
@@ -25,7 +25,7 @@ function passwordReset(req,callback){
                     callback(err, state);
                 }else if(state){
                         var changeDoc = {$set:{'password':newPassword}};
-                        daf.Update(query,changeDoc,CONSTANT.USER_COLLECTION,function(err, success){
+                        daf.Update(query,changeDoc,CONSTANT.SHOP_USER,function(err, success){
                             callback(err, success);
                         });
                 }else{

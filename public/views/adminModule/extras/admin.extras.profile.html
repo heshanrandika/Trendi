@@ -16,7 +16,7 @@
                             </div>
 
                             <div ng-if="!edit">
-                                <trendi-file-upload files="tmp.profilePic" image-size="profilePicSize" image-count="1"></trendi-file-upload>
+                                <trendi-file-upload files="user.profilePic" image-size="profilePicSize" image-count="profilePicCount"></trendi-file-upload>
                             </div>
 
 
@@ -41,53 +41,7 @@
 
                             </md-input-container>
 
-                            <md-button ng-click="changePwd = !changePwd" class="md-raised md-primary" >
-                                Change password
-                            </md-button>
-                            <div ng-show="changePwd">
-                                <form novalidate="" name="pwdForm">
 
-                                    <md-input-container flex>
-                                        <!-- Use floating label instead of placeholder -->
-                                        <label>Current Password</label>
-                                        <input ng-model="temp.password" name="password" type="password" ng-required="true">
-                                        <div ng-messages="pwdForm.password.$error">
-                                            <div ng-message="required">This is required.</div>
-                                        </div>
-
-                                    </md-input-container>
-
-
-                                    <md-input-container flex>
-                                        <!-- Use floating label instead of placeholder -->
-                                        <label>New Password</label>
-                                        <input ng-model="temp.password" name="password" type="password" ng-required="true">
-                                        <div ng-messages="pwdForm.password.$error">
-                                            <div ng-message="required">This is required.</div>
-                                        </div>
-
-                                    </md-input-container>
-
-                                    <md-input-container flex>
-                                        <!-- Use floating label instead of placeholder -->
-                                        <label>Confirm Password</label>
-                                        <input ng-model="temp.confirm_password" name="confirm_password" type="password" ng-required="true" compare-to="temp.password">
-                                        <div ng-messages="pwdForm.confirm_password.$error">
-                                            <div ng-message="required">This is required.</div>
-                                            <div ng-message="compareTo">Password does not match the confirm password.</div>
-                                        </div>
-
-                                    </md-input-container>
-
-                                    <md-button class="md-raised md-primary" ng-disabled="pwdForm.$invalid || btnPressed" ng-click="answer(2)" md-autofocus>
-                                        Reset
-                                    </md-button>
-                                    <span flex></span>
-                                    <md-button class="md-raised md-warn" ng-disabled="btnPressed" ng-click="changePwd = !changePwd" >
-                                        Cancel
-                                    </md-button>
-                                </form>
-                            </div>
 
 
                             <div layout layout-sm="column">
@@ -164,7 +118,7 @@
                         <div class="col-md-8">
                             <div class="md-actions" layout="row">
                                 <div ng-hide="edit">
-                                    <md-button  class="md-raised md-primary" ng-disabled="itemForm.$invalid || btnPressed" ng-click="answer(1)" md-autofocus>
+                                    <md-button  class="md-raised md-primary" ng-disabled="itemForm.$invalid || btnPressed" ng-click="updateProfile()" md-autofocus>
                                         Save
                                     </md-button>
                                     <span flex></span>
@@ -182,5 +136,53 @@
             </div>
 
         </form>
+
+        <md-button ng-click="changePwd = !changePwd" class="md-raised md-primary">
+            Change password
+        </md-button>
+        <div ng-show="changePwd">
+            <form novalidate="" name="pwdForm">
+
+                <md-input-container flex>
+                    <!-- Use floating label instead of placeholder -->
+                    <label>Current Password</label>
+                    <input ng-model="temp.oldPassword" name="old_password" type="password" ng-required="true">
+                    <div ng-messages="pwdForm.old_password.$error">
+                        <div ng-message="required">This is required.</div>
+                    </div>
+
+                </md-input-container>
+
+
+                <md-input-container flex>
+                    <!-- Use floating label instead of placeholder -->
+                    <label>New Password</label>
+                    <input ng-model="temp.newPassword" name="new_password" type="password" ng-required="true">
+                    <div ng-messages="pwdForm.new_password.$error">
+                        <div ng-message="required">This is required.</div>
+                    </div>
+
+                </md-input-container>
+
+                <md-input-container flex>
+                    <!-- Use floating label instead of placeholder -->
+                    <label>Confirm Password</label>
+                    <input ng-model="temp.confirm_password" name="confirm_password" type="password" ng-required="true" compare-to="temp.newPassword">
+                    <div ng-messages="pwdForm.confirm_password.$error">
+                        <div ng-message="required">This is required.</div>
+                        <div ng-message="compareTo">Password does not match the confirm password.</div>
+                    </div>
+
+                </md-input-container>
+
+                <md-button class="md-raised md-primary" ng-disabled="pwdForm.$invalid || btnPressed" ng-click="resetPwd()" md-autofocus>
+                    Reset
+                </md-button>
+                <span flex></span>
+                <md-button class="md-raised md-warn" ng-disabled="btnPressed" ng-click="changePwd = !changePwd" >
+                    Cancel
+                </md-button>
+            </form>
+        </div>
     </md-content>
 </div>
