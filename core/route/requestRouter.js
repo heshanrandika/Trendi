@@ -854,7 +854,7 @@ var requestRoute = function(req,res){
 
         case 6000:
 
-            BLOG.GetBlogList(req, function (err, data) {
+            BLOG.GetAdminBlogList(req, function (err, data) {
                 if (err) {
                     resObject.resStatus = 0;
                     resObject.responData.Error = err.toString();
@@ -894,7 +894,7 @@ var requestRoute = function(req,res){
 
         case 6002:
 
-            BLOG.UpsertBlog(req, function (err, data) {
+            BLOG.InsertBlog(req, function (err, data) {
                 if (err) {
                     resObject.resStatus = 0;
                     resObject.responData.Error = err.toString();
@@ -915,6 +915,46 @@ var requestRoute = function(req,res){
         case 6003:
 
             BLOG.RemoveBlog(req, function (err, data) {
+                if (err) {
+                    resObject.resStatus = 0;
+                    resObject.responData.Error = err.toString();
+                    res.status(500);
+                    res.send(resObject);
+
+                } else if (data) {
+
+                    resObject.resStatus = 1;
+                    resObject.responData.data = data;
+                    res.send(resObject);
+
+                }
+
+            });
+            break;
+
+        case 6004:
+
+            BLOG.GetBlogList(req, function (err, data) {
+                if (err) {
+                    resObject.resStatus = 0;
+                    resObject.responData.Error = err.toString();
+                    res.status(500);
+                    res.send(resObject);
+
+                } else if (data) {
+
+                    resObject.resStatus = 1;
+                    resObject.responData.data = data;
+                    res.send(resObject);
+
+                }
+
+            });
+            break;
+
+        case 6005:
+
+            BLOG.UpdateBlog(req, function (err, data) {
                 if (err) {
                     resObject.resStatus = 0;
                     resObject.responData.Error = err.toString();

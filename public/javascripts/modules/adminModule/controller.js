@@ -1226,18 +1226,55 @@
 
     }]);
 
-    mod.controller('adminExtraBlogController', ['$scope', '$rootScope','$state','adminDataService', function ($scope, $rootScope, $state, adminDataService) {
+    mod.controller('adminExtraBlogController', ['$scope', '$rootScope','$state','adminDataService','Data.Toast','MESSAGE_CONFIG', function ($scope, $rootScope, $state, adminDataService, Data_Toast, MESSAGE_CONFIG) {
         $scope.blogImageSize = {value:500000, text:'500kB'};
         $scope.blogImageCount = 1;
         $scope.blogImage = [];
+        $scope.blogData = {};
 
-        $scope.blogs = [
-          {title:'test q', contents:'<h>hedbf</h>', img:''},
-          {title:'tergtre q', contents:'<h>terhthgt</h>', img:''},
-          {title:'reter q', contents:'<h>hedfgdfgdbf</h>', img:''},
-          {title:'rrrr q', contents:'<h>bbbbbbbbbbb</h>', img:''}
-      ];
 
+        var initData = function(){
+            $scope.blogImage = [];
+            $scope.shopDetails = adminDataService.shopData();
+            adminDataService.adminGetBlogList({shopId:$scope.shopDetails.shopId}).then(function(response){
+                $scope.blogs = response.data.responData.data;
+            },function(error){
+                $scope.blogs = {};
+            });
+        };
+        initData();
+
+        /*$scope.blogs = [
+          {title:'test q', contents:'<h1>hedbf</h1>', img:''},
+          {title:'tergtre q', contents:'<h2>terhthgt</h2>', img:''},
+          {title:'reter q', contents:'<h3>hedfgdfgdbf</h3>', img:''},
+          {title:'rrrr q', contents:'<h4>bbbbbbbbbbb</h4>', img:''}
+      ];*/
+
+        $scope.update = function(blog){
+            blog.shop = $scope.shopDetails.branch.shop;
+            blog.img = $scope.blogImage[0]?$scope.blogImage[0].image:'';
+            adminDataService.updateBlog({blog:blog}).then(function (response) {
+                initData();
+                Data_Toast.success(MESSAGE_CONFIG.SUCCESS_UPDATE_SUCCESSFULLY);
+            },function (error) {
+                Data_Toast.error(MESSAGE_CONFIG.ERROR_UPDATE_FAIL,error.data.responData.Error);
+            });
+        };
+
+        $scope.add = function(){
+            $scope.blogData.shop = $scope.shopDetails.branch.shop;
+            $scope.blogData.img = $scope.blogImage[0]?$scope.blogImage[0].image:'';
+            adminDataService.insertBlog({blog:$scope.blogData}).then(function (response) {
+                $scope.blogData = {};
+                $scope.blogImage = [];
+                $scope.addNew = false;
+                initData();
+                Data_Toast.success(MESSAGE_CONFIG.SUCCESS_UPDATE_SUCCESSFULLY);
+            },function (error) {
+                Data_Toast.error(MESSAGE_CONFIG.ERROR_UPDATE_FAIL,error.data.responData.Error);
+            });
+        };
 
 
         $scope.setImage = function (blog) {

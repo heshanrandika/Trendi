@@ -346,7 +346,7 @@ function addItems(req,callback) {
                             }
                         })
                     } else {
-                        callback(err, doc);
+                        callback(err, null);
                     }
 
                 });

@@ -125,6 +125,22 @@
             return angular.extend({functionId: ADMIN_MOD_CONFIG.REQ_CONFIG.FUNC_AdminResetPwd}, _getCObj());
         };
 
+        serviceCalls.adminGetBlogListDao = function () {
+            return angular.extend({functionId: ADMIN_MOD_CONFIG.REQ_CONFIG.FUNC_AdminGetBlogList}, _getCObj());
+        };
+
+        serviceCalls.insertBlogDao = function () {
+            return angular.extend({functionId: ADMIN_MOD_CONFIG.REQ_CONFIG.FUNC_insertBlog}, _getCObj());
+        };
+
+        serviceCalls.updateBlogDao = function () {
+            return angular.extend({functionId: ADMIN_MOD_CONFIG.REQ_CONFIG.FUNC_UpdateBlog}, _getCObj());
+        };
+
+        serviceCalls.removeBlogDao = function () {
+            return angular.extend({functionId: ADMIN_MOD_CONFIG.REQ_CONFIG.FUNC_RemoveBlog}, _getCObj());
+        };
+
         serviceCalls.shopDataDao = function () {
             return $storage.user;
         };

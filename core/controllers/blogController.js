@@ -3,20 +3,60 @@
  */
 var daf = require('../persistence/MongoPersistence');
 var CONSTANT = require('../utility/Constants');
+var UTIL = require('./utilController');
 
-function upsertBlog(req,callback){
+function insertBlog(req,callback){
     console.log("$$$$$$$  AddBlog $$$$$$");
     var params = (req.body.params) ? req.body.params : {};
-    var email = params.email;
-    var query = {email:email};
-    var blog = params.Blog;
-    daf.Upsert(query, blog, CONSTANT.BLOG_COLLECTION, function(err , dataList){
+    var blog = params.blog;
+    UTIL.UpdateCount(CONSTANT.BLOG_COLLECTION, function (err, count) {
+        if (count) {
+            console.log("$$$$$$$  blog $$$$$$ Count : " + count);
+            blog.blogId = count;
+            daf.Insert(blog, CONSTANT.BLOG_COLLECTION, function(err , dataList){
+                callback(err ,dataList);
+            });
+
+        } else {
+            callback(err, null);
+        }
+
+    });
+
+
+};
+
+function updateBlog(req,callback){
+    console.log("$$$$$$$  AddBlog $$$$$$");
+    var params = (req.body.params) ? req.body.params : {};
+    var blog = params.blog;
+    delete blog._id;
+    var shopId = blog.shop.shopId;
+    var query = {'shop.shopId':shopId, blogId : blog.blogId};
+    daf.Update(query, blog, CONSTANT.BLOG_COLLECTION, function(err , dataList){
         callback(err ,dataList);
     });
 };
 
 
 function getBlogList(req,callback){
+    console.log("$$$$$$$  GetBlogList $$$$$$");
+    var params = (req.body.params) ? req.body.params : {};
+    var query = {};
+    var  option = {};
+
+    var data = [];
+    var dbCon = daf.FindWithSorting(query,CONSTANT.BLOG_COLLECTION,option);
+    dbCon.on('data', function(doc){
+        data.push(doc);
+    });
+
+    dbCon.on('end', function(){
+        callback(null,data);
+    });
+};
+
+function getAdminBlogList(req,callback){
     console.log("$$$$$$$  GetBlogList $$$$$$");
     var params = (req.body.params) ? req.body.params : {};
     var query = {};
@@ -57,7 +97,9 @@ function getBlog(req,callback){
 
 };
 
-module.exports.UpsertBlog = upsertBlog;
+module.exports.InsertBlog = insertBlog;
+module.exports.UpdateBlog = updateBlog;
 module.exports.GetBlogList = getBlogList;
+module.exports.GetAdminBlogList = getAdminBlogList;
 module.exports.RemoveBlog = removeBlog;
 module.exports.GetBlog = getBlog;

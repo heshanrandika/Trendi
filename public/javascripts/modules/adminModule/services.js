@@ -98,6 +98,22 @@
             return Data_Comm.postPromise(angular.extend({params:d},adminServiceCalls.adminResetPwdDao()));
         };
 
+        var _adminGetBlogList = function(d){
+            return Data_Comm.postPromise(angular.extend({params:d},adminServiceCalls.adminGetBlogListDao()));
+        };
+
+        var _insertBlog = function(d){
+            return Data_Comm.postPromise(angular.extend({params:d},adminServiceCalls.insertBlogDao()));
+        };
+
+        var _updateBlog = function(d){
+            return Data_Comm.postPromise(angular.extend({params:d},adminServiceCalls.updateBlogDao()));
+        };
+
+        var _removeBlog = function(d){
+            return Data_Comm.postPromise(angular.extend({params:d},adminServiceCalls.removeBlogDao()));
+        };
+
         var _getShopList = function(){
             return Data_Comm.postPromise(adminServiceCalls.getShopListDao());
         };
@@ -150,7 +166,11 @@
             removePromotion:_removePromotion,
             adminGetUser:_adminGetUser,
             adminUpdateUser:_adminUpdateUser,
-            adminResetPwd:_adminResetPwd
+            adminResetPwd:_adminResetPwd,
+            adminGetBlogList:_adminGetBlogList,
+            insertBlog:_insertBlog,
+            updateBlog:_updateBlog,
+            removeBlog:_removeBlog
         }
     }]);
 })(com.TRENDI.CATEGORY.modules.adminModule);

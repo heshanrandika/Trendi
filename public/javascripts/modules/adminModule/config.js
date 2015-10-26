@@ -172,7 +172,11 @@
             FUNC_RemovePromotion: 3005,
             //++++++Extra function list+++++++++++++++
             FUNC_AdminGetUser :   2015,
-            FUNC_AdminResetPwd :  4002
+            FUNC_AdminResetPwd :  4002,
+            FUNC_AdminGetBlogList :     6000,
+            FUNC_insertBlog :     6002,
+            FUNC_RemoveBlog :     6003,
+            FUNC_UpdateBlog :     6005
 
 
         },
