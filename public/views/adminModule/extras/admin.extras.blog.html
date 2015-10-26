@@ -1,11 +1,34 @@
 <div>
     <md-content class="md-padding">
         <accordion close-others="true">
-            <accordion-group ng-repeat="blog in blogs">
-                <accordion-heading>
-                    <img alt="{{ shop.name }}" src="shop.iconImage" class="md-avatar" /> I can have markup, too! <i class="pull-right glyphicon" ng-class="{'fa fa-chevron-down': status.open, 'fa fa-chevron-up': !status.open}"></i>
+
+            <accordion-group ng-repeat="blog in blogs" is-open="blog.open" >
+                <accordion-heading >
+                    <img alt="{{ blog.title }}" ng-src="{{blog.img}}" class="md-avatar" /> <i ng-click="setImage(blog)">{{ blog.title}}</i> <i  ng-click="setImage(blog)" class="pull-right glyphicon" ng-class="{'fa fa-chevron-up': blog.open, 'fa fa-chevron-down': !blog.open}"></i>
                 </accordion-heading>
-                <div text-angular="text-angular" name="htmlcontent" ng-model="htmlcontent" ta-disabled='disabled'></div>
+                <div class="raw">
+                    <div class="col-md-4">
+                        <div>
+                            <trendi-file-upload files="blogImage" image-size="blogImageSize"  image-count="blogImageCount"></trendi-file-upload>
+                        </div>
+                    </div>
+                    <div class="col-md-8"><div text-angular="text-angular" name="{{blog.title}}" ng-model="blog.contents" ta-disabled='false'></div></div>
+                </div>
+                <div class="row">
+                    <div>
+                        <md-button  class="md-raised md-primary" ng-click="answer(1)" md-autofocus>
+                            Save
+                        </md-button>
+                        <span flex></span>
+                        <md-button class="md-raised md-warn" ng-disabled="btnPressed" ng-click="answer(0)" >
+                            Remove
+                        </md-button>
+                        <span flex></span>
+                        <md-button ng-click="close(blog)" style="margin-right:20px;" >
+                            Close
+                        </md-button>
+                    </div>
+                </div>
             </accordion-group>
         </accordion>
 

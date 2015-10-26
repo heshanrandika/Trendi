@@ -1227,9 +1227,31 @@
     }]);
 
     mod.controller('adminExtraBlogController', ['$scope', '$rootScope','$state','adminDataService', function ($scope, $rootScope, $state, adminDataService) {
-      $scope.blogs = [
-          1,2,3,4,5
-      ]
+        $scope.blogImageSize = {value:500000, text:'500kB'};
+        $scope.blogImageCount = 1;
+        $scope.blogImage = [];
+
+        $scope.blogs = [
+          {title:'test q', contents:'<h>hedbf</h>', img:''},
+          {title:'tergtre q', contents:'<h>terhthgt</h>', img:''},
+          {title:'reter q', contents:'<h>hedfgdfgdbf</h>', img:''},
+          {title:'rrrr q', contents:'<h>bbbbbbbbbbb</h>', img:''}
+      ];
+
+
+
+        $scope.setImage = function (blog) {
+            $scope.blogImage = [];
+            if(blog.img != ''){
+                $scope.blogImage.push({image:blog.img});
+            }
+        };
+
+        $scope.close = function (blog) {
+            blog.open = false;
+        };
+
+
 
     }]);
 })(com.TRENDI.CATEGORY.modules.adminModule);
