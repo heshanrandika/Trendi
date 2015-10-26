@@ -6,14 +6,14 @@
                     <div>
                         <trendi-search actions="search"></trendi-search>
                         <div style="padding-top: 150px;">
-                            <md-button class="md-raised md-primary" ng-click="EditViewController('')"><md-icon md-svg-src="add-circle"></md-icon> Add New Item</md-button>
+                            <md-button class="md-raised md-primary" ng-click="EditViewController('')"><md-icon md-svg-src="add-circle"></md-icon> Add New Promotion</md-button>
                             <div style="padding-top: 20px;">
                                 <md-list>
-                                    <md-list-item ng-repeat="item in itemList" ng-click="EditViewController(item)">
-                                        <img alt="{{ item.item.name }}" ng-src="{{item.item.image}}" class="md-avatar" />
-                                        <p>{{ item.item.name }}</p>
+                                    <md-list-item ng-repeat="promotion in promotionList" ng-click="EditViewController(promotion)">
+                                        <img alt="{{ promotion.title }}" ng-src="{{promotion.promotionPic}}" class="md-avatar" />
+                                        <p>{{ promotion.title }}</p>
                                         <!-- <md-svg-icon class="ic_24px" icon="{{person.iconimg}}"></md-svg-icon>-->
-                                        <md-icon md-svg-icon="communication:ic_settings" ng-click="EditViewController(item)" aria-label="Open Chat" class="md-secondary md-hue-3" ng-class="{'md-primary': item.item.name}"></md-icon>
+                                        <md-icon md-svg-icon="communication:ic_settings" ng-click="EditViewController(promotion)" aria-label="Open Chat" class="md-secondary md-hue-3" ng-class="{'md-primary': promotion.title}"></md-icon>
                                     </md-list-item>
                                 </md-list>
                             </div>
@@ -46,14 +46,14 @@
 
                                         <div>
                                             <div ng-if="initDirective">
-                                                <trendi-file-upload files="tmp.iconImage" image-size="iconSize"  image-count="1"></trendi-file-upload>
+                                                <trendi-file-upload files="tmp.promotionPic" image-size="promotionPicSize"  image-count="promotionPicCount"></trendi-file-upload>
                                             </div>
                                         </div>
 
                                         <md-input-container class="md-icon-float" >
                                             <!-- Use floating label instead of placeholder -->
                                             <label>Description</label>
-                                            <input md-maxlength="200"  name="description" ng-model="mainItem.description">
+                                            <input md-maxlength="200"  name="description" ng-model="promotion.description">
                                             <div ng-messages="itemForm.description.$error">
                                                 <div ng-message="md-maxlength">The name has to be less than 200 characters long.</div>
                                             </div>

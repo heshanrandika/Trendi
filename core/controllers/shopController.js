@@ -254,6 +254,8 @@ function updateShopUser(req,callback) {
             name: regUser.name,
             branch: regUser.branch,
             title: regUser.title,
+            hotline: regUser.hotline,
+            mobile: regUser.mobile,
             profilePic: regUser.profilePic,
             entitlements: regUser.entitlements
         }};

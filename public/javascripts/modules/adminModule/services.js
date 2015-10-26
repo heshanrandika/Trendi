@@ -71,6 +71,29 @@
             return Data_Comm.postPromise(angular.extend({params:d},adminServiceCalls.removeShopUserDao()));
         };
 
+        var _getAdminPromotionList = function(d){
+            return Data_Comm.postPromise(angular.extend({params:d},adminServiceCalls.getAdminPromotionListDao()));
+        };
+
+        var _addPromotion = function(d){
+            return Data_Comm.postPromise(angular.extend({params:d},adminServiceCalls.addPromotionDao()));
+        };
+        var _updatePromotion = function(d){
+            return Data_Comm.postPromise(angular.extend({params:d},adminServiceCalls.updatePromotionDao()));
+        };
+
+        var _removePromotion = function(d){
+            return Data_Comm.postPromise(angular.extend({params:d},adminServiceCalls.removePromotionDao()));
+        };
+
+        var _adminGetUser = function(d){
+            return Data_Comm.postPromise(angular.extend({params:d},adminServiceCalls.adminGetUserDao()));
+        };
+
+        var _adminUpdateUser = function(d){
+            return Data_Comm.postPromise(angular.extend({params:d},adminServiceCalls.adminUpdateUserDao()));
+        };
+
         var _getShopList = function(){
             return Data_Comm.postPromise(adminServiceCalls.getShopListDao());
         };
@@ -116,7 +139,13 @@
             getAdminUserList:_getAdminUserList,
             addShopUser:_addShopUser,
             updateShopUser:_updateShopUser,
-            removeShopUser:_removeShopUser
+            removeShopUser:_removeShopUser,
+            getAdminPromotionList:_getAdminPromotionList,
+            addPromotion:_addPromotion,
+            updatePromotion:_updatePromotion,
+            removePromotion:_removePromotion,
+            adminGetUser:_adminGetUser,
+            adminUpdateUser:_adminUpdateUser
         }
     }]);
 })(com.TRENDI.CATEGORY.modules.adminModule);

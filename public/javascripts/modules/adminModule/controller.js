@@ -956,7 +956,244 @@
 
     }]);
 
-    mod.controller('adminBlogsController', ['$scope', '$rootScope','$state','adminDataService', function ($scope, $rootScope, $state, adminDataService) {
+    mod.controller('adminPromotionsController', ['$scope', '$rootScope','$state','adminDataService','Data.Toast','MESSAGE_CONFIG', function ($scope, $rootScope, $state, adminDataService, Data_Toast, MESSAGE_CONFIG) {
+        $scope.promotionList = [];
+        $scope.promotion = {};
+        $scope.tmp = {};
+        $scope.tmp.promotionPic = [];
+        $scope.slectedTypes = [];
+
+        $scope.promotionPicSize = {value:500000, text:'500kB'};
+        $scope.promotionPicCount = 1;
+        $scope.btnPressed = false;
+
+        $scope.headerText = '';
+        $scope.addNew = true;
+        $scope.selectedIndex = 0;
+
+        $scope.types = [
+            {
+                'value': 'Blouse'
+            },
+            {
+                'value': 'High-neck'
+            },
+            {
+                'value': 'Short-skirt'
+            },
+            {
+                'value': 'Shirt'
+            },
+            {
+                'value': 'Short'
+            }
+        ];
+
+
+
+        var initData = function(){
+            $scope.shopDetails = adminDataService.shopData();
+            adminDataService.getAdminPromotionList({shopId:$scope.shopDetails.shopId}).then(function(response){
+                $scope.promotionList = response.data.responData.data
+            },function(){
+                $scope.promotionList = [];
+            });
+        };
+        initData();
+
+
+        $scope.search = {
+            one: [{
+                key: "All",
+                value: 0
+            }, {
+                key: "Name",
+                value: 1
+            }, {
+                key: "Application ID",
+                value: 2
+            }, {
+                key: "Mobile Number",
+                value: 3
+            }, {
+                key: "Loan Amount",
+                value: 4
+            }],
+            two: [{
+                keyc: "--",
+                value: "--"
+            }],
+            searchDataFromServer: function (d) {
+                adminDataService.getItemList({
+                    params: d
+                }).then(function (response) {
+
+
+
+                }, function (error) {
+                    console.log(error.data);
+                    $scope.applicationList = [];
+
+                })
+            }
+        };
+
+        $scope.resetForm = function(){
+            $scope.tmp = {};
+            $scope.tmp.promotionPic = [];
+            $scope.slectedTypes = [];
+            $scope.promotion = {};
+
+            $scope.headerText = '';
+            $scope.addNew = '';
+            $scope.btnPressed = false;
+        };
+
+        $scope.$watch('selectedIndex', function(current, old){
+            if(current<= old){
+                $scope.headerText = '';
+                $scope.initDirective = false;
+            }else{
+                $scope.initDirective = true;
+            }
+
+        });
+
+
+        $scope.EditViewController = function(promotionData) {
+            $scope.resetForm();
+            $scope.selectedIndex = 1;
+
+            if(promotionData){
+                $scope.promotion = promotionData;
+                if(!(promotionData.promotionPic == '' || promotionData.promotionPic == undefined)){
+                    $scope.tmp.promotionPic.push({image:promotionData.promotionPic});
+                }
+                $scope.slectedTypes = $scope.promotion.tags;
+                $scope.headerText = 'Edit Promotion #'+ $scope.promotion.promotionId;
+                $scope.addNew = false;
+
+            }else{
+
+                $scope.headerText = 'Add New Promotion';
+                $scope.addNew = true;
+            }
+
+        };
+
+        $scope.close = function() {
+            $scope.selectedIndex = 0;
+        };
+
+        $scope.answer = function(option) {
+            $scope.btnPressed = true;
+            if(option){
+                if(($scope.tmp.promotionPic.length <= 0)){
+                    Data_Toast.warning(MESSAGE_CONFIG.ERROR_REQUIRED_IMAGE);
+                    $scope.btnPressed = false;
+                }else {
+                    $scope.promotion.promotionPic = $scope.tmp.promotionPic[0]?$scope.tmp.promotionPic[0].image:'';
+                    $scope.promotion.tags = $scope.slectedTypes;
+
+                    var promotionDetails = {};
+
+                    switch (option) {
+                        case 1 :
+                            $scope.promotion.shopId = $scope.shopDetails.shopId;
+                            promotionDetails = {promotion:$scope.promotion};
+                            adminDataService.addPromotion(promotionDetails).then(function (response) {
+                                initData();
+                                $scope.selectedIndex = 0;
+                                Data_Toast.success(MESSAGE_CONFIG.SUCCESS_SAVED_SUCCESSFULLY);
+                            },function (error) {
+                                Data_Toast.error(MESSAGE_CONFIG.ERROR_SAVE_FAIL,error.data.responData.Error);
+                                $scope.btnPressed = false;
+                            });
+                            break;
+                        case 2 :
+                            promotionDetails = {promotion:$scope.promotion};
+                            adminDataService.updatePromotion(promotionDetails).then(function (response) {
+                                initData();
+                                $scope.selectedIndex = 0;
+                                Data_Toast.success(MESSAGE_CONFIG.SUCCESS_UPDATE_SUCCESSFULLY);
+                            },function (error) {
+                                Data_Toast.error(MESSAGE_CONFIG.ERROR_UPDATE_FAIL,error.data.responData.Error);
+                                $scope.btnPressed = false;
+                            });
+                            break;
+                        default :
+                            $scope.btnPressed = false;
+                            break;
+                    }
+
+                }
+
+            }else{
+                $scope.btnPressed = true;
+                promotionDetails = {promotion:$scope.promotion};
+                adminDataService.removePromotion(promotionDetails).then(function(response){
+                    initData();
+                    $scope.selectedIndex = 0;
+                    Data_Toast.success(MESSAGE_CONFIG.SUCCESS_REMOVED_SUCCESSFULLY);
+                },function (error) {
+                    Data_Toast.error(MESSAGE_CONFIG.ERROR_REMOVE_FAIL,error.data.responData.Error);
+                    $scope.btnPressed = false;
+                });
+            }
+
+        };
+
+
+    }]);
+
+    mod.controller('adminExtrasController', ['$scope', '$rootScope','$state','adminDataService','Data.Toast','MESSAGE_CONFIG','ADMIN_MOD_CONFIG', function ($scope, $rootScope, $state, adminDataService, Data_Toast, MESSAGE_CONFIG, ADMIN_MOD_CONFIG) {
+
+        $scope.menuList = ADMIN_MOD_CONFIG.EXTRA_MENU_CONFIG;
+        $scope.userData = adminDataService.fullUserData();
+        var entitlementList = [];
+        if($scope.userData.entitlements.length > 0){
+            entitlementList = _.pluck($scope.userData.entitlements, '_id');
+        }
+
+        $scope.initMenu = function(menu){
+            return _.contains(entitlementList, menu.authorization);
+        };
+
+
+        $scope.isActive = function () {
+            var menuList = _.pluck($scope.menuList, 'key');
+            $scope.selectedTab =  _.indexOf(menuList, $state.current.name);
+        };
+        $scope.isActive();
+    }]);
+
+    mod.controller('adminExtraProfileController', ['$scope', '$rootScope','$state','adminDataService','Data.Toast','MESSAGE_CONFIG', function ($scope, $rootScope, $state, adminDataService, Data_Toast, MESSAGE_CONFIG) {
+
+        $scope.edit = true;
+        var initData = function(){
+            $scope.shopDetails = adminDataService.shopData();
+            adminDataService.adminGetUser({shopId:$scope.shopDetails.shopId, email:$scope.shopDetails.email}).then(function(response){
+                $scope.regUser = response.data.responData.data[0];
+                $scope.branch = $scope.regUser.branch;
+            },function(){
+                $scope.regUser = {};
+            });
+        };
+        initData();
+
+    }]);
+
+    mod.controller('adminExtraMessageController', ['$scope', '$rootScope','$state','adminDataService','Data.Toast','MESSAGE_CONFIG', function ($scope, $rootScope, $state, adminDataService, Data_Toast, MESSAGE_CONFIG) {
+        $scope.test = 'fuck';
+
+    }]);
+
+    mod.controller('adminExtraTagsController', ['$scope', '$rootScope','$state','adminDataService','Data.Toast','MESSAGE_CONFIG', function ($scope, $rootScope, $state, adminDataService, Data_Toast, MESSAGE_CONFIG) {
+        $scope.test = 'fuck';
+
+    }]);
+
+    mod.controller('adminExtraBlogController', ['$scope', '$rootScope','$state','adminDataService', function ($scope, $rootScope, $state, adminDataService) {
         $scope.itemList = [];
         var shopDetails = {};
 
@@ -1189,200 +1426,4 @@
 
 
     }]);
-
-    mod.controller('adminPromotionsController', ['$scope', '$rootScope','$state','adminDataService', function ($scope, $rootScope, $state, adminDataService) {
-        $scope.promotionList = [];
-        $scope.tmp = {};
-        $scope.tmp.profilePic = [];
-
-        $scope.profilePicSize = {value:100000, text:'100kB'};
-        $scope.profilePicCount = 1;
-        $scope.btnPressed = false;
-
-        $scope.headerText = '';
-        $scope.addNew = true;
-        $scope.selectedIndex = 0;
-
-
-
-
-        var initData = function(){
-            $scope.shopDetails = adminDataService.shopData();
-            adminDataService.getAdminPromotionList({shopId:$scope.shopDetails.shopId, notInMail : $scope.shopDetails.email, superAdmin:false}).then(function(response){
-                $scope.promotionList = response.data.responData.data
-            },function(){
-                $scope.promotionList = [];
-            });
-        };
-        initData();
-
-
-        $scope.search = {
-            one: [{
-                key: "All",
-                value: 0
-            }, {
-                key: "Name",
-                value: 1
-            }, {
-                key: "Application ID",
-                value: 2
-            }, {
-                key: "Mobile Number",
-                value: 3
-            }, {
-                key: "Loan Amount",
-                value: 4
-            }],
-            two: [{
-                keyc: "--",
-                value: "--"
-            }],
-            searchDataFromServer: function (d) {
-                adminDataService.getItemList({
-                    params: d
-                }).then(function (response) {
-
-
-
-                }, function (error) {
-                    console.log(error.data);
-                    $scope.applicationList = [];
-
-                })
-            }
-        };
-
-        $scope.resetForm = function(){
-            $scope.tmp = {};
-
-
-            $scope.headerText = '';
-            $scope.addNew = '';
-            $scope.btnPressed = false;
-        };
-
-        $scope.$watch('selectedIndex', function(current, old){
-            if(current<= old){
-                $scope.headerText = '';
-                $scope.initDirective = false;
-            }else{
-                $scope.initDirective = true;
-            }
-
-        });
-
-
-        $scope.EditViewController = function(userData) {
-            $scope.loadEntitlements = false;
-            $scope.resetForm();
-            $scope.tmp.title = $scope.titles[0];
-
-
-
-
-            if(userData){
-                if(!(userData.profilePic == '' || userData.profilePic == undefined)){
-                    $scope.tmp.profilePic.push({image:userData.profilePic});
-                }
-
-                $scope.headerText = 'Edit User #'+ $scope.regUser.name;
-                $scope.addNew = false;
-
-            }else{
-                $scope.loadEntitlements = true;
-                $scope.regUser.shopId = $scope.shopDetails.shopId;
-                $scope.headerText = 'Add New User';
-                $scope.addNew = true;
-            }
-
-        };
-
-        $scope.close = function() {
-            $scope.selectedIndex = 0;
-        };
-
-        $scope.answer = function(option) {
-            $scope.btnPressed = true;
-            if(option){
-                if(($scope.regUser.name == '' || $scope.regUser.name == undefined) &&
-                    ($scope.regUser.password == '' || $scope.regUser.password == undefined) &&
-                    ($scope.regUser.email == '' || $scope.regUser.email == undefined)){
-                    Data_Toast.warning(MESSAGE_CONFIG.ERROR_REQUIRED_FIELDS);
-                    $scope.btnPressed = false;
-                }else {
-                    $scope.regUser.shopId = $scope.shopDetails.shopId;
-                    $scope.regUser.title = $scope.tmp.title;
-                    $scope.regUser.branch = $scope.tmp.selectedBranch;
-                    $scope.regUser.profilePic = $scope.tmp.profilePic[0]?$scope.tmp.profilePic[0].image:'';
-                    $scope.regUser.entitlements =[];
-                    _.each($scope.tmp.entitlements,function(group){
-                        var valueArray =  _.chain(group.entitlements)
-                            .filter(function(obj) {
-                                return obj.select;
-                            })
-                            .map(function(obj) {
-                                return _.omit(obj,'select')
-                            })
-                            .value();
-                        $scope.regUser.entitlements = $scope.regUser.entitlements.concat(valueArray);
-                    });
-
-
-                    var userDetails = {};
-
-                    switch (option) {
-                        case 1 :
-                            userDetails = {regUser:$scope.regUser};
-                            adminDataService.addShopUser(userDetails).then(function (response) {
-                                initData();
-                                $scope.selectedIndex = 0;
-                                Data_Toast.success(MESSAGE_CONFIG.SUCCESS_SAVED_SUCCESSFULLY);
-                            },function (error) {
-                                Data_Toast.error(MESSAGE_CONFIG.ERROR_SAVE_FAIL,error.data.responData.Error);
-                                $scope.btnPressed = false;
-                            });
-                            break;
-                        case 2 :
-                            userDetails = {regUser:$scope.regUser};
-                            adminDataService.updateShopUser(userDetails).then(function (response) {
-                                initData();
-                                $scope.selectedIndex = 0;
-                                Data_Toast.success(MESSAGE_CONFIG.SUCCESS_UPDATE_SUCCESSFULLY);
-                            },function (error) {
-                                Data_Toast.error(MESSAGE_CONFIG.ERROR_UPDATE_FAIL,error.data.responData.Error);
-                                $scope.btnPressed = false;
-                            });
-                            break;
-                        default :
-                            $scope.btnPressed = false;
-                            break;
-                    }
-
-                }
-
-            }else{
-                $scope.btnPressed = true;
-                userDetails = {regUser:{email:$scope.regUser.email}};
-                adminDataService.removeShopUser(userDetails).then(function(response){
-                    initData();
-                    $scope.selectedIndex = 0;
-                    Data_Toast.success(MESSAGE_CONFIG.SUCCESS_REMOVED_SUCCESSFULLY);
-                },function (error) {
-                    Data_Toast.error(MESSAGE_CONFIG.ERROR_REMOVE_FAIL,error.data.responData.Error);
-                    $scope.btnPressed = false;
-                });
-            }
-
-        };
-
-
-    }]);
- /*   mod.controller('adminLoginController',['$scope','$state',function($scope, $state){
-        $scope.login = function(){
-            $state.go('admin.home');
-        };
-    }]);*/
-
-
 })(com.TRENDI.CATEGORY.modules.adminModule);

@@ -18,6 +18,7 @@
     mod.config(['$provide', function ($provide) {
         $provide.constant('MESSAGE_CONFIG', {
             ERROR_REQUIRED_FIELDS : 'Please fill required fields',
+            ERROR_REQUIRED_IMAGE : 'Please select image',
             ERROR_SAVE_FAIL : 'Failed to save',
             ERROR_UPDATE_FAIL : 'Failed to update',
             ERROR_REMOVE_FAIL : 'Failed to remove',

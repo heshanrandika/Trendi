@@ -63,13 +63,81 @@
                 }
             },
 
-            'admin.blogs': {
-                url: '/blogs',
-                templateUrl: 'views/adminModule/admin.blogs.html',
-                controller: 'adminBlogsController',
+            'admin.extras': {
+                url: '/extras',
+                templateUrl: 'views/adminModule/admin.extras.html',
+                controller: 'adminExtrasController',
                 access: {
                     requiresLogin: true
                 }
+            },
+
+            'admin.extras.profile': {
+                url: '/profile',
+                data:{
+                    'currentTab': 0
+                },
+                views :{
+                    'profile':{
+                        controller:'adminExtraProfileController',
+                        templateUrl: 'views/adminModule/extras/admin.extras.profile.html',
+                        access: {
+                            requiresLogin: true
+                        }
+                    }
+                }
+
+            },
+
+            'admin.extras.message': {
+                url: '/message',
+                data:{
+                    'currentTab': 1
+                },
+                views :{
+                    'message':{
+                        controller:'adminExtraMessageController',
+                        templateUrl: 'views/adminModule/extras/admin.extras.message.html',
+                        access: {
+                            requiresLogin: true
+                        }
+                    }
+                }
+
+            },
+
+            'admin.extras.tags': {
+                url: '/tags',
+                data:{
+                    'currentTab': 2
+                },
+                views :{
+                    'tag':{
+                        controller:'adminExtraTagsController',
+                        templateUrl: 'views/adminModule/extras/admin.extras.tags.html',
+                        access: {
+                            requiresLogin: true
+                        }
+                    }
+                }
+
+            },
+
+            'admin.extras.blog': {
+                url: '/blog',
+                data:{
+                    'currentTab': 3
+                },
+                views :{
+                    'blog':{
+                        controller:'adminExtraBlogController',
+                        templateUrl: 'views/adminModule/extras/admin.extras.blog.html',
+                        access: {
+                            requiresLogin: true
+                        }
+                    }
+                }
+
             }
 
         },
@@ -96,28 +164,75 @@
             FUNC_AdminGetUserList:2016,
             FUNC_AddShopUser:     2007,
             FUNC_RemoveShopUser:  2018,
-            FUNC_UpdateShopUser:  2017
+            FUNC_UpdateShopUser:  2017,
+            //+++++++promotion function list++++++++++
+            FUNC_AdminGetPromotionList:  3000,
+            FUNC_AddPromotion:    3003,
+            FUNC_UpdatePromotion: 3004,
+            FUNC_RemovePromotion: 3005,
+            //++++++Extra function list+++++++++++++++
+            FUNC_AdminGetUser :   2015
+
+
         },
         MENU_CONFIG:[
             {
-                value:'Shop Configurations',
+                value:'Shops ',
                 key:'admin.shops',
                 authorization: 2008
             },
             {
-                value:'Item Configurations',
+                value:'Items ',
                 key:'admin.items',
                 authorization: 1010
             },
             {
-                value:'User Configurations',
+                value:'Users ',
                 key:'admin.users',
                 authorization: 2016
             },
             {
-                value:'Branch Configurations',
+                value:'Branches ',
                 key:'admin.branches',
                 authorization: 2011
+            },
+            {
+                value:'Promotions ',
+                key:'admin.promotions',
+                authorization: 3000
+            },
+            {
+                value:'Extras ',
+                key:'admin.extras.profile',
+                authorization: 3000
+            }
+
+        ],
+
+        EXTRA_MENU_CONFIG:[
+            {
+                value:'Profile ',
+                key:'admin.extras.profile',
+                view:'profile',
+                authorization: 3000
+            },
+            {
+                value:'Messages ',
+                key:'admin.extras.message',
+                view:'message',
+                authorization: 3000
+            },
+            {
+                value:'Tags ',
+                key:'admin.extras.tags',
+                view:'message',
+                authorization: 3000
+            },
+            {
+                value:'Blog ',
+                key:'admin.extras.blog',
+                view:'message',
+                authorization: 3000
             }
         ]
 
@@ -128,7 +243,8 @@
         $provide.constant('ADMIN_MOD_CONFIG', {
             'URL_CONFIG': defs.URL_CONFIG,
             'REQ_CONFIG': defs.REQ_CONFIG,
-            'MENU_CONFIG':defs.MENU_CONFIG
+            'MENU_CONFIG':defs.MENU_CONFIG,
+            'EXTRA_MENU_CONFIG':defs.EXTRA_MENU_CONFIG
         });
 
     }]);

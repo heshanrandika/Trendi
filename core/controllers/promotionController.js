@@ -3,6 +3,7 @@
  */
 var daf = require('../persistence/MongoPersistence');
 var CONSTANT = require('../utility/Constants');
+var UTIL = require('./utilController');
 
 function getPromotionList(req,callback){
     console.log("$$$$$$$  GetPromotionList $$$$$$");
@@ -14,6 +15,30 @@ function getPromotionList(req,callback){
 
     var option = {skip:skip, limit:limit, sort:sorter};
     var query = {delete:0};
+    var data = [];
+    var dbCon = daf.FindWithPagination(query,CONSTANT.PROMOTION_COLLECTION,option);
+    dbCon.on('data', function(doc){
+        data.push(doc);
+    });
+
+    dbCon.on('end', function(){
+        callback(null,data);
+    });
+
+};
+
+
+function getAdminPromotionList(req,callback){
+    console.log("$$$$$$$  GetPromotionList $$$$$$");
+    var params = (req.body.params) ? req.body.params : {};
+
+    var skip =(params.skip)?params.skip:0;
+    var limit  = (params.limit)?params.limit:50;
+    var sorter = (params.sorter)?params.sorter:[];
+    var shopId = params.shopId;
+
+    var option = {skip:skip, limit:limit, sort:sorter};
+    var query = {shopId:shopId};
     var data = [];
     var dbCon = daf.FindWithPagination(query,CONSTANT.PROMOTION_COLLECTION,option);
     dbCon.on('data', function(doc){
@@ -52,11 +77,12 @@ function addPromotion(req,callback){
     var params = (req.body.params) ? req.body.params : {};
     var promotion = (params.promotion)? params.promotion:{};
     if(params.promotion) {
-        daf.Count('', CONSTANT.PROMOTION_COLLECTION, function (err, count) {
+        UTIL.UpdateCount(CONSTANT.PROMOTION_COLLECTION, function (err, count) {
             if (count) {
                 console.log("$$$$$$$  Add Promotion $$$$$$ Count : " + count);
                 promotionId = count;
-                var doc = {promotionId: promotionId, promotion: promotion,delete:0};
+                promotion.promotionId = promotionId;
+                var doc = promotion;
                 daf.Insert(doc, CONSTANT.PROMOTION_COLLECTION, function (err, success) {
                     console.log("^^^^^^^  Promotion Added ^^^^^^^ : ");
                     callback(err, success);
@@ -75,30 +101,37 @@ function addPromotion(req,callback){
 function removePromotion(req,callback){
     console.log("$$$$$$$  RemovePromotion $$$$$$");
     var params = (req.body.params) ? req.body.params : {};
-    var promotionId = (params.promotionId)? params.promotionId:0;
-    var query = {promotionId:promotionId};
-    var changeDoc = {delete:1};
-    console.log("$$$$$$$ RemovePromotion Update Promotion $$$$$$ : ");
-    daf.Update(query,changeDoc,CONSTANT.PROMOTION_COLLECTION,function(err,success){
-        callback(err , success);
-    });
+    var promotion = (params.promotion)? params.promotion : {};
+
+    if(promotion){
+        var query = {promotionId:promotion.promotionId};
+        console.log("$$$$$$$ Remove Promotion $$$$$$ : ");
+        daf.Remove(query,CONSTANT.PROMOTION_COLLECTION,function(err,success){
+            callback(err , success);
+        });
+
+    }else{
+        callback('No promotion id' , null);
+    }
+
 };
 
 function updatePromotion(req,callback){
     console.log("$$$$$$$  Update Promotion $$$$$$");
     var params = (req.body.params) ? req.body.params : {};
-    var promotionId = (params.promotionId)? params.promotionId:0;
     var promotion = (params.promotion)? params.promotion : {};
-
-    var query = {promotionId:promotionId};
-    var doc = {promotionId: promotionId, promotion: promotion,delete:0};
 
     console.log("$$$$$$$  Update Promotion $$$$$$ : ");
     if(params.promotion) {
-        daf.Remove(query, CONSTANT.PROMOTION_COLLECTION, function () {
-            daf.Insert(doc, CONSTANT.PROMOTION_COLLECTION, function (err, success) {
-                callback(err, success);
-            });
+        var query = {promotionId:promotion.promotionId};
+        var doc = {$set:{
+            title : promotion.title,
+            promotionPic: promotion.promotionPic,
+            tags: promotion.tags,
+            description: promotion.description
+        }};
+        daf.Update(query, doc, CONSTANT.PROMOTION_COLLECTION, function (err, success) {
+            callback(err, success);
         });
     }else{
         var err = "Promotion details not available";
@@ -119,6 +152,7 @@ function getPromotion(req,callback){
 }
 
 
+module.exports.GetAdminPromotionList = getAdminPromotionList;
 module.exports.GetPromotionList = getPromotionList;
 module.exports.GetRatedPromotionList = getRatedPromotionList;
 module.exports.AddPromotion = addPromotion;

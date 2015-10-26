@@ -627,7 +627,7 @@ var requestRoute = function(req,res){
 
         case 3000:
 
-            PROMOTION.GetPromotionList(req, function (err, data) {
+            PROMOTION.GetAdminPromotionList(req, function (err, data) {
                 if (err) {
                     resObject.resStatus = 0;
                     resObject.responData.Error = err.toString();
@@ -648,7 +648,7 @@ var requestRoute = function(req,res){
 
         case 3001:
 
-            PROMOTION.GetRatedPromotionList(req, function (err, data) {
+            PROMOTION.GetPromotionList(req, function (err, data) {
                 if (err) {
                     resObject.resStatus = 0;
                     resObject.responData.Error = err.toString();
@@ -666,10 +666,9 @@ var requestRoute = function(req,res){
             });
             break;
 
-
         case 3002:
 
-            PROMOTION.AddPromotion(req, function (err, data) {
+            PROMOTION.GetRatedPromotionList(req, function (err, data) {
                 if (err) {
                     resObject.resStatus = 0;
                     resObject.responData.Error = err.toString();
@@ -690,7 +689,7 @@ var requestRoute = function(req,res){
 
         case 3003:
 
-            PROMOTION.UpdatePromotion(req, function (err, data) {
+            PROMOTION.AddPromotion(req, function (err, data) {
                 if (err) {
                     resObject.resStatus = 0;
                     resObject.responData.Error = err.toString();
@@ -711,7 +710,7 @@ var requestRoute = function(req,res){
 
         case 3004:
 
-            PROMOTION.RemovePromotion(req, function (err, data) {
+            PROMOTION.UpdatePromotion(req, function (err, data) {
                 if (err) {
                     resObject.resStatus = 0;
                     resObject.responData.Error = err.toString();
@@ -731,6 +730,27 @@ var requestRoute = function(req,res){
 
 
         case 3005:
+
+            PROMOTION.RemovePromotion(req, function (err, data) {
+                if (err) {
+                    resObject.resStatus = 0;
+                    resObject.responData.Error = err.toString();
+                    res.status(500);
+                    res.send(resObject);
+
+                } else if (data) {
+
+                    resObject.resStatus = 1;
+                    resObject.responData.data = data;
+                    res.send(resObject);
+
+                }
+
+            });
+            break;
+
+
+        case 3006:
 
             SHOP.GetPromotion(req, function (err, data) {
                 if (err) {

@@ -1,0 +1,186 @@
+<div>
+    <md-content class="md-padding">
+        <form novalidate="" name="itemForm">
+            <div>
+                <div class="col-md-12">
+                    <div class="raw">
+
+
+                        <div class="col-md-6">
+                            <md-button ng-click="edit = !edit" class="md-raised md-primary" ng-show="edit">
+                                Edit profile
+                            </md-button>
+
+                            <div ng-if="edit">
+                                <img src="regUser.profilePic">
+                            </div>
+
+                            <div ng-if="!edit">
+                                <trendi-file-upload files="tmp.profilePic" image-size="profilePicSize" image-count="1"></trendi-file-upload>
+                            </div>
+
+
+                            <md-input-container flex>
+                                <!-- Use floating label instead of placeholder -->
+                                <label>Name</label>
+                                <input ng-model="regUser.name" name="name" type="text" ng-required="true" ng-disabled="edit">
+                                <div ng-messages="itemForm.name.$error">
+                                    <div ng-message="required">This is required.</div>
+                                </div>
+
+                            </md-input-container>
+
+                            <md-input-container flex>
+                                <!-- Use floating label instead of placeholder -->
+                                <label>Email</label>
+                                <input ng-disabled="edit" ng-model="regUser.email" name="email" type="email" ng-required="true">
+                                <div ng-messages="itemForm.email.$error">
+                                    <div ng-message="required">This is required.</div>
+                                    <div ng-message="email">Invalid email address</div>
+                                </div>
+
+                            </md-input-container>
+
+                            <md-button ng-click="changePwd = !changePwd" class="md-raised md-primary" >
+                                Change password
+                            </md-button>
+                            <div ng-show="changePwd">
+                                <form novalidate="" name="pwdForm">
+
+                                    <md-input-container flex>
+                                        <!-- Use floating label instead of placeholder -->
+                                        <label>Current Password</label>
+                                        <input ng-model="temp.password" name="password" type="password" ng-required="true">
+                                        <div ng-messages="pwdForm.password.$error">
+                                            <div ng-message="required">This is required.</div>
+                                        </div>
+
+                                    </md-input-container>
+
+
+                                    <md-input-container flex>
+                                        <!-- Use floating label instead of placeholder -->
+                                        <label>New Password</label>
+                                        <input ng-model="temp.password" name="password" type="password" ng-required="true">
+                                        <div ng-messages="pwdForm.password.$error">
+                                            <div ng-message="required">This is required.</div>
+                                        </div>
+
+                                    </md-input-container>
+
+                                    <md-input-container flex>
+                                        <!-- Use floating label instead of placeholder -->
+                                        <label>Confirm Password</label>
+                                        <input ng-model="temp.confirm_password" name="confirm_password" type="password" ng-required="true" compare-to="temp.password">
+                                        <div ng-messages="pwdForm.confirm_password.$error">
+                                            <div ng-message="required">This is required.</div>
+                                            <div ng-message="compareTo">Password does not match the confirm password.</div>
+                                        </div>
+
+                                    </md-input-container>
+
+                                    <md-button class="md-raised md-primary" ng-disabled="pwdForm.$invalid || btnPressed" ng-click="answer(2)" md-autofocus>
+                                        Reset
+                                    </md-button>
+                                    <span flex></span>
+                                    <md-button class="md-raised md-warn" ng-disabled="btnPressed" ng-click="changePwd = !changePwd" >
+                                        Cancel
+                                    </md-button>
+                                </form>
+                            </div>
+
+
+                            <div layout layout-sm="column">
+                                <md-input-container flex>
+                                    <label>Telephone</label>
+                                    <input ng-disabled="edit" ng-model="regUser.hotline">
+                                </md-input-container>
+                                <md-input-container flex>
+                                    <label>Mobile</label>
+                                    <input ng-disabled="edit" ng-model="regUser.mobile">
+                                </md-input-container>
+                            </div>
+
+
+                        </div>
+
+
+                        <div class="col-md-6">
+                            <h6>Branch Details</h6>
+
+                            <div class="raw">
+                                <img ng-show="branch.shop.iconImage != ''" ng-src="{{branch.shop.iconImage}}" class="md-avatar" />
+
+                                <md-input-container flex>
+                                    <!-- Use floating label instead of placeholder -->
+                                    <label>Branch Name</label>
+                                    <input ng-model="branch.shop.name" name="branchName" type="text"  ng-disabled="true">
+                                </md-input-container>
+
+                                <md-input-container flex>
+                                    <label>Address</label>
+                                    <input ng-model="branch.shop.address.line1" ng-disabled="true">
+                                </md-input-container>
+                                <md-input-container flex>
+                                    <label>Address 2</label>
+                                    <input ng-model="branch.shop.address.line2" ng-disabled="true">
+                                </md-input-container>
+                                <div layout layout-sm="column">
+                                    <md-input-container flex>
+                                        <label>City</label>
+                                        <input ng-model="branch.shop.address.city" ng-disabled="true">
+                                    </md-input-container>
+                                    <md-input-container flex>
+                                        <label>State</label>
+                                        <input ng-model="branch.shop.address.state" ng-disabled="true">
+                                    </md-input-container>
+                                    <md-input-container flex>
+                                        <label>Postal Code</label>
+                                        <input ng-model="branch.shop.address.postalCode" ng-disabled="true">
+                                    </md-input-container>
+                                </div>
+                                <div layout layout-sm="column">
+                                    <md-input-container flex>
+                                        <label>Hotline</label>
+                                        <input ng-model="branch.shop.hotline" ng-disabled="true">
+                                    </md-input-container>
+                                    <md-input-container flex>
+                                        <label>Mobile</label>
+                                        <input ng-model="branch.shop.mobile" ng-disabled="true">
+                                    </md-input-container>
+                                </div>
+                                <md-input-container flex>
+                                    <label>Description</label>
+                                    <input md-maxlength="100" name="description" ng-model="branch.shop.description" ng-disabled="true">
+                                </md-input-container>
+
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <div class="raw">
+                        <div class="col-md-8">
+                            <div class="md-actions" layout="row">
+                                <div ng-hide="edit">
+                                    <md-button  class="md-raised md-primary" ng-disabled="itemForm.$invalid || btnPressed" ng-click="answer(1)" md-autofocus>
+                                        Save
+                                    </md-button>
+                                    <span flex></span>
+                                    <md-button ng-click="edit = !edit" style="margin-right:20px;" >
+                                        Cancel
+                                    </md-button>
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </form>
+    </md-content>
+</div>

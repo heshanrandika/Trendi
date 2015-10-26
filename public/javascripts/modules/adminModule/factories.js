@@ -97,6 +97,30 @@
             return angular.extend({functionId: ADMIN_MOD_CONFIG.REQ_CONFIG.FUNC_RemoveShopUser}, _getCObj());
         };
 
+        serviceCalls.getAdminPromotionListDao = function () {
+            return angular.extend({functionId: ADMIN_MOD_CONFIG.REQ_CONFIG.FUNC_AdminGetPromotionList}, _getCObj());
+        };
+
+        serviceCalls.addPromotionDao = function () {
+            return angular.extend({functionId: ADMIN_MOD_CONFIG.REQ_CONFIG.FUNC_AddPromotion}, _getCObj());
+        };
+
+        serviceCalls.updatePromotionDao = function () {
+            return angular.extend({functionId: ADMIN_MOD_CONFIG.REQ_CONFIG.FUNC_UpdatePromotion}, _getCObj());
+        };
+
+        serviceCalls.removePromotionDao = function () {
+            return angular.extend({functionId: ADMIN_MOD_CONFIG.REQ_CONFIG.FUNC_RemovePromotion}, _getCObj());
+        };
+
+        serviceCalls.adminGetUserDao = function () {
+            return angular.extend({functionId: ADMIN_MOD_CONFIG.REQ_CONFIG.FUNC_AdminGetUser}, _getCObj());
+        };
+
+        serviceCalls.adminUpdateUserDao = function () {
+            return angular.extend({functionId: ADMIN_MOD_CONFIG.REQ_CONFIG.FUNC_UpdateShopUser}, _getCObj());
+        };
+
         serviceCalls.shopDataDao = function () {
             return $storage.user;
         };

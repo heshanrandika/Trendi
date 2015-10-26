@@ -1,0 +1,16 @@
+<div>
+    <md-tabs md-dynamic-height md-border-bottom md-selected="selectedTab">
+        <md-tab label="{{menuList[0].value}}" ui-sref="{{menuList[0].key}}" ng-if="initMenu(menuList[0])">
+            <div ui-view="profile"></div>
+        </md-tab>
+        <md-tab label="{{menuList[1].value}}" ui-sref="{{menuList[1].key}}" ng-if="initMenu(menuList[1])">
+            <div ui-view="message"></div>
+        </md-tab>
+        <md-tab label="{{menuList[2].value}}" ui-sref="{{menuList[2].key}}" ng-if="initMenu(menuList[2])">
+            <div ui-view="tag"></div>
+        </md-tab>
+        <md-tab label="{{menuList[3].value}}" ui-sref="{{menuList[3].key}}" ng-if="initMenu(menuList[3])">
+            <div ui-view="blog"></div>
+        </md-tab>
+    </md-tabs>
+</div>
