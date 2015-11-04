@@ -1244,21 +1244,25 @@
         };
         initData();
 
-        /*$scope.blogs = [
-          {title:'test q', contents:'<h1>hedbf</h1>', img:''},
-          {title:'tergtre q', contents:'<h2>terhthgt</h2>', img:''},
-          {title:'reter q', contents:'<h3>hedfgdfgdbf</h3>', img:''},
-          {title:'rrrr q', contents:'<h4>bbbbbbbbbbb</h4>', img:''}
-      ];*/
 
         $scope.update = function(blog){
             blog.shop = $scope.shopDetails.branch.shop;
             blog.img = $scope.blogImage[0]?$scope.blogImage[0].image:'';
+            delete blog.open;
             adminDataService.updateBlog({blog:blog}).then(function (response) {
                 initData();
                 Data_Toast.success(MESSAGE_CONFIG.SUCCESS_UPDATE_SUCCESSFULLY);
             },function (error) {
                 Data_Toast.error(MESSAGE_CONFIG.ERROR_UPDATE_FAIL,error.data.responData.Error);
+            });
+        };
+
+        $scope.remove = function(blog){
+            adminDataService.removeBlog({blog:blog}).then(function (response) {
+                initData();
+                Data_Toast.success(MESSAGE_CONFIG.SUCCESS_REMOVED_SUCCESSFULLY);
+            },function (error) {
+                Data_Toast.error(MESSAGE_CONFIG.ERROR_REMOVE_FAIL,error.data.responData.Error);
             });
         };
 
@@ -1270,9 +1274,9 @@
                 $scope.blogImage = [];
                 $scope.addNew = false;
                 initData();
-                Data_Toast.success(MESSAGE_CONFIG.SUCCESS_UPDATE_SUCCESSFULLY);
+                Data_Toast.success(MESSAGE_CONFIG.SUCCESS_SAVED_SUCCESSFULLY);
             },function (error) {
-                Data_Toast.error(MESSAGE_CONFIG.ERROR_UPDATE_FAIL,error.data.responData.Error);
+                Data_Toast.error(MESSAGE_CONFIG.ERROR_SAVE_FAIL,error.data.responData.Error);
             });
         };
 

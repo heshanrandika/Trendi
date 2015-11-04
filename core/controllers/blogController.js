@@ -76,8 +76,8 @@ function getAdminBlogList(req,callback){
 function removeBlog(req,callback){
     console.log("$$$$$$$  Remove Blog $$$$$$");
     var params = (req.body.params) ? req.body.params : {};
-    var query = {email:params.email};
-
+    var blog = params.blog;
+    var query = {blogId : blog.blogId, 'shop.shopId' : blog.shop.shopId};
     daf.Remove(query,CONSTANT.BLOG_COLLECTION,function(err , success){
         callback(err ,success);
     });
