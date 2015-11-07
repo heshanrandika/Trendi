@@ -176,7 +176,11 @@
             FUNC_AdminGetBlogList :     6000,
             FUNC_insertBlog :     6002,
             FUNC_RemoveBlog :     6003,
-            FUNC_UpdateBlog :     6005
+            FUNC_UpdateBlog :     6005,
+            FUNC_AdminGetTagList :      7000,
+            FUNC_AddTag     :     7002,
+            FUNC_RemoveTag  :     7003
+
 
 
         },

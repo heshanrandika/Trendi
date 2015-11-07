@@ -7,6 +7,7 @@ var PROMOTION = require("../controllers/promotionController");
 var PASSWORD = require("../controllers/passwordController");
 var MESSAGE = require("../controllers/messageController");
 var BLOG = require("../controllers/blogController");
+var TAG = require("../controllers/tagController");
 var AuthCtrl = require('../controllers/authController');
 
 var requestRoute = function(req,res){
@@ -974,7 +975,7 @@ var requestRoute = function(req,res){
 
         case 7000:
 
-            BLOG.GetTagList(req, function (err, data) {
+            TAG.GetAdminTagList(req, function (err, data) {
                 if (err) {
                     resObject.resStatus = 0;
                     resObject.responData.Error = err.toString();
@@ -994,7 +995,7 @@ var requestRoute = function(req,res){
 
         case 7001:
 
-            BLOG.GetBlog(req, function (err, data) {
+            TAG.GetTagList(req, function (err, data) {
                 if (err) {
                     resObject.resStatus = 0;
                     resObject.responData.Error = err.toString();
@@ -1014,7 +1015,7 @@ var requestRoute = function(req,res){
 
         case 7002:
 
-            BLOG.UpsertBlog(req, function (err, data) {
+            TAG.AddTag(req, function (err, data) {
                 if (err) {
                     resObject.resStatus = 0;
                     resObject.responData.Error = err.toString();
@@ -1034,7 +1035,7 @@ var requestRoute = function(req,res){
 
         case 7003:
 
-            BLOG.RemoveTag(req, function (err, data) {
+            TAG.RemoveTag(req, function (err, data) {
                 if (err) {
                     resObject.resStatus = 0;
                     resObject.responData.Error = err.toString();

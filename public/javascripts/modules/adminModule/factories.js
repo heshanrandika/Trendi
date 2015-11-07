@@ -141,6 +141,18 @@
             return angular.extend({functionId: ADMIN_MOD_CONFIG.REQ_CONFIG.FUNC_RemoveBlog}, _getCObj());
         };
 
+        serviceCalls.adminGetTagListDao = function () {
+            return angular.extend({functionId: ADMIN_MOD_CONFIG.REQ_CONFIG.FUNC_AdminGetTagList}, _getCObj());
+        };
+
+        serviceCalls.addTagDao = function () {
+            return angular.extend({functionId: ADMIN_MOD_CONFIG.REQ_CONFIG.FUNC_AddTag}, _getCObj());
+        };
+
+        serviceCalls.removeTagDao = function () {
+            return angular.extend({functionId: ADMIN_MOD_CONFIG.REQ_CONFIG.FUNC_RemoveTag}, _getCObj());
+        };
+
         serviceCalls.shopDataDao = function () {
             return $storage.user;
         };

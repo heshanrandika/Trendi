@@ -1222,7 +1222,73 @@
     }]);
 
     mod.controller('adminExtraTagsController', ['$scope', '$rootScope','$state','adminDataService','Data.Toast','MESSAGE_CONFIG', function ($scope, $rootScope, $state, adminDataService, Data_Toast, MESSAGE_CONFIG) {
-        $scope.test = 'fuck';
+
+        $scope.typed = '';
+        $scope.tracker = 1;
+        $scope.typed ='';
+        $scope.tags =[];
+
+
+        $scope.$watch('typed', function(current, old){
+            if(current != old){
+                $scope.tracker = 3;
+                _.each($scope.tags, function(tg){
+                    if(current.toLowerCase() == tg.key.toLowerCase()){
+                        if(tg.shopId == $scope.shopDetails.shopId){
+                            $scope.tracker = 1;
+                            return false;
+                        }else{
+                            $scope.tracker = 2;
+                            return false;
+                        }
+                    }
+                });
+            }
+        });
+
+
+        var initData = function(){
+            $scope.shopDetails = adminDataService.shopData();
+            adminDataService.adminGetTagList().then(function(response){
+                $scope.tags = response.data.responData.data;
+            },function(error){
+                $scope.tags =[];
+            });
+        };
+        initData();
+
+
+        $scope.answer = function(){
+            var tag ={key:$scope.typed.toLowerCase(), shopId:$scope.shopDetails.shopId};
+            switch($scope.tracker){
+                case 3:
+                    adminDataService.addTag({tag:tag}).then(function(response){
+                        $scope.typed = '';
+                        Data_Toast.success(MESSAGE_CONFIG.SUCCESS_SAVED_SUCCESSFULLY);
+                        initData();
+                    },function(error){
+                        Data_Toast.error(MESSAGE_CONFIG.ERROR_SAVE_FAIL,error.data.responData.Error);
+                    });
+                    break;
+
+                case 1:
+                    adminDataService.removeTag({tag:tag}).then(function(response){
+                        $scope.typed = '';
+                        Data_Toast.success(MESSAGE_CONFIG.SUCCESS_REMOVED_SUCCESSFULLY);
+                        initData();
+                    },function(error){
+                        Data_Toast.error(MESSAGE_CONFIG.ERROR_REMOVE_FAIL,error.data.responData.Error);
+                    });
+                    break;
+
+                default :
+                    console.log('cannot find tracker value');
+            }
+        };
+
+        $scope.checkShop = function(tag){
+            return (tag.shopId == $scope.shopDetails.shopId);
+        }
 
     }]);
 
@@ -1238,6 +1304,9 @@
             $scope.shopDetails = adminDataService.shopData();
             adminDataService.adminGetBlogList({shopId:$scope.shopDetails.shopId}).then(function(response){
                 $scope.blogs = response.data.responData.data;
+                if($scope.blogs.length <= 0){
+                    $scope.addNew = true;
+                }
             },function(error){
                 $scope.blogs = {};
             });

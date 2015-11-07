@@ -114,6 +114,18 @@
             return Data_Comm.postPromise(angular.extend({params:d},adminServiceCalls.removeBlogDao()));
         };
 
+        var _adminGetTagList = function(d){
+            return Data_Comm.postPromise(angular.extend({params:d},adminServiceCalls.adminGetTagListDao()));
+        };
+
+        var _addTag = function(d){
+            return Data_Comm.postPromise(angular.extend({params:d},adminServiceCalls.addTagDao()));
+        };
+
+        var _removeTag = function(d){
+            return Data_Comm.postPromise(angular.extend({params:d},adminServiceCalls.removeTagDao()));
+        };
+
         var _getShopList = function(){
             return Data_Comm.postPromise(adminServiceCalls.getShopListDao());
         };
@@ -170,7 +182,10 @@
             adminGetBlogList:_adminGetBlogList,
             insertBlog:_insertBlog,
             updateBlog:_updateBlog,
-            removeBlog:_removeBlog
+            removeBlog:_removeBlog,
+            adminGetTagList:_adminGetTagList,
+            addTag:_addTag,
+            removeTag:_removeTag
         }
     }]);
 })(com.TRENDI.CATEGORY.modules.adminModule);

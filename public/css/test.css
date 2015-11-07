@@ -187,3 +187,7 @@
 .ta-hidden-input{
     display: none;
 }
+
+.vertical-center{
+    vertical-align: baseline;
+}
