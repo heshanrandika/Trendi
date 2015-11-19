@@ -304,6 +304,28 @@ function updateBranches(shopDetails,callback){
     });
 }
 
+
+function updateShopUsers(shopDetails){
+    var query = {
+        'branch.shopId':shopDetails.shopId, 
+        'title.value':{ $lte: shopDetails.title.value}
+    };
+    var changeDoc = {$set:{shop: shopDetails}};
+
+    var dbCon = daf.Find(query,CONSTANT.SHOP_USER);
+    dbCon.on('data', function(doc){
+        data.push(doc);
+    });
+
+    dbCon.on('end', function(){
+    daf.Upsert(query,changeDoc,CONSTANT.SHOP_BRANCH,function(err,success){
+        callback(err,success)
+    });
+    });
+
+    
+}
+
 function getBannerImage(req,callback){
     console.log("$$$$$$$  Get Banner Image $$$$$$");
     var params = (req.body.params) ? req.body.params : {};
