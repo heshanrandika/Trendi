@@ -3,6 +3,7 @@
  */
 var daf = require('../persistence/MongoPersistence');
 var CONSTANT = require('../utility/Constants');
+var _ = require('lodash');
 
 function getShopList(req,callback){
     console.log("$$$$$$$  GetShopList $$$$$$");
@@ -310,17 +311,26 @@ function updateShopUsers(shopDetails){
         'branch.shopId':shopDetails.shopId, 
         'title.value':{ $lte: shopDetails.title.value}
     };
+    var updatedEntitlements = [];
     var changeDoc = {$set:{shop: shopDetails}};
 
+    var users = [];
     var dbCon = daf.Find(query,CONSTANT.SHOP_USER);
     dbCon.on('data', function(doc){
-        data.push(doc);
+        users.push(doc);
     });
 
     dbCon.on('end', function(){
-    daf.Upsert(query,changeDoc,CONSTANT.SHOP_BRANCH,function(err,success){
-        callback(err,success)
-    });
+        _.each(users,function(user){
+            _.remove(user.entitlements, function(obj) {
+                return _.filter(updatedEntitlements, { '_id': obj._id}).length <= 0;
+            });
+            var qury={email:user.email};
+            daf.Update(qury,{$set:{entitlements:user.entitlements}},CONSTANT.SHOP_BRANCH,function(err,success){
+            
+            });
+        });
+        
     });
 
     
@@ -355,3 +365,4 @@ module.exports.GetBannerImage = getBannerImage;
 module.exports.AdminGetUser = adminGetUser;
 module.exports.UpdateShopUser = updateShopUser;
 module.exports.RemoveShopUser = removeShopUser;
+module.exports.UpdateShopUsers = updateShopUsers;
