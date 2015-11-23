@@ -9,11 +9,12 @@ function getMessageList(req,callback){
     console.log("$$$$$$$  GetMessageList $$$$$$");
     var params = (req.body.params) ? req.body.params : {};
     var email = params.email;
+    var type = params.type;
     var skip   = (params.skip)?params.skip:0;
     var limit  = (params.limit)?params.limit:16;
     var sorter = [['date',-1]];
 
-    var query = {};
+    var query = {$or:[{'tag': type},{'REPLY': {$elemMatch: {tag:type}}}]};
     var data = [];
     var option = {skip:skip, limit:limit, sort:sorter};
 
@@ -27,6 +28,8 @@ function getMessageList(req,callback){
     });
 };
 
+
+
 function sendMessage(req,callback){
     console.log("$$$$$$$  Send Message $$$$$$");
     var params = (req.body.params) ? req.body.params : {};
@@ -36,6 +39,7 @@ function sendMessage(req,callback){
 
     message.to = toEmail;
     message.from = fromEmail;
+    message.id = new Date().getTime()+"";
     message.tag = 'INBOX';
 
     daf.MInsert(message,toEmail,function(err , success){
@@ -55,21 +59,12 @@ function sendMessage(req,callback){
 function updateMessage(req,callback){
     console.log("$$$$$$$  Update MessageBox  $$$$$$");
     var params = (req.body.params) ? req.body.params : {};
+    var toEmail = params.to;
+    var query = {id:params.id};
+    var changeDoc = {read : true}
 
-    var email = params.email;
-    var NewMessageArray = params.NewMessageArray;
-    var message = params.Message;
-
-    var query = {email:email};
-    var changeDoc = {$push:{'INBOX':message}};
-
-    daf.Update(query,changeDoc,CONSTANT.MESSAGE,function(err , success){
-        query = {email:email};
-        changeDoc = {$set:{'NEWMESSAGE':NewMessageArray}};
-
-        daf.Update(query,changeDoc,CONSTANT.MESSAGE,function(err , success){
+    daf.MUpdate(query,changeDoc,toEmail,function(err , success){ 
             callback(err , success);
-        });
     });
 
 };
@@ -79,20 +74,62 @@ function replyMessage(req,callback){
     console.log("$$$$$$$  Reply Message  $$$$$$");
     var params = (req.body.params) ? req.body.params : {};
 
-    var email = params.email;
-    var NewMessageArray = params.NewMessageArray;
+    var toEmail = params.toEmail;
+    var fromEmail = params.email;
     var message = params.Message;
 
-    var query = {email:email};
-    var changeDoc = {$push:{'INBOX':message}};
+    message.to = toEmail;
+    message.from = fromEmail;
+    message.id = new Date().getTime()+"";
+    message.tag = 'INBOX';
 
-    daf.Update(query,changeDoc,CONSTANT.MESSAGE,function(err , success){
-        query = {email:email};
-        changeDoc = {$set:{'NEWMESSAGE':NewMessageArray}};
 
-        daf.Update(query,changeDoc,CONSTANT.MESSAGE,function(err , success){
-            callback(err , success);
+    var query = {id:params.id};
+    var changeDoc = {$push:{'REPLY':message}};
+
+    daf.MUpdate(query,changeDoc,toEmail,function(err , success){
+        if(success){
+            message.tag = 'SENT';
+        }else{
+            message.tag = 'DRAFTS';
+        }
+        daf.MUpdate(query,changeDoc,fromEmail,function(err , success){
+                callback(err , success);
         });
+        
+    });
+
+};
+
+
+function retryMessage(req,callback){
+    console.log("$$$$$$$  Reply Message  $$$$$$");
+    var params = (req.body.params) ? req.body.params : {};
+
+    var toEmail = params.toEmail;
+    var fromEmail = params.email;
+    var message = params.Message;
+
+    message.to = toEmail;
+    message.from = fromEmail;
+    message.tag = 'INBOX';
+
+
+    var query = {id:params.id};
+    var changeDoc = {$push:{'REPLY':message}};
+
+    daf.MUpdate(query,changeDoc,toEmail,function(err , success){
+        if(success){
+            message.tag = 'SENT';
+        }else{
+            message.tag = 'DRAFTS';
+        }
+        query = {id:params.id};
+        changeDoc = {$addToSet : {"REPLY" : {'id' : message.id , 'tag' : message.tag }} } ;
+        daf.MUpdate(query,changeDoc,fromEmail,function(err , success){
+                callback(err , success);
+        });
+        
     });
 
 };
