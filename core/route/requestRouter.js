@@ -21,7 +21,7 @@ var requestRoute = function(req,res){
     switch (functionId) {
         case 1000:
 
-            ITEM.RemoveItem(req, function (err, data) {
+            ITEM.AdminGetItemList(req, function (err, data) {
                 if (err) {
                     resObject.resStatus = 0;
                     resObject.responData.Error = err.toString();
@@ -223,6 +223,26 @@ var requestRoute = function(req,res){
         case 1010:
 
             ITEM.GetItemByShop(req, function (err, data) {
+                if (err) {
+                    resObject.resStatus = 0;
+                    resObject.responData.Error = err.toString();
+                    res.status(500);
+                    res.send(resObject);
+
+                } else if (data) {
+
+                    resObject.resStatus = 1;
+                    resObject.responData.data = data;
+                    res.send(resObject);
+
+                }
+
+            });
+            break;
+
+        case 1011:
+
+            ITEM.RemoveItem(req, function (err, data) {
                 if (err) {
                     resObject.resStatus = 0;
                     resObject.responData.Error = err.toString();

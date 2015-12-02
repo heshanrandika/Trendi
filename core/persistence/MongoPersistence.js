@@ -135,12 +135,7 @@ function mRemove(query, fromCollection, callback){
 
 function count(query, fromCollection, callback){
     mdbc.db.collection(fromCollection).count(query,function(err, docCount){
-        if (err) {
             callback(err,docCount);
-        }
-        if(docCount) {
-            callback(err,docCount);
-        }
     });
 }
 

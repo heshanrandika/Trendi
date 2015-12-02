@@ -146,8 +146,9 @@
             FUNC_GetSubItem:      1004,
             FUNC_AddItems:        1003,
             FUNC_UpdateItem:      1007,
-            FUNC_RemoveItems:     1000,
+            FUNC_RemoveItems:     1011,
             FUNC_GetItemList:     1010,
+            FUNC_AdminGetItemList:1000,
             //++++++shop function list++++++++++++++++
             FUNC_GetShopList:     2008,
             FUNC_RegisterShop:    2009,

@@ -21,8 +21,8 @@
 
 
 
-        serviceCalls.getItemListDao = function () {
-            return angular.extend({functionId: ADMIN_MOD_CONFIG.REQ_CONFIG.FUNC_GetItemList}, _getCObj());
+        serviceCalls.adminGetItemListDao = function () {
+            return angular.extend({functionId: ADMIN_MOD_CONFIG.REQ_CONFIG.FUNC_AdminGetItemList}, _getCObj());
         };
 
         serviceCalls.addItemDao = function () {

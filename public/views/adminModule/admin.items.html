@@ -8,7 +8,7 @@
                         <div style="padding-top: 150px;">
                             <md-button class="md-raised md-primary" ng-click="EditViewController('')"><md-icon md-svg-src="add-circle"></md-icon> Add New Item</md-button>
                             <div style="padding-top: 20px;">
-                                <md-list>
+                                <md-list lazy-scroll="paginationFuntion()" lazy-scroll-trigger="80">
                                     <md-list-item ng-repeat="item in itemList" ng-click="EditViewController(item)">
                                         <img alt="{{ item.item.name }}" ng-src="{{item.item.image}}" class="md-avatar" />
                                         <p>{{ item.item.name }}</p>
@@ -125,7 +125,7 @@
                                             <input ng-model="mainItem.seen" type="number" name="seen" ng-disabled="true">
                                         </md-input-container>
 
-                                        <div>
+                                        <div ng-if="selectedIndex == 1">
                                             <trendi-file-upload files="mainImage" image-size="imageSize"  image-count="imageCount"></trendi-file-upload>
                                         </div>
 

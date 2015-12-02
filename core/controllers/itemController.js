@@ -62,6 +62,46 @@ function getItemByShop(req,callback){
     });
 };
 
+
+function adminGetItemList(req,callback){
+    console.log("$$$$$$$  Get Items by Shop $$$$$$");
+    var params = (req.body.params) ? req.body.params : {};
+
+    var skip   = (params.skip)?params.skip:0;
+    var limit  = (params.limit)?params.limit:16;
+    var shopId  = params.shopId;
+    var branchId  = params.branchId;
+    var searchKey  = params.searchKey;
+    var searchValue  = params.searchValue;
+    var sorter = [['date',-1]];
+
+
+    var option = {skip:skip, limit:limit, sort:sorter};
+    var query = {$and:[{'item.shop.shopId' : shopId},{'item.shop.branchId' : branchId}]};
+    if(searchKey != '')
+        query[searchKey] = searchValue;
+
+    var data = {list:[]};
+    var dbCon = daf.FindWithPagination(query,CONSTANT.MAIN_ITEM_COLLECTION,option);
+    dbCon.on('data', function(doc){
+        data.list.push(doc);
+    });
+
+    dbCon.on('end', function(){
+        if(skip == 0){
+            daf.Count(query,CONSTANT.MAIN_ITEM_COLLECTION,function(err , count){
+                if(count){
+                    data.count = count;
+                }
+                callback(null,data);
+            })
+        }else{
+            callback(null,data);
+        }
+
+    });
+};
+
 function getMostTrendyItems(req,callback){
     console.log("$$$$$$$  GetMostTrendyItems $$$$$$");
     var params = (req.body.params) ? req.body.params : {};
@@ -386,3 +426,4 @@ module.exports.UpdateItem = updateItem;
 module.exports.GetCommonItemList = getCommonItemList;
 module.exports.GetMainItemList = getMainItemList;
 module.exports.RemoveItem = removeItem;
+module.exports.AdminGetItemList = adminGetItemList;

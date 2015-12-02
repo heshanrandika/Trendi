@@ -3,8 +3,8 @@
  */
 (function(mod){
     mod.service('adminDataService',['$window','Data.Comm','adminServiceCalls',function($window, Data_Comm, adminServiceCalls){
-        var _getItemList = function(d){
-            return Data_Comm.postPromise(angular.extend({params:d},adminServiceCalls.getItemListDao()));
+        var _adminGetItemList = function(d){
+            return Data_Comm.postPromise(angular.extend({params:d},adminServiceCalls.adminGetItemListDao()));
         };
 
         var _addItem = function(d){
@@ -150,7 +150,7 @@
 
 
         return{
-            getItemList:_getItemList,
+            adminGetItemList:_adminGetItemList,
             addItem:_addItem,
             updateItem:_updateItem,
             getSubItem:_getSubItem,

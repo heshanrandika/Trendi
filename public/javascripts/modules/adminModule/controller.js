@@ -28,7 +28,9 @@
 
     mod.controller('adminItemController', ['$scope', '$rootScope','$state','adminDataService','Data.Toast','MESSAGE_CONFIG', function ($scope, $rootScope, $state, adminDataService, Data_Toast, MESSAGE_CONFIG) {
         $scope.itemList = [];
+        $scope.count = 0;
         var shopDetails = {};
+        var itemPerPage = 25;
 
         //=======Item Edit Window================
         $scope.mainImage = [];
@@ -82,17 +84,49 @@
             }
         ];
 
-        var initData = function(){
-            shopDetails = adminDataService.shopData();
-            adminDataService.getItemList(shopDetails.shop).then(function(response){
-                $scope.itemList = response.data.responData.data
+
+
+        shopDetails = adminDataService.shopData();
+        $scope.searchObj = {
+            skip: $scope.itemList.length,
+            limit:itemPerPage,
+            searchKey:'',
+            searchValue:'',
+            shopId : shopDetails.branch.shopId,
+            branchId : shopDetails.branch.branchId
+        };
+
+        $scope.loadData = function(init){
+            if(init){
+                $scope.itemList = [];
+                $scope.searchObj.skip =0;
+            }
+            $scope.loading = true;
+            adminDataService.adminGetItemList($scope.searchObj).then(function(response){
+                $scope.itemList.push.apply($scope.itemList, response.data.responData.data.list);
+                if(response.data.responData.data.count){
+                    $scope.count = response.data.responData.data.count;
+                }
+                $scope.loading = false;
             },function(){
                 $scope.itemList = [];
             });
 
 
         };
-        initData();
+
+        // Register event handler
+        $scope.paginationFuntion = function() {
+            $scope.searchObj.skip = $scope.itemList.length;
+            if ($scope.count > $scope.itemList.length) {
+                $scope.loadData();
+            }
+        };
+
+        $scope.loadData(1);
+
+
+
 
 
         $scope.search = {
@@ -117,17 +151,15 @@
                 value: "--"
             }],
             searchDataFromServer: function (d) {
-                adminDataService.getItemList({
-                    params: d
-                }).then(function (response) {
-
-
-
-                }, function (error) {
-                    console.log(error.data);
-                    $scope.applicationList = [];
-
-                })
+                $scope.searchObj = {
+                    skip:0,
+                    limit:itemPerPage,
+                    searchKey: d.searchKey,
+                    searchValue: d.searchValue,
+                    shopId : shopDetails.branch.shopId,
+                    branchId : shopDetails.branch.branchId
+                };
+                $scope.load(1);
             }
         };
 
@@ -210,7 +242,7 @@
                             $scope.subItem.push({image: k.image});
                         }
                     });
-                    $scope.mainItem.shop = shopDetails.shop;
+                    $scope.mainItem.shop = shopDetails.branch;
                     $scope.mainItem.types = $scope.slectedTypes;
                     $scope.mainItem.sizes = $scope.slectedSizes;
                     $scope.mainItem.colors = $scope.selectedColors;
@@ -219,7 +251,7 @@
                         case 1 :
                             itemDetail = {mainItem: $scope.mainItem, subItem: $scope.subItem};
                             adminDataService.addItem(itemDetail).then(function (response) {
-                                initData();
+                                $scope.loadData(1);
                                 $scope.selectedIndex = 0;
                                 Data_Toast.success(MESSAGE_CONFIG.SUCCESS_SAVED_SUCCESSFULLY);
                             },function(error){
@@ -230,7 +262,7 @@
                         case 2 :
                             itemDetail = {mainItem: $scope.mainItem, subItem: $scope.subItem, itemId:$scope.itemId};
                             adminDataService.updateItem(itemDetail).then(function (response) {
-                                initData();
+                                $scope.loadData(1);
                                 $scope.selectedIndex = 0;
                                 Data_Toast.success(MESSAGE_CONFIG.SUCCESS_UPDATE_SUCCESSFULLY);
                             },function(error){
@@ -249,7 +281,7 @@
                 $scope.btnPressed = true;
                 var itemDetail={itemId:$scope.itemId};
                 adminDataService.removeItem(itemDetail).then(function(response){
-                    initData();
+                    $scope.loadData(1);
                     $scope.selectedIndex = 0;
                     Data_Toast.error(MESSAGE_CONFIG.SUCCESS_REMOVED_SUCCESSFULLY);
                 },function(){
@@ -1217,7 +1249,70 @@
     }]);
 
     mod.controller('adminExtraMessageController', ['$scope', '$rootScope','$state','adminDataService','Data.Toast','MESSAGE_CONFIG', function ($scope, $rootScope, $state, adminDataService, Data_Toast, MESSAGE_CONFIG) {
-        $scope.test = 'fuck';
+        var itemPerPage = 25;
+
+
+        $scope.pagination = {
+            current_page:0,
+            total_pages:0
+        };
+
+        var shopDetails = adminDataService.shopData();
+        $scope.searchObj = {
+            skip:0,
+            limit:itemPerPage,
+            searchKey:'',
+            searchValue:'',
+            shopId : shopDetails.shop.shopId
+        };
+
+        var loadData = function(){
+            adminDataService.adminGetItemList($scope.searchObj).then(function(response){
+                $scope.itemList.push.apply($scope.itemList, response.data.responData.data.list);
+                if(response.data.responData.data.count){
+                    var count = response.data.responData.data.count;
+                    $scope.pagination.total_pages = (count%itemPerPage > 0)?(count/itemPerPage)+1:(count/itemPerPage);
+                }
+                $scope.loading = false;
+            },function(){
+                $scope.itemList = [];
+            });
+
+
+        };
+
+
+
+
+
+        function load(page) {
+            var params     = { page: page };
+            var isTerminal = $scope.pagination && $scope.pagination.current_page >= $scope.pagination.total_pages && $scope.pagination.current_page <= 1;
+
+            // Determine if there is a need to load a new page
+            if (!isTerminal) {
+                // Flag loading as started
+                $scope.loading = true;
+
+            }
+        }
+
+        // Register event handler
+        $scope.$on('endlessScroll:next', function() {
+            // Determine which page to load
+            var page = $scope.pagination ? $scope.pagination.current_page + 1 : 1;
+
+            // Load page
+            load(page);
+        });
+
+        // Load initial page (first page or from query param)
+        load($routeParams.page ? parseInt($routeParams.page, 10) : 1);
+
+
+
+
+
 
     }]);
 
