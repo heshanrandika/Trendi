@@ -162,9 +162,66 @@ function adminGetShopList(req,callback){
 
 function adminGetBranchList(req,callback){
     console.log("$$$$$$$  adminGetShopList $$$$$$");
-    var params = (req.body.params) ? req.body.params : {};
-    var shopId = params.shopId;
 
+    var params = (req.body.params) ? req.body.params : {};
+
+    var skip   = (params.skip)?params.skip:0;
+    var limit  = (params.limit)?params.limit:16;
+    var shopId  = params.shopId;
+    var searchKey  = params.searchKey;
+    var searchValue  = params.searchValue;
+    var sorter = [['date',-1]];
+
+ if(shopId == "" || shopId == undefined){
+        callback("ShopId not Available",null);
+}else{
+
+    var option = {skip:skip, limit:limit, sort:sorter};
+    var query = {shopId:shopId, delete:0};
+    if(searchKey != '')
+        query[searchKey] = searchValue;
+
+    var data = {list:[]};
+    var dbCon = daf.FindWithPagination(query,CONSTANT.SHOP_BRANCH,option);
+    dbCon.on('data', function(doc){
+        data.list.push(doc);
+    });
+
+    dbCon.on('end', function(){
+        if(skip == 0){
+            daf.Count(query,CONSTANT.SHOP_BRANCH,function(err , count){
+                if(count){
+                    data.count = count;
+                }
+                callback(null,data);
+            })
+        }else{
+            callback(null,data);
+        }
+
+    });
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
     if(shopId == "" || shopId == undefined){
         callback("ShopId not Available",null);
     }else{
@@ -184,7 +241,8 @@ function adminGetBranchList(req,callback){
         dbCon.on('end', function(){
             callback(null,data);
         });
-    }
+    }*/
+
 
 };
 

@@ -30,7 +30,7 @@
         $scope.itemList = [];
         $scope.count = 0;
         var shopDetails = {};
-        var itemPerPage = 25;
+        var itemPerPage = 10;
 
         //=======Item Edit Window================
         $scope.mainImage = [];
@@ -322,15 +322,62 @@
         $scope.iconSize = {value:10000, text:'10kB'};
         $scope.iconCount = 1;
         $scope.btnPressed = false;
-        $scope.shopDetails;
 
 
         $scope.headerText = '';
         $scope.addNew = true;
         $scope.selectedIndex = 0;
 
+        $scope.count = 0;
+        $scope.shopDetails = {};
+        var itemPerPage = 10;
 
-        var initData = function(){
+
+
+
+
+
+
+        $scope.shopDetails = adminDataService.shopData();
+        $scope.searchObj = {
+            skip: $scope.branchList.length,
+            limit:itemPerPage,
+            searchKey:'',
+            searchValue:'',
+            shopId : $scope.shopDetails.branch.shopId
+        };
+
+        $scope.loadData = function(init){
+            if(init){
+                $scope.branchList = [];
+                $scope.searchObj.skip =0;
+            }
+            $scope.loading = true;
+            adminDataService.getBranchList($scope.searchObj).then(function(response){
+                $scope.branchList.push.apply($scope.branchList, response.data.responData.data.list);
+                if(response.data.responData.data.count){
+                    $scope.count = response.data.responData.data.count;
+                }
+                $scope.loading = false;
+            },function(){
+                $scope.branchList = [];
+            });
+
+
+        };
+
+        $scope.paginationFuntion = function() {
+            $scope.searchObj.skip = $scope.branchList.length;
+            if ($scope.count > $scope.branchList.length) {
+                $scope.loadData();
+            }
+        };
+
+        $scope.loadData(1);
+
+
+
+/*        var initData = function(){
             $scope.shopDetails = adminDataService.shopData();
             adminDataService.getBranchList({shopId:$scope.shopDetails.shopId}).then(function(response){
                 $scope.branchList = response.data.responData.data
@@ -338,7 +385,7 @@
                 $scope.branchList = [];
             });
         };
-        initData();
+        initData();*/
 
 
         $scope.search = {
@@ -363,17 +410,14 @@
                 value: "--"
             }],
             searchDataFromServer: function (d) {
-                adminDataService.getItemList({
-                    params: d
-                }).then(function (response) {
-
-
-
-                }, function (error) {
-                    console.log(error.data);
-                    $scope.applicationList = [];
-
-                })
+               $scope.searchObj = {
+                    skip:0,
+                    limit:itemPerPage,
+                    searchKey: d.searchKey,
+                    searchValue: d.searchValue,
+                    shopId : $scope.shopDetails.branch.shopId
+                };
+                $scope.load(1);
             }
         };
 
@@ -448,7 +492,7 @@
                         case 1 :
                             branchDetails = {shopId:$scope.shopDetails.shopId, shop: $scope.branch};
                             adminDataService.addBranch(branchDetails).then(function (response) {
-                                initData();
+                                $scope.loadData(1);
                                 $scope.selectedIndex = 0;
                                 Data_Toast.success(MESSAGE_CONFIG.SUCCESS_SAVED_SUCCESSFULLY);
                             },function (error) {
@@ -459,7 +503,7 @@
                         case 2 :
                             branchDetails = {shopId:$scope.shopDetails.shopId,branchId:$scope.branchId, shop: $scope.branch};
                             adminDataService.updateBranch(branchDetails).then(function (response) {
-                                initData();
+                                $scope.loadData(1);
                                 $scope.selectedIndex = 0;
                                 Data_Toast.success(MESSAGE_CONFIG.SUCCESS_UPDATE_SUCCESSFULLY);
                             },function (error) {
@@ -478,7 +522,7 @@
                 $scope.btnPressed = true;
                 var branchDetails={shopId:$scope.shopDetails.shopId,branchId:$scope.branchId};
                 adminDataService.removeBranch(branchDetails).then(function(response){
-                    initData();
+                    $scope.loadData(1);
                     $scope.selectedIndex = 0;
                     Data_Toast.success(MESSAGE_CONFIG.SUCCESS_REMOVED_SUCCESSFULLY);
                 },function (error) {
@@ -524,14 +568,71 @@
         $scope.btnPressed = false;
 
 
-        var initData = function(){
+
+
+
+
+        $scope.count = 0;
+        var itemPerPage = 10;
+
+        $scope.searchObj = {
+            skip: $scope.shopList.length,
+            limit:itemPerPage,
+            searchKey:'',
+            searchValue:'',
+        };
+
+        $scope.loadData = function(init){
+            if(init){
+                $scope.shopList = [];
+                $scope.searchObj.skip =0;
+            }
+            $scope.loading = true;
+            adminDataService.getShopList($scope.searchObj).then(function(response){
+                $scope.shopList.push.apply($scope.shopList, response.data.responData.data.list);
+                if(response.data.responData.data.count){
+                    $scope.count = response.data.responData.data.count;
+                }
+                $scope.loading = false;
+            },function(){
+                $scope.shopList = [];
+            });
+
+
+        };
+
+        $scope.paginationFuntion = function() {
+            $scope.searchObj.skip = $scope.shopList.length;
+            if ($scope.count > $scope.shopList.length) {
+                $scope.loadData();
+            }
+        };
+
+        $scope.loadData(1);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*        var initData = function(){
             adminDataService.getShopList().then(function(response){
                 $scope.shopList = response.data.responData.data
             },function(){
                 $scope.shopList = [];
             });
         };
-        initData();
+        initData();*/
 
 
         $scope.search = {
@@ -556,17 +657,13 @@
                 value: "--"
             }],
             searchDataFromServer: function (d) {
-                adminDataService.getItemList({
-                    params: d
-                }).then(function (response) {
-
-
-
-                }, function (error) {
-                    console.log(error.data);
-                    $scope.applicationList = [];
-
-                })
+                $scope.searchObj = {
+                    skip:0,
+                    limit:itemPerPage,
+                    searchKey: d.searchKey,
+                    searchValue: d.searchValue
+                };
+                $scope.load(1);
             }
         };
 
@@ -693,7 +790,7 @@
                         case 1 :
                             shopDetails = {shop: $scope.shop, regUser: $scope.regUser, bannerImage:$scope.bannerImage};
                             adminDataService.registerShop(shopDetails).then(function (response) {
-                                initData();
+                                $scope.loadData(1);
                                 $scope.selectedIndex = 0;
                                 Data_Toast.success(MESSAGE_CONFIG.SUCCESS_SAVED_SUCCESSFULLY);
                             },function (error) {
@@ -704,7 +801,7 @@
                         case 2 :
                             shopDetails = {shop: $scope.shop, regUser: $scope.regUser, bannerImage:$scope.bannerImage};
                             adminDataService.adminUpdateShop(shopDetails).then(function (response) {
-                                initData();
+                                $scope.loadData(1);
                                 $scope.selectedIndex = 0;
                                 Data_Toast.success(MESSAGE_CONFIG.SUCCESS_UPDATE_SUCCESSFULLY);
                             },function (error) {
@@ -724,7 +821,7 @@
                 //TODO SHOP REMOVE
                 var shopDetails={shopId: $scope.shopId};
                 adminDataService.removeItem(shopDetails).then(function(response){
-                    initData();
+                    $scope.loadData(1);
                     $scope.selectedIndex = 0;
                     Data_Toast.success(MESSAGE_CONFIG.SUCCESS_REMOVED_SUCCESSFULLY);
                 },function (error) {
@@ -1023,7 +1120,69 @@
 
 
 
-        var initData = function(){
+
+        $scope.count = 0;
+        $scope.shopDetails = {};
+        var itemPerPage = 10;
+
+
+
+
+
+
+
+        $scope.shopDetails = adminDataService.shopData();
+        $scope.searchObj = {
+            skip: $scope.promotionList.length,
+            limit:itemPerPage,
+            searchKey:'',
+            searchValue:'',
+            shopId : $scope.shopDetails.branch.shopId
+        };
+
+        $scope.loadData = function(init){
+            if(init){
+                $scope.promotionList = [];
+                $scope.searchObj.skip =0;
+            }
+            $scope.loading = true;
+            adminDataService.getAdminPromotionList($scope.searchObj).then(function(response){
+                $scope.promotionList.push.apply($scope.promotionList, response.data.responData.data.list);
+                if(response.data.responData.data.count){
+                    $scope.count = response.data.responData.data.count;
+                }
+                $scope.loading = false;
+            },function(){
+                $scope.promotionList = [];
+            });
+
+
+        };
+
+        $scope.paginationFuntion = function() {
+            $scope.searchObj.skip = $scope.promotionList.length;
+            if ($scope.count > $scope.promotionList.length) {
+                $scope.loadData();
+            }
+        };
+
+        $scope.loadData(1);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*        var initData = function(){
             $scope.shopDetails = adminDataService.shopData();
             adminDataService.getAdminPromotionList({shopId:$scope.shopDetails.shopId}).then(function(response){
                 $scope.promotionList = response.data.responData.data
@@ -1031,7 +1190,7 @@
                 $scope.promotionList = [];
             });
         };
-        initData();
+        initData();*/
 
 
         $scope.search = {
