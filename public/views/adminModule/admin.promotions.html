@@ -8,7 +8,7 @@
                         <div style="padding-top: 150px;">
                             <md-button class="md-raised md-primary" ng-click="EditViewController('')"><md-icon md-svg-src="add-circle"></md-icon> Add New Promotion</md-button>
                             <div style="padding-top: 20px;">
-                                <md-list>
+                                <md-list lazy-scroll="paginationFuntion()" lazy-scroll-trigger="80">
                                     <md-list-item ng-repeat="promotion in promotionList" ng-click="EditViewController(promotion)">
                                         <img alt="{{ promotion.title }}" ng-src="{{promotion.promotionPic}}" class="md-avatar" />
                                         <p>{{ promotion.title }}</p>

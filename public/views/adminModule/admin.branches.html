@@ -8,7 +8,7 @@
                     <div style="padding-top: 150px;">
                         <md-button class="md-raised md-primary" ng-click="EditViewController('')"><md-icon md-svg-src="add-circle"></md-icon> Add New Branch</md-button>
                         <div style="padding-top: 20px;">
-                            <md-list>
+                            <md-list lazy-scroll="paginationFuntion()" lazy-scroll-trigger="80">
                                 <md-list-item ng-repeat="branch in branchList" ng-click="EditViewController(branch)">
                                     <img alt="{{ branch.name }}" ng-src="{{branch.shop.iconImage}}" class="md-avatar" />
                                     <p>{{ branch.shop.name }}</p>
