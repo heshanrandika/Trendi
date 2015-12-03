@@ -30,7 +30,7 @@
         $scope.itemList = [];
         $scope.count = 0;
         var shopDetails = {};
-        var itemPerPage = 10;
+        var itemPerPage = 8;
 
         //=======Item Edit Window================
         $scope.mainImage = [];
@@ -118,7 +118,7 @@
         // Register event handler
         $scope.paginationFuntion = function() {
             $scope.searchObj.skip = $scope.itemList.length;
-            if ($scope.count > $scope.itemList.length) {
+            if ($scope.count > $scope.itemList.length && !$scope.loading) {
                 $scope.loadData();
             }
         };
@@ -283,9 +283,9 @@
                 adminDataService.removeItem(itemDetail).then(function(response){
                     $scope.loadData(1);
                     $scope.selectedIndex = 0;
-                    Data_Toast.error(MESSAGE_CONFIG.SUCCESS_REMOVED_SUCCESSFULLY);
-                },function(){
-                    Data_Toast.error(MESSAGE_CONFIG.ERROR_REMOVE_FAIL.error.data.responData.Error);
+                    Data_Toast.success(MESSAGE_CONFIG.SUCCESS_REMOVED_SUCCESSFULLY);
+                },function(error){
+                    Data_Toast.error(MESSAGE_CONFIG.ERROR_REMOVE_FAIL,error.data.responData.Error);
                     $scope.btnPressed = false;
                 });
             }
@@ -368,7 +368,7 @@
 
         $scope.paginationFuntion = function() {
             $scope.searchObj.skip = $scope.branchList.length;
-            if ($scope.count > $scope.branchList.length) {
+            if ($scope.count > $scope.branchList.length  && !$scope.loading) {
                 $scope.loadData();
             }
         };
@@ -603,7 +603,7 @@
 
         $scope.paginationFuntion = function() {
             $scope.searchObj.skip = $scope.shopList.length;
-            if ($scope.count > $scope.shopList.length) {
+            if ($scope.count > $scope.shopList.length  && !$scope.loading) {
                 $scope.loadData();
             }
         };
@@ -1161,7 +1161,7 @@
 
         $scope.paginationFuntion = function() {
             $scope.searchObj.skip = $scope.promotionList.length;
-            if ($scope.count > $scope.promotionList.length) {
+            if ($scope.count > $scope.promotionList.length  && !$scope.loading) {
                 $scope.loadData();
             }
         };
@@ -1215,17 +1215,15 @@
                 value: "--"
             }],
             searchDataFromServer: function (d) {
-                adminDataService.getItemList({
-                    params: d
-                }).then(function (response) {
-
-
-
-                }, function (error) {
-                    console.log(error.data);
-                    $scope.applicationList = [];
-
-                })
+                $scope.searchObj = {
+                    skip:0,
+                    limit:itemPerPage,
+                    searchKey: d.searchKey,
+                    searchValue: d.searchValue,
+                    shopId : $scope.shopDetails.branch.shopId,
+                    branchId : $scope.shopDetails.branch.branchId
+                };
+                $scope.load(1);
             }
         };
 
@@ -1291,9 +1289,10 @@
                     switch (option) {
                         case 1 :
                             $scope.promotion.shopId = $scope.shopDetails.shopId;
+                            $scope.promotion.branchId = $scope.shopDetails.branch.branchId;
                             promotionDetails = {promotion:$scope.promotion};
                             adminDataService.addPromotion(promotionDetails).then(function (response) {
-                                initData();
+                                $scope.loadData(1);
                                 $scope.selectedIndex = 0;
                                 Data_Toast.success(MESSAGE_CONFIG.SUCCESS_SAVED_SUCCESSFULLY);
                             },function (error) {
@@ -1304,7 +1303,7 @@
                         case 2 :
                             promotionDetails = {promotion:$scope.promotion};
                             adminDataService.updatePromotion(promotionDetails).then(function (response) {
-                                initData();
+                                $scope.loadData(1);
                                 $scope.selectedIndex = 0;
                                 Data_Toast.success(MESSAGE_CONFIG.SUCCESS_UPDATE_SUCCESSFULLY);
                             },function (error) {
@@ -1323,7 +1322,7 @@
                 $scope.btnPressed = true;
                 promotionDetails = {promotion:$scope.promotion};
                 adminDataService.removePromotion(promotionDetails).then(function(response){
-                    initData();
+                    $scope.loadData(1);
                     $scope.selectedIndex = 0;
                     Data_Toast.success(MESSAGE_CONFIG.SUCCESS_REMOVED_SUCCESSFULLY);
                 },function (error) {

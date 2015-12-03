@@ -102,9 +102,9 @@ function updateBranch(req,callback){
     var changeDoc ={$set:{shop: shop}};
     if(params.shop) {
         console.log("$$$$$$$  Update Branch $$$$$$ : ");
-            daf.Update(query,changeDoc, CONSTANT.SHOP_BRANCH, function (err, success) {
-                callback(err, success);
-            });
+        daf.Update(query,changeDoc, CONSTANT.SHOP_BRANCH, function (err, success) {
+            callback(err, success);
+        });
     }else{
         var err = "Shop details not available";
         callback(err);
@@ -172,76 +172,76 @@ function adminGetBranchList(req,callback){
     var searchValue  = params.searchValue;
     var sorter = [['date',-1]];
 
- if(shopId == "" || shopId == undefined){
-        callback("ShopId not Available",null);
-}else{
-
-    var option = {skip:skip, limit:limit, sort:sorter};
-    var query = {shopId:shopId, delete:0};
-    if(searchKey != '')
-        query[searchKey] = searchValue;
-
-    var data = {list:[]};
-    var dbCon = daf.FindWithPagination(query,CONSTANT.SHOP_BRANCH,option);
-    dbCon.on('data', function(doc){
-        data.list.push(doc);
-    });
-
-    dbCon.on('end', function(){
-        if(skip == 0){
-            daf.Count(query,CONSTANT.SHOP_BRANCH,function(err , count){
-                if(count){
-                    data.count = count;
-                }
-                callback(null,data);
-            })
-        }else{
-            callback(null,data);
-        }
-
-    });
-
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
     if(shopId == "" || shopId == undefined){
         callback("ShopId not Available",null);
     }else{
-        var skip =(params.skip)?params.skip:0;
-        var limit  = (params.limit)?params.limit:18;
-        var sorter = params.sorter;
 
         var option = {skip:skip, limit:limit, sort:sorter};
-
         var query = {shopId:shopId, delete:0};
-        var data = [];
+        if(searchKey != '')
+            query[searchKey] = searchValue;
+
+        var data = {list:[]};
         var dbCon = daf.FindWithPagination(query,CONSTANT.SHOP_BRANCH,option);
         dbCon.on('data', function(doc){
-            data.push(doc);
+            data.list.push(doc);
         });
 
         dbCon.on('end', function(){
-            callback(null,data);
+            if(skip == 0){
+                daf.Count(query,CONSTANT.SHOP_BRANCH,function(err , count){
+                    if(count){
+                        data.count = count;
+                    }
+                    callback(null,data);
+                })
+            }else{
+                callback(null,data);
+            }
+
         });
-    }*/
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /*
+     if(shopId == "" || shopId == undefined){
+     callback("ShopId not Available",null);
+     }else{
+     var skip =(params.skip)?params.skip:0;
+     var limit  = (params.limit)?params.limit:18;
+     var sorter = params.sorter;
+
+     var option = {skip:skip, limit:limit, sort:sorter};
+
+     var query = {shopId:shopId, delete:0};
+     var data = [];
+     var dbCon = daf.FindWithPagination(query,CONSTANT.SHOP_BRANCH,option);
+     dbCon.on('data', function(doc){
+     data.push(doc);
+     });
+
+     dbCon.on('end', function(){
+     callback(null,data);
+     });
+     }*/
 
 
 };
@@ -329,13 +329,13 @@ function updateShopUser(req,callback) {
         }};
     }
 
-        daf.Update(query,changeDoc, CONSTANT.SHOP_USER, function (err, success) {
-            if(err){
-                callback(("Failed to Update:"+err),null);
-            }else {
-                callback(err,("Successfully Updated :"+success));
-            }
-        })
+    daf.Update(query,changeDoc, CONSTANT.SHOP_USER, function (err, success) {
+        if(err){
+            callback(("Failed to Update:"+err),null);
+        }else {
+            callback(err,("Successfully Updated :"+success));
+        }
+    })
 
 }
 
@@ -344,13 +344,13 @@ function removeShopUser(req,callback) {
     var regUser =  (params.regUser)?params.regUser: 0;
 
     var query = {'email':regUser.email};
-        daf.Remove(query, CONSTANT.SHOP_USER, function (err, success) {
-            if(err){
-                callback(("Failed to Remove :"+err),null);
-            }else {
-                callback(err,("Successfully Removed :"+success));
-            }
-        })
+    daf.Remove(query, CONSTANT.SHOP_USER, function (err, success) {
+        if(err){
+            callback(("Failed to Remove :"+err),null);
+        }else {
+            callback(err,("Successfully Removed :"+success));
+        }
+    })
 
 }
 
@@ -366,7 +366,7 @@ function updateBranches(shopDetails,callback){
 
 function updateShopUsers(shopDetails){
     var query = {
-        'branch.shopId':shopDetails.shopId, 
+        'branch.shopId':shopDetails.shopId,
         'title.value':{ $lte: shopDetails.title.value}
     };
     var updatedEntitlements = [];
@@ -385,13 +385,13 @@ function updateShopUsers(shopDetails){
             });
             var qury={email:user.email};
             daf.Update(qury,{$set:{entitlements:user.entitlements}},CONSTANT.SHOP_BRANCH,function(err,success){
-            
+
             });
         });
-        
+
     });
 
-    
+
 }
 
 function getBannerImage(req,callback){

@@ -75,9 +75,24 @@ function adminGetItemList(req,callback){
     var searchValue  = params.searchValue;
     var sorter = [['date',-1]];
 
+    var title = req.user.title.value;
+    var query = {};
+    switch (title){
+        case 20:
+            query = {};
+            break;
+
+        case 10:
+            query = {'item.shop.shopId' : shopId};
+            break;
+
+        default :
+            query = {$and:[{'item.shop.shopId' : shopId},{'item.shop.branchId' : branchId}]};
+            break;
+    }
 
     var option = {skip:skip, limit:limit, sort:sorter};
-    var query = {$and:[{'item.shop.shopId' : shopId},{'item.shop.branchId' : branchId}]};
+
     if(searchKey != '')
         query[searchKey] = searchValue;
 

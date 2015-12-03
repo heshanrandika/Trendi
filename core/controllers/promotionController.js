@@ -33,12 +33,62 @@ function getAdminPromotionList(req,callback){
     var params = (req.body.params) ? req.body.params : {};
 
     var skip =(params.skip)?params.skip:0;
-    var limit  = (params.limit)?params.limit:50;
-    var sorter = (params.sorter)?params.sorter:[];
+    var limit  = (params.limit)?params.limit:10;
+
     var shopId = params.shopId;
+    var branchId  = params.branchId;
+    var searchKey  = params.searchKey;
+    var searchValue  = params.searchValue;
+    var sorter = [['date',-1]];
 
     var option = {skip:skip, limit:limit, sort:sorter};
-    var query = {shopId:shopId};
+
+
+    var title = req.user.title.value;
+    var query = {};
+    switch (title){
+        case 20:
+            query = {};
+            break;
+
+        case 10:
+            query = {shopId:shopId};
+            break;
+
+        default :
+            query = {$and:[{'item.shop.shopId' : shopId},{'item.shop.branchId' : branchId}]};
+            break;
+    }
+
+    if(searchKey != '')
+        query[searchKey] = searchValue;
+
+    var data = {list:[]};
+    var dbCon = daf.FindWithPagination(query,CONSTANT.PROMOTION_COLLECTION,option);
+    dbCon.on('data', function(doc){
+        data.list.push(doc);
+    });
+
+    dbCon.on('end', function(){
+        if(skip == 0){
+            daf.Count(query,CONSTANT.PROMOTION_COLLECTION,function(err , count){
+                if(count){
+                    data.count = count;
+                }
+                callback(null,data);
+            })
+        }else{
+            callback(null,data);
+        }
+
+    });
+
+
+
+
+
+
+/*
     var data = [];
     var dbCon = daf.FindWithPagination(query,CONSTANT.PROMOTION_COLLECTION,option);
     dbCon.on('data', function(doc){
@@ -47,7 +97,7 @@ function getAdminPromotionList(req,callback){
 
     dbCon.on('end', function(){
         callback(null,data);
-    });
+    });*/
 
 };
 
