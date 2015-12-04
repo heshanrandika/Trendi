@@ -23,8 +23,8 @@
             </div>
         </div>
         <accordion close-others="true">
-
-            <accordion-group ng-repeat-start="blog in blogs" is-open="blog.open" >
+            <div lazy-scroll="paginationFuntion()" lazy-scroll-trigger="80">
+                <accordion-group ng-repeat-start="blog in blogs" is-open="blog.open" >
                 <accordion-heading >
                     <i  ng-click="setImage(blog)" class="pull-right glyphicon" ng-class="{'fa fa-times': blog.open, 'fa fa-pencil': !blog.open}"></i>
                 </accordion-heading>
@@ -62,6 +62,8 @@
                     </div>
                 </div>
             </div>
+            </div>
+            
 
         </accordion>
 

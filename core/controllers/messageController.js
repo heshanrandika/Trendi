@@ -18,17 +18,83 @@ function getMessageList(req,callback){
     var data = [];
     var option = {skip:skip, limit:limit, sort:sorter};
 
+
+
+
+    if(searchKey != '')
+        query[searchKey] = searchValue;
+
+    var data = {list:[]};
     var dbCon = daf.MFindWithPagination(query,mail,option);
+    dbCon.on('data', function(doc){
+        data.list.push(doc);
+    });
+
+    dbCon.on('end', function(){
+        if(skip == 0){
+            daf.MCount(query,mail,function(err , count){
+                if(count){
+                    data.count = count;
+                }
+                callback(null,data);
+            })
+        }else{
+            callback(null,data);
+        }
+
+    });
+
+
+/*    var dbCon = daf.MFindWithPagination(query,mail,option);
     dbCon.on('data', function(doc){
         data.push(doc);
     });
 
     dbCon.on('end', function(){
         callback(null,data);
-    });
+    });*/
 };
 
+function getUnreadMessageList(req,callback){
+    console.log("$$$$$$$  GetMessageList $$$$$$");
+    var params = (req.body.params) ? req.body.params : {};
+    var email = params.email;
+    var type = params.type;
+    var skip   = (params.skip)?params.skip:0;
+    var limit  = (params.limit)?params.limit:16;
+    var sorter = [['date',-1]];
 
+    var query = {$or:[{'tag': type},{'REPLY': {$elemMatch: {tag:type, read:false}}}]};
+    var data = [];
+    var option = {skip:skip, limit:limit, sort:sorter};
+
+
+
+
+    if(searchKey != '')
+        query[searchKey] = searchValue;
+
+    var data = {list:[]};
+    var dbCon = daf.MFindWithPagination(query,mail,option);
+    dbCon.on('data', function(doc){
+        data.list.push(doc);
+    });
+
+    dbCon.on('end', function(){
+        if(skip == 0){
+            daf.MCount(query,mail,function(err , count){
+                if(count){
+                    data.count = count;
+                }
+                callback(null,data);
+            })
+        }else{
+            callback(null,data);
+        }
+
+    });
+
+};
 
 function sendMessage(req,callback){
     console.log("$$$$$$$  Send Message $$$$$$");
@@ -41,6 +107,7 @@ function sendMessage(req,callback){
     message.from = fromEmail;
     message.id = new Date().getTime()+"";
     message.tag = 'INBOX';
+    message.read = false;
 
     daf.MInsert(message,toEmail,function(err , success){
         if(success){
@@ -82,6 +149,7 @@ function replyMessage(req,callback){
     message.from = fromEmail;
     message.id = new Date().getTime()+"";
     message.tag = 'INBOX';
+    message.read = false;
 
 
     var query = {id:params.id};
@@ -113,7 +181,7 @@ function retryMessage(req,callback){
     message.to = toEmail;
     message.from = fromEmail;
     message.tag = 'INBOX';
-
+    message.read = false;
 
     var query = {id:params.id};
     var changeDoc = {$push:{'REPLY':message}};
@@ -135,6 +203,7 @@ function retryMessage(req,callback){
 };
 
 module.exports.GetMessageList = getMessageList;
+module.exports.GetUnreadMessageList = getUnreadMessageList;
 module.exports.SendMessage = sendMessage;
 module.exports.UpdateMessage = updateMessage;
 module.exports.ReplyMessage = replyMessage;

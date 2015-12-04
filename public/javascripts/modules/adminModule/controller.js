@@ -1552,7 +1552,52 @@
         $scope.blogData = {};
 
 
-        var initData = function(){
+
+        $scope.count = 0;
+        $scope.shopDetails = {};
+        var itemPerPage = 10;
+
+
+        $scope.shopDetails = adminDataService.shopData();
+        $scope.searchObj = {
+            skip: $scope.blogs.length,
+            limit:itemPerPage,
+            searchKey:'',
+            searchValue:'',
+            shopId : $scope.shopDetails.branch.shopId
+        };
+
+        $scope.loadData = function(init){
+            if(init){
+                $scope.blogs = [];
+                $scope.searchObj.skip =0;
+            }
+            $scope.loading = true;
+            adminDataService.adminGetBlogList($scope.searchObj).then(function(response){
+                $scope.blogs.push.apply($scope.blogs, response.data.responData.data.list);
+                if(response.data.responData.data.count){
+                    $scope.count = response.data.responData.data.count;
+                }
+                $scope.loading = false;
+            },function(){
+                $scope.blogs = [];
+            });
+
+
+        };
+
+        $scope.paginationFuntion = function() {
+            $scope.searchObj.skip = $scope.blogs.length;
+            if ($scope.count > $scope.blogs.length  && !$scope.loading) {
+                $scope.loadData();
+            }
+        };
+
+        $scope.loadData(1);
+
+
+
+/*        var initData = function(){
             $scope.blogImage = [];
             $scope.shopDetails = adminDataService.shopData();
             adminDataService.adminGetBlogList({shopId:$scope.shopDetails.shopId}).then(function(response){
@@ -1564,15 +1609,14 @@
                 $scope.blogs = {};
             });
         };
-        initData();
+        initData();*/
 
 
         $scope.update = function(blog){
-            blog.shop = $scope.shopDetails.branch.shop;
             blog.img = $scope.blogImage[0]?$scope.blogImage[0].image:'';
             delete blog.open;
             adminDataService.updateBlog({blog:blog}).then(function (response) {
-                initData();
+               $scope.loadData(1);
                 Data_Toast.success(MESSAGE_CONFIG.SUCCESS_UPDATE_SUCCESSFULLY);
             },function (error) {
                 Data_Toast.error(MESSAGE_CONFIG.ERROR_UPDATE_FAIL,error.data.responData.Error);
@@ -1581,7 +1625,7 @@
 
         $scope.remove = function(blog){
             adminDataService.removeBlog({blog:blog}).then(function (response) {
-                initData();
+                $scope.loadData(1);
                 Data_Toast.success(MESSAGE_CONFIG.SUCCESS_REMOVED_SUCCESSFULLY);
             },function (error) {
                 Data_Toast.error(MESSAGE_CONFIG.ERROR_REMOVE_FAIL,error.data.responData.Error);
@@ -1595,7 +1639,7 @@
                 $scope.blogData = {};
                 $scope.blogImage = [];
                 $scope.addNew = false;
-                initData();
+                $scope.loadData(1);
                 Data_Toast.success(MESSAGE_CONFIG.SUCCESS_SAVED_SUCCESSFULLY);
             },function (error) {
                 Data_Toast.error(MESSAGE_CONFIG.ERROR_SAVE_FAIL,error.data.responData.Error);

@@ -56,7 +56,7 @@ function getAdminPromotionList(req,callback){
             break;
 
         default :
-            query = {$and:[{'item.shop.shopId' : shopId},{'item.shop.branchId' : branchId}]};
+            query = {$and:[{shopId:shopId},{branchId : branchId}]};
             break;
     }
 

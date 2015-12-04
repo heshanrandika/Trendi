@@ -59,7 +59,71 @@ function getBlogList(req,callback){
 function getAdminBlogList(req,callback){
     console.log("$$$$$$$  GetBlogList $$$$$$");
     var params = (req.body.params) ? req.body.params : {};
+    var skip =(params.skip)?params.skip:0;
+    var limit  = (params.limit)?params.limit:10;
+
+    var shopId = params.shopId;
+    var branchId  = params.branchId;
+    var searchKey  = params.searchKey;
+    var searchValue  = params.searchValue;
+    var sorter = [['date',-1]];
+
+    var option = {skip:skip, limit:limit, sort:sorter};
+
+
+    var title = req.user.title.value;
     var query = {};
+    switch (title){
+        case 20:
+            query = {};
+            break;
+
+        case 10:
+            query = {shopId:shopId};
+            break;
+
+        default :
+            query = {$and:[{shopId:shopId},{branchId : branchId}]};
+            break;
+    }
+
+    if(searchKey != '')
+        query[searchKey] = searchValue;
+
+    var data = {list:[]};
+    var dbCon = daf.FindWithPagination(query,CONSTANT.BLOG_COLLECTION,option);
+    dbCon.on('data', function(doc){
+        data.list.push(doc);
+    });
+
+    dbCon.on('end', function(){
+        if(skip == 0){
+            daf.Count(query,CONSTANT.BLOG_COLLECTION,function(err , count){
+                if(count){
+                    data.count = count;
+                }
+                callback(null,data);
+            })
+        }else{
+            callback(null,data);
+        }
+
+    });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*    var query = {};
     var  option = {};
 
     var data = [];
@@ -70,7 +134,7 @@ function getAdminBlogList(req,callback){
 
     dbCon.on('end', function(){
         callback(null,data);
-    });
+    });*/
 };
 
 function removeBlog(req,callback){

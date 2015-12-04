@@ -145,11 +145,41 @@ function adminGetShopList(req,callback){
 
     var skip =(params.skip)?params.skip:0;
     var limit  = (params.limit)?params.limit:18;
-    var sorter = params.sorter;
+    var searchKey  = params.searchKey;
+    var searchValue  = params.searchValue;
+    var sorter = [['date',-1]];
 
     var option = {skip:skip, limit:limit, sort:sorter};
     var query = {delete:0};
-    var data = [];
+
+
+    if(searchKey != '')
+        query[searchKey] = searchValue;
+
+    var data = {list:[]};
+    var dbCon = daf.FindWithPagination(query,CONSTANT.SHOP_COLLECTION,option);
+    dbCon.on('data', function(doc){
+        data.list.push(doc);
+    });
+
+    dbCon.on('end', function(){
+        if(skip == 0){
+            daf.Count(query,CONSTANT.SHOP_COLLECTION,function(err , count){
+                if(count){
+                    data.count = count;
+                }
+                callback(null,data);
+            })
+        }else{
+            callback(null,data);
+        }
+
+    });
+
+
+
+
+/*    var data = [];
     var dbCon = daf.FindWithPagination(query,CONSTANT.SHOP_COLLECTION,option);
     dbCon.on('data', function(doc){
         data.push(doc);
@@ -157,7 +187,7 @@ function adminGetShopList(req,callback){
 
     dbCon.on('end', function(){
         callback(null,data);
-    });
+    });*/
 };
 
 function adminGetBranchList(req,callback){
