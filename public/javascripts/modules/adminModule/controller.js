@@ -963,7 +963,7 @@
                 $scope.selectedIndex = 1;
             });
 
-            adminDataService.getBranchList({shopId:$scope.shopDetails.shopId}).then(function(response){
+            adminDataService.getBranchListToAssign({shopId:$scope.shopDetails.shopId}).then(function(response){
                 $scope.branchList = response.data.responData.data;
                 $scope.tmp.selectedBranch = $scope.branchList[0];
                 getIndex($scope.branchList,userData.branch,'branchId', function(value){
@@ -1406,71 +1406,114 @@
 
     }]);
 
-    mod.controller('adminExtraMessageController', ['$scope', '$rootScope','$state','adminDataService','Data.Toast','MESSAGE_CONFIG', function ($scope, $rootScope, $state, adminDataService, Data_Toast, MESSAGE_CONFIG) {
-        var itemPerPage = 25;
+    mod.controller('adminExtraMessageController', ['$scope', '$rootScope','$state','adminDataService','Data.Toast','MESSAGE_CONFIG','$mdDialog','$mdMedia', function ($scope, $rootScope, $state, adminDataService, Data_Toast, MESSAGE_CONFIG, $mdDialog, $mdMedia) {
+        $scope.count = 0;
+        $scope.shopDetails = {};
+        var inbox = 'INBOX';
+        var draft = 'DRAFTS';
+        var sent = 'SENT';
+        var itemPerPage = 10;
+        $scope.messageList =[];
 
 
-        $scope.pagination = {
-            current_page:0,
-            total_pages:0
-        };
 
-        var shopDetails = adminDataService.shopData();
+
+
+
+        $scope.shopDetails = adminDataService.shopData();
         $scope.searchObj = {
-            skip:0,
+            skip: $scope.messageList.length,
             limit:itemPerPage,
             searchKey:'',
             searchValue:'',
-            shopId : shopDetails.shop.shopId
+            type: inbox
         };
 
-        var loadData = function(){
-            adminDataService.adminGetItemList($scope.searchObj).then(function(response){
-                $scope.itemList.push.apply($scope.itemList, response.data.responData.data.list);
+        $scope.loadData = function(init){
+            if(init){
+                $scope.messageList = [];
+                $scope.searchObj.skip =0;
+            }
+            $scope.loading = true;
+            adminDataService.getAdminPromotionList($scope.searchObj).then(function(response){
+                $scope.messageList.push.apply($scope.messageList, response.data.responData.data.list);
                 if(response.data.responData.data.count){
-                    var count = response.data.responData.data.count;
-                    $scope.pagination.total_pages = (count%itemPerPage > 0)?(count/itemPerPage)+1:(count/itemPerPage);
+                    $scope.count = response.data.responData.data.count;
                 }
                 $scope.loading = false;
             },function(){
-                $scope.itemList = [];
+                $scope.messageList = [];
             });
 
 
         };
 
-
-
-
-
-        function load(page) {
-            var params     = { page: page };
-            var isTerminal = $scope.pagination && $scope.pagination.current_page >= $scope.pagination.total_pages && $scope.pagination.current_page <= 1;
-
-            // Determine if there is a need to load a new page
-            if (!isTerminal) {
-                // Flag loading as started
-                $scope.loading = true;
-
+        $scope.paginationFuntion = function() {
+            $scope.searchObj.skip = $scope.messageList.length;
+            if ($scope.count > $scope.messageList.length  && !$scope.loading) {
+                $scope.loadData();
             }
+        };
+
+
+
+
+        $scope.selectTab = function(tab){
+            $scope.selectedTab = tab;
+            switch (tab){
+                case 0:
+                    $scope.currentTab = 'Inbox';
+                    $scope.searchObj.type =  inbox;
+                    break;
+                case 1:
+                    $scope.currentTab = 'Sent';
+                    $scope.searchObj.type =  sent;
+                    break;
+                case 2:
+                    $scope.currentTab = 'Draft';
+                    $scope.searchObj.type =  draft;
+                    break;
+            }
+            $scope.loadData(1);
+        };
+        $scope.selectTab(0);
+
+
+        $scope.composeMail = function(item, event) {
+            $mdDialog.show({
+                locals:{itemData: item},
+                controller: DialogController,
+                templateUrl: '/views/adminModule/extras/compose.mail.modal.html',
+                parent: angular.element(document.body),
+                targetEvent: event,
+                clickOutsideToClose:false,
+                focusOnOpen:false,
+                fullscreen: $mdMedia('sm') && $scope.customFullscreen
+            })
+                .then(function(answer) {
+                    $scope.status = 'You said the information was "' + answer + '".';
+                }, function() {
+                    $scope.status = 'You cancelled the dialog.';
+                });
+            $scope.$watch(function() {
+                return $mdMedia('sm');
+            }, function(sm) {
+                $scope.customFullscreen = (sm === true);
+            });
+        };
+
+        function DialogController($scope, $mdDialog){
+            $scope.hide = function() {
+                $mdDialog.hide();
+            };
+            $scope.cancel = function() {
+                $mdDialog.cancel();
+            };
+            $scope.answer = function(answer) {
+                $mdDialog.hide(answer);
+            };
+
         }
-
-        // Register event handler
-        $scope.$on('endlessScroll:next', function() {
-            // Determine which page to load
-            var page = $scope.pagination ? $scope.pagination.current_page + 1 : 1;
-
-            // Load page
-            load(page);
-        });
-
-        // Load initial page (first page or from query param)
-        load($routeParams.page ? parseInt($routeParams.page, 10) : 1);
-
-
-
-
-
 
     }]);
 
@@ -1550,8 +1593,8 @@
         $scope.blogImageCount = 1;
         $scope.blogImage = [];
         $scope.blogData = {};
-
-
+        $scope.blogs = [];
+        $scope.addNew = false;
 
         $scope.count = 0;
         $scope.shopDetails = {};
@@ -1577,6 +1620,9 @@
                 $scope.blogs.push.apply($scope.blogs, response.data.responData.data.list);
                 if(response.data.responData.data.count){
                     $scope.count = response.data.responData.data.count;
+                }
+                if($scope.blogs.length <= 0){
+                    $scope.addNew = true;
                 }
                 $scope.loading = false;
             },function(){

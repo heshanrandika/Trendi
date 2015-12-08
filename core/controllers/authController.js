@@ -90,7 +90,7 @@ function login(req,callback) {
 
 function register(req,callback) {
     var params = (req.body.params) ? req.body.params : {};
-
+    var adminMail = (req.body.email)?req.body.email: 'trendi2015@gmail.com';
     var userType = (params.userType)?params.userType: 0;
     var regUser =  (params.regUser)?params.regUser: 0;
     var query = {'email':regUser.email};
@@ -105,8 +105,13 @@ function register(req,callback) {
                     if(err){
                         callback(("Registration Failed :"+err),null);
                     }else{
-                        var messageDoc = {email:regUser.email,SENTITEM:[],NEWMESSAGE:[],INBOX:[]};
-                        daf.Insert(messageDoc,CONSTANT.MESSAGE, function(err, success){
+                        var messageDoc = {
+                            from:adminMail,
+                            to: regUser.email,
+                            subject: "Test Mail",
+                            body: "Test mail from admin"
+                        };
+                        daf.MInsert(messageDoc,regUser.email, function(err, success){
                             console.log("^^^^^^^  Message Added ^^^^^^^ : ");
                             callback(err,("Successfully Registered :"+success));
                         })
@@ -138,7 +143,7 @@ function getEntitlements(req, callback){
 function shopRegistration(req,callback) {
     var params = (req.body.params) ? req.body.params : {};
 
-
+    var adminMail = (req.body.email)?req.body.email: 'trendi2015@gmail.com';
     var userType = (req.body.userType)?req.body.userType: 0;
     var regUser =  (params.regUser)?params.regUser: 0;
     var shop =  (params.shop)?params.shop: {};
@@ -180,10 +185,10 @@ function shopRegistration(req,callback) {
                             title:{value:10 , key:'Super Admin'}
                         };
                         var messageDoc = {
-                            email: regUser.email,
-                            SENTITEM: [],
-                            NEWMESSAGE: [],
-                            INBOX: []
+                            from:adminMail,
+                            to: regUser.email,
+                            subject: "Test Mail",
+                            body: "Test mail from admin"
                         };
 
                         var bannerDoc = {
@@ -204,7 +209,7 @@ function shopRegistration(req,callback) {
                                                 callback(("Branch Registration Failed :"+err),null);
                                             }else {
                                                 console.log("^^^^^^^  Shop Added ^^^^^^^ : ");
-                                                daf.Insert(messageDoc, CONSTANT.MESSAGE, function (err, success) {
+                                                daf.MInsert(messageDoc, regUser.email, function (err, success) {
                                                     if(err){
                                                         callback(("Message Adding Failed :"+err),null);
                                                     }else{

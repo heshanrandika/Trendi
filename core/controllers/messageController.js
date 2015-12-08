@@ -128,7 +128,7 @@ function updateMessage(req,callback){
     var params = (req.body.params) ? req.body.params : {};
     var toEmail = params.to;
     var query = {id:params.id};
-    var changeDoc = {read : true}
+    var changeDoc = {read : true};
 
     daf.MUpdate(query,changeDoc,toEmail,function(err , success){ 
             callback(err , success);

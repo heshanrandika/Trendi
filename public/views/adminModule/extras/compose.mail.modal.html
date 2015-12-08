@@ -1,0 +1,41 @@
+<md-dialog aria-label="Mango (Fruit)"  ng-cloak>
+    <form>
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>Compose Mail</h2>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="cancel()">
+                    <i class="fa fa-times"></i>
+                </md-button>
+            </div>
+        </md-toolbar>
+        <md-dialog-content>
+            <div class="md-dialog-content">
+                <div>
+                    <div class="col-md-12">
+                        <md-input-container flex>
+                            <label>To</label>
+                            <input ng-model="mail.to" name="to" type="email" ng-required="true">
+                        </md-input-container>
+                        <md-input-container flex>
+                            <label>Subject</label>
+                            <input ng-model="mail.subject" name="subject" type="text">
+                        </md-input-container>
+                    </div>
+                    <div class="col-md-12">
+                        <div text-angular="text-angular" name="message" ng-model="mail.message" ta-disabled='false'></div>
+                    </div>
+                </div>
+            </div>
+        </md-dialog-content>
+        <md-dialog-actions layout="row">
+            <span flex></span>
+            <md-button ng-click="answer('1')" class="md-raised md-primary">
+                Send
+            </md-button>
+            <md-button ng-click="cancel()" style="margin-right:20px;">
+                Cancel
+            </md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>

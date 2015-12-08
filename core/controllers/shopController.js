@@ -233,48 +233,29 @@ function adminGetBranchList(req,callback){
 
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    /*
-     if(shopId == "" || shopId == undefined){
-     callback("ShopId not Available",null);
-     }else{
-     var skip =(params.skip)?params.skip:0;
-     var limit  = (params.limit)?params.limit:18;
-     var sorter = params.sorter;
-
-     var option = {skip:skip, limit:limit, sort:sorter};
-
-     var query = {shopId:shopId, delete:0};
-     var data = [];
-     var dbCon = daf.FindWithPagination(query,CONSTANT.SHOP_BRANCH,option);
-     dbCon.on('data', function(doc){
-     data.push(doc);
-     });
-
-     dbCon.on('end', function(){
-     callback(null,data);
-     });
-     }*/
-
-
 };
+
+function getBranchListToAssign(req,callback){
+    console.log("$$$$$$$  adminGetShopList $$$$$$");
+    var params = (req.body.params) ? req.body.params : {};
+    var shopId  = params.shopId;
+    if(shopId == "" || shopId == undefined){
+        callback("ShopId not Available",null);
+
+    }else{
+        var option = {};
+        var query = {shopId:shopId, delete:0};
+        var data = [];
+        var dbCon = daf.FindWithPagination(query,CONSTANT.SHOP_BRANCH,option);
+        dbCon.on('data', function(doc){
+            data.push(doc);
+        });
+
+        dbCon.on('end', function(){
+            callback(null,data);
+        });
+    }
+}
 
 function adminGetUserList(req,callback){
     console.log("$$$$$$$  GetShop $$$$$$");
@@ -448,6 +429,7 @@ module.exports.UpdateBranch = updateBranch;
 module.exports.AdminGetShopList = adminGetShopList;
 module.exports.AdminGetUserList = adminGetUserList;
 module.exports.AdminGetBranchList = adminGetBranchList;
+module.exports.GetBranchListToAssign = getBranchListToAssign;
 module.exports.UpdateBranches = updateBranches;
 module.exports.GetBannerImage = getBannerImage;
 module.exports.AdminGetUser = adminGetUser;

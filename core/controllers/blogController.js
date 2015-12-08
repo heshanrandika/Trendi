@@ -79,11 +79,11 @@ function getAdminBlogList(req,callback){
             break;
 
         case 10:
-            query = {shopId:shopId};
+            query = {'shop.shopId':shopId};
             break;
 
         default :
-            query = {$and:[{shopId:shopId},{branchId : branchId}]};
+            query = {$and:[{'shop.shopId':shopId},{branchId : branchId}]};
             break;
     }
 

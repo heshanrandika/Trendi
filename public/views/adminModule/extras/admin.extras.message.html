@@ -3,28 +3,31 @@
         <div class="container">
             <h3 class="page-title">
                 MESSAGE
-                <small>Supply &nbsp <span class="fa fa-link"></span> &nbsp Chain</small>
+                <small>Happy &nbsp <span class="fa fa-cart-plus"></span> &nbsp Me</small>
             </h3>
 
             <div class="raw message-container">
                 <div class="col-md-3 message">
+                    <md-button  class="md-raised md-primary" ng-click="composeMail()">
+                        COMPOSE
+                    </md-button>
                     <ul class="list-group ">
-                        <li class="list-group-item">
-                            <a href="#"><i class="fa fa-inbox"></i> Inbox <span class="label label-danger pull-right">2</span></a>
+                        <li class="list-group-item" ng-class="selectedTab == 0?'message-select-li':''" ng-click="selectTab(0)">
+                            <a><i class="fa fa-inbox"></i> Inbox <span class="label label-danger pull-right">2</span></a>
                         </li>
-                        <li class="list-group-item">
-                            <a href="#"><i class="fa fa-envelope"></i> Sent Mail</a>
+                        <li class="list-group-item" ng-class="selectedTab == 1?'message-select-li':''" ng-click="selectTab(1)">
+                            <a><i class="fa fa-envelope"></i> Sent Mail</a>
                         </li>
-                        <li class="list-group-item">
-                            <a href="#"><i class=" fa fa-external-link"></i> Drafts <span class="label label-info pull-right">30</span></a>
-                        </li>
-                        <li class="list-group-item">
-                            <a href="#"><i class=" fa fa-trash"></i> Trash</a>
+                        <li class="list-group-item" ng-class="selectedTab == 2?'message-select-li':''" ng-click="selectTab(2)">
+                            <a><i class="fa fa-external-link"></i> Drafts <span class="label label-info pull-right">30</span></a>
                         </li>
                     </ul>
 
                 </div>
                 <aside class="col-md-9">
+                    <span>
+                        {{currentTab}}
+                    </span>
                     <div class="inbox-head">
                         <div class="mail-option">
                             <div class="pull-left all-check">
@@ -101,6 +104,8 @@
                             </tbody>
                         </table>
                     </div>
+
+
                 </aside>
             </div>
 

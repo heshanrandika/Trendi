@@ -191,3 +191,7 @@
 .vertical-center{
     vertical-align: baseline;
 }
+
+.message-select-li{
+    background: gainsboro;
+}

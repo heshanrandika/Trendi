@@ -39,6 +39,10 @@
             return Data_Comm.postPromise(angular.extend({params:d},adminServiceCalls.getBranchListDao()));
         };
 
+        var _getBranchListToAssign = function(d){
+            return Data_Comm.postPromise(angular.extend({params:d},adminServiceCalls.getBranchListToAssignDao()));
+        };
+
         var _getBannerImage = function(d){
             return Data_Comm.postPromise(angular.extend({params:d},adminServiceCalls.getBannerImageDao()));
         };
@@ -161,6 +165,7 @@
             adminUpdateShop:_adminUpdateShop,
             getUserList:_getUserList,
             getBranchList:_getBranchList,
+            getBranchListToAssign:_getBranchListToAssign,
             isAuthenticated: _isAuthenticated,
             fullUserData:_fullUserData,
             getEntitlements:_getEntitlements,

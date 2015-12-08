@@ -12,11 +12,11 @@
                 controller: 'adminMasterController'
 
             },
-          /*  'admin.login': {
-                url: '/login',
-                templateUrl: 'views/adminModule/admin.login.html',
-                controller: 'adminAuthController'
-            },*/
+            /*  'admin.login': {
+             url: '/login',
+             templateUrl: 'views/adminModule/admin.login.html',
+             controller: 'adminAuthController'
+             },*/
 
             'admin.items': {
                 url: '/items',
@@ -157,6 +157,7 @@
             FUNC_GetUserList:     2012,
             FUNC_AdminUpdateShop: 2013,
             FUNC_GetBannerImage:  2014,
+            FUNC__GetBranchListToAssign:  2019,
             //++++++++branch function list++++++++++++
             FUNC_AddBranch:       2003,
             FUNC_UpdateBranch:    2006,
@@ -180,7 +181,12 @@
             FUNC_UpdateBlog :     6005,
             FUNC_AdminGetTagList :      7000,
             FUNC_AddTag     :     7002,
-            FUNC_RemoveTag  :     7003
+            FUNC_RemoveTag  :     7003,
+            FUNC_GetMessageList  :      5000,
+            FUNC_SendMessage:     5001,
+            FUNC_ReplyMessage  :  5002,
+            FUNC_UpdateMessage  : 5003,
+            FUNC_GetUnreadMessageList  :5004
 
 
 
