@@ -30,82 +30,49 @@
                     </span>
                     <div class="inbox-head">
                         <div class="mail-option">
-                            <div class="pull-left all-check">
-                                <label class="checkbox-custom check-success">
-                                    <input type="checkbox" value="check-all" id="checkbox1"> <label for="checkbox1"> </label>
-                                </label>
-                            </div>
-
                             <div class="btn-group">
                                 <a class="btn mini tooltips" href="#" data-toggle="dropdown" data-placement="top" data-original-title="Refresh">
                                     <i class=" fa fa-refresh"></i>
                                 </a>
                             </div>
-
-                            <div class="btn-group">
-                                <a class="btn" href="#">
-                                    <i class=" fa fa-archive"></i>
-                                </a>
-                                <a class="btn" href="#">
-                                    <i class=" fa fa-info-circle"></i>
-                                </a>
-                                <a class="btn" href="#">
-                                    <i class=" fa fa-trash"></i>
-                                </a>
-                            </div>
-
-                            <div class="btn-group">
-                                <a class="btn" href="#">
-                                    <i class=" fa fa-folder"></i>
-                                </a>
-                                <a class="btn" href="#">
-                                    <i class=" fa fa-tag"></i>
-                                </a>
-                            </div>
-
-
-                            <div class="btn-group hidden-phone">
-                                <a class="btn mini blue" href="#" data-toggle="dropdown">
-                                    More
-                                    <i class="fa fa-angle-down "></i>
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="#"><i class="fa fa-pencil"></i> Mark as Read</a></li>
-                                    <li><a href="#"><i class="fa fa-ban"></i> Spam</a></li>
-                                    <li class="divider"></li>
-                                    <li><a href="#"><i class="fa fa-trash-o"></i> Delete</a></li>
-                                </ul>
-                            </div>
-
                         </div>
 
                     </div>
                     <div class="inbox-body no-pad">
 
-                        <table class="table table-inbox table-hover">
+                        <table class="table table-inbox table-hover" ng-if="selectedTab == 0">
                             <tbody lazy-scroll="paginationFuntion()" lazy-scroll-trigger="80">
-                            <tr ng-repeat="message in messages"  class="unread">
-                                <td class="inbox-small-cells">
-                                    <label class="checkbox-custom check-success">
-                                        <input type="checkbox" value="c1" id="c1"> <label for="c1"> </label>
-                                    </label>
-                                </td>
+                            <tr ng-repeat="message in messageList"  ng-class="message.read?'':'unread'">
                                 <td class="inbox-small-cells"><i class="fa fa-star inbox-started"></i></td>
-                                <td>
-                                    <a href="#" class="avatar">
-                                        <img src="img/img1.jpg" alt="">
-                                    </a>
-                                </td>
-                                <td class="view-message  dont-show">Vector Lab</td>
-                                <td class="view-message ">Lorem ipsum dolor imit set.</td>
-                                <td class="view-message  inbox-small-cells"><i class="fa fa-paperclip"></i></td>
-                                <td class="view-message  text-right">9:27 AM</td>
+                                <td class="view-message  dont-show">{{message.from}}</td>
+                                <td class="view-message ">{{message.subject}}</td>
+                                <td class="view-message  text-right">{{message.date | date:'short'}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+                        <table class="table table-inbox table-hover" ng-if="selectedTab == 1">
+                            <tbody lazy-scroll="paginationFuntion()" lazy-scroll-trigger="80">
+                            <tr ng-repeat="message in messageList"  ng-class="message.read?'':'unread'">
+                                <td class="inbox-small-cells"><i class="fa fa-star inbox-started"></i></td>
+                                <td class="view-message  dont-show">{{message.to}}</td>
+                                <td class="view-message ">{{message.subject}}</td>
+                                <td class="view-message  text-right">{{message.date | date:'short'}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+                        <table class="table table-inbox table-hover" ng-if="selectedTab == 2">
+                            <tbody lazy-scroll="paginationFuntion()" lazy-scroll-trigger="80">
+                            <tr ng-repeat="message in messageList"  ng-class="message.read?'':'unread'">
+                                <td class="inbox-small-cells"><i class="fa fa-star inbox-started"></i></td>
+                                <td class="view-message  dont-show">{{message.to}}</td>
+                                <td class="view-message ">{{message.subject}}</td>
+                                <td class="view-message  text-right">{{message.date | date:'short'}}</td>
                             </tr>
                             </tbody>
                         </table>
                     </div>
-
-
                 </aside>
             </div>
 

@@ -1479,9 +1479,9 @@
         $scope.selectTab(0);
 
 
-        $scope.composeMail = function(item, event) {
+        $scope.composeMail = function(data, event) {
             $mdDialog.show({
-                locals:{itemData: item},
+                locals:{mailData: data},
                 controller: DialogController,
                 templateUrl: '/views/adminModule/extras/compose.mail.modal.html',
                 parent: angular.element(document.body),
@@ -1491,9 +1491,15 @@
                 fullscreen: $mdMedia('sm') && $scope.customFullscreen
             })
                 .then(function(answer) {
-                    $scope.status = 'You said the information was "' + answer + '".';
+                    adminDataService.sendMessage({message:answer}).then(function(response){
+
+                    },function(){
+                        $scope.composeMail(answer, event);
+                    });
+
+
                 }, function() {
-                    $scope.status = 'You cancelled the dialog.';
+
                 });
             $scope.$watch(function() {
                 return $mdMedia('sm');
@@ -1502,9 +1508,12 @@
             });
         };
 
-        function DialogController($scope, $mdDialog){
+        function DialogController($scope, $mdDialog, mailData){
 
             $scope.mail = {};
+            $scope.mail.to = mailData?mailData.to:'';
+            $scope.mail.subject = mailData?mailData.subject:'';
+            $scope.mail.message = mailData?mailData.message:'';
 
             $scope.hide = function() {
                 $mdDialog.hide();

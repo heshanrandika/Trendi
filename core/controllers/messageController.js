@@ -8,10 +8,12 @@ var CONSTANT = require('../utility/Constants');
 function getMessageList(req,callback){
     console.log("$$$$$$$  GetMessageList $$$$$$");
     var params = (req.body.params) ? req.body.params : {};
-    var email = params.email;
+    var email = req.body.email;
     var type = params.type;
     var skip   = (params.skip)?params.skip:0;
     var limit  = (params.limit)?params.limit:16;
+    var searchKey  = params.searchKey;
+    var searchValue  = params.searchValue;
     var sorter = [['date',-1]];
 
     var query = {$or:[{'tag': type},{'REPLY': {$elemMatch: {tag:type}}}]};
@@ -25,14 +27,14 @@ function getMessageList(req,callback){
         query[searchKey] = searchValue;
 
     var data = {list:[]};
-    var dbCon = daf.MFindWithPagination(query,mail,option);
+    var dbCon = daf.MFindWithPagination(query,email,option);
     dbCon.on('data', function(doc){
         data.list.push(doc);
     });
 
     dbCon.on('end', function(){
         if(skip == 0){
-            daf.MCount(query,mail,function(err , count){
+            daf.MCount(query,email,function(err , count){
                 if(count){
                     data.count = count;
                 }
@@ -58,10 +60,12 @@ function getMessageList(req,callback){
 function getUnreadMessageList(req,callback){
     console.log("$$$$$$$  GetMessageList $$$$$$");
     var params = (req.body.params) ? req.body.params : {};
-    var email = params.email;
+    var email = req.body.email;
     var type = params.type;
     var skip   = (params.skip)?params.skip:0;
     var limit  = (params.limit)?params.limit:16;
+    var searchKey  = params.searchKey;
+    var searchValue  = params.searchValue;
     var sorter = [['date',-1]];
 
     var query = {$or:[{'tag': type},{'REPLY': {$elemMatch: {tag:type, read:false}}}]};
@@ -75,14 +79,14 @@ function getUnreadMessageList(req,callback){
         query[searchKey] = searchValue;
 
     var data = {list:[]};
-    var dbCon = daf.MFindWithPagination(query,mail,option);
+    var dbCon = daf.MFindWithPagination(query,email,option);
     dbCon.on('data', function(doc){
         data.list.push(doc);
     });
 
     dbCon.on('end', function(){
         if(skip == 0){
-            daf.MCount(query,mail,function(err , count){
+            daf.MCount(query,email,function(err , count){
                 if(count){
                     data.count = count;
                 }
@@ -99,13 +103,14 @@ function getUnreadMessageList(req,callback){
 function sendMessage(req,callback){
     console.log("$$$$$$$  Send Message $$$$$$");
     var params = (req.body.params) ? req.body.params : {};
-    var toEmail = params.toEmail;
-    var fromEmail = params.email;
-    var message = params.Message;
+    var fromEmail = req.body.email.trim();
+    var message = params.message;
+    var toEmail = message.to.trim();
 
     message.to = toEmail;
     message.from = fromEmail;
     message.id = new Date().getTime()+"";
+    message.date = new Date();
     message.tag = 'INBOX';
     message.read = false;
 
@@ -148,6 +153,7 @@ function replyMessage(req,callback){
     message.to = toEmail;
     message.from = fromEmail;
     message.id = new Date().getTime()+"";
+    message.date = new Date();
     message.tag = 'INBOX';
     message.read = false;
 

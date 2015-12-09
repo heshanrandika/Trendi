@@ -141,12 +141,7 @@ function count(query, fromCollection, callback){
 
 function mCount(query, fromCollection, callback){
     mdbc.dbm.collection(fromCollection).count(query,function(err, docCount){
-        if (err) {
-            callback(err,docCount);
-        }
-        if(docCount) {
-            callback(err,docCount);
-        }
+        callback(err,docCount);
     });
 }
 
