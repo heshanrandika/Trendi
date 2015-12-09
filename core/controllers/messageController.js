@@ -109,22 +109,17 @@ function sendMessage(req,callback){
     message.tag = 'INBOX';
     message.read = false;
 
-    for(to in toEmail){
-        daf.MInsert(message,toEmail[to],function(err , success){
-            if(success){
-                message.tag = 'SENT';
-            }else{
-                message.tag = 'DRAFTS';
-            }
-            daf.MInsert(message,fromEmail,function(err , success){
-                if(to == toEmail.length -1)
-                    callback(err , success);
-            });
-        
+    daf.MInsert(message,toEmail,function(err , success){
+        if(success){
+            message.tag = 'SENT';
+        }else{
+            message.tag = 'DRAFTS';
+        }
+        daf.MInsert(message,fromEmail,function(err , success){
+                callback(err , success);
         });
-
-    }
-  
+        
+    });
 
 };
  //TODO

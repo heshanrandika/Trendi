@@ -16,40 +16,6 @@
                         <md-input-container flex>
                             <label>To</label>
                             <input ng-model="mail.to" name="to" type="email" ng-required="true">
-                            <md-content>
-                                        <div>
-                                        <span ng-repeat="item in addedList track by $index">
-                                            {{item.name}}
-                                            <i class="fa fa-times" ng-click=""></i>
-                                        </span>
-                                        </div>
-                                        <md-autocomplete
-                                                ng-disabled="isDisabled"
-                                                md-no-cache="noCache"
-                                                md-selected-item="selectedItem"
-                                                md-search-text-change="searchTextChange(searchText)"
-                                                md-search-text="searchText"
-                                                md-selected-item-change="selectedItemChange(item)"
-                                                md-items="item in querySearch(searchText)"
-                                                md-item-text="item.name"
-                                                md-min-length="0"
-                                                placeholder="Pick an Angular repository"
-                                                md-menu-class="autocomplete-custom-template">
-                                            <md-item-template>
-                                    <span class="item-title">
-                                      <span> {{item.name}} </span>
-                                    </span>
-                                    <span class="item-metadata">
-                                      <span class="item-metastat">
-                                        <strong>{{item.watchers}}</strong> watchers
-                                      </span>
-                                      <span class="item-metastat">
-                                        <strong>{{item.forks}}</strong> forks
-                                      </span>
-                                    </span>
-                                            </md-item-template>
-                                        </md-autocomplete>
-                                    </md-content>
                         </md-input-container>
                         <md-input-container flex>
                             <label>Subject</label>
@@ -64,7 +30,7 @@
         </md-dialog-content>
         <md-dialog-actions layout="row">
             <span flex></span>
-            <md-button ng-disabled="addedList.length <= 0" ng-click="answer(mail)" class="md-raised md-primary">
+            <md-button ng-disabled="" ng-click="answer(mail)" class="md-raised md-primary">
                 Send
             </md-button>
             <md-button ng-click="cancel()" style="margin-right:20px;">
