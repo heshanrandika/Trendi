@@ -1435,7 +1435,7 @@
                 $scope.searchObj.skip =0;
             }
             $scope.loading = true;
-            adminDataService.getAdminPromotionList($scope.searchObj).then(function(response){
+            adminDataService.getMessageList($scope.searchObj).then(function(response){
                 $scope.messageList.push.apply($scope.messageList, response.data.responData.data.list);
                 if(response.data.responData.data.count){
                     $scope.count = response.data.responData.data.count;
@@ -1503,6 +1503,79 @@
         };
 
         function DialogController($scope, $mdDialog){
+
+            $scope.mail = {};
+
+                $scope.simulateQuery = false;
+    $scope.isDisabled    = false;
+    $scope.repos         = loadAll();
+    $scope.querySearch   = querySearch;
+    $scope.selectedItemChange = selectedItemChange;
+    $scope.searchTextChange   = searchTextChange;
+    $scope.mail.addedList = [];
+
+    function querySearch (query) {
+      var results = query ? $scope.repos.filter( createFilterFor(query) ) : $scope.repos,
+          deferred;
+      if ($scope.simulateQuery) {
+        deferred = $q.defer();
+        $timeout(function () { deferred.resolve( results ); }, Math.random() * 1000, false);
+        return deferred.promise;
+      } else {
+        return results;
+      }
+    }
+    function searchTextChange(text) {
+    
+    }
+    function selectedItemChange(item) {
+        if(item != undefined){
+            $scope.mail.addedList.push(item);
+            
+        }
+
+    }
+    /**
+     * Build `components` list of key/value pairs
+     */
+    function loadAll() {
+      var repos = [
+        {
+          'name'      : 'Angular 1',
+          'email'       : 'h@gmail.com'
+        },
+        {
+          'name'      : 'Angular 2',
+          'email'       : 'ha@gmail.com'
+        },
+        {
+          'name'      : 'Angular Material',
+          'email'       : 'hb@gmail.com'
+        },
+        {
+          'name'      : 'Bower Material',
+          'email'       : 'hc@gmail.com'
+        },
+        {
+          'name'      : 'Material Start',
+          'email'       : 'hd@gmail.com'
+        }
+      ];
+      return repos.map( function (repo) {
+        repo.value = repo.name.toLowerCase();
+        return repo;
+      });
+    }
+    /**
+     * Create filter function for a query string
+     */
+    function createFilterFor(query) {
+      var lowercaseQuery = angular.lowercase(query);
+      return function filterFn(item) {
+        return (item.value.indexOf(lowercaseQuery) === 0);
+      };
+    }
+
             $scope.hide = function() {
                 $mdDialog.hide();
             };

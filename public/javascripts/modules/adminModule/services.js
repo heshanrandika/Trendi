@@ -130,6 +130,26 @@
             return Data_Comm.postPromise(angular.extend({params:d},adminServiceCalls.removeTagDao()));
         };
 
+        var _getMessageList = function(d){
+            return Data_Comm.postPromise(angular.extend({params:d},adminServiceCalls.getMessageListDao()));
+        };
+
+        var _sendMessage = function(d){
+            return Data_Comm.postPromise(angular.extend({params:d},adminServiceCalls.sendMessageDao()));
+        };
+
+        var _replyMessage = function(d){
+            return Data_Comm.postPromise(angular.extend({params:d},adminServiceCalls.replyMessageDao()));
+        };
+
+        var _updateMessage = function(d){
+            return Data_Comm.postPromise(angular.extend({params:d},adminServiceCalls.updateMessageDao()));
+        };
+
+        var _getUnreadMessageList = function(d){
+            return Data_Comm.postPromise(angular.extend({params:d},adminServiceCalls.getUnreadMessageListDao()));
+        };
+
         var _getShopList = function(){
             return Data_Comm.postPromise(adminServiceCalls.getShopListDao());
         };
@@ -190,7 +210,12 @@
             removeBlog:_removeBlog,
             adminGetTagList:_adminGetTagList,
             addTag:_addTag,
-            removeTag:_removeTag
+            removeTag:_removeTag,
+            getMessageList:_getMessageList,
+            sendMessage:_sendMessage,
+            replyMessage:_replyMessage,
+            updateMessage:_updateMessage,
+            getUnreadMessageList:_getUnreadMessageList
         }
     }]);
 })(com.TRENDI.CATEGORY.modules.adminModule);

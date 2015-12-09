@@ -157,6 +157,26 @@
             return angular.extend({functionId: ADMIN_MOD_CONFIG.REQ_CONFIG.FUNC_RemoveTag}, _getCObj());
         };
 
+        serviceCalls.getMessageListDao = function () {
+            return angular.extend({functionId: ADMIN_MOD_CONFIG.REQ_CONFIG.FUNC_GetMessageList}, _getCObj());
+        };
+
+        serviceCalls.sendMessageDao = function () {
+            return angular.extend({functionId: ADMIN_MOD_CONFIG.REQ_CONFIG.FUNC_SendMessage}, _getCObj());
+        };
+
+        serviceCalls.replyMessageDao = function () {
+            return angular.extend({functionId: ADMIN_MOD_CONFIG.REQ_CONFIG.FUNC_ReplyMessage}, _getCObj());
+        };
+
+        serviceCalls.updateMessageDao = function () {
+            return angular.extend({functionId: ADMIN_MOD_CONFIG.REQ_CONFIG.FUNC_UpdateMessage}, _getCObj());
+        };
+
+        serviceCalls.getUnreadMessageListDao = function () {
+            return angular.extend({functionId: ADMIN_MOD_CONFIG.REQ_CONFIG.FUNC_GetUnreadMessageList}, _getCObj());
+        };
+
         serviceCalls.shopDataDao = function () {
             return $storage.user;
         };
