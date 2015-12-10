@@ -1527,6 +1527,55 @@
 
         }
 
+
+        $scope.replyMail = function(data, event) {
+            $mdDialog.show({
+                locals:{mailData: data},
+                controller: ReplyDialogController,
+                templateUrl: '/views/adminModule/extras/reply.mail.modal.html',
+                parent: angular.element(document.body),
+                targetEvent: event,
+                clickOutsideToClose:false,
+                focusOnOpen:false,
+                fullscreen: $mdMedia('sm') && $scope.customFullscreen
+            })
+                .then(function(answer) {
+                    adminDataService.replyMessage({message:answer}).then(function(response){
+
+                    },function(){
+                        $scope.composeMail(answer, event);
+                    });
+
+
+                }, function() {
+
+                });
+            $scope.$watch(function() {
+                return $mdMedia('sm');
+            }, function(sm) {
+                $scope.customFullscreen = (sm === true);
+            });
+        };
+
+         function ReplyDialogController($scope, $mdDialog, mailData){
+
+            $scope.mail = {};
+            $scope.mail.to = mailData?mailData.to:'';
+            $scope.mail.subject = mailData?mailData.subject:'';
+            $scope.mail.message = mailData?mailData.message:'';
+
+            $scope.hide = function() {
+                $mdDialog.hide();
+            };
+            $scope.cancel = function() {
+                $mdDialog.cancel();
+            };
+            $scope.answer = function(answer) {
+                $mdDialog.hide(answer);
+            };
+
+        }
+
     }]);
 
     mod.controller('adminExtraTagsController', ['$scope', '$rootScope','$state','adminDataService','Data.Toast','MESSAGE_CONFIG', function ($scope, $rootScope, $state, adminDataService, Data_Toast, MESSAGE_CONFIG) {
