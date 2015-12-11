@@ -12,15 +12,32 @@
         <md-dialog-content>
             <div class="md-dialog-content">
                 <div>
+                  <accordion close-others="true">
+                                    <accordion-group heading="{{rplyMail.subject}}">
+                                        <div>
+                                            <h3><span >{{rplyMail.from}}</span></h3>
+                                            <p ng-bind-html="rplyMail.message"></p>
+                                        </div>
+                                    </accordion-group>
+                                    <accordion-group heading="{{rplyMail.subject}}" ng-repeat="rplyMail in rplyMail.REPLY">
+                                        <div>
+                                            <h3><span >{{rplyMail.from}}</span></h3>
+                                            <p ng-bind-html="rplyMail.message"></p>
+                                        </div>
+                                    </accordion-group>
+                    </accordion>
                     <div class="col-md-12">
-                        <div text-angular="text-angular" name="message" ng-model="mail.message" ta-disabled='false'></div>
+                        <div text-angular="text-angular" name="message" ng-model="replyMail.message" ta-disabled='false'></div>
+                        <md-button ng-click="answer(replyMail)" class="md-raised md-primary">
+                            Reply
+                        </md-button>
                     </div>
                 </div>
             </div>
         </md-dialog-content>
         <md-dialog-actions layout="row">
             <span flex></span>
-            <md-button ng-disabled="itemForm.$invalid" ng-click="answer(mail)" class="md-raised md-primary">
+            <md-button ng-click="answer(replyMail)" class="md-raised md-primary">
                 Send
             </md-button>
             <md-button ng-click="cancel()" style="margin-right:20px;">

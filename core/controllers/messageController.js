@@ -145,10 +145,11 @@ function updateMessage(req,callback){
 function replyMessage(req,callback){
     console.log("$$$$$$$  Reply Message  $$$$$$");
     var params = (req.body.params) ? req.body.params : {};
+    var fromEmail = req.body.email.trim();
 
-    var toEmail = params.toEmail;
-    var fromEmail = params.email;
-    var message = params.Message;
+    var message = params.message;
+    var toEmail = message.to.trim();
+    var mainId =  message.replyId;
 
     message.to = toEmail;
     message.from = fromEmail;
@@ -158,7 +159,7 @@ function replyMessage(req,callback){
     message.read = false;
 
 
-    var query = {id:params.id};
+    var query = {id:mainId};
     var changeDoc = {$push:{'REPLY':message}};
 
     daf.MUpdate(query,changeDoc,toEmail,function(err , success){

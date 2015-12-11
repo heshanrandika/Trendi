@@ -1558,11 +1558,11 @@
         };
 
          function ReplyDialogController($scope, $mdDialog, mailData){
-
-            $scope.mail = {};
-            $scope.mail.to = mailData?mailData.to:'';
-            $scope.mail.subject = mailData?mailData.subject:'';
-            $scope.mail.message = mailData?mailData.message:'';
+            $scope.rplyMail = mailData?mailData:{};
+            $scope.replyMail = {};
+            $scope.replyMail.replyId = mailData?mailData.id:'';
+            $scope.replyMail.to = mailData?mailData.from:'';
+            $scope.replyMail.message = mailData?mailData.message:'';
 
             $scope.hide = function() {
                 $mdDialog.hide();
