@@ -11,38 +11,34 @@
         </md-toolbar>
         <md-dialog-content>
             <div class="md-dialog-content">
-                <div>
-                  <accordion close-others="true">
-                                    <accordion-group heading="{{rplyMail.subject}}">
-                                        <div>
-                                            <h3><span >{{rplyMail.from}}</span></h3>
-                                            <p ng-bind-html="rplyMail.message"></p>
-                                        </div>
-                                    </accordion-group>
-                                    <accordion-group heading="{{rplyMail.subject}}" ng-repeat="rplyMail in rplyMail.REPLY">
-                                        <div>
-                                            <h3><span >{{rplyMail.from}}</span></h3>
-                                            <p ng-bind-html="rplyMail.message"></p>
-                                        </div>
-                                    </accordion-group>
+                <div><h3>{{rplyMail.subject}}</h3>
+                    <accordion close-others="true">
+                        <accordion-group  is-open="open" ng-init="undefined == rplyMail.REPLY?open=true:open=false">
+                            <accordion-heading><div class="accord-head" ng-show="!open"><span><i><b>{{rplyMail.from}}</b></i></span></br><span>{{rplyMail.message | htmlToPlaintext}}</span>  </div> </accordion-heading>
+                            <div>
+                                <h6><span >{{rplyMail.from}}</span></h6>
+                                <p ng-bind-html="rplyMail.message"></p>
+                            </div>
+                        </accordion-group>
+                        <accordion-group ng-repeat="replyMails in rplyMail.REPLY" is-open="repOpen" ng-init="rplyMail.REPLY.length() == $index?repOpen=true:repOpen=false">
+                            <accordion-heading><div class="accord-head" ng-show="!repOpen"><span><i><b>{{replyMails.from}}</b></i></span> </br> <span>{{replyMails.message | htmlToPlaintext}}</span>  </div> </accordion-heading>
+                            <div>
+                                <h6><span >{{replyMails.from}}</span></h6>
+                                <p ng-bind-html="replyMails.message"></p>
+                            </div>
+                        </accordion-group>
                     </accordion>
                     <div class="col-md-12">
                         <div text-angular="text-angular" name="message" ng-model="replyMail.message" ta-disabled='false'></div>
                         <md-button ng-click="answer(replyMail)" class="md-raised md-primary">
                             Reply
                         </md-button>
+                        <md-button ng-click="cancel()" style="margin-right:20px;">
+                            Cancel
+                        </md-button>
                     </div>
                 </div>
             </div>
         </md-dialog-content>
-        <md-dialog-actions layout="row">
-            <span flex></span>
-            <md-button ng-click="answer(replyMail)" class="md-raised md-primary">
-                Send
-            </md-button>
-            <md-button ng-click="cancel()" style="margin-right:20px;">
-                Cancel
-            </md-button>
-        </md-dialog-actions>
     </form>
 </md-dialog>

@@ -47,14 +47,14 @@ function getMessageList(req,callback){
     });
 
 
-/*    var dbCon = daf.MFindWithPagination(query,mail,option);
-    dbCon.on('data', function(doc){
-        data.push(doc);
-    });
+    /*    var dbCon = daf.MFindWithPagination(query,mail,option);
+     dbCon.on('data', function(doc){
+     data.push(doc);
+     });
 
-    dbCon.on('end', function(){
-        callback(null,data);
-    });*/
+     dbCon.on('end', function(){
+     callback(null,data);
+     });*/
 };
 
 function getUnreadMessageList(req,callback){
@@ -121,13 +121,13 @@ function sendMessage(req,callback){
             message.tag = 'DRAFTS';
         }
         daf.MInsert(message,fromEmail,function(err , success){
-                callback(err , success);
+            callback(err , success);
         });
-        
+
     });
 
 };
- //TODO
+//TODO
 function updateMessage(req,callback){
     console.log("$$$$$$$  Update MessageBox  $$$$$$");
     var params = (req.body.params) ? req.body.params : {};
@@ -135,8 +135,8 @@ function updateMessage(req,callback){
     var query = {id:params.id};
     var changeDoc = {read : true};
 
-    daf.MUpdate(query,changeDoc,toEmail,function(err , success){ 
-            callback(err , success);
+    daf.MUpdate(query,changeDoc,toEmail,function(err , success){
+        callback(err , success);
     });
 
 };
@@ -169,9 +169,9 @@ function replyMessage(req,callback){
             message.tag = 'DRAFTS';
         }
         daf.MUpdate(query,changeDoc,fromEmail,function(err , success){
-                callback(err , success);
+            callback(err , success);
         });
-        
+
     });
 
 };
@@ -202,9 +202,9 @@ function retryMessage(req,callback){
         query = {id:params.id};
         changeDoc = {$addToSet : {"REPLY" : {'id' : message.id , 'tag' : message.tag }} } ;
         daf.MUpdate(query,changeDoc,fromEmail,function(err , success){
-                callback(err , success);
+            callback(err , success);
         });
-        
+
     });
 
 };

@@ -8,7 +8,7 @@
 
             <div class="raw message-container">
                 <div class="col-md-3 message">
-                    <md-button  class="md-raised md-primary" ng-click="composeMail()">
+                    <md-button  class="md-raised md-primary" ng-click="composeMail($event)">
                         COMPOSE
                     </md-button>
                     <ul class="list-group ">
@@ -42,7 +42,7 @@
 
                         <table class="table table-inbox table-hover" ng-if="selectedTab == 0">
                             <tbody lazy-scroll="paginationFuntion()" lazy-scroll-trigger="80">
-                            <tr ng-repeat="message in messageList"  ng-class="message.read?'':'unread'">
+                            <tr ng-repeat="message in messageList"  ng-class="message.read?'':'unread'" ng-click="replyMailClick($event, message, 0)">
                                 <td class="inbox-small-cells"><i class="fa fa-star inbox-started"></i></td>
                                 <td class="view-message  dont-show">{{message.from}}</td>
                                 <td class="view-message ">{{message.subject}}</td>
@@ -53,7 +53,7 @@
 
                         <table class="table table-inbox table-hover" ng-if="selectedTab == 1">
                             <tbody lazy-scroll="paginationFuntion()" lazy-scroll-trigger="80">
-                            <tr ng-repeat="message in messageList"  ng-class="message.read?'':'unread'">
+                            <tr ng-repeat="message in messageList"  ng-class="message.read?'':'unread'" ng-click="replyMailClick($event, message, 1)">
                                 <td class="inbox-small-cells"><i class="fa fa-star inbox-started"></i></td>
                                 <td class="view-message  dont-show">{{message.to}}</td>
                                 <td class="view-message ">{{message.subject}}</td>
@@ -64,7 +64,7 @@
 
                         <table class="table table-inbox table-hover" ng-if="selectedTab == 2">
                             <tbody lazy-scroll="paginationFuntion()" lazy-scroll-trigger="80">
-                            <tr ng-repeat="message in messageList"  ng-class="message.read?'':'unread'">
+                            <tr ng-repeat="message in messageList"  ng-class="message.read?'':'unread'" ng-click="replyMailClick($event, message, 2)">
                                 <td class="inbox-small-cells"><i class="fa fa-star inbox-started"></i></td>
                                 <td class="view-message  dont-show">{{message.to}}</td>
                                 <td class="view-message ">{{message.subject}}</td>

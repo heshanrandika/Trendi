@@ -1479,7 +1479,7 @@
         $scope.selectTab(0);
 
 
-        $scope.composeMail = function(data, event) {
+        $scope.composeMail = function(event, data) {
             $mdDialog.show({
                 locals:{mailData: data},
                 controller: DialogController,
@@ -1494,7 +1494,7 @@
                     adminDataService.sendMessage({message:answer}).then(function(response){
 
                     },function(){
-                        $scope.composeMail(answer, event);
+                        $scope.composeMail(event, answer);
                     });
 
 
@@ -1528,9 +1528,9 @@
         }
 
 
-        $scope.replyMail = function(data, event) {
+        $scope.replyMailClick = function(event,data, type, rplyMsg) {
             $mdDialog.show({
-                locals:{mailData: data},
+                locals:{mailData: data, type:type, rplyMsg:rplyMsg},
                 controller: ReplyDialogController,
                 templateUrl: '/views/adminModule/extras/reply.mail.modal.html',
                 parent: angular.element(document.body),
@@ -1543,7 +1543,7 @@
                     adminDataService.replyMessage({message:answer}).then(function(response){
 
                     },function(){
-                        $scope.composeMail(answer, event);
+                        $scope.replyMailClick(answer, event, type, rplyMsg);
                     });
 
 
@@ -1557,12 +1557,12 @@
             });
         };
 
-         function ReplyDialogController($scope, $mdDialog, mailData){
+         function ReplyDialogController($scope, $mdDialog, mailData, type, rplyMsg){
             $scope.rplyMail = mailData?mailData:{};
             $scope.replyMail = {};
             $scope.replyMail.replyId = mailData?mailData.id:'';
             $scope.replyMail.to = mailData?mailData.from:'';
-            $scope.replyMail.message = mailData?mailData.message:'';
+            $scope.replyMail.message = rplyMsg?rplyMsg:'';
 
             $scope.hide = function() {
                 $mdDialog.hide();

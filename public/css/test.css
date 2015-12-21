@@ -195,3 +195,9 @@
 .message-select-li{
     background: gainsboro;
 }
+
+.accord-head{
+    font-weight: 200;
+    padding: 10px 15px;
+    text-transform: lowercase;
+}
