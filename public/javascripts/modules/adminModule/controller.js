@@ -1407,8 +1407,12 @@
     }]);
 
     mod.controller('adminExtraMessageController', ['$scope', '$rootScope','$state','adminDataService','Data.Toast','MESSAGE_CONFIG','$mdDialog','$mdMedia', function ($scope, $rootScope, $state, adminDataService, Data_Toast, MESSAGE_CONFIG, $mdDialog, $mdMedia) {
-        $scope.count = 0;
+        $scope.unreadCount = 0;
+        $scope.draftCount = 0;
         $scope.shopDetails = {};
+        $scope.sendClicked = false;
+        $scope.replyClicked =false;
+
         var inbox = 'INBOX';
         var draft = 'DRAFTS';
         var sent = 'SENT';
@@ -1416,7 +1420,21 @@
         $scope.messageList =[];
 
 
+        $scope.getCounts = function(){
+            adminDataService.getMessageList($scope.searchObj).then(function(response){
+                    switch($scope.searchObj.type){
+                        case inbox : 
+                            $scope.unreadCount = response.data.responData.data.count
+                            break;
+                        case draft : 
+                            $scope.draftCount = response.data.responData.data.count
+                            break;
+                    }
+                
+            },function(){
 
+            });
+        }
 
 
 
@@ -1475,11 +1493,13 @@
                     break;
             }
             $scope.loadData(1);
+
         };
         $scope.selectTab(0);
 
 
         $scope.composeMail = function(event, data) {
+            $scope.sendClicked = true;
             $mdDialog.show({
                 locals:{mailData: data},
                 controller: DialogController,
@@ -1491,8 +1511,9 @@
                 fullscreen: $mdMedia('sm') && $scope.customFullscreen
             })
                 .then(function(answer) {
+                    $scope.sendClicked = false;
                     adminDataService.sendMessage({message:answer}).then(function(response){
-
+                    $scope.loadData(1);       
                     },function(){
                         $scope.composeMail(event, answer);
                     });
@@ -1529,6 +1550,8 @@
 
 
         $scope.replyMailClick = function(event,data, type, rplyMsg) {
+            $scope.replyClicked = true;
+            $scope.getCounts();
             $mdDialog.show({
                 locals:{mailData: data, type:type, rplyMsg:rplyMsg},
                 controller: ReplyDialogController,
@@ -1540,8 +1563,9 @@
                 fullscreen: $mdMedia('sm') && $scope.customFullscreen
             })
                 .then(function(answer) {
+                    $scope.replyClicked = false;
                     adminDataService.replyMessage({message:answer}).then(function(response){
-
+                    $scope.loadData(1); 
                     },function(){
                         $scope.replyMailClick(answer, event, type, rplyMsg);
                     });
@@ -1561,7 +1585,12 @@
             $scope.rplyMail = mailData?mailData:{};
             $scope.replyMail = {};
             $scope.replyMail.replyId = mailData?mailData.id:'';
-            $scope.replyMail.to = mailData?mailData.from:'';
+            if($scope.shopDetails.email.trim() == mailData.from.trim()){
+                $scope.replyMail.to = mailData?mailData.to:'';
+            }else{
+                $scope.replyMail.to = mailData?mailData.from:'';
+            }
+            
             $scope.replyMail.message = rplyMsg?rplyMsg:'';
 
             $scope.hide = function() {

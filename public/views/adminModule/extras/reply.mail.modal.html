@@ -30,7 +30,7 @@
                     </accordion>
                     <div class="col-md-12">
                         <div text-angular="text-angular" name="message" ng-model="replyMail.message" ta-disabled='false'></div>
-                        <md-button ng-click="answer(replyMail)" class="md-raised md-primary">
+                        <md-button ng-disabled="!replyClicked" ng-click="answer(replyMail)" class="md-raised md-primary">
                             Reply
                         </md-button>
                         <md-button ng-click="cancel()" style="margin-right:20px;">
