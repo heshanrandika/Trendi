@@ -42,9 +42,9 @@
 
                         <table class="table table-inbox table-hover" ng-if="selectedTab == 0">
                             <tbody lazy-scroll="paginationFuntion()" lazy-scroll-trigger="80">
-                            <tr ng-repeat="message in messageList"  ng-class="message.read?'':'unread'" ng-click="replyMailClick($event, message, 0)">
+                            <tr ng-repeat="message in messageList"  ng-class="getStatus(message)?'unread':''" ng-click="replyMailClick($event, message, 0)">
                                 <td class="inbox-small-cells"><i class="fa fa-star inbox-started"></i></td>
-                                <td class="view-message  dont-show">{{message.from}}</td>
+                                <td class="view-message  dont-show">{{format(message.from, message)}}</td>
                                 <td class="view-message ">{{message.subject}}</td>
                                 <td class="view-message  text-right">{{message.date | date:'short'}}</td>
                             </tr>
@@ -53,9 +53,9 @@
 
                         <table class="table table-inbox table-hover" ng-if="selectedTab == 1">
                             <tbody lazy-scroll="paginationFuntion()" lazy-scroll-trigger="80">
-                            <tr ng-repeat="message in messageList"  ng-class="message.read?'':'unread'" ng-click="replyMailClick($event, message, 1)">
+                            <tr ng-repeat="message in messageList" ng-click="replyMailClick($event, message, 1)">
                                 <td class="inbox-small-cells"><i class="fa fa-star inbox-started"></i></td>
-                                <td class="view-message  dont-show">{{message.to}}</td>
+                                <td class="view-message  dont-show">{{format(message.to, message)}}</td>
                                 <td class="view-message ">{{message.subject}}</td>
                                 <td class="view-message  text-right">{{message.date | date:'short'}}</td>
                             </tr>

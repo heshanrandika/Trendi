@@ -120,6 +120,7 @@ function sendMessage(req,callback){
         }else{
             message.tag = 'DRAFTS';
         }
+        message.read = true;
         daf.MInsert(message,fromEmail,function(err , success){
             callback(err , success);
         });
@@ -168,6 +169,7 @@ function replyMessage(req,callback){
         }else{
             message.tag = 'DRAFTS';
         }
+        message.read = true;
         daf.MUpdate(query,changeDoc,fromEmail,function(err , success){
             callback(err , success);
         });
@@ -199,6 +201,7 @@ function retryMessage(req,callback){
         }else{
             message.tag = 'DRAFTS';
         }
+        message.read = true;
         query = {id:params.id};
         changeDoc = {$addToSet : {"REPLY" : {'id' : message.id , 'tag' : message.tag }} } ;
         daf.MUpdate(query,changeDoc,fromEmail,function(err , success){

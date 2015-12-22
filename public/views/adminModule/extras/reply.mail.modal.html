@@ -20,7 +20,7 @@
                                 <p ng-bind-html="rplyMail.message"></p>
                             </div>
                         </accordion-group>
-                        <accordion-group ng-repeat="replyMails in rplyMail.REPLY" is-open="repOpen" ng-init="rplyMail.REPLY.length() == $index?repOpen=true:repOpen=false">
+                        <accordion-group ng-repeat="replyMails in rplyMail.REPLY" is-open="repOpen" ng-init="repOpen = true">
                             <accordion-heading><div class="accord-head" ng-show="!repOpen"><span><i><b>{{replyMails.from}}</b></i></span> </br> <span>{{replyMails.message | htmlToPlaintext}}</span>  </div> </accordion-heading>
                             <div>
                                 <h6><span >{{replyMails.from}}</span></h6>

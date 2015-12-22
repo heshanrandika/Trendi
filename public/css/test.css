@@ -201,3 +201,7 @@
     padding: 10px 15px;
     text-transform: lowercase;
 }
+
+.unread{
+    background: gold;
+}

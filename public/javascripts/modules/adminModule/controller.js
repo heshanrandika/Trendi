@@ -377,15 +377,15 @@
 
 
 
-/*        var initData = function(){
-            $scope.shopDetails = adminDataService.shopData();
-            adminDataService.getBranchList({shopId:$scope.shopDetails.shopId}).then(function(response){
-                $scope.branchList = response.data.responData.data
-            },function(){
-                $scope.branchList = [];
-            });
-        };
-        initData();*/
+        /*        var initData = function(){
+         $scope.shopDetails = adminDataService.shopData();
+         adminDataService.getBranchList({shopId:$scope.shopDetails.shopId}).then(function(response){
+         $scope.branchList = response.data.responData.data
+         },function(){
+         $scope.branchList = [];
+         });
+         };
+         initData();*/
 
 
         $scope.search = {
@@ -410,7 +410,7 @@
                 value: "--"
             }],
             searchDataFromServer: function (d) {
-               $scope.searchObj = {
+                $scope.searchObj = {
                     skip:0,
                     limit:itemPerPage,
                     searchKey: d.searchKey,
@@ -625,14 +625,14 @@
 
 
 
-/*        var initData = function(){
-            adminDataService.getShopList().then(function(response){
-                $scope.shopList = response.data.responData.data
-            },function(){
-                $scope.shopList = [];
-            });
-        };
-        initData();*/
+        /*        var initData = function(){
+         adminDataService.getShopList().then(function(response){
+         $scope.shopList = response.data.responData.data
+         },function(){
+         $scope.shopList = [];
+         });
+         };
+         initData();*/
 
 
         $scope.search = {
@@ -1182,15 +1182,15 @@
 
 
 
-/*        var initData = function(){
-            $scope.shopDetails = adminDataService.shopData();
-            adminDataService.getAdminPromotionList({shopId:$scope.shopDetails.shopId}).then(function(response){
-                $scope.promotionList = response.data.responData.data
-            },function(){
-                $scope.promotionList = [];
-            });
-        };
-        initData();*/
+        /*        var initData = function(){
+         $scope.shopDetails = adminDataService.shopData();
+         adminDataService.getAdminPromotionList({shopId:$scope.shopDetails.shopId}).then(function(response){
+         $scope.promotionList = response.data.responData.data
+         },function(){
+         $scope.promotionList = [];
+         });
+         };
+         initData();*/
 
 
         $scope.search = {
@@ -1410,8 +1410,6 @@
         $scope.unreadCount = 0;
         $scope.draftCount = 0;
         $scope.shopDetails = {};
-        $scope.sendClicked = false;
-        $scope.replyClicked =false;
 
         var inbox = 'INBOX';
         var draft = 'DRAFTS';
@@ -1422,23 +1420,49 @@
 
         $scope.getCounts = function(){
             adminDataService.getMessageList($scope.searchObj).then(function(response){
-                    switch($scope.searchObj.type){
-                        case inbox : 
-                            $scope.unreadCount = response.data.responData.data.count
-                            break;
-                        case draft : 
-                            $scope.draftCount = response.data.responData.data.count
-                            break;
-                    }
-                
+                switch($scope.searchObj.type){
+                    case inbox :
+                        $scope.unreadCount = response.data.responData.data.count;
+                        break;
+                    case draft :
+                        $scope.draftCount = response.data.responData.data.count;
+                        break;
+                }
+
             },function(){
 
             });
-        }
+        };
+
+
+        var shopDetails = adminDataService.shopData();
+        $scope.format = function(from, mail){
+            if(shopDetails.email.trim() == from.trim()){
+                return "me"+(undefined == mail.REPLY?'':" ("+mail.REPLY.length+")");
+            }else{
+                return from+(undefined == mail.REPLY?'':" ("+mail.REPLY.length+")");
+            }
+        };
+
+        $scope.getStatus = function(mail){
+            var stat = false;
+            if(mail.read){
+                _.each(mail.REPLY, function(msg){
+                    if(msg.read){
+
+                    }else{
+                        stat = true;
+                    }
+                });
+                return stat;
+            }else{
+                return true;
+            }
+        };
 
 
 
-        $scope.shopDetails = adminDataService.shopData();
+
         $scope.searchObj = {
             skip: $scope.messageList.length,
             limit:itemPerPage,
@@ -1499,7 +1523,7 @@
 
 
         $scope.composeMail = function(event, data) {
-            $scope.sendClicked = true;
+
             $mdDialog.show({
                 locals:{mailData: data},
                 controller: DialogController,
@@ -1511,9 +1535,9 @@
                 fullscreen: $mdMedia('sm') && $scope.customFullscreen
             })
                 .then(function(answer) {
-                    $scope.sendClicked = false;
+
                     adminDataService.sendMessage({message:answer}).then(function(response){
-                    $scope.loadData(1);       
+                        $scope.loadData(1);
                     },function(){
                         $scope.composeMail(event, answer);
                     });
@@ -1530,7 +1554,7 @@
         };
 
         function DialogController($scope, $mdDialog, mailData){
-
+            $scope.sendClicked = true;
             $scope.mail = {};
             $scope.mail.to = mailData?mailData.to:'';
             $scope.mail.subject = mailData?mailData.subject:'';
@@ -1543,14 +1567,14 @@
                 $mdDialog.cancel();
             };
             $scope.answer = function(answer) {
+                $scope.sendClicked = false;
                 $mdDialog.hide(answer);
             };
 
         }
 
 
-        $scope.replyMailClick = function(event,data, type, rplyMsg) {
-            $scope.replyClicked = true;
+        $scope.replyMailClick = function(event, data, type, rplyMsg) {
             $scope.getCounts();
             $mdDialog.show({
                 locals:{mailData: data, type:type, rplyMsg:rplyMsg},
@@ -1563,9 +1587,8 @@
                 fullscreen: $mdMedia('sm') && $scope.customFullscreen
             })
                 .then(function(answer) {
-                    $scope.replyClicked = false;
                     adminDataService.replyMessage({message:answer}).then(function(response){
-                    $scope.loadData(1); 
+                        $scope.loadData(1);
                     },function(){
                         $scope.replyMailClick(answer, event, type, rplyMsg);
                     });
@@ -1581,16 +1604,17 @@
             });
         };
 
-         function ReplyDialogController($scope, $mdDialog, mailData, type, rplyMsg){
+        function ReplyDialogController($scope, $mdDialog, mailData, type, rplyMsg){
+            $scope.replyClicked = true;
             $scope.rplyMail = mailData?mailData:{};
             $scope.replyMail = {};
             $scope.replyMail.replyId = mailData?mailData.id:'';
-            if($scope.shopDetails.email.trim() == mailData.from.trim()){
+            if(shopDetails.email.trim() == mailData.from.trim()){
                 $scope.replyMail.to = mailData?mailData.to:'';
             }else{
                 $scope.replyMail.to = mailData?mailData.from:'';
             }
-            
+
             $scope.replyMail.message = rplyMsg?rplyMsg:'';
 
             $scope.hide = function() {
@@ -1600,6 +1624,7 @@
                 $mdDialog.cancel();
             };
             $scope.answer = function(answer) {
+                $scope.replyClicked = false;
                 $mdDialog.hide(answer);
             };
 
@@ -1733,26 +1758,26 @@
 
 
 
-/*        var initData = function(){
-            $scope.blogImage = [];
-            $scope.shopDetails = adminDataService.shopData();
-            adminDataService.adminGetBlogList({shopId:$scope.shopDetails.shopId}).then(function(response){
-                $scope.blogs = response.data.responData.data;
-                if($scope.blogs.length <= 0){
-                    $scope.addNew = true;
-                }
-            },function(error){
-                $scope.blogs = {};
-            });
-        };
-        initData();*/
+        /*        var initData = function(){
+         $scope.blogImage = [];
+         $scope.shopDetails = adminDataService.shopData();
+         adminDataService.adminGetBlogList({shopId:$scope.shopDetails.shopId}).then(function(response){
+         $scope.blogs = response.data.responData.data;
+         if($scope.blogs.length <= 0){
+         $scope.addNew = true;
+         }
+         },function(error){
+         $scope.blogs = {};
+         });
+         };
+         initData();*/
 
 
         $scope.update = function(blog){
             blog.img = $scope.blogImage[0]?$scope.blogImage[0].image:'';
             delete blog.open;
             adminDataService.updateBlog({blog:blog}).then(function (response) {
-               $scope.loadData(1);
+                $scope.loadData(1);
                 Data_Toast.success(MESSAGE_CONFIG.SUCCESS_UPDATE_SUCCESSFULLY);
             },function (error) {
                 Data_Toast.error(MESSAGE_CONFIG.ERROR_UPDATE_FAIL,error.data.responData.Error);
