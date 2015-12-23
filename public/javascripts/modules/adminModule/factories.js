@@ -177,6 +177,10 @@
             return angular.extend({functionId: ADMIN_MOD_CONFIG.REQ_CONFIG.FUNC_GetUnreadMessageList}, _getCObj());
         };
 
+        serviceCalls.getMessageCountDao = function () {
+            return angular.extend({functionId: ADMIN_MOD_CONFIG.REQ_CONFIG.FUNC_GetMessageCount}, _getCObj());
+        };
+
         serviceCalls.shopDataDao = function () {
             return $storage.user;
         };

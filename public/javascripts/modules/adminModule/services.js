@@ -150,6 +150,10 @@
             return Data_Comm.postPromise(angular.extend({params:d},adminServiceCalls.getUnreadMessageListDao()));
         };
 
+        var _getMessageCount = function(d){
+            return Data_Comm.postPromise(angular.extend({params:d},adminServiceCalls.getMessageCountDao()));
+        };
+
         var _getShopList = function(){
             return Data_Comm.postPromise(adminServiceCalls.getShopListDao());
         };
@@ -215,7 +219,8 @@
             sendMessage:_sendMessage,
             replyMessage:_replyMessage,
             updateMessage:_updateMessage,
-            getUnreadMessageList:_getUnreadMessageList
+            getUnreadMessageList:_getUnreadMessageList,
+            getMessageCount:_getMessageCount
         }
     }]);
 })(com.TRENDI.CATEGORY.modules.adminModule);

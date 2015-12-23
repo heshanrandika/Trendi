@@ -13,13 +13,13 @@
                     </md-button>
                     <ul class="list-group ">
                         <li class="list-group-item" ng-class="selectedTab == 0?'message-select-li':''" ng-click="selectTab(0)">
-                            <a><i class="fa fa-inbox"></i> Inbox <span class="label label-danger pull-right">2</span></a>
+                            <a><i class="fa fa-inbox"></i> Inbox <span class="label label-danger pull-right" ng-if="unreadCount > 0">{{unreadCount}}</span></a>
                         </li>
                         <li class="list-group-item" ng-class="selectedTab == 1?'message-select-li':''" ng-click="selectTab(1)">
                             <a><i class="fa fa-envelope"></i> Sent Mail</a>
                         </li>
                         <li class="list-group-item" ng-class="selectedTab == 2?'message-select-li':''" ng-click="selectTab(2)">
-                            <a><i class="fa fa-external-link"></i> Drafts <span class="label label-info pull-right">30</span></a>
+                            <a><i class="fa fa-external-link"></i> Drafts <span class="label label-info pull-right" ng-if="draftCount > 0">{{draftCount}}</span></a>
                         </li>
                     </ul>
 
@@ -42,7 +42,7 @@
 
                         <table class="table table-inbox table-hover" ng-if="selectedTab == 0">
                             <tbody lazy-scroll="paginationFuntion()" lazy-scroll-trigger="80">
-                            <tr ng-repeat="message in messageList"  ng-class="getStatus(message)?'unread':''" ng-click="replyMailClick($event, message, 0)">
+                            <tr ng-repeat="message in messageList"  ng-class="message.read?'unread':''" ng-click="replyMailClick($event, message, 0)">
                                 <td class="inbox-small-cells"><i class="fa fa-star inbox-started"></i></td>
                                 <td class="view-message  dont-show">{{format(message.from, message)}}</td>
                                 <td class="view-message ">{{message.subject}}</td>

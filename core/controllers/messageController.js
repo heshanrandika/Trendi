@@ -57,6 +57,33 @@ function getMessageList(req,callback){
      });*/
 };
 
+
+function getCount(req,callback){
+    console.log("$$$$$$$  GetMessageList $$$$$$");
+    var params = (req.body.params) ? req.body.params : {};
+    var email = req.body.email;
+    var type = params.type;
+    var read = params.read? 1 : 0;
+
+    var query = {};
+
+    switch(read){
+        case 0:
+            query = {$or:[{'tag': type},{'REPLY': {$elemMatch: {tag:type}}}]};
+            break;
+
+        case 1:
+            query = {$or:[{'tag': type, 'read':false},{'REPLY': {$elemMatch: {tag:type}}, 'read':false}]};
+            break;
+    }
+    daf.MCount(query,fromEmail,function(err , success){
+        callback(err , success);
+    });
+
+};
+
+
+
 function getUnreadMessageList(req,callback){
     console.log("$$$$$$$  GetMessageList $$$$$$");
     var params = (req.body.params) ? req.body.params : {};
@@ -68,7 +95,7 @@ function getUnreadMessageList(req,callback){
     var searchValue  = params.searchValue;
     var sorter = [['date',-1]];
 
-    var query = {$or:[{'tag': type},{'REPLY': {$elemMatch: {tag:type, read:false}}}]};
+    var query = {$or:[{'tag': type},{'read':false}]};
     var data = [];
     var option = {skip:skip, limit:limit, sort:sorter};
 
@@ -132,11 +159,12 @@ function sendMessage(req,callback){
 function updateMessage(req,callback){
     console.log("$$$$$$$  Update MessageBox  $$$$$$");
     var params = (req.body.params) ? req.body.params : {};
-    var toEmail = params.to;
+
+    var fromEmail = req.body.email.trim();
     var query = {id:params.id};
     var changeDoc = {read : true};
 
-    daf.MUpdate(query,changeDoc,toEmail,function(err , success){
+    daf.MUpdate(query,changeDoc,fromEmail,function(err , success){
         callback(err , success);
     });
 
@@ -157,11 +185,11 @@ function replyMessage(req,callback){
     message.id = new Date().getTime()+"";
     message.date = new Date();
     message.tag = 'INBOX';
-    message.read = false;
+
 
 
     var query = {id:mainId};
-    var changeDoc = {$push:{'REPLY':message}};
+    var changeDoc = {$push:{'REPLY':message}, read : false};
 
     daf.MUpdate(query,changeDoc,toEmail,function(err , success){
         if(success){
@@ -169,7 +197,7 @@ function replyMessage(req,callback){
         }else{
             message.tag = 'DRAFTS';
         }
-        message.read = true;
+        changeDoc = {$push:{'REPLY':message}, read : true};
         daf.MUpdate(query,changeDoc,fromEmail,function(err , success){
             callback(err , success);
         });
@@ -190,10 +218,9 @@ function retryMessage(req,callback){
     message.to = toEmail;
     message.from = fromEmail;
     message.tag = 'INBOX';
-    message.read = false;
 
     var query = {id:params.id};
-    var changeDoc = {$push:{'REPLY':message}};
+    var changeDoc = {$push:{'REPLY':message}, read : false};
 
     daf.MUpdate(query,changeDoc,toEmail,function(err , success){
         if(success){
@@ -201,7 +228,7 @@ function retryMessage(req,callback){
         }else{
             message.tag = 'DRAFTS';
         }
-        message.read = true;
+        changeDoc = {$push:{'REPLY':message}, read : true};
         query = {id:params.id};
         changeDoc = {$addToSet : {"REPLY" : {'id' : message.id , 'tag' : message.tag }} } ;
         daf.MUpdate(query,changeDoc,fromEmail,function(err , success){
@@ -217,3 +244,4 @@ module.exports.GetUnreadMessageList = getUnreadMessageList;
 module.exports.SendMessage = sendMessage;
 module.exports.UpdateMessage = updateMessage;
 module.exports.ReplyMessage = replyMessage;
+module.exports.GetCount = getCount;

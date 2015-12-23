@@ -186,7 +186,8 @@
             FUNC_SendMessage:     5001,
             FUNC_ReplyMessage  :  5002,
             FUNC_UpdateMessage  : 5003,
-            FUNC_GetUnreadMessageList  :5004
+            FUNC_GetUnreadMessageList  :5004,
+            FUNC_GetMessageCount  :5005
 
 
 

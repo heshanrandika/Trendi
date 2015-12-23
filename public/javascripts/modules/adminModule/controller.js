@@ -1419,19 +1419,24 @@
 
 
         $scope.getCounts = function(){
-            adminDataService.getMessageList($scope.searchObj).then(function(response){
-                switch($scope.searchObj.type){
-                    case inbox :
-                        $scope.unreadCount = response.data.responData.data.count;
-                        break;
-                    case draft :
-                        $scope.draftCount = response.data.responData.data.count;
-                        break;
-                }
-
-            },function(){
-
+            adminDataService.getMessageCount({type:$scope.searchObj.type, read:true}).then(function(response){
+                $scope.unreadCount = response.data.responData.data.count;
             });
+
+            adminDataService.getMessageCount($scope.searchObj).then(function(response){
+                $scope.draftCount = response.data.responData.data.count;
+            });
+        };
+
+
+        $scope.changeStatus = function(data){
+            if(!data.read){
+                adminDataService.updateMessage(data).then(function(response){
+                data.read = true;
+            },function(){
+                data.read = false;
+            });
+            }
         };
 
 
@@ -1443,23 +1448,6 @@
                 return from+(undefined == mail.REPLY?'':" ("+mail.REPLY.length+")");
             }
         };
-
-        $scope.getStatus = function(mail){
-            var stat = false;
-            if(mail.read){
-                _.each(mail.REPLY, function(msg){
-                    if(msg.read){
-
-                    }else{
-                        stat = true;
-                    }
-                });
-                return stat;
-            }else{
-                return true;
-            }
-        };
-
 
 
 
@@ -1576,6 +1564,7 @@
 
         $scope.replyMailClick = function(event, data, type, rplyMsg) {
             $scope.getCounts();
+            $scope.changeStatus(data);
             $mdDialog.show({
                 locals:{mailData: data, type:type, rplyMsg:rplyMsg},
                 controller: ReplyDialogController,
