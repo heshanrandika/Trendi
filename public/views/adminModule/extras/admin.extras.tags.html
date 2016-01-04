@@ -12,7 +12,7 @@
 
         <md-subheader class="md-primary">Your Tags</md-subheader>
         <md-list>
-            <md-list-item class="md-2-line" ng-repeat="tag in tags" layout="row" layout-wrap ng-if="!checkShop(tag)">
+            <md-list-item class="md-2-line" ng-repeat="tag in tags" layout="row" layout-wrap ng-if="checkShop(tag)">
                 <div class="md-item-text md-whiteframe-z1" flex>
                     <h3>{{tag.key}}</h3>
                 </div>
@@ -21,7 +21,7 @@
 
         <md-subheader class="md-primary">Other Tags</md-subheader>
         <md-list>
-            <md-list-item class="md-2-line" ng-repeat="tag in tags" layout="row" layout-wrap ng-if="checkShop(tag)">
+            <md-list-item class="md-2-line" ng-repeat="tag in tags" layout="row" layout-wrap ng-if="!checkShop(tag)">
                 <div class="md-item-text md-whiteframe-z1" flex>
                     <h3>{{tag.key}}</h3>
                 </div>

@@ -8,15 +8,15 @@
         URL_CONFIG: {
             'main': {
                 url: '/main',
-                templateUrl: 'views/mainModule/main.home.html',
+                templateUrl: 'views/mainModule/main.html',
                 controller: 'trendiMainController'
-            }/*,
-            'admin': {
-                url: '/admin',
-                templateUrl: 'views/adminModule/admin.master.html',
-                controller: 'trendiAdminMasterController'
+            },
+            'main.home': {
+                url: '/home',
+                templateUrl: 'views/mainModule/main.home.html',
+                controller: 'trendiMainHomeController'
 
-            }*/
+            }
 
         },REQ_CONFIG: {
             FUNC_GetLatestItem:         1001,

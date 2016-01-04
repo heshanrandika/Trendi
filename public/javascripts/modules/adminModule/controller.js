@@ -1418,26 +1418,7 @@
         $scope.messageList =[];
 
 
-        $scope.getCounts = function(){
-            adminDataService.getMessageCount({type:$scope.searchObj.type, read:true}).then(function(response){
-                $scope.unreadCount = response.data.responData.data.count;
-            });
 
-            adminDataService.getMessageCount($scope.searchObj).then(function(response){
-                $scope.draftCount = response.data.responData.data.count;
-            });
-        };
-
-
-        $scope.changeStatus = function(data){
-            if(!data.read){
-                adminDataService.updateMessage(data).then(function(response){
-                data.read = true;
-            },function(){
-                data.read = false;
-            });
-            }
-        };
 
 
         var shopDetails = adminDataService.shopData();
@@ -1457,6 +1438,34 @@
             searchKey:'',
             searchValue:'',
             type: inbox
+        };
+
+
+        $scope.getCounts = function(){
+            adminDataService.getMessageCount({type:inbox, read:true}).then(function(response){
+                $scope.unreadCount = response.data.responData.data.count;
+                adminDataService.getMessageCount({type:draft}).then(function(response){
+                    $scope.draftCount = response.data.responData.data.count;
+                },function(){
+                    $scope.draftCount = 0;
+                });
+            },function(){
+                $scope.unreadCount = 0;
+            });
+
+
+        };
+        $scope.getCounts();
+
+        $scope.changeStatus = function(data){
+            if(!data.read){
+                adminDataService.updateMessage(data).then(function(response){
+                    data.read = true;
+                    $scope.getCounts();
+                },function(){
+                    data.read = false;
+                });
+            }
         };
 
         $scope.loadData = function(init){
@@ -1563,8 +1572,9 @@
 
 
         $scope.replyMailClick = function(event, data, type, rplyMsg) {
-            $scope.getCounts();
-            $scope.changeStatus(data);
+            if(type == 0){
+                $scope.changeStatus(data);
+            }
             $mdDialog.show({
                 locals:{mailData: data, type:type, rplyMsg:rplyMsg},
                 controller: ReplyDialogController,

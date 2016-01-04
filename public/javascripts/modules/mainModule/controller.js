@@ -6,6 +6,30 @@
 
     mod.controller('trendiMainController', ['$scope', '$rootScope','$state','mainDataService', function ($scope, $rootScope, $state, mainDataService) {
 
+        $scope.homeClick = function(){
+            $state.go('main.home');
+        };
+        $scope.homeClick();
+
+
+        $scope.clickTab = function (tab) {
+            if(tab == 1)
+                $state.go('ladies');
+
+            if(tab == 2)
+                $state.go('gents');
+
+            if(tab == 3)
+                $state.go('babies');
+
+            if(tab == 4)
+                $state.go('shop');
+        }
+
+    }]);
+
+    mod.controller('trendiMainHomeController', ['$scope', '$rootScope','$state','mainDataService', function ($scope, $rootScope, $state, mainDataService) {
+
         $scope.slider ;
         $scope.showSlider = true;
         $scope.latestItemShow = false;
@@ -84,8 +108,6 @@
         }
 
     }]);
-
-
 
 
 })(com.TRENDI.CATEGORY.modules.mainTrendiModule);

@@ -73,11 +73,11 @@ function getCount(req,callback){
             break;
 
         case 1:
-            query = {$or:[{'tag': type, 'read':false},{'REPLY': {$elemMatch: {tag:type}}, 'read':false}]};
+            query = {'read':false};
             break;
     }
-    daf.MCount(query,fromEmail,function(err , success){
-        callback(err , success);
+    daf.MCount(query,email,function(err , success){
+        callback(err , {count :success});
     });
 
 };
@@ -162,7 +162,7 @@ function updateMessage(req,callback){
 
     var fromEmail = req.body.email.trim();
     var query = {id:params.id};
-    var changeDoc = {read : true};
+    var changeDoc = {$set:{read : true}};
 
     daf.MUpdate(query,changeDoc,fromEmail,function(err , success){
         callback(err , success);
@@ -189,7 +189,7 @@ function replyMessage(req,callback){
 
 
     var query = {id:mainId};
-    var changeDoc = {$push:{'REPLY':message}, read : false};
+    var changeDoc = {$push:{'REPLY':message}, $set:{'read' : false}};
 
     daf.MUpdate(query,changeDoc,toEmail,function(err , success){
         if(success){
@@ -197,7 +197,7 @@ function replyMessage(req,callback){
         }else{
             message.tag = 'DRAFTS';
         }
-        changeDoc = {$push:{'REPLY':message}, read : true};
+        changeDoc = {$push:{'REPLY':message}, $set:{'read' : true}};
         daf.MUpdate(query,changeDoc,fromEmail,function(err , success){
             callback(err , success);
         });

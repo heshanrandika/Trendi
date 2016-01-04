@@ -1,10 +1,15 @@
 <section id="slider"> <a class="scroll-down animate-move-down" href="#" > <span class="icon icon-arrow-down-5"></span> scroll to view content </a>
 
+    <!--
+    #################################
+    -->
     <div class="tp-banner-container">
         <div revolutionslider="images"></div>
     </div>
 </section>
+<!-- //end Slider -->
 
+<!-- Social widgets -->
 <section class="social-widgets hidden-xs">
     <ul class="items">
         <li class="item item-01 facebook"> <a href="social/facebook.html" class="tab-icon"><span class="icon-facebook-3"></span></a>
@@ -27,26 +32,43 @@
         </li>
     </ul>
 </section>
-
+<!-- //end Social widgets -->
 
 <div class="container" ng-if="latestItemShow">
+    <!-- Featured Products -->
     <section class="content slider-products">
         <h3>Today's Featured </h3>
 
+        <!-- Products list -->
         <div class="row">
             <div class="product-carousel">
                 <trendi-owl-slider images="latestItems" items="4" stop-on-hover="true"  auto-play="true" navigation-display="true"></trendi-owl-slider>
             </div>
         </div>
+        <!-- //end Products list -->
 
+        <!-- Product view compact -->
+        <!--        <div class="product-view-ajax">
+                    <div class="ajax-loader progress progress-striped active">
+                        <div class="progress-bar progress-bar-danger" role="progressbar"></div>
+                    </div>
+                    <div class="layar"></div>
+                    <div class="product-view-container"> </div>
+                </div>-->
+        <!-- //end Product view compact -->
     </section>
+
+    <!-- //end Featured Products -->
+
+
 </div>
 
+<!-- Filters -->
 <div ng-if="mainItemShow">
     <trendi-isotop items="mainItems"></trendi-isotop>
 </div>
 
-
+<!-- Brands -->
 
 <div class="container">
     <section class="content">
@@ -56,13 +78,17 @@
                 <div class="carouFredSel-buttons"><a id="brands-carousel-prev" class="prev" href="#"></a><a id="brands-carousel-next" class="next" href="#"></a></div>
             </div>
             <div class="brands-carousel">
+                <!--<trendi-brand-slider brands="brands"></trendi-brand-slider>-->
                 <trendi-owl-slider images="brands" items="4" stop-on-hover="true" template="trendi.slider.brand" auto-play="true" navigation-display="true"></trendi-owl-slider>
             </div>
         </div>
     </section>
+    <!-- //end Brands -->
 </div>
 
+<!-- //end Isotope Products -->
 
+<!-- Blog widget -->
 <section class="blog-widget parallax">
     <div class="container content">
         <h3>From the BLOG</h3>
@@ -71,7 +97,9 @@
         </div>
     </div>
 </section>
+<!-- //end Blog widget -->
 
+<!-- Products widgets -->
 <section class="container content nopad-bottom hidden-xs">
     <div class="row">
         <div class="col-sm-6 col-md-3 col-lg-3">
@@ -89,9 +117,11 @@
         <section class="col-sm-6 col-md-3 col-lg-3  slider-products module">
             <h3><a href="listing.html">Trending Now</a></h3>
 
+            <!-- Products list -->
             <div class="row" ng-if="trendItemsShow">
                 <trendi-owl-slider images="trendItems" items="1" stop-on-hover="true" auto-play="true" item-display="1" navigation-display="true"></trendi-owl-slider>
             </div>
+            <!-- //end Products list -->
 
         </section>
         <div class="col-sm-6 col-md-3 col-lg-3">
@@ -102,7 +132,8 @@
         </div>
     </div>
 </section>
-
+<!-- //end Products widget -->
+<!-- Social navbar -->
 <section class="content content-border nopad-xs social-widget">
     <div class="container">
         <div class="row">
@@ -138,3 +169,6 @@
         </div>
     </div>
 </section>
+<!-- //end Social navbar -->
+
+<!-- Footer -->
