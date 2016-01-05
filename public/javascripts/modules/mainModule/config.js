@@ -16,6 +16,12 @@
                 templateUrl: 'views/mainModule/main.home.html',
                 controller: 'trendiMainHomeController'
 
+            },
+            'main.products': {
+                url: '/products',
+                templateUrl: 'views/mainModule/main.product.html',
+                controller: 'trendiMainProductsController'
+
             }
 
         },REQ_CONFIG: {

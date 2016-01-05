@@ -171,7 +171,7 @@ function getMainItemList(req,callback){
     getExist(function(idArray){
         skip = 0;
         limit = 5;
-        query = {$and: [ {'item.onSale' : 0}, {"itemId": { $nin: idArray }} ]};
+        query = {$and: [ {'item.onSale' : { $exists : false }}, {"itemId": { $nin: idArray }} ]};
         sorter = [["item.like",-1],["item.trend",-1]];
         option = {skip:skip, limit:limit, sort:sorter};
         var dbCon = daf.FindWithSorting(query,CONSTANT.MAIN_ITEM_COLLECTION,option);
@@ -181,7 +181,7 @@ function getMainItemList(req,callback){
         });
 
         dbCon.on('end', function(){
-            query = {$and: [ {'item.onSale' : 1}, {"itemId": { $nin: idArray }} ]};
+            query = {$and: [ {'item.onSale' : true}, {"itemId": { $nin: idArray }} ]};
             sorter = [["item.like",-1],["item.trend",-1]];
             option = {skip:skip, limit:limit, sort:sorter};
             var dbCon = daf.FindWithSorting(query,CONSTANT.MAIN_ITEM_COLLECTION,option);

@@ -99,7 +99,8 @@
             restrict: 'E',
             replace: true,
             scope: {
-                items: '='
+                items: '=',
+                views: '='
             },
             templateUrl: '/views/coreModule/isotop/trendi.main.isotop.html',
             link: function(scope, elm, attrs) {
