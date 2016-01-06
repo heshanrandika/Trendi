@@ -34,11 +34,21 @@
                         <a href="_ajax_view-product-popup.html" class="quick-view  fancybox fancybox.ajax hidden-xs"> <span class="rating"> <i class="icon-star-3"></i> <i class="icon-star-3"></i> <i class="icon-star-3"></i> <i class="icon-star-3"></i> <i class="icon-star-empty"></i> </span> <span class="icon-zoom-in-2"></span> Quick View </a>
                         <div class="quick-view visible-xs"> <span class="rating"> <i class="icon-star-3"></i> <i class="icon-star-3"></i> <i class="icon-star-3"></i> <i class="icon-star-3"></i> <i class="icon-star-empty"></i> </span></div>
                     </div>
-                    <h3 class="title"><a href="#">Paisley Print Green Colour Dress</a></h3>
+                    <h3 class="title"><a href="#">#{{x.itemId}} {{x.item.name}}</a></h3>
                     <div class="product-options-outer">
-                        <div class="product-options"> <i class="icon icon-color icon-color-white" data-href="images/products/product-12.jpg"></i> <i class="icon icon-color icon-color-beige" data-href="images/products/product-17.jpg"></i> <i class="icon icon-color icon-color-red" data-href="images/products/product-25.jpg"></i> <i class="icon icon-color icon-color-pink" data-href="images/products/product-31.jpg"></i> <i class="icon icon-color icon-color-magneta"  data-href="images/products/product-07.jpg"></i> <i class="disable icon icon-color icon-color-green"  data-href="images/products/product-11.jpg"></i> <i class="disable icon icon-color icon-color-gray"></i> <i class="disable icon icon-color icon-color-brown"></i> </div>
+                        <div class="product-options"><span ng-repeat="color in x.item.colors"> <i  class="icon icon-color" ng-style="{'background':color.color}"></i></span> </div>
                     </div>
-                    <span class="price old">Rs 2100</span> <span class="price new">Ra 1500</span>
+                <span class="price old" ng-if="x.item.onSale">Rs {{x.item.price}}</span> <span class="price new">Rs {{(x.item.price)*(100-x.item.discount)/100}}</span>
+                <div class="list_description">{{x.item.description}}</div>
+                <!--buttons-->
+                <div class="list_buttons"> <a class="btn btn-mega pull-left" href="#">More...</a>
+                    <div class="add-to-links">
+                        <ul>
+                            <li> <a  href="#"><i class="icon-heart"></i></a> <a  href="#">Add to Wish List</a> </li>
+                            <li> <a  href="#"><i class="icon-justice"></i></a> <a  href="#">Add to Compare</a> </li>
+                        </ul>
+                    </div>
+                </div>
 
             </div>
 

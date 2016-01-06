@@ -368,7 +368,7 @@
     }]);
 
 
-    mod.directive('trendiMenuBar',[function() {
+    mod.directive('trendiMenuBar',['$state',function($state) {
         return {
             restrict: 'E',
             replace: true,
@@ -376,6 +376,9 @@
             templateUrl:'/views/coreModule/menu/trendi.menu.main.html',
             link: function(scope, elm, attrs) {
                 scope.slides = [];
+                scope.clickMenu = function(val){
+                    $state.go('main.products');
+                };
                 elm.ready(function () {
                     var menu = elm.supersubs({
                         minWidth:	12,	 // minimum width of submenus in em units
@@ -392,7 +395,7 @@
     }]);
 
 
-    mod.directive('trendiMobileMenu',[function() {
+    mod.directive('trendiMobileMenu',['$state',function($state) {
         return {
             restrict: 'E',
             replace: true,
@@ -400,6 +403,9 @@
             templateUrl:'/views/coreModule/menu/trendi.menu.mobile.html',
             link: function(scope, elm, attrs) {
                 scope.slides = [];
+                scope.clickMenu = function(val){
+                    $state.go('main.products');
+                };
                 elm.ready(function () {
                     var menu = elm.trendiMenu({
                         minWidth:	12,	 // minimum width of submenus in em units
@@ -415,7 +421,7 @@
         };
     }]);
 
-    mod.directive('trendiExpandMenu',[function() {
+    mod.directive('trendiExpandMenu',['$state',function($state) {
         return {
             restrict: 'E',
             replace: true,
@@ -423,6 +429,9 @@
             templateUrl:'/views/coreModule/menu/trendi.menu.expand.html',
             link: function(scope, elm, attrs) {
                 scope.slides = [];
+                scope.clickMenu = function(val){
+                    $state.go('main.products');
+                };
                 elm.ready(function () {
                     var menu = elm.trendiExpander({
                         minWidth:	12,	 // minimum width of submenus in em units

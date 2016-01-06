@@ -7,7 +7,7 @@
     mod.controller('trendiMainController', ['$scope', '$rootScope','$state','mainDataService','$location', function ($scope, $rootScope, $state, mainDataService,$location) {
 
         $scope.homeClick = function(val){
-            if($location.path().split("/")[0] == "main" && undefined == $location.path().split("/")[1]){
+            if($location.path().split("/")[1] == "main" && undefined == $location.path().split("/")[2]){
                 $state.go('main.home');
             }else if(val == 0){
                 $state.go('main.home');
