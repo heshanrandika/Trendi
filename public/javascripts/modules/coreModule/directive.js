@@ -506,6 +506,10 @@
 
                 ]
 
+                scope.clickExpand = function(item){
+                    item.expand = !item.expand
+                }
+
             }
         };
     }]);

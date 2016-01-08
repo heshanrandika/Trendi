@@ -205,3 +205,56 @@
 .unread{
     background: gold;
 }
+
+
+
+.expande-list, .expande-list ul {
+    margin: 0;
+    padding: 0;
+    list-style-type: none
+}
+.expande-list li {
+    margin: 0
+}
+.expande-list .expande {
+    float: right;
+    cursor: pointer;
+    padding: 0 8px;
+    font-family: Verdana, Arial, Helvetica, sans-serif
+}
+.expande-list .name {
+    display: block;
+    border-bottom: 1px solid #eee;
+    padding: 7px 0 6px
+}
+.expande-list ul .name {
+    padding-left: 21px
+}
+.expande-list ul ul .name {
+    padding-left: 42px
+}
+.expande-list ul ul ul .name {
+    padding-left: 63px
+}
+.expande-list .last>.name {
+    border: none
+}
+
+.expand-select-text{
+    font-weight: bold
+}
+
+
+.sample-show-hide {
+  padding:10px;
+  background:white;
+}
+
+.sample-show-hide {
+  -webkit-transition:all linear 0.5s;
+  transition:all linear 0.5s;
+}
+
+.sample-show-hide.ng-hide {
+  opacity:0;
+}

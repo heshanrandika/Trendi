@@ -1,9 +1,9 @@
-<ul>
-    <li ng-repeat="firstMenu in mainMenu"> <span><span>-</span><a ng-click="clickMenu(firstMenu.title)">{{firstMenu.title}}</a></span>
-        <ul>
-            <li ng-repeat="secndMenu in firstMenu.subMenu"><a ng-click="clickMenu(secndMenu.title)">{{secndMenu.title}}</a>
-                <ul>
-                    <li ng-repeat="thirdMenu in secndMenu.subMenu"><a ng-click="clickMenu(thirdMenu.title)">{{thirdMenu.title}}</a></li>
+<ul class="expande-list">
+    <li ng-repeat="firstMenu in mainMenu" ng-animate="'animate'"> <span class="name"><span ng-show="firstMenu.subMenu.length > 0" class="expande" ng-click="clickExpand(firstMenu)">{{firstMenu.expand?'-':'+'}}</span><a ng-click="clickMenu(firstMenu)" ng-class="firstMenu.expand?'expand-select-text':''">{{firstMenu.title}}</a></span>
+        <ul ng-show="firstMenu.expand" class="check-element sample-show-hide">
+            <li ng-repeat="secndMenu in firstMenu.subMenu" ng-animate="'animate'"><span class="name"><span ng-show="secndMenu.subMenu.length > 0" class="expande" ng-click="clickExpand(secndMenu)">{{secndMenu.expand?'-':'+'}}</span><a ng-class="secndMenu.expand?'expand-select-text':''" ng-click="clickMenu(secndMenu)">{{secndMenu.title}}</a></span>
+                <ul ng-show="secndMenu.expand" class="check-element sample-show-hide">
+                    <li ng-repeat="thirdMenu in secndMenu.subMenu" ng-animate="'animate'"><span class="name"><a ng-click="clickMenu(thirdMenu)">{{thirdMenu.title}}</a></li>
                 </ul>
             </li>
         </ul>
