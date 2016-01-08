@@ -20,7 +20,10 @@
             'main.products': {
                 url: '/products',
                 templateUrl: 'views/mainModule/main.product.html',
-                controller: 'trendiMainProductsController'
+                controller: 'trendiMainProductsController',
+                params: {
+                    obj: null
+                }
 
             }
 

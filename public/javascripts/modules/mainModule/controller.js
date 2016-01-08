@@ -100,7 +100,7 @@
 
     }]);
 
-    mod.controller('trendiMainProductsController', ['$scope', '$rootScope','$state','mainDataService','$timeout', function ($scope, $rootScope, $state, mainDataService, $timeout) {
+    mod.controller('trendiMainProductsController', ['$scope', '$rootScope','$state','mainDataService','$timeout','$stateParams', function ($scope, $rootScope, $state, mainDataService, $timeout, $stateParams) {
 
         $scope.slider ;
         $scope.showSlider = true;
@@ -109,6 +109,8 @@
         $scope.trendItemsShow = false;
         $scope.changeView = false;
         $scope.isoRefresh = true;
+
+        console.log($stateParams);
 
         $scope.changeList = function(val){
             $scope.isoRefresh = false;

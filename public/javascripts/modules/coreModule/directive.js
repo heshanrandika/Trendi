@@ -377,7 +377,7 @@
             link: function(scope, elm, attrs) {
                 scope.slides = [];
                 scope.clickMenu = function(val){
-                    $state.go('main.products');
+                    $state.go('main.products',{obj:val});
                 };
                 elm.ready(function () {
                     var menu = elm.supersubs({
@@ -404,7 +404,7 @@
             link: function(scope, elm, attrs) {
                 scope.slides = [];
                 scope.clickMenu = function(val){
-                    $state.go('main.products');
+                    $state.go('main.products',{obj:val});
                 };
                 elm.ready(function () {
                     var menu = elm.trendiMenu({
@@ -430,7 +430,7 @@
             link: function(scope, elm, attrs) {
                 scope.slides = [];
                 scope.clickMenu = function(val){
-                    $state.go('main.products');
+                    $state.go('main.products',{obj:val});
                 };
                 elm.ready(function () {
                     var menu = elm.trendiExpander({
@@ -447,6 +447,68 @@
         };
     }]);
 
+
+    mod.directive('trendiProductExpandMenu',[function() {
+        return {
+            restrict: 'E',
+            replace: true,
+            scope: {},
+            templateUrl:'/views/coreModule/menu/trendi.product.menu.html',
+            link: function(scope, elm, attrs) {
+                scope.slides = [];
+                scope.mainMenu = [
+                    {
+                        title:'Women',
+                        subMenu:[
+                            {
+                                title:"Dresses",
+                                subMenu:[
+                                    {
+                                        title:"Club Dresses"
+                                    },
+                                    {
+                                        title:"Evening Dresses"
+                                    },
+                                    {
+                                        title:"Prom Dresses"
+                                    }
+                                ]
+                            },
+                            {
+                                title:"Shirts",
+                                subMenu:[
+                                    {
+                                        title:"Skinny type"
+                                    },
+                                    {
+                                        title:"Net Shirt"
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        title:'Men',
+                        subMenu:[
+                            {
+                                title:"Shorts",
+                                subMenu:[
+                                    {
+                                        title:"Beach Shorts"
+                                    },
+                                    {
+                                        title:"Cama Shorts"
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+
+                ]
+
+            }
+        };
+    }]);
 
     mod.directive('trendiHideMenu',[function() {
         return {

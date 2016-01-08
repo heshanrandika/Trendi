@@ -1,0 +1,11 @@
+<ul>
+    <li ng-repeat="firstMenu in mainMenu"> <span><span>-</span><a ng-click="clickMenu(firstMenu.title)">{{firstMenu.title}}</a></span>
+        <ul>
+            <li ng-repeat="secndMenu in firstMenu.subMenu"><a ng-click="clickMenu(secndMenu.title)">{{secndMenu.title}}</a>
+                <ul>
+                    <li ng-repeat="thirdMenu in secndMenu.subMenu"><a ng-click="clickMenu(thirdMenu.title)">{{thirdMenu.title}}</a></li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+</ul>
