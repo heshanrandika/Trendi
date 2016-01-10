@@ -41,7 +41,7 @@
                     <div class="inbox-body no-pad">
 
                         <table class="table table-inbox table-hover" ng-if="selectedTab == 0">
-                            <tbody lazy-scroll="paginationFuntion()" lazy-scroll-trigger="80">
+                            <tbody infinite-scroll='paginationFuntion()' infinite-scroll-distance='0.01'>
                             <tr ng-repeat="message in messageList"  ng-class="message.read?'':'unread'" ng-click="replyMailClick($event, message, 0)">
                                 <td class="inbox-small-cells"><i class="fa fa-star inbox-started"></i></td>
                                 <td class="view-message  dont-show">{{format(message.from, message)}}</td>
@@ -52,7 +52,7 @@
                         </table>
 
                         <table class="table table-inbox table-hover" ng-if="selectedTab == 1">
-                            <tbody lazy-scroll="paginationFuntion()" lazy-scroll-trigger="80">
+                            <tbody infinite-scroll='paginationFuntion()' infinite-scroll-distance='0.01'>
                             <tr ng-repeat="message in messageList" ng-click="replyMailClick($event, message, 1)">
                                 <td class="inbox-small-cells"><i class="fa fa-star inbox-started"></i></td>
                                 <td class="view-message  dont-show">{{format(message.to, message)}}</td>
@@ -63,7 +63,7 @@
                         </table>
 
                         <table class="table table-inbox table-hover" ng-if="selectedTab == 2">
-                            <tbody lazy-scroll="paginationFuntion()" lazy-scroll-trigger="80">
+                            <tbody infinite-scroll='paginationFuntion()' infinite-scroll-distance='0.01'>
                             <tr ng-repeat="message in messageList"  ng-class="message.read?'':'unread'" ng-click="replyMailClick($event, message, 2)">
                                 <td class="inbox-small-cells"><i class="fa fa-star inbox-started"></i></td>
                                 <td class="view-message  dont-show">{{message.to}}</td>

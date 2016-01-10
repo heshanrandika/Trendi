@@ -58,7 +58,7 @@ function getItemByShop(req,callback){
     });
 
     dbCon.on('end', function(){
-            callback(null,data);
+        callback(null,data);
     });
 };
 
@@ -211,6 +211,67 @@ function getMainItemList(req,callback){
 
 };
 
+function getSearchItemList(req,callback){
+    console.log("$$$$$$$  Get Search Item List $$$$$$");
+    var data = [];
+
+    var params = (req.body.params) ? req.body.params : {};
+    var opt = params.option;
+    var skip = params.skip;
+    var limit = params.limit;
+
+    var sorter = [];
+    var query = "";
+    var option = {};
+
+
+    switch (opt){
+        case 0:
+
+        case 1:
+    }
+
+
+    query = {$and: [ {'item.onSale' : { $exists : false }}, {"itemId": { $nin: idArray }} ]};
+    sorter = [["item.like",-1],["item.trend",-1]];
+    option = {skip:skip, limit:limit, sort:sorter};
+    var dbCon = daf.FindWithSorting(query,CONSTANT.MAIN_ITEM_COLLECTION,option);
+    dbCon.on('data', function(doc){
+        doc.class = "topRated";
+        data.push(doc);
+    });
+
+    dbCon.on('end', function(){
+        query = {$and: [ {'item.onSale' : true}, {"itemId": { $nin: idArray }} ]};
+        sorter = [["item.like",-1],["item.trend",-1]];
+        option = {skip:skip, limit:limit, sort:sorter};
+        var dbCon = daf.FindWithSorting(query,CONSTANT.MAIN_ITEM_COLLECTION,option);
+        dbCon.on('data', function(doc){
+            doc.class = "onSale";
+            data.push(doc);
+        });
+
+        dbCon.on('end', function(){
+            query = {};
+            sorter = [["promotion.like",-1],["promotion.trend",-1]];
+            option = {skip:skip, limit:limit, sort:sorter};
+            var dbCon = daf.FindWithSorting(query,CONSTANT.PROMOTION_COLLECTION,option);
+            dbCon.on('data', function(doc){
+                doc.class = "promotion";
+                data.push(doc);
+            });
+
+            dbCon.on('end', function(){
+                callback(null,data);
+            });
+
+        });
+
+    });
+
+
+};
+
 
 function getCommonItemList(req,callback){
     console.log("$$$$$$$  GetMostTrendyItems $$$$$$");
@@ -340,6 +401,12 @@ function updateItem(req,callback){
             if(success) {
                 daf.Remove(query, CONSTANT.SUB_ITEM_COLLECTION, function (err, success) {
                     var doc = {itemId: itemId, date:new Date(), item: mainItem};
+                    var doc = {itemId: itemId, date: new Date(), item: mainItem};
+                    doc.searchText = "";
+                    _.each(mainItem.types,function(val){
+                        doc.searchText += (val.value+" ");
+                    });
+                    doc.searchText += (mainItem.name+" ");
                     if (success) {
                         daf.Insert(doc, CONSTANT.MAIN_ITEM_COLLECTION, function (err, success) {
                             if (success) {
@@ -380,31 +447,37 @@ function addItems(req,callback) {
     if(params.mainItem){
 
         UTIL.UpdateCount(CONSTANT.MAIN_ITEM_COLLECTION, function (err, count) {
-                    if (count) {
-                        console.log("$$$$$$$  AddItems $$$$$$ Count : " + count);
-                        itemId = count;
-                        var doc = {itemId: itemId, date: new Date(), item: mainItem};
-                        daf.Insert(doc, CONSTANT.MAIN_ITEM_COLLECTION, function (err, success) {
-                            console.log("^^^^^^^  Add Main Items ^^^^^^^ : ");
-                            if (success && params.subItem) {
-                                console.log("^^^^^^^  Add Sub Items ^^^^^^^ : ");
-                                doc = {itemId: itemId, itemList: subItem};
-                                daf.Insert(doc, CONSTANT.SUB_ITEM_COLLECTION, function (err, success) {
-                                    if (success) {
-                                        callback(err, success);
-                                    } else {
-                                        callback(err, success);
-                                    }
-                                });
+            if (count) {
+                console.log("$$$$$$$  AddItems $$$$$$ Count : " + count);
+                itemId = count;
+                var doc = {itemId: itemId, date: new Date(), item: mainItem};
+                doc.searchText = "";
+                _.each(mainItem.types,function(val){
+                    doc.searchText += (val.value+" ");
+                });
+                doc.searchText += (mainItem.name+" ");
+
+                daf.Insert(doc, CONSTANT.MAIN_ITEM_COLLECTION, function (err, success) {
+                    console.log("^^^^^^^  Add Main Items ^^^^^^^ : ");
+                    if (success && params.subItem) {
+                        console.log("^^^^^^^  Add Sub Items ^^^^^^^ : ");
+                        doc = {itemId: itemId, itemList: subItem};
+                        daf.Insert(doc, CONSTANT.SUB_ITEM_COLLECTION, function (err, success) {
+                            if (success) {
+                                callback(err, success);
                             } else {
                                 callback(err, success);
                             }
-                        })
+                        });
                     } else {
-                        callback(err, null);
+                        callback(err, success);
                     }
+                })
+            } else {
+                callback(err, null);
+            }
 
-                });
+        });
 
     }else{
         var err = "Item details not available";

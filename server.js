@@ -7,7 +7,7 @@ var App = function(){
 
 
     self.ipaddr  = '0.0.0.0';
-    self.port    = 3003;
+    self.port    = 3001;
 
 
 

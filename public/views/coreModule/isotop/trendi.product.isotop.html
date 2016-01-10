@@ -17,7 +17,7 @@
    <section class="container content slider-products">
     <div class="row">
 
-        <div class="products-list-isotope isotope ng-cloak" id="isotopeContainer" isotope-container ng-cloak>
+        <div ng-class="views == true ? 'products-list-in-row':'products-list-isotope'" id="isotopeContainer" isotope-container ng-cloak class="ng-cloak" infinite-scroll='paginationFunction()' infinite-scroll-distance='0.01'>
             <div class="kindling {{x.class}} product-preview " ng-repeat="x in xList " isotope-item  onClick="removeItem(this)" on-finish-render="test">
 
                     <div class="preview animate scale"> <a href="product_default.html" class="preview-image"><img class="img-responsive animate scale" ng-src="{{x.item.image}}" width="270" height="328" alt=""></a>

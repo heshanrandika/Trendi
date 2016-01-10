@@ -8,7 +8,7 @@
             <div style="padding-top: 150px;">
                 <md-button class="md-raised md-primary" ng-click="EditViewController('')"><md-icon md-svg-src="add-circle"></md-icon> Add New Shop</md-button>
                 <div style="padding-top: 20px;">
-                    <md-list lazy-scroll="paginationFuntion()" lazy-scroll-trigger="80">
+                    <md-list infinite-scroll='paginationFuntion()' infinite-scroll-distance='0.01'>
                         <md-list-item ng-repeat="shop in shopList" ng-click="EditViewController(shop)">
                             <img alt="{{ shop.name }}" ng-src="{{shop.iconImage}}" class="md-avatar" />
                             <p>{{ shop.name }}</p>

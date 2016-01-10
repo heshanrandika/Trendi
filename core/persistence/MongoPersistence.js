@@ -7,7 +7,7 @@ var mdbc = this;
 var EventEmitter = require('events').EventEmitter;
 
 
-mdbc.dbServer = new mongodb.Server('127.0.0.1',parseInt('3001'));
+mdbc.dbServer = new mongodb.Server('127.0.0.1',parseInt('27017'));
 mdbc.db = new mongodb.Db('trendi', mdbc.dbServer, {auto_reconnect: true});
 mdbc.dbm = new mongodb.Db('message', mdbc.dbServer, {auto_reconnect: true});
 

@@ -20,8 +20,7 @@ window.com = {TRENDI:{CATEGORY:{modules:{}}}};
             'ngOpenFB',
             'authModule',
             'iso.directives',
-            'textAngular',
-            'lazy-scroll'
+            'textAngular'
 
 
         ]
