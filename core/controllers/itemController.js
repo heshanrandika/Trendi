@@ -191,19 +191,7 @@ function getMainItemList(req,callback){
             });
 
             dbCon.on('end', function(){
-                query = {};
-                sorter = [["promotion.like",-1],["promotion.trend",-1]];
-                option = {skip:skip, limit:limit, sort:sorter};
-                var dbCon = daf.FindWithSorting(query,CONSTANT.PROMOTION_COLLECTION,option);
-                dbCon.on('data', function(doc){
-                    doc.class = "promotion";
-                    data.push(doc);
-                });
-
-                dbCon.on('end', function(){
-                    callback(null,data);
-                });
-
+                callback(null,data);
             });
 
         });
@@ -223,48 +211,41 @@ function getSearchItemList(req,callback){
     var sorter = [];
     var query = "";
     var option = {};
+    var filter = [{'item.male': true}]
+    var data = {list:[]};
 
-
-    switch (opt){
-        case 0:
-
-        case 1:
-    }
-
-
-    query = {$and: [ {'item.onSale' : { $exists : false }}, {"itemId": { $nin: idArray }} ]};
+    query = {$and: [ {'item.onSale' : { $exists : false }}]};
+    query.$and = query.$and.concat(filter);
     sorter = [["item.like",-1],["item.trend",-1]];
     option = {skip:skip, limit:limit, sort:sorter};
     var dbCon = daf.FindWithSorting(query,CONSTANT.MAIN_ITEM_COLLECTION,option);
     dbCon.on('data', function(doc){
         doc.class = "topRated";
-        data.push(doc);
+        data.list.push(doc);
     });
 
     dbCon.on('end', function(){
-        query = {$and: [ {'item.onSale' : true}, {"itemId": { $nin: idArray }} ]};
+        query = {$and: [ {'item.onSale' : true}]};
         sorter = [["item.like",-1],["item.trend",-1]];
         option = {skip:skip, limit:limit, sort:sorter};
         var dbCon = daf.FindWithSorting(query,CONSTANT.MAIN_ITEM_COLLECTION,option);
         dbCon.on('data', function(doc){
             doc.class = "onSale";
-            data.push(doc);
+            data.list.push(doc);
         });
 
         dbCon.on('end', function(){
-            query = {};
-            sorter = [["promotion.like",-1],["promotion.trend",-1]];
-            option = {skip:skip, limit:limit, sort:sorter};
-            var dbCon = daf.FindWithSorting(query,CONSTANT.PROMOTION_COLLECTION,option);
-            dbCon.on('data', function(doc){
-                doc.class = "promotion";
-                data.push(doc);
-            });
-
-            dbCon.on('end', function(){
-                callback(null,data);
-            });
-
+                if(skip == 0){
+                    query = {$and: filter};
+                    daf.Count(query,CONSTANT.MAIN_ITEM_COLLECTION,function(err , count){
+                        if(count){
+                            data.count = count;
+                        }
+                        callback(null,data);
+                    })
+                }else{
+                    callback(null,data);
+                }
         });
 
     });

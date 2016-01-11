@@ -106,46 +106,7 @@
         $scope.changeView = false;
         $scope.isoRefresh = true;
         $scope.mainItems = [];
-
-        console.log($stateParams);
-
-
-        $scope.searchObj = {
-            skip: $scope.mainItems.length,
-            limit:6,
-            searchKey:'',
-            searchValue:''
-        };
-
-        $scope.loadData = function(init){
-            if(init){
-                $scope.itemList = [];
-                $scope.searchObj.skip =0;
-            }
-            $scope.loading = true;
-            mainDataService.getMainItemList($scope.searchObj).then(function(response){
-                $scope.itemList.push.apply($scope.itemList, response.data.responData.data.list);
-                if(response.data.responData.data.count){
-                    $scope.count = response.data.responData.data.count;
-                }
-                $scope.loading = false;
-            },function(){
-                $scope.itemList = [];
-            });
-            console.log("Scroll working");
-        };
-
-        // Register event handler
-/*        $scope.paginationFuntion = function() {
-            $scope.searchObj.skip = $scope.itemList.length;
-            if ($scope.count > $scope.itemList.length && !$scope.loading) {
-                $scope.loadData();
-            }
-        };*/
-
-        $scope.loadData(1);
-
-
+        $scope.count = 0;
 
         $scope.changeList = function(val){
             $scope.isoRefresh = false;
@@ -159,28 +120,46 @@
             },100);
         };
 
-        $scope.initWindow = function(){
-            mainDataService.getMainItemList({skip:0,limit:16}).then(function(response){
-                $scope.mainItems = response.data.responData.data;
+        $scope.searchObj = {
+            skip: $scope.mainItems.length,
+            limit:6,
+            searchKey:$stateParams.searchKey,
+            searchValue:$stateParams.searchValue,
+            searchText:$stateParams.searchText,
+            filterMap:{}
+        };
+
+
+        $scope.loadData = function(init){
+            if(init){
+                $scope.mainItems = [];
+                $scope.searchObj.skip =0;
+            }
+            $scope.loading = true;
+            mainDataService.getMainItemList($scope.searchObj).then(function(response){
+                $scope.mainItems.push.apply($scope.mainItems, response.data.responData.data.list);
+                if(response.data.responData.data.count){
+                    $scope.count = response.data.responData.data.count;
+                }
+                $scope.loading = false;
                 $scope.mainItemShow = true;
-            }, function(error){
-                $scope.mainItemShow = false;
+            },function(){
             });
-
         };
 
-        $scope.initWindow();
-
-
-        $scope.searchFunction= function(){
-
+        // Register event handler
+        $scope.paginationFuntion = function() {
+            $scope.searchObj.skip = $scope.mainItems.length;
+            if ($scope.count > $scope.mainItems.length && !$scope.loading) {
+                $scope.loadData();
+            }
         };
 
-
+        $scope.loadData(1);
 
         $scope.isotopPagination = {
             searchFromServer: function (d) {
-                $scope.loadData(1);
+                $scope.paginationFuntion();
             }
         };
 
