@@ -64,6 +64,10 @@
             return angular.extend({functionId: MAIN_MOD_CONFIG.REQ_CONFIG.FUNC_GetRatedShopList}, _getCObj());
         };
 
+        serviceCalls.getSearchListDao = function () {
+            return angular.extend({functionId: MAIN_MOD_CONFIG.REQ_CONFIG.FUNC_GetSearchList}, _getCObj());
+        };
+
         serviceCalls.getSocketLogoutDao = function () {
             return _getCObj();
         };

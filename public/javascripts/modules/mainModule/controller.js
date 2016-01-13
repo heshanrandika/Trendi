@@ -136,7 +136,7 @@
                 $scope.searchObj.skip =0;
             }
             $scope.loading = true;
-            mainDataService.getMainItemList($scope.searchObj).then(function(response){
+            mainDataService.getSearchList($scope.searchObj).then(function(response){
                 $scope.mainItems.push.apply($scope.mainItems, response.data.responData.data.list);
                 if(response.data.responData.data.count){
                     $scope.count = response.data.responData.data.count;

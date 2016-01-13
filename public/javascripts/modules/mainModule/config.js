@@ -34,6 +34,7 @@
             FUNC_GetRelatedItems:       1005,
             FUNC_GetCommonItemList:     1008,
             FUNC_GetMainItemList:       1009,
+            FUNC_GetSearchList:         1010,
             FUNC_GetShopList:           2000,
             FUNC_GetRatedShopList:      2001,
             FUNC_GetNearestShopList:    2002,
@@ -42,6 +43,7 @@
             FUNC_GetRatedPromotionList: 3001,
             FUNC_GetPromotion:          3005,
             FUNC_GetBlogList:           6000
+
 
 
         }

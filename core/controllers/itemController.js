@@ -207,11 +207,11 @@ function getSearchItemList(req,callback){
     var opt = params.option;
     var skip = params.skip;
     var limit = params.limit;
+    var filter = params.filter;
 
     var sorter = [];
     var query = "";
     var option = {};
-    var filter = [{'item.male': true}]
     var data = {list:[]};
 
     query = {$and: [ {'item.onSale' : { $exists : false }}]};
@@ -226,6 +226,7 @@ function getSearchItemList(req,callback){
 
     dbCon.on('end', function(){
         query = {$and: [ {'item.onSale' : true}]};
+        query.$and = query.$and.concat(filter);
         sorter = [["item.like",-1],["item.trend",-1]];
         option = {skip:skip, limit:limit, sort:sorter};
         var dbCon = daf.FindWithSorting(query,CONSTANT.MAIN_ITEM_COLLECTION,option);
@@ -496,3 +497,4 @@ module.exports.GetCommonItemList = getCommonItemList;
 module.exports.GetMainItemList = getMainItemList;
 module.exports.RemoveItem = removeItem;
 module.exports.AdminGetItemList = adminGetItemList;
+module.exports.GetSearchItemList = getSearchItemList;
