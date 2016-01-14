@@ -27,15 +27,7 @@
                         <h3>SHOP BY</h3>
                         <p><strong>Category</strong></p>
                         <ul class="simple-list">
-                            <li><span class="m-icon m-icon-dress"></span> <a href="listing.html">Dresses (17)</a></li>
-                            <li><span class="m-icon m-icon-shirts"></span> <a href="listing.html">Shirts (6)</a></li>
-                            <li><span class="m-icon m-icon-coats"></span> <a href="listing.html">Coats (6)</a></li>
-                            <li><span class="m-icon m-icon-jackets"></span> <a href="listing.html">Jackets (6)</a></li>
-                            <li><span class="m-icon m-icon-shorts"></span> <a href="listing.html">Shorts (6)</a></li>
-                            <li><span class="m-icon m-icon-jeans"></span> <a href="listing.html">Jeans (6)</a></li>
-                            <li><span class="m-icon m-icon-skirts"></span> <a href="listing.html">Skirts (6)</a></li>
-                            <li><span class="m-icon m-icon-lingerie"></span> <a href="listing.html">Lingerie (6)</a></li>
-                            <li><span class="m-icon m-icon-tops"></span> <a href="listing.html">Tops (5)</a></li>
+                            <li ng-repeat="categ in catMenu"><span ng-class="{categ.class}"></span> <a href="listing.html">{{categ.value}} (17)</a></li>
                         </ul>
                         <br>
                         <p><strong>Color</strong></p>

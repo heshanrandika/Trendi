@@ -107,6 +107,8 @@
         $scope.isoRefresh = true;
         $scope.mainItems = [];
         $scope.count = 0;
+        $scope.selectParams = $stateParams;
+        $scope.catMenu = [];
 
         $scope.changeList = function(val){
             $scope.isoRefresh = false;
@@ -119,6 +121,29 @@
                 $scope.isoRefresh = true;
             },100);
         };
+
+        $scope.createCategoryMenu = function(){
+            switch($scope.selectParams.category){
+                case 'Women': $scope.catMenu = [
+                                {'class':'m-icon m-icon-dress', 'value'='Dresses'},
+                                {'class':'m-icon m-icon-shirts', 'value'='Shirts'},
+                                {'class':'m-icon m-icon-coats', 'value'='Coats'},
+                                {'class':'m-icon m-icon-jackets', 'value'='Jackets'},
+                                {'class':'m-icon m-icon-shorts', 'value'='Shorts'},
+                                {'class':'m-icon m-icon-jeans', 'value'='Jeans'},
+                                {'class':'m-icon m-icon-skirts', 'value'='Skirts'},
+                                {'class':'m-icon m-icon-lingerie', 'value'='Lingerie'},
+                                {'class':'m-icon m-icon-tops', 'value'='Tops'}
+                            ]
+
+                case 'Men'  :
+
+                case 'Kids' :
+
+                case 'Other':
+            }
+        }
+        $scope.createCategoryMenu();
 
         $scope.searchObj = {
             skip: $scope.mainItems.length,
@@ -162,6 +187,8 @@
                 $scope.paginationFuntion();
             }
         };
+
+
 
     }]);
 
