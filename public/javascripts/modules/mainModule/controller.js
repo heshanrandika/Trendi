@@ -17,6 +17,40 @@
         $scope.homeClick();
 
 
+
+        $scope.womenMenu = [
+            {category:'Women', value:'Dresses'},
+            {category:'Women', value:'Jeans'},
+            {category:'Women', value:'Pants'},
+            {category:'Women', value:'Denim'},
+            {category:'Women', value:'Skirts'},
+            {category:'Women', value:'Office Wear'},
+            {category:'Women', value:'Casual Tops'},
+            {category:'Women', value:'Accesories'},
+            {category:'Women', value:'Bottoms'},
+            {category:'Women', value:'Foot Wear'}
+        ];
+
+        $scope.menMenu = [
+            {category:'Men', value:'T-Shirts'},
+            {category:'Men', value:'Shirts'},
+            {category:'Men', value:'Trousers'},
+            {category:'Men', value:'Shorts'},
+            {category:'Men', value:'Denim'},
+            {category:'Men', value:'Office Wear'}
+        ];
+
+        $scope.kidsMenu = [
+            {category:'Kids', value:'Shirts'},
+            {category:'Kids', value:'Napkins'},
+            {category:'Kids', value:'Shorts'},
+            {category:'Kids', value:'Frock'},
+            {category:'Kids', value:'Denim'},
+            {category:'Kids', value:'Skirts'}
+
+        ];
+
+
     }]);
 
     mod.controller('trendiMainHomeController', ['$scope', '$rootScope','$state','mainDataService', function ($scope, $rootScope, $state, mainDataService) {
@@ -100,7 +134,7 @@
 
     }]);
 
-    mod.controller('trendiMainProductsController', ['$scope', '$rootScope','$state','mainDataService','$timeout','$stateParams', function ($scope, $rootScope, $state, mainDataService, $timeout, $stateParams) {
+    mod.controller('trendiMainProductsController', ['$scope', '$rootScope','$state','mainDataService','$timeout','$stateParams','$location', function ($scope, $rootScope, $state, mainDataService, $timeout, $stateParams, $location) {
 
         $scope.mainItemShow = false;
         $scope.changeView = false;
@@ -125,22 +159,44 @@
         $scope.createCategoryMenu = function(){
             switch($scope.selectParams.category){
                 case 'Women': $scope.catMenu = [
-                                {'class':'m-icon m-icon-dress', 'value'='Dresses'},
-                                {'class':'m-icon m-icon-shirts', 'value'='Shirts'},
-                                {'class':'m-icon m-icon-coats', 'value'='Coats'},
-                                {'class':'m-icon m-icon-jackets', 'value'='Jackets'},
-                                {'class':'m-icon m-icon-shorts', 'value'='Shorts'},
-                                {'class':'m-icon m-icon-jeans', 'value'='Jeans'},
-                                {'class':'m-icon m-icon-skirts', 'value'='Skirts'},
-                                {'class':'m-icon m-icon-lingerie', 'value'='Lingerie'},
-                                {'class':'m-icon m-icon-tops', 'value'='Tops'}
-                            ]
+                    {'class':'m-icon m-icon-dress', 'value':'Dresses'},
+                    {'class':'m-icon m-icon-jeans', 'value':'Jeans'},
+                    {'class':'m-icon m-icon-skirts', 'value':'Skirts'},
+                    {'class':'m-icon m-icon-lingerie', 'value':'Lingerie'},
+                    {'class':'m-icon m-icon-tops', 'value':'Tops'}
+                ];
+                    break;
 
-                case 'Men'  :
+                case 'Men'  :$scope.catMenu = [
+                    {'class':'m-icon m-icon-shirts', 'value':'Shirts'},
+                    {'class':'m-icon m-icon-coats', 'value':'Coats'},
+                    {'class':'m-icon m-icon-jackets', 'value':'Jackets'},
+                    {'class':'m-icon m-icon-shorts', 'value':'Shorts'}
+                ];
+                    break;
 
-                case 'Kids' :
+                case 'Kids' :$scope.catMenu = [
+                    {'class':'m-icon m-icon-dress', 'value':'Dresses'},
+                    {'class':'m-icon m-icon-shirts', 'value':'Shirts'},
+                    {'class':'m-icon m-icon-shorts', 'value':'Shorts'},
+                    {'class':'m-icon m-icon-jeans', 'value':'Jeans'},
+                    {'class':'m-icon m-icon-skirts', 'value':'Skirts'},
+                    {'class':'m-icon m-icon-tops', 'value':'Tops'}
+                ];
+                    break;
 
-                case 'Other':
+                case 'Other':$scope.catMenu = [
+                    {'class':'m-icon m-icon-dress', 'value':'Dresses'},
+                    {'class':'m-icon m-icon-shirts', 'value':'Shirts'},
+                    {'class':'m-icon m-icon-coats', 'value':'Coats'},
+                    {'class':'m-icon m-icon-jackets', 'value':'Jackets'},
+                    {'class':'m-icon m-icon-shorts', 'value':'Shorts'},
+                    {'class':'m-icon m-icon-jeans', 'value':'Jeans'},
+                    {'class':'m-icon m-icon-skirts', 'value':'Skirts'},
+                    {'class':'m-icon m-icon-lingerie', 'value':'Lingerie'},
+                    {'class':'m-icon m-icon-tops', 'value':'Tops'}
+                ];
+                    break;
             }
         }
         $scope.createCategoryMenu();
@@ -186,6 +242,10 @@
             searchFromServer: function (d) {
                 $scope.paginationFuntion();
             }
+        };
+
+        $scope.clickMenu = function(val){
+            $location.path('main/products/'+$scope.selectParams.category+'/'+val.value);
         };
 
 

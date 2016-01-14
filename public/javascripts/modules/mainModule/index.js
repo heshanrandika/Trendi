@@ -6,7 +6,7 @@
     ns.mainTrendiModule = angular.module('mainTrendiModule', com.TRENDI.CATEGORY.config.MODULES);
 
     ns.mainTrendiModule.config(['$locationProvider',function ($locationProvider) {
-        $locationProvider.html5Mode(true);
+        $locationProvider.html5Mode(false);
     }]);
 
     ns.mainTrendiModule.value("rndAddToLatLon", function () {

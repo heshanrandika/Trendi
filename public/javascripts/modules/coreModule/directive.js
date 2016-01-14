@@ -394,16 +394,17 @@
     }]);
 
 
-    mod.directive('trendiMenuBar',['$state',function($state) {
+    mod.directive('trendiMenuBar',['$location',function($location) {
         return {
             restrict: 'E',
             replace: true,
-            scope: {},
+            scope: {
+                menuType:'='
+            },
             templateUrl:'/views/coreModule/menu/trendi.menu.main.html',
             link: function(scope, elm, attrs) {
-                scope.slides = [];
                 scope.clickMenu = function(val){
-                    $state.go('main.products',{obj:val});
+                    $location.path('main/products/'+val.category+'/'+val.value);
                 };
                 elm.ready(function () {
                     var menu = elm.supersubs({
@@ -447,7 +448,7 @@
         };
     }]);
 
-    mod.directive('trendiExpandMenu',['$state',function($state) {
+    mod.directive('trendiExpandMenu',['$location',function($location) {
         return {
             restrict: 'E',
             replace: true,
@@ -456,7 +457,7 @@
             link: function(scope, elm, attrs) {
                 scope.slides = [];
                 scope.clickMenu = function(val){
-                    $state.go('main.products',{obj:val});
+                    $location.path('main/products?category='+val.category+'&selected='+val.value);
                 };
                 elm.ready(function () {
                     var menu = elm.trendiExpander({

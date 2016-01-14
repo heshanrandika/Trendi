@@ -1,13 +1,7 @@
 <ul class="sf-menu">
-    <li><a href="#">Women</a>
+    <li><a href="#">{{menuType[0].category}}</a>
         <ul>
-            <li><a ng-click="clickMenu('T-shirts')">T-shirts</a></li>
-            <li><a ng-click="clickMenu('Jeans')">Jeans</a></li>
-            <li><a ng-click="clickMenu('Pants')">Pants</a></li>
-            <li><a ng-click="clickMenu('Shorts')">Shorts</a></li>
-            <li><a ng-click="clickMenu('Accesories')">Accesories</a></li>
-            <li><a ng-click="clickMenu('Foot-Wear')">Foot Wear</a></li>
-            <li><a ng-click="clickMenu('Formal-Wear')">Formal Wear</a></li>
+            <li ng-repeat="menu in menuType"><a ng-click="clickMenu(menu)">{{menu.value}}</a></li>
         </ul>
     </li>
 </ul>

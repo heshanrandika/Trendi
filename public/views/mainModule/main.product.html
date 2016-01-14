@@ -27,7 +27,7 @@
                         <h3>SHOP BY</h3>
                         <p><strong>Category</strong></p>
                         <ul class="simple-list">
-                            <li ng-repeat="categ in catMenu"><span ng-class="{categ.class}"></span> <a href="listing.html">{{categ.value}} (17)</a></li>
+                            <li ng-repeat="categ in catMenu"><span ng-class="categ.class"></span> <a ng-click="clickMenu(categ)">{{categ.value}} (17)</a></li>
                         </ul>
                         <br>
                         <p><strong>Color</strong></p>

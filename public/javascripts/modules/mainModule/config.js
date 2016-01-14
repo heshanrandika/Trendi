@@ -18,12 +18,9 @@
 
             },
             'main.products': {
-                url: '/products',
+                url: '/products/:category/:selected',
                 templateUrl: 'views/mainModule/main.product.html',
-                controller: 'trendiMainProductsController',
-                params: {
-                    obj: null
-                }
+                controller: 'trendiMainProductsController'
 
             }
 

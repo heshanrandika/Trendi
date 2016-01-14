@@ -207,7 +207,7 @@ function getSearchItemList(req,callback){
     var opt = params.option;
     var skip = params.skip;
     var limit = params.limit;
-    var filter = params.filter;
+    var filter = params.filter?params.filter:[];
 
     var sorter = [];
     var query = "";
