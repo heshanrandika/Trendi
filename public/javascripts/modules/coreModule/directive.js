@@ -115,7 +115,7 @@
     }]);
 
 
-    mod.directive('trendiIsotopProduct',['$timeout',function($timeout){
+    mod.directive('trendiIsotopProduct',['$timeout','$state',function($timeout, $state){
         return {
             restrict: 'E',
             replace: true,
@@ -131,9 +131,13 @@
                 scope.paginationFunction = function(intx) {
                     scope.action.searchFromServer(1);
                 };
+
+                scope.openItem = function(id) {
+                    scope.action.goto(id);
+                };
                 scope.$on('test', function(ngRepeatFinishedEvent) {
                     $timeout(function () {
-                        scope.$emit('iso-method', {name:'shuffle', params:null})
+                        scope.$emit('iso-method', {params:null})
                     },100);
                 });
 
@@ -404,6 +408,7 @@
             templateUrl:'/views/coreModule/menu/trendi.menu.main.html',
             link: function(scope, elm, attrs) {
                 scope.clickMenu = function(val){
+                    delete $location.$$search.itemId
                     $location.path('main/products/'+val.category+'/'+val.value);
                 };
                 elm.ready(function () {

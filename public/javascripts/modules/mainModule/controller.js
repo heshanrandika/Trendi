@@ -134,15 +134,29 @@
 
     }]);
 
-    mod.controller('trendiMainProductsController', ['$scope', '$rootScope','$state','mainDataService','$timeout','$stateParams','$location', function ($scope, $rootScope, $state, mainDataService, $timeout, $stateParams, $location) {
-
+    mod.controller('trendiMainProductsController', ['$scope', '$rootScope','$state','mainDataService','$timeout','$stateParams','$location','$anchorScroll', function ($scope, $rootScope, $state, mainDataService, $timeout, $stateParams, $location, $anchorScroll) {
+        $scope.selectParams = $stateParams;
         $scope.mainItemShow = false;
         $scope.changeView = false;
         $scope.isoRefresh = true;
         $scope.mainItems = [];
         $scope.count = 0;
-        $scope.selectParams = $stateParams;
+        $scope.uiRef = $location.search().itemId;
         $scope.catMenu = [];
+
+
+        $scope.colorMenu = [
+            {'class':'icon-color icon-color-black', 'txt':'Black', 'value':'#000000'},
+            {'class':'icon-color icon-color-blue', 'txt':'Blue', 'value':'#0000FF'},
+            {'class':'icon-color icon-color-brown', 'txt':'Brown', 'value':'#A52A2A'},
+            {'class':'icon-color icon-color-gray', 'txt':'Gray', 'value':'#808080'},
+            {'class':'icon-color icon-color-green', 'txt':'Green', 'value':'#00FF00'},
+            {'class':'icon-color icon-color-magneta', 'txt':'Magenta', 'value':'#FF00FF'},
+            {'class':'icon-color icon-color-pink', 'txt':'Pink', 'value':'#FFC0CB'},
+            {'class':'icon-color icon-color-red', 'txt':'Red', 'value':'#FF0000'},
+            {'class':'icon-color icon-color-white', 'txt':'White', 'value':'#FFFFFF'}
+        ];
+
 
         $scope.changeList = function(val){
             $scope.isoRefresh = false;
@@ -198,7 +212,7 @@
                 ];
                     break;
             }
-        }
+        };
         $scope.createCategoryMenu();
 
         $scope.searchObj = {
@@ -238,17 +252,41 @@
 
         $scope.loadData(1);
 
+
+
+
         $scope.isotopPagination = {
             searchFromServer: function (d) {
                 $scope.paginationFuntion();
+            },
+            goto: function (id) {
+                $scope.uiRef = id;
+                $location.search('itemId', id);
+                $scope.scrollTo('back-btn');
             }
+
         };
 
         $scope.clickMenu = function(val){
             $location.path('main/products/'+$scope.selectParams.category+'/'+val.value);
+/*            $location.path('main/products/'+$scope.selectParams.category+'/'+val.value);*/
+        };
+
+        $scope.backTo = function(){
+            var tmp = $scope.uiRef
+            $scope.uiRef = 0;
+            $location.search({});
+            $scope.scrollTo(tmp+"");
         };
 
 
+        $scope.scrollTo = function(id) {
+            var old = $location.hash();
+            $location.hash(id);
+
+                $anchorScroll();
+
+        }
 
     }]);
 

@@ -18,9 +18,9 @@
     <div class="row">
 
         <div ng-class="views == true ? 'products-list-in-row':'products-list-isotope'" id="isotopeContainer" isotope-container ng-cloak class="ng-cloak" infinite-scroll='paginationFunction()' infinite-scroll-distance='0.01'>
-            <div class="kindling {{x.class}} product-preview " ng-repeat="x in xList " isotope-item  onClick="removeItem(this)" on-finish-render="test">
+            <div class="kindling {{x.class}} product-preview " ng-repeat="x in xList " isotope-item  on-finish-render="test">
 
-                    <div class="preview animate scale"> <a href="product_default.html" class="preview-image"><img class="img-responsive animate scale" ng-src="{{x.item.image}}" width="270" height="328" alt=""></a>
+                    <div id="{{x.itemId}}" class="preview animate scale"> <a class="preview-image"><img ng-click="openItem(x.itemId)" class="img-responsive animate scale" ng-src="{{x.item.image}}" width="270" height="328" alt=""></a>
                         <ul class="product-controls-list right" ng-if="x.item.onSale" >
                             <li><span class="label label-sale">SALE</span></li>
                             <li><span class="label">-20%</span></li>
