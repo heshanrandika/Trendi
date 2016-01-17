@@ -1,0 +1,16 @@
+<div>
+    <h5>Shopping Option</h5>
+    <div>
+        <span class="option-name" ng-click="clickExpand(colorMenu)"><span class="option-expande">{{colorMenu.expand?'-':'+'}}</span><a><strong>Color</strong> </a></span>
+         <ul ng-show="colorMenu.expand" class="expande-list check-element sample-show-hide">
+             <li ng-repeat="color in colorMenu.colors"><md-checkbox ng-model="color.select" ng-click=""><span ng-class="color.class"></span> <a>{{color.txt}}</a></md-checkbox></li>
+         </ul>
+    </div>
+    <br>
+    <div>
+        <span class="option-name" ng-click="clickExpand(sizeMenu)"><span class="option-expande">{{sizeMenu.expand?'-':'+'}}</span><a><strong>Size</strong> </a></span>
+        <ul ng-show="sizeMenu.expand" class="expande-list check-element sample-show-hide">
+            <li ng-repeat="size in sizeMenu.sizes"><md-checkbox ng-model="size.select" ng-click=""> <a> - {{size.txt}}</a></md-checkbox></li>
+        </ul>
+    </div>
+</div>

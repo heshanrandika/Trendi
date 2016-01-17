@@ -27,22 +27,7 @@
                             <li ng-repeat="categ in catMenu"><span ng-class="categ.class"></span> <a ng-click="clickMenu(categ)">{{categ.value}} <span class="label label-mega">( 4 )</span></a></li>
                         </ul>
                         <br>
-                        <p><strong>Color</strong></p>
-                        <ul class="simple-list">
-                            <li ng-repeat="color in colorMenu"><md-checkbox ng-model="color.select"><span ng-class="color.class"></span> <a href="listing.html">{{color.txt}}</a></md-checkbox></li>
-                        </ul>
-                        <br>
-                        <p><strong>Size</strong></p>
-                        <ul class="simple-list">
-                            <li>- &nbsp; <a href="listing.html">39 (2)</a></li>
-                            <li>� &nbsp; <a href="listing.html">40 (1)</a></li>
-                            <li>� &nbsp; <a href="listing.html">41 (8)</a></li>
-                            <li>� &nbsp; <a href="listing.html">42 (3)</a></li>
-                            <li>� &nbsp; <a href="listing.html">43 (7)</a></li>
-                            <li>� &nbsp; <a href="listing.html">44 (12)</a></li>
-                            <li>� &nbsp; <a href="listing.html">45 (6)</a></li>
-                            <li>� &nbsp; <a href="listing.html">46 (2)</a></li>
-                        </ul>
+                        <trendi-search-option></trendi-search-option>
                     </section>
                     <!-- //end Shop by -->
 

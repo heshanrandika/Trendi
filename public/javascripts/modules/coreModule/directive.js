@@ -408,7 +408,7 @@
             templateUrl:'/views/coreModule/menu/trendi.menu.main.html',
             link: function(scope, elm, attrs) {
                 scope.clickMenu = function(val){
-                    delete $location.$$search.itemId
+                    delete $location.$$search.itemId;
                     $location.path('main/products/'+val.category+'/'+val.value);
                 };
                 elm.ready(function () {

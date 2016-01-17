@@ -258,3 +258,16 @@
 .sample-show-hide.ng-hide {
   opacity:0;
 }
+
+
+.option-expande {
+    float: right;
+    cursor: pointer;
+    padding: 0 8px;
+    font-family: Verdana, Arial, Helvetica, sans-serif
+}
+.option-name {
+    display: block;
+    border-bottom: 1px solid #eee;
+    padding: 7px 0 6px
+}

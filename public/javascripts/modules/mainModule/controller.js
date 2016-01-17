@@ -269,11 +269,10 @@
 
         $scope.clickMenu = function(val){
             $location.path('main/products/'+$scope.selectParams.category+'/'+val.value);
-/*            $location.path('main/products/'+$scope.selectParams.category+'/'+val.value);*/
         };
 
         $scope.backTo = function(){
-            var tmp = $scope.uiRef
+            var tmp = $scope.uiRef;
             $scope.uiRef = 0;
             $location.search({});
             $scope.scrollTo(tmp+"");
@@ -283,9 +282,7 @@
         $scope.scrollTo = function(id) {
             var old = $location.hash();
             $location.hash(id);
-
-                $anchorScroll();
-
+            $anchorScroll();
         }
 
     }]);
