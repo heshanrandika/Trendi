@@ -24,7 +24,7 @@
                         <h3>SHOP BY</h3>
                         <p><strong>Category</strong></p>
                         <ul class="simple-list">
-                            <li ng-repeat="categ in catMenu"><span ng-class="categ.class"></span> <a ng-click="clickMenu(categ)">{{categ.value}} <span class="label label-mega">( 4 )</span></a></li>
+                            <li ng-repeat="categ in catMenu"><span ng-class="categ.class"></span> <a ng-click="clickMenu(categ)">{{categ.value}} <span class="label label-mega">( {{categ.count?categ.count:0}} )</span></a></li>
                         </ul>
                         <br>
                         <trendi-search-option></trendi-search-option>

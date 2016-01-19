@@ -489,17 +489,11 @@ function removeItem(req,callback){
 function getItemCountByTags(req,callback){
     var query = [
        { $unwind : "$item.types" } ,
-       { $group: { "_id": null , "count": { $sum: 1 } } }
+       { $group: { "_id": "$item.types.value" , "count": { $sum: 1 } } }
      ];
 
     daf.Aggregate(query,CONSTANT.MAIN_ITEM_COLLECTION,function(err,success){
-        if(success) {
-            daf.Remove(query, CONSTANT.SUB_ITEM_COLLECTION, function (err, success) {
-                callback(err, success);
-            });
-        }else{
             callback(err, success);
-        }
     });
 
 };

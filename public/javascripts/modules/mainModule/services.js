@@ -47,8 +47,8 @@
             return Data_Comm.postPromise(angular.extend({params:d},mainServiceCalls.getSearchListDao()));
         };
 
-        var _getItemCount = function(d){
-            return Data_Comm.postPromise(angular.extend({params:d},mainServiceCalls.getItemCountDao()));
+        var _getItemCount = function(){
+            return Data_Comm.postPromise(angular.extend({},mainServiceCalls.getItemCountDao()));
         };
 
         return{

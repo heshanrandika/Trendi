@@ -162,7 +162,7 @@ function upsert(query, newDoc, fromCollection, callback){
 }
 
 
-function aggregate(query, newDoc, fromCollection, callback){
+function aggregate(query,fromCollection, callback){
     mdbc.db.collection(fromCollection).aggregate(query,function(err, results){
         if (err) {
             callback(err,results);
