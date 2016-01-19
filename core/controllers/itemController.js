@@ -485,6 +485,25 @@ function removeItem(req,callback){
 };
 
 
+
+function getItemCountByTags(req,callback){
+    var query = [
+       { $unwind : "$item.types" } ,
+       { $group: { "_id": null , "count": { $sum: 1 } } }
+     ];
+
+    daf.Aggregate(query,CONSTANT.MAIN_ITEM_COLLECTION,function(err,success){
+        if(success) {
+            daf.Remove(query, CONSTANT.SUB_ITEM_COLLECTION, function (err, success) {
+                callback(err, success);
+            });
+        }else{
+            callback(err, success);
+        }
+    });
+
+};
+
 module.exports.GetLatestItem = getLatestItems;
 module.exports.GetItemByShop = getItemByShop;
 module.exports.GetMostTrendyItems = getMostTrendyItems;
@@ -498,3 +517,4 @@ module.exports.GetMainItemList = getMainItemList;
 module.exports.RemoveItem = removeItem;
 module.exports.AdminGetItemList = adminGetItemList;
 module.exports.GetSearchItemList = getSearchItemList;
+module.exports.GetItemCount = getItemCountByTags;

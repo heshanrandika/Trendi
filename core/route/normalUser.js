@@ -136,9 +136,29 @@ var normalRequestRoute = function(req,res){
             });
             break;
 
-        case 1010:
+        case 1012:
 
             ITEM.GetSearchItemList(req, function (err, data) {
+                if (err) {
+                    resObject.resStatus = 0;
+                    resObject.responData.Error = err.toString();
+                    res.status(500);
+                    res.send(resObject);
+
+                } else if (data) {
+
+                    resObject.resStatus = 1;
+                    resObject.responData.data = data;
+                    res.send(resObject);
+
+                }
+
+            });
+            break;
+
+        case 1013:
+
+            ITEM.GetItemCount(req, function (err, data) {
                 if (err) {
                     resObject.resStatus = 0;
                     resObject.responData.Error = err.toString();

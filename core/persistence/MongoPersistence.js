@@ -161,6 +161,18 @@ function upsert(query, newDoc, fromCollection, callback){
     });
 }
 
+
+function aggregate(query, newDoc, fromCollection, callback){
+    mdbc.db.collection(fromCollection).aggregate(query,function(err, results){
+        if (err) {
+            callback(err,results);
+        }
+        if(results) {
+            callback(err,results);
+        }
+    });
+}
+
 module.exports.FindOne = findOne;
 module.exports.Find = find;
 module.exports.FindWithPagination = findWithPagination;
@@ -170,6 +182,7 @@ module.exports.Update = update;
 module.exports.Remove = remove;
 module.exports.Count = count;
 module.exports.Upsert = upsert;
+module.exports.Aggregate = aggregate;
 
 
 module.exports.MFindWithPagination = mFindWithPagination;

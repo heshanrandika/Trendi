@@ -47,6 +47,10 @@
             return Data_Comm.postPromise(angular.extend({params:d},mainServiceCalls.getSearchListDao()));
         };
 
+        var _getItemCount = function(d){
+            return Data_Comm.postPromise(angular.extend({params:d},mainServiceCalls.getItemCountDao()));
+        };
+
         return{
             getLatestItem:_getLatestItem,
             getMainItemList:_getMainItemList,
@@ -58,7 +62,8 @@
             getNewProductList:_getNewProductList,
             getTopRatedList:_getTopRatedList,
             getShopList:_getShopList,
-            getSearchList:_getSearchList
+            getSearchList:_getSearchList,
+            getItemCount:_getItemCount
         }
     }]);
 })(com.TRENDI.CATEGORY.modules.mainTrendiModule);
