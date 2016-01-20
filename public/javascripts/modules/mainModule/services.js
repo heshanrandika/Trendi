@@ -47,8 +47,12 @@
             return Data_Comm.postPromise(angular.extend({params:d},mainServiceCalls.getSearchListDao()));
         };
 
-        var _getItemCount = function(){
-            return Data_Comm.postPromise(angular.extend({},mainServiceCalls.getItemCountDao()));
+        var _getItemCount = function(d){
+            return Data_Comm.postPromise(angular.extend({params:d},mainServiceCalls.getItemCountDao()));
+        };
+
+        var _getSubItem = function(d){
+            return Data_Comm.postPromise(angular.extend({params:d},mainServiceCalls.getSubItemDao()));
         };
 
         return{
@@ -63,7 +67,8 @@
             getTopRatedList:_getTopRatedList,
             getShopList:_getShopList,
             getSearchList:_getSearchList,
-            getItemCount:_getItemCount
+            getItemCount:_getItemCount,
+            getSubItem:_getSubItem
         }
     }]);
 })(com.TRENDI.CATEGORY.modules.mainTrendiModule);

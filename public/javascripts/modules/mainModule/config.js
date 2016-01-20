@@ -33,6 +33,7 @@
             FUNC_GetMainItemList:       1009,
             FUNC_GetSearchList:         1012,
             FUNC_GetItemCount:          1013,
+            FUNC_GetSubItem:            1014,
             FUNC_GetShopList:           2000,
             FUNC_GetRatedShopList:      2001,
             FUNC_GetNearestShopList:    2002,

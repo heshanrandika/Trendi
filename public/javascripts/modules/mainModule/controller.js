@@ -210,7 +210,7 @@
         };
 
         $scope.getCategoryMenuData = function () {
-            mainDataService.getItemCount().then(function(response){
+            mainDataService.getItemCount({category : $scope.selectParams.category}).then(function(response){
                 $scope.categoryMenu = response.data.responData.data;
                 $scope.createCategoryMenu();
             },function(){
@@ -260,6 +260,13 @@
         $scope.loadData(1);
 
 
+        $scope.loadSubItem = function(id){
+            $scope.subItem = {};
+            mainDataService.getSubItem({itemId : id}).then(function(response){
+                $scope.subItem =  response.data.responData.data;
+            },function(){
+            });
+        }
 
 
         $scope.isotopPagination = {
@@ -267,6 +274,7 @@
                 $scope.paginationFuntion();
             },
             goto: function (id) {
+                $scope.loadSubItem(id);
                 $scope.uiRef = id;
                 $location.search('itemId', id);
                 $scope.scrollTo('back-btn');
