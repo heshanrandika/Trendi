@@ -132,8 +132,8 @@
                     scope.action.searchFromServer(1);
                 };
 
-                scope.openItem = function(id) {
-                    scope.action.goto(id);
+                scope.openItem = function(item) {
+                    scope.action.goto(item);
                 };
                 scope.$on('test', function(ngRepeatFinishedEvent) {
                     $timeout(function () {

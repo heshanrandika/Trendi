@@ -154,7 +154,7 @@
                         < Back
                     </md-button>
                     <div class="hidden-xs flexslider-thumb-vertical-outer">
-                        <div class="flexslider flexslider-thumb-vertical vertical min">
+                    <!--    <div class="flexslider flexslider-thumb-vertical vertical min">
                             <ul class="previews-list slides">
                                 <li><img class = 'cloudzoom-gallery' alt="#"  src = "images/products/product-02-01-76x92.jpg" data-cloudzoom = "useZoom: '.cloudzoom', image: 'images/products/product-02-01-593x722.jpg', zoomImage: 'images/products/product-02-01-888x1080.jpg', autoInside : 991" ></li>
                                 <li><img class = 'cloudzoom-gallery' alt="#"  src = "images/products/product-02-02-76x92.jpg" data-cloudzoom = "useZoom: '.cloudzoom', image: 'images/products/product-02-02-593x722.jpg', zoomImage: 'images/products/product-02-02-888x1080.jpg' " ></li>
@@ -162,9 +162,10 @@
                                 <li><img class = 'cloudzoom-gallery' alt="#"  src = "images/products/product-02-04-76x92.jpg" data-cloudzoom = "useZoom: '.cloudzoom', image: 'images/products/product-02-04-593x722.jpg', zoomImage: 'images/products/product-02-04-888x1080.jpg' " ></li>
                                 <li><a class="various fancybox.iframe" href="http://www.youtube.com/embed/L9szn1QQfas?autoplay=1"><img alt="#"  class='fancybox-video' src = "images/video.png" ></a></li>
                             </ul>
-                        </div>
+                        </div>-->
                     </div>
-                    <div class="large-image vertical hidden-xs"> <img alt="#" class = "cloudzoom" src = "images/products/product-02-01-593x722.jpg" data-cloudzoom = "zoomImage: 'images/products/product-02-01-888x1080.jpg', autoInside : 991" /> </div>
+                    <!--<div class="large-image vertical hidden-xs"> <img alt="#" class = "cloudzoom" src = "images/products/product-02-01-593x722.jpg" data-cloudzoom = "zoomImage: 'images/products/product-02-01-888x1080.jpg', autoInside : 991" /> </div>-->
+                    <div ng-if="selectedItem.item.image" zoom2 big="subItem.itemList[0].image" tiny="selectedItem.item.image" small="selectedItem.item.image" alt="" title="{{selectedItem.item.name}}"></div>
                     <div class="flexslider flexslider-large visible-xs">
                         <ul class="slides">
                             <li><img class="img-responsive animate scale" src="images/products/product-02-01-593x722.jpg" alt=""></li>

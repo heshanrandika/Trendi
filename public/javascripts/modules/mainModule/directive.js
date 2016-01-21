@@ -102,4 +102,45 @@
     }]);
 
 
+    mod.directive('zoom2', ['$compile',
+        function($compile) {
+            return {
+                restrict: 'AC',
+                scope: {
+                    tiny: "=",
+                    small: "=",
+                    big: "=",
+                    title: "="
+                },
+
+                controller: ["$scope", "$attrs", "$element", "$compile",
+                    function($scope, $attrs, $element, $compile) {
+
+                        $scope.init = function() {
+
+
+                            $scope.$watch('tiny + small + big + title', function(newValue, oldValue) {
+                                console.log("in watch.");
+
+
+                                var str = ' <a href="' + $scope.big + '" class="cloud-zoom" rel="adjustX: 10, adjustY:-4">' +
+                                    '<img src="' + $scope.small + '"/></a>';
+                                var e = $compile(str)($scope);
+
+                                $element.html(e);
+
+                                $(".cloud-zoom, .cloud-zoom-gallery").CloudZoom();
+
+                            }, true);
+
+                        };
+
+                        $scope.init();
+
+                    }
+                ]
+
+            };
+        }
+    ]);
 })(com.TRENDI.CATEGORY.modules.mainTrendiModule);

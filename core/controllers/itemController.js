@@ -494,7 +494,10 @@ function getItemCountByTags(req,callback){
      ];
 
      if(category){
-        query.splice(1,0,{"$match":{'group':category}});
+         var catText = {};
+         catText["item.group."+category.toLowerCase()]   = true;
+
+        query.splice(1,0,{"$match":catText});
      }
 
     daf.Aggregate(query,CONSTANT.MAIN_ITEM_COLLECTION,function(err,success){

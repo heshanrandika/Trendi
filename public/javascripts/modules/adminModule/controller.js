@@ -46,6 +46,7 @@
         $scope.slectedTypes = [];
         $scope.selectedIndex = 0;
         $scope.btnPressed = false;
+        $scope.group = {};
 
         $scope.sizes = [
             {
@@ -172,6 +173,12 @@
             $scope.slectedSizes = [];
             $scope.slectedTypes = [];
             $scope.btnPressed = false;
+            $scope.group = {
+                men: false,
+                women: false,
+                kids: false
+            };
+
         };
 
         $scope.$watch('selectedIndex', function(current, old){
@@ -191,6 +198,11 @@
                 $scope.selectedColors = itemData.item.colors;
                 $scope.slectedSizes = itemData.item.sizes?itemData.item.sizes:[];
                 $scope.slectedTypes = itemData.item.types?itemData.item.types:[];
+                $scope.group = itemData.item.group?itemData.item.group:{
+                    men: false,
+                    women: false,
+                    kids: false
+                };
 
                 adminDataService.getSubItem({itemId : itemData.itemId, seenEnable:false}).then(function(response){
                     var subItemList = response.data.responData.data.itemList;
@@ -210,6 +222,11 @@
                 $scope.slectedTypes = [];
                 $scope.headerText = 'Add New Item';
                 $scope.addNew = true;
+                $scope.group = {
+                    men: false,
+                    women: false,
+                    kids: false
+                };
             }
 
 
@@ -246,6 +263,7 @@
                     $scope.mainItem.types = $scope.slectedTypes;
                     $scope.mainItem.sizes = $scope.slectedSizes;
                     $scope.mainItem.colors = $scope.selectedColors;
+                    $scope.mainItem.group = $scope.group;
                     var itemDetail = {};
                     switch (option) {
                         case 1 :

@@ -144,6 +144,7 @@
         $scope.count = 0;
         $scope.uiRef = $location.search().itemId;
         $scope.catMenu = [];
+        $scope.selectedItem = {};
 
 
         $scope.changeList = function(val){
@@ -266,17 +267,18 @@
                 $scope.subItem =  response.data.responData.data;
             },function(){
             });
-        }
+        };
 
 
         $scope.isotopPagination = {
             searchFromServer: function (d) {
                 $scope.paginationFuntion();
             },
-            goto: function (id) {
-                $scope.loadSubItem(id);
-                $scope.uiRef = id;
-                $location.search('itemId', id);
+            goto: function (item) {
+                $scope.selectedItem = item;
+                $scope.loadSubItem(item.itemId);
+                $scope.uiRef = item.itemId;
+                $location.search('itemId', item.itemId);
                 $scope.scrollTo('back-btn');
             }
 
@@ -291,6 +293,7 @@
             $scope.uiRef = 0;
             $location.search({});
             $scope.scrollTo(tmp+"");
+            $scope.selectedItem = {};
         };
 
 
