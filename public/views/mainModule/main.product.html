@@ -363,6 +363,18 @@
                 &lt;!&ndash; //end Products list &ndash;&gt;
             </section>-->
             <!-- //end Upsell products -->
+            <div class="container" ng-if="latestItemShow">
+            <section class="content slider-products">
+                <h3>People were also interested in </h3>
+
+                <div class="row">
+                    <div class="product-carousel">
+                        <trendi-owl-slider images="relatedItems" items="4" stop-on-hover="true"  auto-play="true" navigation-display="true"></trendi-owl-slider>
+                    </div>
+                </div>
+
+            </section>
+</div>
 
         </section>
 </div>

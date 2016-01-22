@@ -359,6 +359,14 @@
             $anchorScroll();
         }
 
+
+        mainDataService.getLatestItem({skip:0,limit:16}).then(function(response){
+                $scope.relatedItems = response.data.responData.data;
+                $scope.relatedItemsShow = true;
+            }, function(error){
+                $scope.relatedItemsShow = false;
+        });
+
     }]);
 
 
