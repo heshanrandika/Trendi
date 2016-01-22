@@ -178,7 +178,7 @@ var normalRequestRoute = function(req,res){
 
         case 1014:
 
-            ITEM.GetSubItems(req, function (err, data) {
+            ITEM.GetMainItem(req, function (err, data) {
                 if (err) {
                     resObject.resStatus = 0;
                     resObject.responData.Error = err.toString();

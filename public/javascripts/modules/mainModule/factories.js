@@ -76,6 +76,10 @@
             return angular.extend({functionId: MAIN_MOD_CONFIG.REQ_CONFIG.FUNC_GetSubItem}, _getCObj());
         };
 
+        serviceCalls.getMainItemDao = function () {
+            return angular.extend({functionId: MAIN_MOD_CONFIG.REQ_CONFIG.FUNC_GetMainItem}, _getCObj());
+        };
+
         serviceCalls.getSocketLogoutDao = function () {
             return _getCObj();
         };

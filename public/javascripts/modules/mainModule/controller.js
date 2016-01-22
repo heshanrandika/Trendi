@@ -145,6 +145,7 @@
         $scope.uiRef = $location.search().itemId;
         $scope.catMenu = [];
         $scope.selectedItem = {};
+        $scope.imageArray = [];
 
 
         $scope.changeList = function(val){
@@ -158,6 +159,9 @@
                 $scope.isoRefresh = true;
             },100);
         };
+
+
+
 
         var getCount = function(val){
             var result = _.find( $scope.categoryMenu, function(obj){ return obj._id == val; });
@@ -276,6 +280,7 @@
             },
             goto: function (item) {
                 $scope.selectedItem = item;
+                $scope.imageArray.push($scope.selectedItem.item.image);
                 $scope.loadSubItem(item.itemId);
                 $scope.uiRef = item.itemId;
                 $location.search('itemId', item.itemId);
@@ -283,6 +288,57 @@
             }
 
         };
+
+
+
+        if(!$scope.selectedItem){
+            if($scope.selectParams.itemId){
+                mainDataService.getMainItem({itemId : id}).then(function(response){
+                    $scope.selectedItem =  response.data.responData.data;
+                    _.each($scope.selectedItem, function(sub){
+                        $scope.imageArray.push(sub.image);
+                    })
+                },function(){
+                });
+            }
+        }
+
+        var imageResize = function(url, width, height, callback) {
+            var sourceImage = new Image();
+
+            sourceImage.onload = function() {
+                var canvas = document.createElement("canvas");
+                canvas.width = width;
+                canvas.height = height;
+                canvas.getContext("2d").drawImage(sourceImage, 0, 0, width, height);
+                callback(canvas.toDataURL());
+            }
+
+            sourceImage.src = url;
+        }
+
+        $scope.imageSelect = function(index){
+            $scope.selectedImage = {
+                big : $scope.imageArray[index],
+                small : $scope.imageArray[index],
+                tiny : $scope.imageArray[index]
+            };
+
+            imageResize($scope.imageArray[index], 20, 20, function(data){
+                $scope.selectedImage.big = data;
+            });
+
+            imageResize($scope.imageArray[index], 10, 10, function(data){
+                $scope.selectedImage.small = data;
+            });
+
+            imageResize($scope.imageArray[index], 5, 5, function(data){
+                $scope.selectedImage.tiny = data;
+            });
+
+        }
+        $scope.imageSelect(0);
+
 
         $scope.clickMenu = function(val){
             $location.path('main/products/'+$scope.selectParams.category+'/'+val.value);

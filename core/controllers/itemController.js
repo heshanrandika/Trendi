@@ -507,12 +507,12 @@ function getItemCountByTags(req,callback){
 };
 
 
-function getSubItems(req,callback){
+function getMainItem(req,callback){
     var params = (req.body.params) ? req.body.params : {};
     var itemId = (params.itemId)? params.itemId:0;
     var query = {'itemId':itemId};
-    console.log("$$$$$$$  Sub Item  $$$$$$ : ");
-    daf.FindOne(query,CONSTANT.SUB_ITEM_COLLECTION,function(err,success){
+    console.log("$$$$$$$  main Item  $$$$$$ : ");
+    daf.FindOne(query,CONSTANT.MAIN_ITEM_COLLECTION,function(err,success){
         callback(err, success);
     });
 
@@ -532,4 +532,4 @@ module.exports.RemoveItem = removeItem;
 module.exports.AdminGetItemList = adminGetItemList;
 module.exports.GetSearchItemList = getSearchItemList;
 module.exports.GetItemCount = getItemCountByTags;
-module.exports.GetSubItems = getSubItems;
+module.exports.GetMainItem = getMainItem;
