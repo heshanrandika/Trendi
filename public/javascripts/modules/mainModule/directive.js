@@ -110,7 +110,7 @@
                     tiny: "=",
                     small: "=",
                     big: "=",
-                    title: "="
+                    title: "@"
                 },
 
                 controller: ["$scope", "$attrs", "$element", "$compile",

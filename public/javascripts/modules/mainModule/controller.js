@@ -269,6 +269,10 @@
             $scope.subItem = {};
             mainDataService.getSubItem({itemId : id}).then(function(response){
                 $scope.subItem =  response.data.responData.data;
+                _.each($scope.subItem.itemList, function(sub){
+                    $scope.imageArray.push(sub.image);
+                })
+
             },function(){
             });
         };
@@ -280,7 +284,9 @@
             },
             goto: function (item) {
                 $scope.selectedItem = item;
+                $scope.imageArray = [];
                 $scope.imageArray.push($scope.selectedItem.item.image);
+                $scope.imageSelect(0);
                 $scope.loadSubItem(item.itemId);
                 $scope.uiRef = item.itemId;
                 $location.search('itemId', item.itemId);
@@ -291,13 +297,15 @@
 
 
 
-        if(!$scope.selectedItem){
-            if($scope.selectParams.itemId){
+        if($location.search().itemId){
+            var id = parseInt($location.search().itemId);
+            if(!$scope.selectedItem.item){
+                $scope.imageArray = [];
                 mainDataService.getMainItem({itemId : id}).then(function(response){
                     $scope.selectedItem =  response.data.responData.data;
-                    _.each($scope.selectedItem, function(sub){
-                        $scope.imageArray.push(sub.image);
-                    })
+                    $scope.imageArray.push($scope.selectedItem.item.image);
+                    $scope.imageSelect(0);
+                    $scope.loadSubItem(id);
                 },function(){
                 });
             }
@@ -312,10 +320,10 @@
                 canvas.height = height;
                 canvas.getContext("2d").drawImage(sourceImage, 0, 0, width, height);
                 callback(canvas.toDataURL());
-            }
+            };
 
             sourceImage.src = url;
-        }
+        };
 
         $scope.imageSelect = function(index){
             $scope.selectedImage = {
@@ -324,20 +332,20 @@
                 tiny : $scope.imageArray[index]
             };
 
-            imageResize($scope.imageArray[index], 20, 20, function(data){
+            imageResize($scope.imageArray[index], 700, 700, function(data){
                 $scope.selectedImage.big = data;
             });
 
-            imageResize($scope.imageArray[index], 10, 10, function(data){
+            imageResize($scope.imageArray[index], 300, 300, function(data){
                 $scope.selectedImage.small = data;
             });
 
-            imageResize($scope.imageArray[index], 5, 5, function(data){
+            imageResize($scope.imageArray[index], 500, 500, function(data){
                 $scope.selectedImage.tiny = data;
             });
 
-        }
-        $scope.imageSelect(0);
+        };
+
 
 
         $scope.clickMenu = function(val){
@@ -357,7 +365,7 @@
             var old = $location.hash();
             $location.hash(id);
             $anchorScroll();
-        }
+        };
 
 
         mainDataService.getLatestItem({skip:0,limit:16}).then(function(response){
