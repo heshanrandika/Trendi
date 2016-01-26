@@ -95,7 +95,7 @@
 
                 scope.clickExpand = function(item){
                     item.expand = !item.expand
-                }
+                };
 
                 scope.clickItem = function(val , type){
                     val.select = false;
@@ -110,22 +110,37 @@
                             scope.shopoption.size = val;
                             break;
                     }
-                }
+                };
 
-                scope.removeItem = function(key){
+                scope.removeOption = function(key){
                     switch(key){
                         case 'color' :
                             scope.colorPalletShow = true;
-                            scope.shopoption.color = {};
+                            delete scope.shopoption.color;
                             break;
 
                         case 'size' : 
                             scope.sizePalletShow = true;
-                            scope.shopoption.size = {};
+                            delete scope.shopoption.size;
                             break;
                     }
-                }
+                };
 
+                scope.rangeValue = {
+                    range:{
+                        min:0,
+                        max:10000
+                    },
+                    minPrice:0,
+                    maxPrice:10000
+                };
+
+                scope.priceChange = function(){
+                    scope.shopoption.minPrice = scope.rangeValue.minPrice;
+                    scope.shopoption.maxPrice = scope.rangeValue.maxPrice;
+                };
+                scope.$watch(function() { return scope.rangeValue.minPrice; },  scope.priceChange);
+                scope.$watch(function() { return scope.rangeValue.maxPrice; },  scope.priceChange);
             }
         };
     }]);

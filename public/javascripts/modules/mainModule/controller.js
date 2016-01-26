@@ -146,6 +146,7 @@
         $scope.catMenu = [];
         $scope.selectedItem = {};
         $scope.imageArray = [];
+        $scope.searchOption = {};
 
 
         $scope.changeList = function(val){

@@ -20,9 +20,8 @@ window.com = {TRENDI:{CATEGORY:{modules:{}}}};
             'ngOpenFB',
             'authModule',
             'iso.directives',
-            'textAngular'
-
-
+            'textAngular',
+            'ui-rangeSlider'
         ]
     };
 })(com.TRENDI.CATEGORY);
