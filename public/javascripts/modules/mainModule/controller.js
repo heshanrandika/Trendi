@@ -265,6 +265,8 @@
         $scope.loadData(1);
 
 
+/*+++++++++++++++++++++++++++++++++++++PRODUCT VIEW PAGE++++++++++++++++++++++++++++++++++++++++++++++*/
+
         $scope.loadSubItem = function(id){
             $scope.subItem = {};
             mainDataService.getSubItem({itemId : id}).then(function(response){
@@ -297,6 +299,7 @@
 
 
 
+        //get main item when there is no selected item
         if($location.search().itemId){
             var id = parseInt($location.search().itemId);
             if(!$scope.selectedItem.item){
@@ -325,6 +328,7 @@
             sourceImage.src = url;
         };
 
+        //select image
         $scope.imageSelect = function(index){
             $scope.selectedImage = {
                 big : $scope.imageArray[index],
@@ -336,11 +340,11 @@
                 $scope.selectedImage.big = data;
             });
 
-            imageResize($scope.imageArray[index], 300, 300, function(data){
+            imageResize($scope.imageArray[index], 400, 400, function(data){
                 $scope.selectedImage.small = data;
             });
 
-            imageResize($scope.imageArray[index], 500, 500, function(data){
+            imageResize($scope.imageArray[index], 200, 200, function(data){
                 $scope.selectedImage.tiny = data;
             });
 
@@ -352,6 +356,7 @@
             $location.path('main/products/'+$scope.selectParams.category+'/'+val.value);
         };
 
+        //back button click
         $scope.backTo = function(){
             var tmp = $scope.uiRef;
             $scope.uiRef = 0;
@@ -360,14 +365,14 @@
             $scope.selectedItem = {};
         };
 
-
+        //set scroll position
         $scope.scrollTo = function(id) {
             var old = $location.hash();
             $location.hash(id);
             $anchorScroll();
         };
 
-
+        //get related items
         mainDataService.getLatestItem({skip:0,limit:16}).then(function(response){
                 $scope.relatedItems = response.data.responData.data;
                 $scope.relatedItemsShow = true;

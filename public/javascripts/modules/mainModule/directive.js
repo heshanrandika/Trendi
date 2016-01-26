@@ -53,10 +53,12 @@
             restrict: 'E',
             replace: true,
             scope: {
-
+                shopoption : '='
             },
             templateUrl:'/views/coreModule/menu/trendi.menu.option.html',
             link: function(scope, elm, attrs) {
+                scope.colorPalletShow = true;
+                scope.sizePalletShow = true;
                 scope.colorMenu = {
                     colors:[
                         {'class':'icon-color icon-color-black', 'txt':'Black', 'value':'#000000'},
@@ -91,10 +93,37 @@
                 };
 
 
-
-
                 scope.clickExpand = function(item){
                     item.expand = !item.expand
+                }
+
+                scope.clickItem = function(val , type){
+                    val.select = false;
+                    switch(type){
+                        case 'color' :
+                            scope.colorPalletShow = false;
+                            scope.shopoption.color = val;
+                            break;
+
+                        case 'size' : 
+                            scope.sizePalletShow = false;
+                            scope.shopoption.size = val;
+                            break;
+                    }
+                }
+
+                scope.removeItem = function(key){
+                    switch(key){
+                        case 'color' :
+                            scope.colorPalletShow = true;
+                            scope.shopoption.color = {};
+                            break;
+
+                        case 'size' : 
+                            scope.sizePalletShow = true;
+                            scope.shopoption.size = {};
+                            break;
+                    }
                 }
 
             }

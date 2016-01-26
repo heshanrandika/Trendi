@@ -1,16 +1,21 @@
 <div>
     <h5>Shopping Option</h5>
     <div>
+        <ul class="check-element sample-show-hide">
+            <li ng-repeat="(key, value) in shopoption" ng-animate="'animate'"><span class="name">{{key}} - {{value.txt}}<span ng-class="value.class?value.class:''"></span></span><span class="fa fa-times" ng-click="removeOption(key)"></span></li>
+        </ul>
+    </div>
+    <div>
         <span class="option-name" ng-click="clickExpand(colorMenu)"><span class="option-expande">{{colorMenu.expand?'-':'+'}}</span><a><strong>Color</strong> </a></span>
          <ul ng-show="colorMenu.expand" class="expande-list check-element sample-show-hide">
-             <li ng-repeat="color in colorMenu.colors"><md-checkbox ng-model="color.select" ng-click=""><span ng-class="color.class"></span> <a>{{color.txt}}</a></md-checkbox></li>
+             <li ng-repeat="color in colorMenu.colors"><md-checkbox ng-model="color.select" ng-click="clickItem(color , 'color')"><span ng-class="color.class"></span> <a>{{color.txt}}</a></md-checkbox></li>
          </ul>
     </div>
     <br>
     <div>
         <span class="option-name" ng-click="clickExpand(sizeMenu)"><span class="option-expande">{{sizeMenu.expand?'-':'+'}}</span><a><strong>Size</strong> </a></span>
         <ul ng-show="sizeMenu.expand" class="expande-list check-element sample-show-hide">
-            <li ng-repeat="size in sizeMenu.sizes"><md-checkbox ng-model="size.select" ng-click=""> <a> - {{size.txt}}</a></md-checkbox></li>
+            <li ng-repeat="size in sizeMenu.sizes"><md-checkbox ng-model="size.select" ng-click="clickItem(size , 'size')"> <a> - {{size.txt}}</a></md-checkbox></li>
         </ul>
     </div>
 </div>
