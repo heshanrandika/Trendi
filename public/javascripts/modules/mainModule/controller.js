@@ -228,6 +228,7 @@
 
 
 
+
         $scope.searchObj = {
             skip: $scope.mainItems.length,
             limit:6,
@@ -237,6 +238,15 @@
             filterMap:{}
         };
 
+
+
+        $scope.searchChange = function(){
+            console.log("change");
+        };
+        $scope.$watch(function() { return $scope.searchOption.minPrice; },  $scope.searchChange);
+        $scope.$watch(function() { return $scope.searchOption.maxPrice; },  $scope.searchChange);
+        $scope.$watch(function() { return $scope.searchOption.color;    },  $scope.searchChange);
+        $scope.$watch(function() { return $scope.searchOption.size;     },  $scope.searchChange);
 
         $scope.loadData = function(init){
             if(init){

@@ -130,17 +130,13 @@
                     range:{
                         min:0,
                         max:10000
-                    },
-                    minPrice:0,
-                    maxPrice:10000
+                    }
                 };
 
-                scope.priceChange = function(){
-                    scope.shopoption.minPrice = scope.rangeValue.minPrice;
-                    scope.shopoption.maxPrice = scope.rangeValue.maxPrice;
-                };
-                scope.$watch(function() { return scope.rangeValue.minPrice; },  scope.priceChange);
-                scope.$watch(function() { return scope.rangeValue.maxPrice; },  scope.priceChange);
+                scope.shopoption.minPrice = 0;
+                scope.shopoption.maxPrice = 10000;
+
+                
             }
         };
     }]);
