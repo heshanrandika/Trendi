@@ -2,7 +2,7 @@
     <h5>Shopping Option</h5>
     <div>
         <ul class="check-element sample-show-hide">
-            <li ng-repeat="(key, value) in shopoption" ng-animate="'animate'"><span class="name">{{key}} - {{value.txt}}<span ng-class="value.class?value.class:''"></span></span><span class="fa fa-times" ng-click="removeOption(key)"></span></li>
+            <li ng-repeat="(key, value) in shopoption" ng-animate="'animate'" ng-if="value.txt" ng-hide="key == 'maxPrice' || key == 'minPrice'"><span class="name">{{key}} - {{value.txt}}<span ng-class="value.class?value.class:''"></span></span><span class="fa fa-times" ng-click="removeOption(key)"></span></li>
         </ul>
     </div>
     <div ng-show="colorPalletShow">
@@ -20,6 +20,14 @@
     </div>
     <div>
         <span class="option-name"><strong>Price Range</strong></span>
-        <div range-slider min="rangeValue.range.min" max="rangeValue.range.max" model-min="shopoption.minPrice" model-max="shopoption.maxPrice" step="100" filter="currency:'Rs '"></div>
+        <div class="row">
+            <div class="col-sm-10 col-md-10  col-lg-10">
+                <div range-slider min="rangeValue.range.min" max="rangeValue.range.max" model-min="rangeValue.minPrice" model-max="rangeValue.maxPrice" step="100" filter="currency:'Rs '"></div>
+            </div>
+            <div class="col-sm-2 col-md-2  col-lg-2">
+                <button type="submit" class="button" ng-click="setValue()"><span class="icon-arrow-right-3 "></span></button>
+            </div>
+        </div>
+
     </div>
 </div>

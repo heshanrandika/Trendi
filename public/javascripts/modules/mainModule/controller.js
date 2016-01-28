@@ -304,6 +304,7 @@
                 $scope.uiRef = item.itemId;
                 $location.search('itemId', item.itemId);
                 $scope.scrollTo('back-btn');
+                $scope.getDirection();
             }
 
         };
@@ -320,6 +321,7 @@
                     $scope.imageArray.push($scope.selectedItem.item.image);
                     $scope.imageSelect(0);
                     $scope.loadSubItem(id);
+                    $scope.getDirection();
                 },function(){
                 });
             }
@@ -374,6 +376,7 @@
             $location.search({});
             $scope.scrollTo(tmp+"");
             $scope.selectedItem = {};
+            $scope.showMap = false;
         };
 
         //set scroll position
@@ -390,6 +393,28 @@
             }, function(error){
                 $scope.relatedItemsShow = false;
         });
+
+
+        $scope.getDirection = function() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function (position) {
+                    $scope.direction = {
+                        start : {
+                            lat:position.coords.latitude,
+                            lon:position.coords.longitude
+                        },
+                        end:{
+                            lat:$scope.selectedItem.item.shop.shop.pos[0],
+                            lon:$scope.selectedItem.item.shop.shop.pos[1],
+                            name:$scope.selectedItem.item.shop.shop.name
+                        }
+                    };
+
+                });
+            }
+        };
+
+
 
     }]);
 

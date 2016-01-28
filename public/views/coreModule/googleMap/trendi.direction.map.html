@@ -1,12 +1,12 @@
 <div>
-    <input type="button" ng-click="getDirection()">
+    <button type="submit" class="button" ng-click="getDirection()"><span class="fa fa-car">Get Direction</span></button>
 </div>
 <div class="container">
     <ui-gmap-google-map center="map.center" zoom="map.zoom" control="map.control">
         <ui-gmap-marker ng-repeat="m in map.markers" coords="m" icon="m.icon" click="onMarkerClicked(m)" idKey="m.id" options="m.options">
             <ui-gmap-window ng-cloak  coords="map.infoWindowWithCustomClass.coords" isIconVisibleOnClick="false" options="map.infoWindowWithCustomClass.options">
-                <p>This is an info window at {{ m.latitude | number:4 }}, {{ m.longitude | number:4 }}!</p>
-                <p class="muted">My marker will stay open when the window is popped up!</p>
+                <p>{{m.options.name?'Your Destination,':'Your Location'}} <strong>{{ m.options.name}}</strong> ({{ m.latitude | number:3 }}, {{ m.longitude | number:3 }})</p>
+                <p class="muted"></p>
             </ui-gmap-window>
         </ui-gmap-marker>
     </ui-gmap-google-map>

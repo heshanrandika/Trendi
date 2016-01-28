@@ -174,8 +174,8 @@
                             <div class="box-wrap-center"></div>
                             <div class="box">
                                 <div class="box-content">
-                                    <h2>Wrap V-Neck Dress</h2>
-                                    <span class="price old">Rs 4000</span> <span class="price new">Rs 3000</span> <br>
+                                    <h2>{{selectedItem.item.name}}</h2>
+                                    <span class="price old" ng-if="selectedItem.item.onSale">Rs {{selectedItem.item.price}}</span> <span class="price new">Rs {{(selectedItem.item.price)*(100-selectedItem.item.discount)/100}}</span> <br>
                                 </div>
                             </div>
                         </div>
@@ -194,19 +194,19 @@
                                 </div>
                             </div>
                             <br>
-                            <div class="option"> <b>Quantity:</b>
+<!--                            <div class="option"> <b>Quantity:</b>
                                 <div class="input-group quantity-control"> <span class="input-group-addon">&minus;</span>
                                     <input type="text" class="form-control" value="1">
                                     <span class="input-group-addon">+</span> </div>
-                            </div>
+                            </div>-->
                             <div class="clearfix visible-xs"></div>
-                            <button class="btn btn-mega btn-lg" type="submit">ORDER NOW</button>
+                            <button class="btn btn-mega btn-lg" type="submit">Add to Watch list</button>
                         </form>
                         <div class="panel-group accordion-simple" id="product-accordion">
                             <div class="panel">
                                 <div class="panel-heading"> <a data-toggle="collapse" data-parent="#product-accordion" href="#product-description"> <span class="arrow-down icon-arrow-down-4"></span> <span class="arrow-up icon-arrow-up-4"></span> Description </a> </div>
                                 <div id="product-description" class="panel-collapse collapse in">
-                                    <div class="panel-body"> Add some colour to your wardrobe with this pretty dress. It features gorgeous details like smocked bodice, wrap V neck with spaghetti straps </div>
+                                    <div class="panel-body"> {{selectedItem.item.description}}</div>
                                 </div>
                             </div>
                             <div class="panel">
@@ -246,112 +246,14 @@
                 <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 divider-right"> <a href="#" class="item"><span class="icon icon-users-2"></span>
                     <div class="text"> <span class="title">Join With Us</span></div>
                 </a> </div>
-                <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 divider-right"><a href="#" class="item"> <span class="icon icon-tags-2"></span>
-                    <div class="text"><span class="title">Time to take Fun</span> </div>
+                <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 divider-right"><a class="item"> <span class="fa fa-map-marker"></span>
+                    <div class="text"><span class="title" ng-click="showMap = !showMap">Map View</span> </div>
                 </a> </div>
             </section>
             <!-- //end Services -->
-
-            <!-- Similar products -->
-            <!--  <section class="slider-products content-box">        <h3>Similar Products</h3>
-                  &lt;!&ndash; Products list &ndash;&gt;
-                  <div class="products-list-small">
-                      <ul class="slides">
-                          <li>
-                              <div class="product-preview">
-                                  <div class="preview animate scale"> <a href="#"><img src="images/products/product-03-small.jpg" alt=""></a> <a href="_ajax_view-product.html" class="quick-view"> <span class="icon-zoom-in-2"></span> View </a> </div>
-                              </div>
-                          </li>
-                          <li>
-                              <div class="product-preview">
-                                  <div class="preview animate scale"> <a href="#"><img src="images/products/product-04-small.jpg" alt=""></a> <a href="_ajax_view-product.html" class="quick-view"> <span class="icon-zoom-in-2"></span> View </a> </div>
-                              </div>
-                          </li>
-                          <li>
-                              <div class="product-preview">
-                                  <div class="preview animate scale"> <a href="#"><img src="images/products/product-05-small.jpg" alt=""></a> <a href="_ajax_view-product.html" class="quick-view"> <span class="icon-zoom-in-2"></span> View </a> </div>
-                              </div>
-                          </li>
-                          <li>
-                              <div class="product-preview">
-                                  <div class="preview animate scale"> <a href="#"><img src="images/products/product-06-small.jpg" alt=""></a> <a href="_ajax_view-product.html" class="quick-view"> <span class="icon-zoom-in-2"></span> View </a> </div>
-                              </div>
-                          </li>
-                          <li>
-                              <div class="product-preview">
-                                  <div class="preview animate scale"> <a href="#"><img src="images/products/product-07-small.jpg" alt=""></a> <a href="_ajax_view-product.html" class="quick-view"> <span class="icon-zoom-in-2"></span> View </a> </div>
-                              </div>
-                          </li>
-                          <li>
-                              <div class="product-preview">
-                                  <div class="preview animate scale"> <a href="#"><img src="images/products/product-08-small.jpg" alt=""></a> <a href="_ajax_view-product.html" class="quick-view"> <span class="icon-zoom-in-2"></span> View </a> </div>
-                              </div>
-                          </li>
-                          <li>
-                              <div class="product-preview">
-                                  <div class="preview animate scale"> <a href="#"><img src="images/products/product-09-small.jpg" alt=""></a> <a href="_ajax_view-product.html" class="quick-view"> <span class="icon-zoom-in-2"></span> View </a> </div>
-                              </div>
-                          </li>
-                          <li>
-                              <div class="product-preview">
-                                  <div class="preview animate scale"> <a href="#"><img src="images/products/product-10-small.jpg" alt=""></a> <a href="_ajax_view-product.html" class="quick-view"> <span class="icon-zoom-in-2"></span> View </a> </div>
-                              </div>
-                          </li>
-                          <li>
-                              <div class="product-preview">
-                                  <div class="preview animate scale"> <a href="#"><img src="images/products/product-11-small.jpg" alt=""></a> <a href="_ajax_view-product.html" class="quick-view"> <span class="icon-zoom-in-2"></span> View </a> </div>
-                              </div>
-                          </li>
-                          <li>
-                              <div class="product-preview">
-                                  <div class="preview animate scale"> <a href="#"><img src="images/products/product-12-small.jpg" alt=""></a> <a href="_ajax_view-product.html" class="quick-view"> <span class="icon-zoom-in-2"></span> View </a> </div>
-                              </div>
-                          </li>
-                          <li>
-                              <div class="product-preview">
-                                  <div class="preview animate scale"> <a href="#"><img src="images/products/product-13-small.jpg" alt=""></a> <a href="_ajax_view-product.html" class="quick-view"> <span class="icon-zoom-in-2"></span> View </a> </div>
-                              </div>
-                          </li>
-                          <li>
-                              <div class="product-preview">
-                                  <div class="preview animate scale"> <a href="#"><img src="images/products/product-14-small.jpg" alt=""></a> <a href="_ajax_view-product.html" class="quick-view"> <span class="icon-zoom-in-2"></span> View </a> </div>
-                              </div>
-                          </li>
-                          <li>
-                              <div class="product-preview">
-                                  <div class="preview animate scale"> <a href="#"><img src="images/products/product-15-small.jpg" alt=""></a> <a href="_ajax_view-product.html" class="quick-view"> <span class="icon-zoom-in-2"></span> View </a> </div>
-                              </div>
-                          </li>
-                          <li>
-                              <div class="product-preview">
-                                  <div class="preview animate scale"> <a href="#"><img src="images/products/product-16-small.jpg" alt=""></a> <a href="_ajax_view-product.html" class="quick-view"> <span class="icon-zoom-in-2"></span> View </a> </div>
-                              </div>
-                          </li>
-                          <li>
-                              <div class="product-preview">
-                                  <div class="preview animate scale"> <a href="#"><img src="images/products/product-17-small.jpg" alt=""></a> <a href="_ajax_view-product.html" class="quick-view"> <span class="icon-zoom-in-2"></span> View </a> </div>
-                              </div>
-                          </li>
-                          <li>
-                              <div class="product-preview">
-                                  <div class="preview animate scale"> <a href="#"><img src="images/products/product-18-small.jpg" alt=""></a> <a href="_ajax_view-product.html" class="quick-view"> <span class="icon-zoom-in-2"></span> View </a> </div>
-                              </div>
-                          </li>
-                          <li>
-                              <div class="product-preview">
-                                  <div class="preview animate scale"> <a href="#"><img src="images/products/product-19-small.jpg" alt=""></a> <a href="_ajax_view-product.html" class="quick-view"> <span class="icon-zoom-in-2"></span> View </a> </div>
-                              </div>
-                          </li>
-                          <li>
-                              <div class="product-preview">
-                                  <div class="preview animate scale"> <a href="#"><img src="images/products/product-01-small.jpg" alt=""></a> <a href="_ajax_view-product.html" class="quick-view"> <span class="icon-zoom-in-2"></span> View </a> </div>
-                              </div>
-                          </li>
-                      </ul>
-                  </div>
-                  &lt;!&ndash; //end Products list &ndash;&gt;
-              </section>-->
-            <!-- //end Upsell products -->
+            <div class="container" ng-if="showMap">
+                <trendi-direction-map direction="direction"></trendi-direction-map>
+            </div>
             <div class="container" ng-if="relatedItemsShow">
                 <section class="content slider-products">
                     <h3>People were also interested in </h3>

@@ -1123,8 +1123,8 @@
 
             $scope.map = {
                 center : {
-                    latitude: direction.start.lat,
-                    longitude: direction.start.lon
+                    latitude: direction.end.lat,
+                    longitude: direction.end.lon
                 },
                 zoom : 14,
                 control : {}
@@ -1139,7 +1139,7 @@
                     longitude: direction.start.lon,
                     showWindow: false,
                     options: {
-                        labelContent: 'Current position',
+                        labelContent: 'Your location',
                         labelAnchor: "26 0",
                         labelClass: "marker-labels"
 
@@ -1153,7 +1153,8 @@
                     showWindow: true,
                     title: 'Plane',
                     options: {
-                        animation: 1
+                        animation: 1,
+                        name: $scope.direction.end.name
                     }
                 }
             ];
