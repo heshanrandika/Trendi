@@ -174,7 +174,7 @@
                             <div class="box-wrap-center"></div>
                             <div class="box">
                                 <div class="box-content">
-                                    <h2>{{selectedItem.item.name}}</h2>
+                                    <h2>#{{selectedItem.itemId}} -  {{selectedItem.item.name}}</h2>
                                     <span class="price old" ng-if="selectedItem.item.onSale">Rs {{selectedItem.item.price}}</span> <span class="price new">Rs {{(selectedItem.item.price)*(100-selectedItem.item.discount)/100}}</span> <br>
                                 </div>
                             </div>
@@ -187,10 +187,10 @@
                         <form>
                             <div class="row">
                                 <div class="col-lg-6"> <strong>Colors</strong>
-                                    <div class="product-options"> <i class="icon icon-color icon-color-white" data-href="images/products/product-12.jpg"></i> <i class="icon icon-color icon-color-beige" data-href="images/products/product-17.jpg"></i> <i class="icon icon-color icon-color-red" data-href="images/products/product-25.jpg"></i> <i class="icon icon-color icon-color-pink" data-href="images/products/product-31.jpg"></i> <i class="icon icon-color icon-color-magneta"  data-href="images/products/product-07.jpg"></i> <i class="disable icon icon-color icon-color-green"  data-href="images/products/product-11.jpg"></i> <i class="disable icon icon-color icon-color-gray"></i> <i class="disable icon icon-color icon-color-brown"></i> </div>
+                                    <div class="product-options"> <span ng-repeat="color in selectedItem.item.colors"> <i  class="icon icon-color" ng-style="{'background':color.color}"></i></span></div>
                                 </div>
                                 <div class="col-lg-6"> <strong>Sizes</strong>
-                                    <div class="product-options"> <i class="disable icon icon-size">39</i> <i class="icon icon-size">40</i> <i class="disable icon icon-size">41</i> <i class="icon icon-size">42</i> <i class="icon icon-size">43</i> <i class="icon icon-size">44</i> <i class="icon icon-size">45</i> <i class="disable icon icon-size">46</i> </div>
+                                    <div class="product-options"> <span ng-repeat="size in selectedItem.item.sizes"> <i class="icon icon-size">{{size.value}}</i></span></div>
                                 </div>
                             </div>
                             <br>
@@ -204,18 +204,24 @@
                         </form>
                         <div class="panel-group accordion-simple" id="product-accordion">
                             <div class="panel">
-                                <div class="panel-heading"> <a data-toggle="collapse" data-parent="#product-accordion" href="#product-description"> <span class="arrow-down icon-arrow-down-4"></span> <span class="arrow-up icon-arrow-up-4"></span> Description </a> </div>
-                                <div id="product-description" class="panel-collapse collapse in">
+                                <div class="panel-heading"> <a ng-click="desopen = !desopen"> <span ng-class="desopen?'arrow-up icon-arrow-up-4':'arrow-up icon-arrow-down-4'"></span> Description </a> </div>
+                                <div id="product-description" ng-class="desopen?'panel-collapse collapse in':'panel-collapse collapse'">
                                     <div class="panel-body"> {{selectedItem.item.description}}</div>
                                 </div>
                             </div>
                             <div class="panel">
-                                <div class="panel-heading"> <a data-toggle="collapse" data-parent="#product-accordion" href="#product-size" class="collapsed"> <span class="arrow-down icon-arrow-down-4"></span> <span class="arrow-up icon-arrow-up-4"></span> Size & Fit </a> </div>
-                                <div id="product-size" class="panel-collapse collapse">
-                                    <div class="panel-body"> Add some colour to your wardrobe with this pretty dress. It features gorgeous details like smocked bodice, wrap V neck with spaghetti straps</div>
+                                <div class="panel-heading"> <a ng-click="shopopen = !shopopen"> <span ng-class="shopopen?'arrow-up icon-arrow-up-4':'arrow-up icon-arrow-down-4'"></span> Shop Details </a>  </div>
+                                <div id="product-size" ng-class="shopopen?'panel-collapse collapse in':'panel-collapse collapse'">
+                                    <div class="panel-body">
+                                        <img alt="{{ selectedItem.item.shop.shop.name }}" ng-src="{{selectedItem.item.shop.shop.iconImage}}" class="md-avatar" /></br>
+                                        <span>Name : {{ selectedItem.item.shop.shop.name }}</span></br>
+                                        <span>Hotline :{{ selectedItem.item.shop.shop.hotline }}</span></br>
+                                        <span>Mobile :{{ selectedItem.item.shop.shop.mobile }}</span></br>
+                                        <span>Address : {{ selectedItem.item.shop.shop.address.line1 }},{{selectedItem.item.shop.shop.address.line2 }},{{selectedItem.item.shop.shop.address.city }}</span>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="panel">
+<!--                            <div class="panel">
                                 <div class="panel-heading"> <a data-toggle="collapse" data-parent="#product-accordion" href="#product-with" class="collapsed"> <span class="arrow-down icon-arrow-down-4"></span> <span class="arrow-up icon-arrow-up-4"></span> Shown With </a> </div>
                                 <div id="product-with" class="panel-collapse collapse">
                                     <div class="panel-body"> Add some colour to your wardrobe with this pretty dress. It features gorgeous details like smocked bodice, wrap V neck with spaghetti straps</div>
@@ -228,7 +234,7 @@
                                     <div class="panel-body"> Add some colour to your wardrobe with this pretty dress. It features gorgeous details like smocked bodice, wrap V neck with spaghetti straps</div>
 
                                 </div>
-                            </div>
+                            </div>-->
                         </div>
                     </div>
                     <!-- //end Description -->
