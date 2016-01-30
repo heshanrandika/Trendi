@@ -418,5 +418,289 @@
 
     }]);
 
+    mod.controller('trendiShopProductsController', ['$scope', '$rootScope','$state','mainDataService','$timeout','$stateParams','$location','$anchorScroll', function ($scope, $rootScope, $state, mainDataService, $timeout, $stateParams, $location, $anchorScroll) {
+        $scope.selectParams = $stateParams;
+        $scope.mainItemShow = false;
+        $scope.changeView = false;
+        $scope.isoRefresh = true;
+        $scope.mainItems = [];
+        $scope.categoryMenu = {};
+        $scope.count = 0;
+        $scope.uiRef = $location.search().itemId;
+        $scope.catMenu = [];
+        $scope.selectedItem = {};
+        $scope.imageArray = [];
+        $scope.searchOption = {};
+
+
+        $scope.changeList = function(val){
+            $scope.isoRefresh = false;
+            if(val == 1){
+                $scope.changeView = true;
+            }else{
+                $scope.changeView = false;
+            }
+            $timeout(function () {
+                $scope.isoRefresh = true;
+            },100);
+        };
+
+
+
+
+        var getCount = function(val){
+            var result = _.find( $scope.categoryMenu, function(obj){ return obj._id == val; });
+            return result?result.count:0;
+        };
+
+
+
+        $scope.createCategoryMenu = function(){
+            switch($scope.selectParams.category){
+                case 'Women': $scope.catMenu = [
+                    {'class':'m-icon m-icon-dress', 'value':'Dresses', 'count':getCount('Dress')},
+                    {'class':'m-icon m-icon-jeans', 'value':'Jeans', 'count':getCount('Jean')},
+                    {'class':'m-icon m-icon-skirts', 'value':'Skirts', 'count':getCount('Skirt')},
+                    {'class':'m-icon m-icon-lingerie', 'value':'Lingerie', 'count':getCount('Lingerie')},
+                    {'class':'m-icon m-icon-tops', 'value':'Tops', 'count':getCount('Top')}
+                ];
+                    break;
+
+                case 'Men'  :$scope.catMenu = [
+                    {'class':'m-icon m-icon-shirts', 'value':'Shirts', 'count':getCount('Shirt')},
+                    {'class':'m-icon m-icon-coats', 'value':'Coats', 'count':getCount('Coat')},
+                    {'class':'m-icon m-icon-jackets', 'value':'Jackets', 'count':getCount('Jacket')},
+                    {'class':'m-icon m-icon-shorts', 'value':'Shorts', 'count':getCount('Short')}
+                ];
+                    break;
+
+                case 'Kids' :$scope.catMenu = [
+                    {'class':'m-icon m-icon-dress', 'value':'Dresses', 'count':getCount('Dress')},
+                    {'class':'m-icon m-icon-shirts', 'value':'Shirts', 'count':getCount('Shirt')},
+                    {'class':'m-icon m-icon-shorts', 'value':'Shorts', 'count':getCount('Short')},
+                    {'class':'m-icon m-icon-jeans', 'value':'Jeans', 'count':getCount('Jean')},
+                    {'class':'m-icon m-icon-skirts', 'value':'Skirts', 'count':getCount('Skirt')},
+                    {'class':'m-icon m-icon-tops', 'value':'Tops', 'count':getCount('Top')}
+                ];
+                    break;
+
+                case 'Other':$scope.catMenu = [
+                    {'class':'m-icon m-icon-dress', 'value':'Dresses', 'count':getCount('Tops')},
+                    {'class':'m-icon m-icon-shirts', 'value':'Shirts', 'count':getCount('Tops')},
+                    {'class':'m-icon m-icon-coats', 'value':'Coats', 'count':getCount('Tops')},
+                    {'class':'m-icon m-icon-jackets', 'value':'Jackets', 'count':getCount('Tops')},
+                    {'class':'m-icon m-icon-shorts', 'value':'Shorts', 'count':getCount('Tops')},
+                    {'class':'m-icon m-icon-jeans', 'value':'Jeans', 'count':getCount('Tops')},
+                    {'class':'m-icon m-icon-skirts', 'value':'Skirts', 'count':getCount('Tops')},
+                    {'class':'m-icon m-icon-lingerie', 'value':'Lingerie', 'count':getCount('Tops')},
+                    {'class':'m-icon m-icon-tops', 'value':'Tops', 'count':getCount('Tops')}
+                ];
+                    break;
+            }
+        };
+
+        $scope.getCategoryMenuData = function () {
+            mainDataService.getItemCount({category : $scope.selectParams.category}).then(function(response){
+                $scope.categoryMenu = response.data.responData.data;
+                $scope.createCategoryMenu();
+            },function(){
+            });
+        };
+        $scope.getCategoryMenuData();
+
+
+
+
+
+
+        $scope.searchObj = {
+            skip: $scope.mainItems.length,
+            limit:6,
+            searchKey:$stateParams.searchKey,
+            searchValue:$stateParams.searchValue,
+            searchText:$stateParams.searchText,
+            filterMap:{}
+        };
+
+
+
+        $scope.searchChange = function(){
+            console.log("change");
+        };
+        $scope.$watch(function() { return $scope.searchOption.minPrice; },  $scope.searchChange);
+        $scope.$watch(function() { return $scope.searchOption.maxPrice; },  $scope.searchChange);
+        $scope.$watch(function() { return $scope.searchOption.color;    },  $scope.searchChange);
+        $scope.$watch(function() { return $scope.searchOption.size;     },  $scope.searchChange);
+
+        $scope.loadData = function(init){
+            if(init){
+                $scope.mainItems = [];
+                $scope.searchObj.skip =0;
+            }
+            $scope.loading = true;
+            mainDataService.getSearchList($scope.searchObj).then(function(response){
+                $scope.mainItems.push.apply($scope.mainItems, response.data.responData.data.list);
+                if(response.data.responData.data.count){
+                    $scope.count = response.data.responData.data.count;
+                }
+                $scope.loading = false;
+                $scope.mainItemShow = true;
+            },function(){
+            });
+        };
+
+        // Register event handler
+        $scope.paginationFuntion = function() {
+            $scope.searchObj.skip = $scope.mainItems.length;
+            if ($scope.count > $scope.mainItems.length && !$scope.loading) {
+                $scope.loadData();
+            }
+        };
+
+        $scope.loadData(1);
+
+
+        /*+++++++++++++++++++++++++++++++++++++PRODUCT VIEW PAGE++++++++++++++++++++++++++++++++++++++++++++++*/
+
+        $scope.loadSubItem = function(id){
+            $scope.subItem = {};
+            mainDataService.getSubItem({itemId : id}).then(function(response){
+                $scope.subItem =  response.data.responData.data;
+                _.each($scope.subItem.itemList, function(sub){
+                    $scope.imageArray.push(sub.image);
+                })
+
+            },function(){
+            });
+        };
+
+
+        $scope.isotopPagination = {
+            searchFromServer: function (d) {
+                $scope.paginationFuntion();
+            },
+            goto: function (item) {
+                $scope.selectedItem = item;
+                $scope.imageArray = [];
+                $scope.imageArray.push($scope.selectedItem.item.image);
+                $scope.imageSelect(0);
+                $scope.loadSubItem(item.itemId);
+                $scope.uiRef = item.itemId;
+                $location.search('itemId', item.itemId);
+                $scope.scrollTo('back-btn');
+                $scope.getDirection();
+            }
+
+        };
+
+
+
+        //get main item when there is no selected item
+        if($location.search().itemId){
+            var id = parseInt($location.search().itemId);
+            if(!$scope.selectedItem.item){
+                $scope.imageArray = [];
+                mainDataService.getMainItem({itemId : id}).then(function(response){
+                    $scope.selectedItem =  response.data.responData.data;
+                    $scope.imageArray.push($scope.selectedItem.item.image);
+                    $scope.imageSelect(0);
+                    $scope.loadSubItem(id);
+                    $scope.getDirection();
+                },function(){
+                });
+            }
+        }
+
+        var imageResize = function(url, width, height, callback) {
+            var sourceImage = new Image();
+
+            sourceImage.onload = function() {
+                var canvas = document.createElement("canvas");
+                canvas.width = width;
+                canvas.height = height;
+                canvas.getContext("2d").drawImage(sourceImage, 0, 0, width, height);
+                callback(canvas.toDataURL());
+            };
+
+            sourceImage.src = url;
+        };
+
+        //select image
+        $scope.imageSelect = function(index){
+            $scope.selectedImage = {
+                big : $scope.imageArray[index],
+                small : $scope.imageArray[index],
+                tiny : $scope.imageArray[index]
+            };
+
+            imageResize($scope.imageArray[index], 700, 700, function(data){
+                $scope.selectedImage.big = data;
+            });
+
+            imageResize($scope.imageArray[index], 400, 400, function(data){
+                $scope.selectedImage.small = data;
+            });
+
+            imageResize($scope.imageArray[index], 200, 200, function(data){
+                $scope.selectedImage.tiny = data;
+            });
+
+        };
+
+
+
+        $scope.clickMenu = function(val){
+            $location.path('main/products/'+$scope.selectParams.category+'/'+val.value);
+        };
+
+        //back button click
+        $scope.backTo = function(){
+            var tmp = $scope.uiRef;
+            $scope.uiRef = 0;
+            $location.search({});
+            $scope.scrollTo(tmp+"");
+            $scope.selectedItem = {};
+            $scope.showMap = false;
+        };
+
+        //set scroll position
+        $scope.scrollTo = function(id) {
+            var old = $location.hash();
+            $location.hash(id);
+            $anchorScroll();
+        };
+
+        //get related items
+        mainDataService.getLatestItem({skip:0,limit:16}).then(function(response){
+            $scope.relatedItems = response.data.responData.data;
+            $scope.relatedItemsShow = true;
+        }, function(error){
+            $scope.relatedItemsShow = false;
+        });
+
+
+        $scope.getDirection = function() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function (position) {
+                    $scope.direction = {
+                        start : {
+                            lat:position.coords.latitude,
+                            lon:position.coords.longitude
+                        },
+                        end:{
+                            lat:$scope.selectedItem.item.shop.shop.pos[0],
+                            lon:$scope.selectedItem.item.shop.shop.pos[1],
+                            name:$scope.selectedItem.item.shop.shop.name
+                        }
+                    };
+
+                });
+            }
+        };
+
+
+
+    }]);
+
 
 })(com.TRENDI.CATEGORY.modules.mainTrendiModule);

@@ -22,6 +22,12 @@
                 templateUrl: 'views/mainModule/main.product.html',
                 controller: 'trendiMainProductsController'
 
+            },
+            'main.shops': {
+                url: '/products/:category/:selected',
+                templateUrl: 'views/mainModule/main.product.html',
+                controller: 'trendiMainProductsController'
+
             }
 
         },REQ_CONFIG: {
