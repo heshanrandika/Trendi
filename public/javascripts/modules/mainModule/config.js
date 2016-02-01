@@ -18,15 +18,15 @@
 
             },
             'main.products': {
-                url: '/products/:category/:selected',
+                url: '/products/:shop/:category/:selected',
                 templateUrl: 'views/mainModule/main.product.html',
                 controller: 'trendiMainProductsController'
 
             },
             'main.shops': {
-                url: '/products/:category/:selected',
-                templateUrl: 'views/mainModule/main.product.html',
-                controller: 'trendiMainProductsController'
+                url: '/shop',
+                templateUrl: 'views/mainModule/main.shop.html',
+                controller: 'trendiShopProductsController'
 
             }
 

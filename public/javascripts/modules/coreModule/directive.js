@@ -409,7 +409,7 @@
             link: function(scope, elm, attrs) {
                 scope.clickMenu = function(val){
                     delete $location.$$search.itemId;
-                    $location.path('main/products/'+val.category+'/'+val.value);
+                    $location.path('main/products/all/'+val.category+'/'+val.value);
                 };
                 elm.ready(function () {
                     var menu = elm.supersubs({
@@ -436,7 +436,8 @@
             link: function(scope, elm, attrs) {
                 scope.slides = [];
                 scope.clickMenu = function(val){
-                    $state.go('main.products',{obj:val});
+                    delete $location.$$search.itemId;
+                    $location.path('main/products/all/'+val.category+'/'+val.value);
                 };
                 elm.ready(function () {
                     var menu = elm.trendiMenu({
@@ -457,12 +458,15 @@
         return {
             restrict: 'E',
             replace: true,
-            scope: {},
+            scope: {
+                shop:'='
+            },
             templateUrl:'/views/coreModule/menu/trendi.menu.expand.html',
             link: function(scope, elm, attrs) {
                 scope.slides = [];
                 scope.clickMenu = function(val){
-                    $location.path('main/products?category='+val.category+'&selected='+val.value);
+                    delete $location.$$search.itemId;
+                    $location.path('main/products/all/'+val.category+'/'+val.value);
                 };
                 elm.ready(function () {
                     var menu = elm.trendiExpander({

@@ -216,7 +216,7 @@
         };
 
         $scope.getCategoryMenuData = function () {
-            mainDataService.getItemCount({category : $scope.selectParams.category}).then(function(response){
+            mainDataService.getItemCount({category : $scope.selectParams.category, shop : $scope.selectParams.shop}).then(function(response){
                 $scope.categoryMenu = response.data.responData.data;
                 $scope.createCategoryMenu();
             },function(){
@@ -232,9 +232,10 @@
         $scope.searchObj = {
             skip: $scope.mainItems.length,
             limit:6,
-            searchKey:$stateParams.searchKey,
-            searchValue:$stateParams.searchValue,
-            searchText:$stateParams.searchText,
+            item : $scope.selectParams.selected,
+            category : $scope.selectParams.category,
+            shop : $scope.selectParams.shop,
+            searchText:$location.search().searchTxt?$location.search().searchTxt:'',
             filterMap:{}
         };
 
@@ -366,7 +367,7 @@
 
 
         $scope.clickMenu = function(val){
-            $location.path('main/products/'+$scope.selectParams.category+'/'+val.value);
+            $location.path('main/products/'+$scope.selectParams.shop? $scope.selectParams.shop:'all'+'/'+$scope.selectParams.category+'/'+val.value);
         };
 
         //back button click

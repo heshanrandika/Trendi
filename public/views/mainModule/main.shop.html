@@ -1,0 +1,117 @@
+<div id="outer">
+    <div id="outer-canvas">
+
+        <section class="container">
+            <nav class="breadcrumbs"> Home <span class="icon-arrow-right-3"></span> {{selectParams.category}} <span class="icon-arrow-right-3"></span>{{selectParams.selected}}</nav>
+        </section>
+        <section ng-hide="uiRef" class="container">
+            <div class="row">
+
+                <!-- Left column -->
+                <aside class="col-sm-4 col-md-3 col-lg-3 content-aside">
+
+                    <!-- Shop by categories -->
+                    <section>
+                        <h3>SHOP BY CATEGORIES</h3>
+                        <trendi-product-expand-menu></trendi-product-expand-menu>
+                    </section>
+                    <!-- //end Shop by categories -->
+
+                    <div class="section-divider"></div>
+
+                    <!-- Shop by -->
+                    <section>
+                        <h3>SHOP BY</h3>
+                        <p><strong>Category</strong></p>
+                        <ul class="simple-list">
+                            <li ng-repeat="categ in catMenu"><span ng-class="categ.class"></span> <a ng-click="clickMenu(categ)">{{categ.value}} <span class="label label-mega">( {{categ.count?categ.count:0}} )</span></a></li>
+                        </ul>
+                        <br>
+                        <trendi-search-option shopoption="searchOption"></trendi-search-option>
+                    </section>
+                    <!-- //end Shop by -->
+
+                    <div class="section-divider"></div>
+                   
+
+                </aside>
+                <!-- //end Left column -->
+
+                <!-- Right column -->
+                <section class="col-sm-8 col-md-9 col-lg-9 content-center">
+
+                    <!-- Filters -->
+                    <div class="filters-panel">
+                        <div class="row">
+                            <div class="col-sm-6 col-md-4 col-lg-4"> Sort by
+                                <div class="btn-group btn-select sort-select"> <a href="#" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown"> <span class="value">Position</span> <span class="caret min"></span> </a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="#" data-value="position">Position</a></li>
+                                        <li><a href="#" data-value="rating">Rating</a></li>
+                                        <li><a href="#" data-value="price">Price</a></li>
+                                        <li><a href="#" data-value="dateAdded">Date added</a></li>
+                                    </ul>
+                                </div>
+                                <a href="#" class="sort-select-arrow up"><span class="up icon-arrow-up-3"></span><span class="down icon-arrow-down-3"></span></a> </div>
+                            <div class="col-md-4 col-lg-4 hidden-sm hidden-xs">
+                                <div class="view-mode"> View as:&nbsp; <a ng-click="changeList(0)" class="view-grid"><span class="icon-th"></span></a> <a ng-click="changeList(1)" class="view-list"><span class="icon-th-list"></span></a> </div>
+                            </div>
+                        </div>
+                        <div class="divider"></div>
+                        <div class="pull-left hidden-xs">Items 1 to 15 of 26 total</div>
+                        <div class="pull-right hidden-xs">
+                            <div class="pagination"> <a href="#">1</a> <a href="#">2</a> <a href="#" class="icon"><span class="icon-arrow-right-3 "></span></a> </div>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+
+                    <div ng-if="mainItemShow && isoRefresh">
+                        <trendi-isotop-product items="mainItems" views="changeView" action="isotopPagination"></trendi-isotop-product>
+                    </div>
+                    <!-- //end Listing products -->
+
+                    <!-- Filters -->
+                    <div class="filters-panel hidden-xs">
+                        <div class="row">
+                            <div class="col-sm-6 col-md-4 col-lg-4"> Sort by
+                                <div class="btn-group btn-select sort-select"> <a href="#" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown"> <span class="value">Position</span> <span class="caret min"></span> </a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="#" data-value="position">Position</a></li>
+                                        <li><a href="#" data-value="rating">Rating</a></li>
+                                        <li><a href="#" data-value="price">Price</a></li>
+                                        <li><a href="#" data-value="dateAdded">Date added</a></li>
+                                    </ul>
+                                </div>
+                                <a href="#" class="sort-select-arrow up"><span class="up icon-arrow-up-3"></span><span class="down icon-arrow-down-3"></span></a> </div>
+                            <div class="col-md-4 col-lg-4 hidden-sm hidden-xs">
+                                <div class="view-mode"> View as:&nbsp; <a ng-click="changeList(0)" class="view-grid"><span class="icon-th"></span></a> <a ng-click="changeList(1)" class="view-list"><span class="icon-th-list"></span></a> </div>
+                            </div>
+                            <!--                            <div class="col-sm-6 col-md-4 col-lg-4 hidden-xs">
+                                                            <div class="pull-right"> Show
+                                                                <div class="btn-group btn-select perpage-select"> <a href="#" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown"> <span class="value">15</span> <span class="caret min"></span> </a>
+                                                                    <ul class="dropdown-menu">
+                                                                        <li><a href="#">30</a></li>
+                                                                        <li><a href="#">50</a></li>
+                                                                        <li><a href="#">100</a></li>
+                                                                        <li><a href="#">All</a></li>
+                                                                    </ul>
+                                                                </div>
+                                                                per page </div>
+                                                        </div>-->
+                        </div>
+                        <div class="divider" id="yyy"></div>
+                        <div class="pull-left hidden-xs">Items 1 to 15 of 26 total</div>
+                        <div class="pull-right hidden-xs" >
+                            <div class="pagination"> <a href="#">1</a> <a href="#">2</a> <a href="#" class="icon"><span class="icon-arrow-right-3 "></span></a> </div>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <!-- //end Filters -->
+
+                </section>
+                <!-- //end Right column -->
+
+            </div>
+        </section>
+    </div>
+</div>
