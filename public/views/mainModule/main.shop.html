@@ -18,20 +18,6 @@
                     <!-- //end Shop by categories -->
 
                     <div class="section-divider"></div>
-
-                    <!-- Shop by -->
-                    <section>
-                        <h3>SHOP BY</h3>
-                        <p><strong>Category</strong></p>
-                        <ul class="simple-list">
-                            <li ng-repeat="categ in catMenu"><span ng-class="categ.class"></span> <a ng-click="clickMenu(categ)">{{categ.value}} <span class="label label-mega">( {{categ.count?categ.count:0}} )</span></a></li>
-                        </ul>
-                        <br>
-                        <trendi-search-option shopoption="searchOption"></trendi-search-option>
-                    </section>
-                    <!-- //end Shop by -->
-
-                    <div class="section-divider"></div>
                    
 
                 </aside>
@@ -59,14 +45,11 @@
                         </div>
                         <div class="divider"></div>
                         <div class="pull-left hidden-xs">Items 1 to 15 of 26 total</div>
-                        <div class="pull-right hidden-xs">
-                            <div class="pagination"> <a href="#">1</a> <a href="#">2</a> <a href="#" class="icon"><span class="icon-arrow-right-3 "></span></a> </div>
-                        </div>
                         <div class="clearfix"></div>
                     </div>
 
                     <div ng-if="mainItemShow && isoRefresh">
-                        <trendi-isotop-product items="mainItems" views="changeView" action="isotopPagination"></trendi-isotop-product>
+                        <trendi-isotop-product items="mainItems" views="changeView" action="isotopPagination" template="trendi.shop.isotop"></trendi-isotop-product>
                     </div>
                     <!-- //end Listing products -->
 
@@ -101,9 +84,6 @@
                         </div>
                         <div class="divider" id="yyy"></div>
                         <div class="pull-left hidden-xs">Items 1 to 15 of 26 total</div>
-                        <div class="pull-right hidden-xs" >
-                            <div class="pagination"> <a href="#">1</a> <a href="#">2</a> <a href="#" class="icon"><span class="icon-arrow-right-3 "></span></a> </div>
-                        </div>
                         <div class="clearfix"></div>
                     </div>
                     <!-- //end Filters -->
@@ -112,6 +92,123 @@
                 <!-- //end Right column -->
 
             </div>
+        </section>
+        <section ng-show="uiRef" class="container" >
+
+            <!-- Product view -->
+            <div class="product-view row">
+                <div class="col-sm-6 col-md-6 col-lg-6">
+                    <md-button class="md-raised md-primary" md-autofocus ng-click="backTo()" id="back-btn">
+                        < Back
+                    </md-button>
+                    <div class="hidden-xs flexslider-thumb-vertical-outer">
+                        <!--<div class="large-image vertical hidden-xs"> <img alt="#" class = "cloudzoom" src = "images/products/product-02-01-593x722.jpg" data-cloudzoom = "zoomImage: 'images/products/product-02-01-888x1080.jpg', autoInside : 991" /> </div>-->
+                        <div ng-if="selectedImage.big" big="selectedImage.big" tiny="selectedImage.tiny" small="selectedImage.small" alt="" title="{{selectedItem.item.name}}"></div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-6 col-lg-6">
+
+                    <!-- Product label -->
+                    <div class="product-label">
+                        <div class="box-wrap">
+                            <div class="box-wrap-top"></div>
+                            <div class="box-wrap-bot"></div>
+                            <div class="box-wrap-center"></div>
+                            <div class="box">
+                                <div class="box-content">
+                                    <h2>#{{selectedItem.itemId}} -  {{selectedItem.item.name}}</h2>
+                                    <span class="price old" ng-if="selectedItem.item.onSale">Rs {{selectedItem.item.price}}</span> <span class="price new">Rs {{(selectedItem.item.price)*(100-selectedItem.item.discount)/100}}</span> <br>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- //end Product label -->
+
+                    <!-- Description -->
+                    <div class="product-description"> <span class="rating"> <i class="icon-star-3"></i> <i class="icon-star-3"></i> <i class="icon-star-3"></i> <i class="icon-star-3"></i> <i class="icon-star-empty"></i> </span>
+                        <form>
+                            <div class="row">
+                                <div class="col-lg-6"> <strong>Colors</strong>
+                                    <div class="product-options"> <span ng-repeat="color in selectedItem.item.colors"> <i  class="icon icon-color" ng-style="{'background':color.color}"></i></span></div>
+                                </div>
+                                <div class="col-lg-6"> <strong>Sizes</strong>
+                                    <div class="product-options"> <span ng-repeat="size in selectedItem.item.sizes"> <i class="icon icon-size">{{size.value}}</i></span></div>
+                                </div>
+                            </div>
+                            <br>
+                            <!--                            <div class="option"> <b>Quantity:</b>
+                                                            <div class="input-group quantity-control"> <span class="input-group-addon">&minus;</span>
+                                                                <input type="text" class="form-control" value="1">
+                                                                <span class="input-group-addon">+</span> </div>
+                                                        </div>-->
+                            <div class="clearfix visible-xs"></div>
+                            <button class="btn btn-mega btn-lg" type="submit">Add to Watch list</button>
+                        </form>
+                        <div class="panel-group accordion-simple" id="product-accordion">
+                            <div class="panel">
+                                <div class="panel-heading"> <a ng-click="desopen = !desopen"> <span ng-class="desopen?'arrow-up icon-arrow-up-4':'arrow-up icon-arrow-down-4'"></span> Description </a> </div>
+                                <div id="product-description" ng-class="desopen?'panel-collapse collapse in':'panel-collapse collapse'">
+                                    <div class="panel-body"> {{selectedItem.item.description}}</div>
+                                </div>
+                            </div>
+                            <div class="panel">
+                                <div class="panel-heading"> <a ng-click="shopopen = !shopopen"> <span ng-class="shopopen?'arrow-up icon-arrow-up-4':'arrow-up icon-arrow-down-4'"></span> Shop Details </a>  </div>
+                                <div id="product-size" ng-class="shopopen?'panel-collapse collapse in':'panel-collapse collapse'">
+                                    <div class="panel-body">
+                                        <img alt="{{ selectedItem.item.shop.shop.name }}" ng-src="{{selectedItem.item.shop.shop.iconImage}}" class="md-avatar" /></br>
+                                        <span>Name : {{ selectedItem.item.shop.shop.name }}</span></br>
+                                        <span>Hotline :{{ selectedItem.item.shop.shop.hotline }}</span></br>
+                                        <span>Mobile :{{ selectedItem.item.shop.shop.mobile }}</span></br>
+                                        <span>Address : {{ selectedItem.item.shop.shop.address.line1 }},{{selectedItem.item.shop.shop.address.line2 }},{{selectedItem.item.shop.shop.address.city }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel">
+                                <div class="panel-heading"> <a ng-click="revopen = !revopen"> <span ng-class="revopen?'arrow-up icon-arrow-up-4':'arrow-up icon-arrow-down-4'"></span> Reviews </a>  </div>
+                                <div id="product-reviews" ng-class="revopen?'panel-collapse collapse in':'panel-collapse collapse'">
+                                    <div class="panel-body">
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- //end Description -->
+
+                </div>
+            </div>
+            <!-- //end Product view --> <!-- Services -->
+            <section class="services-block single small row">
+                <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 divider-right"> <a href="#" class="item"><span class="icon icon-tags-2"></span>
+                    <div class="text"> <span class="title">Special Offers</span> <span class="description"></span></div>
+                </a> </div>
+                <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 divider-right"> <a href="#" class="item"> <span class="icon icon-credit-card"></span>
+                    <div class="text"><span class="title">Rewards & Benefits</span> <span class="description"></span></div>
+                </a> </div>
+                <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 divider-right"> <a href="#" class="item"><span class="icon icon-users-2"></span>
+                    <div class="text"> <span class="title">Join With Us</span></div>
+                </a> </div>
+                <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 divider-right"><a class="item"> <span class="fa fa-map-marker"></span>
+                    <div class="text"><span class="title" ng-click="showMap = !showMap">Map View</span> </div>
+                </a> </div>
+            </section>
+            <!-- //end Services -->
+            <div class="container" ng-if="showMap">
+                <trendi-direction-map direction="direction"></trendi-direction-map>
+            </div>
+            <div class="container" ng-if="relatedItemsShow">
+                <section class="content slider-products">
+                    <h3>People were also interested in </h3>
+
+                    <div class="row">
+                        <div class="product-carousel">
+                            <trendi-owl-slider images="relatedItems" items="4" stop-on-hover="true"  auto-play="true" navigation-display="true"></trendi-owl-slider>
+                        </div>
+                    </div>
+
+                </section>
+            </div>
+
         </section>
     </div>
 </div>

@@ -124,7 +124,10 @@
                 views: '=',
                 action: '='
             },
-            templateUrl: '/views/coreModule/isotop/trendi.product.isotop.html',
+            templateUrl: function(elem,attrs) {
+                var url = '/views/coreModule/isotop/'+(attrs.template? attrs.template : 'trendi.product.isotop')+'.html';
+                return url;
+            },
             link: function(scope, elm, attrs) {
                 scope.xList = scope.items;
 
