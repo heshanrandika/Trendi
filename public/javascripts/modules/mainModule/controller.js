@@ -420,6 +420,11 @@
     }]);
 
     mod.controller('trendiShopProductsController', ['$scope', '$rootScope','$state','mainDataService','$timeout','$stateParams','$location','$anchorScroll', function ($scope, $rootScope, $state, mainDataService, $timeout, $stateParams, $location, $anchorScroll) {
+        $scope.user = {};
+        $scope.user.pos = [];
+
+
+
         $scope.selectParams = $stateParams;
         $scope.mainItemShow = false;
         $scope.changeView = false;

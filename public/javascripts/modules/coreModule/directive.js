@@ -414,6 +414,10 @@
                     delete $location.$$search.itemId;
                     $location.path('main/products/all/'+val.category+'/'+val.value);
                 };
+                scope.clickParentMenu = function(val){
+                    delete $location.$$search.itemId;
+                    $location.path('main/products/all/'+val.category+'/all');
+                };
                 elm.ready(function () {
                     var menu = elm.supersubs({
                         minWidth:	12,	 // minimum width of submenus in em units

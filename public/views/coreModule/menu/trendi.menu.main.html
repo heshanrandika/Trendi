@@ -1,5 +1,5 @@
 <ul class="sf-menu">
-    <li><a href="#">{{menuType[0].category}}</a>
+    <li><a ng-click="clickParentMenu(menuType[0])">{{menuType[0].category}}</a>
         <ul>
             <li ng-repeat="menu in menuType"><a ng-click="clickMenu(menu)">{{menu.value}}</a></li>
         </ul>
