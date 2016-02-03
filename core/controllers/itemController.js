@@ -207,12 +207,35 @@ function getSearchItemList(req,callback){
     var opt = params.option;
     var skip = params.skip;
     var limit = params.limit;
-    var filter = params.filter?params.filter:[];
+    var category = params.category;
+    var item = params.item;
+    var shop = params.shop;
+    var searchText = params.searchText;
+    var filterMap = params.filterMap?params.filterMap:[];
+    var filter = [];
 
     var sorter = [];
     var query = "";
     var option = {};
     var data = {list:[]};
+
+    if(!(category == '' || undefined == category)){
+        filter[] = '';
+    }
+    if(!(item == '' || undefined == item)){
+        filter[] = '';
+    }
+    if(!(shop == '' || undefined == shop || shop == "all")){
+        filter[] = '';
+    }
+    if(!(searchText == '' || undefined == searchText)){
+        filter[] = '';
+    }
+    if(!(category == '' || undefined == category)){
+        filter[] = '';
+    }
+
+
 
     query = {$and: [ {'item.onSale' : { $exists : false }}]};
     query.$and = query.$and.concat(filter);

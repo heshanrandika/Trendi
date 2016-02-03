@@ -241,13 +241,27 @@
 
 
 
-        $scope.searchChange = function(){
+        $scope.minPriceChange = function(){
+            $scope.searchObj.filterMap['minPrice'] = $scope.searchOption.minPrice;
+            $scope.loadData(1);
+            console.log("change");
+        };$scope.maxPriceChange = function(){
+            $scope.searchObj.filterMap['maxPrice'] = $scope.searchOption.maxPrice;
+            $scope.loadData(1);
+            console.log("change");
+        };$scope.colorChange = function(){
+            $scope.searchObj.filterMap['color'] = $scope.searchOption.color;
+            $scope.loadData(1);
+            console.log("change");
+        };$scope.sizeChange = function(){
+            $scope.searchObj.filterMap['size'] = $scope.searchOption.size;
+            $scope.loadData(1);
             console.log("change");
         };
-        $scope.$watch(function() { return $scope.searchOption.minPrice; },  $scope.searchChange);
-        $scope.$watch(function() { return $scope.searchOption.maxPrice; },  $scope.searchChange);
-        $scope.$watch(function() { return $scope.searchOption.color;    },  $scope.searchChange);
-        $scope.$watch(function() { return $scope.searchOption.size;     },  $scope.searchChange);
+        $scope.$watch(function() { return $scope.searchOption.minPrice; },  $scope.minPriceChange);
+        $scope.$watch(function() { return $scope.searchOption.maxPrice; },  $scope.maxPriceChange);
+        $scope.$watch(function() { return $scope.searchOption.color;    },  $scope.colorChange);
+        $scope.$watch(function() { return $scope.searchOption.size;     },  $scope.sizeChange);
 
         $scope.loadData = function(init){
             if(init){
