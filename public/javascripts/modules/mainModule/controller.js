@@ -241,25 +241,29 @@
 
 
 
-        $scope.minPriceChange = function(){
-            $scope.searchObj.filterMap['minPrice'] = $scope.searchOption.minPrice;
-            $scope.loadData(1);
-            console.log("change");
-        };$scope.maxPriceChange = function(){
-            $scope.searchObj.filterMap['maxPrice'] = $scope.searchOption.maxPrice;
-            $scope.loadData(1);
-            console.log("change");
-        };$scope.colorChange = function(){
-            $scope.searchObj.filterMap['color'] = $scope.searchOption.color;
-            $scope.loadData(1);
-            console.log("change");
-        };$scope.sizeChange = function(){
-            $scope.searchObj.filterMap['size'] = $scope.searchOption.size;
-            $scope.loadData(1);
-            console.log("change");
+        $scope.priceChange = function(){
+            if($scope.searchOption.maxPrice){
+                $scope.searchObj.filterMap['minPrice'] = $scope.searchOption.minPrice;
+                $scope.searchObj.filterMap['maxPrice'] = $scope.searchOption.maxPrice;
+                $scope.loadData(1);
+                console.log("change");
+            }
         };
-        $scope.$watch(function() { return $scope.searchOption.minPrice; },  $scope.minPriceChange);
-        $scope.$watch(function() { return $scope.searchOption.maxPrice; },  $scope.maxPriceChange);
+        $scope.colorChange = function(){
+            if($scope.searchOption.color) {
+                $scope.searchObj.filterMap['color'] = $scope.searchOption.color;
+                $scope.loadData(1);
+                console.log("change");
+            }
+        };
+        $scope.sizeChange = function(){
+            if($scope.searchOption.size) {
+                $scope.searchObj.filterMap['size'] = $scope.searchOption.size;
+                $scope.loadData(1);
+                console.log("change");
+            }
+        };
+        $scope.$watch(function() { return $scope.searchOption.priceChange; },  $scope.priceChange);
         $scope.$watch(function() { return $scope.searchOption.color;    },  $scope.colorChange);
         $scope.$watch(function() { return $scope.searchOption.size;     },  $scope.sizeChange);
 

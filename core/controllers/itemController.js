@@ -220,20 +220,20 @@ function getSearchItemList(req,callback){
     var data = {list:[]};
 
     if(!(category == '' || undefined == category)){
-        filter[] = '';
+        var tmp ={}
+        tmp['item.group.'+category.toLowerCase()] = true;
+        filter.push(tmp);
     }
     if(!(item == '' || undefined == item)){
-        filter[] = '';
+        filter.push({'$text':{ '$search': item }});
     }
     if(!(shop == '' || undefined == shop || shop == "all")){
-        filter[] = '';
+        filter.push({'item.shop.shopId': parseInt(shop)});
     }
-    if(!(searchText == '' || undefined == searchText)){
-        filter[] = '';
-    }
-    if(!(category == '' || undefined == category)){
-        filter[] = '';
-    }
+    /* if(!(searchText == '' || undefined == searchText)){
+     filter[] = '';
+     }*/
+
 
 
 
@@ -259,17 +259,17 @@ function getSearchItemList(req,callback){
         });
 
         dbCon.on('end', function(){
-                if(skip == 0){
-                    query = {$and: filter};
-                    daf.Count(query,CONSTANT.MAIN_ITEM_COLLECTION,function(err , count){
-                        if(count){
-                            data.count = count;
-                        }
-                        callback(null,data);
-                    })
-                }else{
+            if(skip == 0){
+                query = {$and: filter};
+                daf.Count(query,CONSTANT.MAIN_ITEM_COLLECTION,function(err , count){
+                    if(count){
+                        data.count = count;
+                    }
                     callback(null,data);
-                }
+                })
+            }else{
+                callback(null,data);
+            }
         });
 
     });
@@ -511,20 +511,31 @@ function removeItem(req,callback){
 function getItemCountByTags(req,callback){
     var params = (req.body.params) ? req.body.params : {};
     var category = params.category;
-    var query = [
-       { $unwind : "$item.types" } ,
-       { $group: { "_id": "$item.types.value" , "count": { $sum: 1 } } }
-     ];
+    var shopId = parseInt(params.shop);
+    var query = [];
+    if(params.shop == 'all'){
+        query = [
+            { $unwind : "$item.types" } ,
+            { $group: { "_id": "$item.types.value" , "count": { $sum: 1 } } }
+        ];
+    }else{
+        query = [
+            { $match: { 'item.shop.shopId': shopId } },
+            { $unwind : "$item.types" } ,
+            { $group: { "_id": "$item.types.value" , "count": { $sum: 1 } } }
+        ];
+    }
 
-     if(category){
-         var catText = {};
-         catText["item.group."+category.toLowerCase()]   = true;
+
+    if(category){
+        var catText = {};
+        catText["item.group."+category.toLowerCase()]   = true;
 
         query.splice(1,0,{"$match":catText});
-     }
+    }
 
     daf.Aggregate(query,CONSTANT.MAIN_ITEM_COLLECTION,function(err,success){
-            callback(err, success);
+        callback(err, success);
     });
 
 };

@@ -59,6 +59,7 @@
             link: function(scope, elm, attrs) {
                 scope.colorPalletShow = true;
                 scope.sizePalletShow = true;
+                scope.shopoption.priceChange = 0;
                 scope.colorMenu = {
                     colors:[
                         {'class':'icon-color icon-color-black', 'txt':'Black', 'value':'#000000'},
@@ -116,12 +117,14 @@
                     switch(key){
                         case 'color' :
                             scope.colorPalletShow = true;
-                            delete scope.shopoption.color;
+                            scope.shopoption.color = {};
+                            //delete scope.shopoption.color;
                             break;
 
                         case 'size' : 
                             scope.sizePalletShow = true;
-                            delete scope.shopoption.size;
+                            scope.shopoption.size = {};
+                            //delete scope.shopoption.size;
                             break;
                     }
                 };
@@ -137,6 +140,7 @@
 
 
                 scope.setValue = function(){
+                    scope.shopoption.priceChange += 1;
                     scope.shopoption.minPrice = scope.rangeValue.minPrice;
                     scope.shopoption.maxPrice = scope.rangeValue.maxPrice;
                 }
