@@ -225,7 +225,7 @@ function getSearchItemList(req,callback){
         filter.push(tmp);
     }
     if(!(item == '' || undefined == item)){
-        filter.push({'$text':{ '$search': item }});
+        filter.push({'$text':{ '$search': "\""+item+"\""}});
     }
     if(!(shop == '' || undefined == shop || shop == "all")){
         filter.push({'item.shop.shopId': parseInt(shop)});
