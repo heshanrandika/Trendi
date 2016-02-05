@@ -412,7 +412,7 @@
             link: function(scope, elm, attrs) {
                 scope.clickMenu = function(val){
                     delete $location.$$search.itemId;
-                    $location.path('main/products/all/'+val.category+'/'+val.value);
+                    $location.path('main/products/all/'+val.category+'/'+val.search);
                 };
                 scope.clickParentMenu = function(val){
                     delete $location.$$search.itemId;

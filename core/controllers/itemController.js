@@ -220,20 +220,35 @@ function getSearchItemList(req,callback){
     var data = {list:[]};
 
     if(!(category == '' || undefined == category)){
-        var tmp ={}
+        var tmp ={};
         tmp['item.group.'+category.toLowerCase()] = true;
         filter.push(tmp);
     }
-    if(!(item == '' || undefined == item)){
-        filter.push({'$text':{ '$search': "\""+item+"\""}});
+    if(!(item == '' || undefined == item || item == "all")){
+        filter.push( {'item.types': { $elemMatch: { value: item } } });
     }
     if(!(shop == '' || undefined == shop || shop == "all")){
         filter.push({'item.shop.shopId': parseInt(shop)});
     }
-    /* if(!(searchText == '' || undefined == searchText)){
-     filter[] = '';
-     }*/
+    if(!(searchText == '' || undefined == searchText)){
+        filter.push({'$text':{ '$search': item}});
+    }
+    if(!(filterMap.size == '' || undefined == filterMap.size)){
+        if(!(filterMap.size.value == '' || undefined == filterMap.size.value)){
+            filter.push( {'item.sizes': { $elemMatch: { value: filterMap.size.value } } });
+        }
+    }
+    if(!(filterMap.color == '' || undefined == filterMap.color)){
+        if(!(filterMap.color.value == '' || undefined == filterMap.color.value)) {
+            filter.push({'item.colors': {$elemMatch: {color: filterMap.color.value}}});
+        }
+    }
+    if(!(filterMap.minPrice == '' || undefined == filterMap.minPrice)){
 
+    }
+    if(!(filterMap.maxPrice == '' || undefined == filterMap.maxPrice)){
+
+    }
 
 
 

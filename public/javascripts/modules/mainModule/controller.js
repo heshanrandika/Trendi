@@ -19,34 +19,34 @@
 
 
         $scope.womenMenu = [
-            {category:'Women', value:'Dresses'},
-            {category:'Women', value:'Jeans'},
-            {category:'Women', value:'Pants'},
-            {category:'Women', value:'Denim'},
-            {category:'Women', value:'Skirts'},
-            {category:'Women', value:'Office Wear'},
-            {category:'Women', value:'Casual Tops'},
-            {category:'Women', value:'Accesories'},
-            {category:'Women', value:'Bottoms'},
-            {category:'Women', value:'Foot Wear'}
+            {category:'Women', search:'Dress', value:'Dresses'},
+            {category:'Women', search:'Jean', value:'Jeans'},
+            {category:'Women', search:'Pant', value:'Pants'},
+            {category:'Women', search:'Denim', value:'Denim'},
+            {category:'Women', search:'Skirt', value:'Skirts'},
+            {category:'Women', search:'Office_Wear', value:'Office Wear'},
+            {category:'Women', search:'Casual_Top', value:'Casual Tops'},
+            {category:'Women', search:'Accessory', value:'Accessories'},
+            {category:'Women', search:'Bottom', value:'Bottoms'},
+            {category:'Women', search:'Foot_Wear', value:'Foot Wear'}
         ];
 
         $scope.menMenu = [
-            {category:'Men', value:'T-Shirts'},
-            {category:'Men', value:'Shirts'},
-            {category:'Men', value:'Trousers'},
-            {category:'Men', value:'Shorts'},
-            {category:'Men', value:'Denim'},
-            {category:'Men', value:'Office Wear'}
+            {category:'Men', search:'T_Shirt', value:'T-Shirts'},
+            {category:'Men', search:'Shirt', value:'Shirts'},
+            {category:'Men', search:'Trouser', value:'Trousers'},
+            {category:'Men', search:'Short', value:'Shorts'},
+            {category:'Men', search:'Denim', value:'Denim'},
+            {category:'Men', search:'Office_Wear', value:'Office Wear'}
         ];
 
         $scope.kidsMenu = [
-            {category:'Kids', value:'Shirts'},
-            {category:'Kids', value:'Napkins'},
-            {category:'Kids', value:'Shorts'},
-            {category:'Kids', value:'Frock'},
-            {category:'Kids', value:'Denim'},
-            {category:'Kids', value:'Skirts'}
+            {category:'Kids', search:'Shirt', value:'Shirts'},
+            {category:'Kids', search:'Napkin', value:'Napkins'},
+            {category:'Kids', search:'Short', value:'Shorts'},
+            {category:'Kids', search:'Frock', value:'Frock'},
+            {category:'Kids', search:'Denim', value:'Denim'},
+            {category:'Kids', search:'Skirt', value:'Skirts'}
 
         ];
 
@@ -174,42 +174,42 @@
         $scope.createCategoryMenu = function(){
             switch($scope.selectParams.category){
                 case 'Women': $scope.catMenu = [
-                    {'class':'m-icon m-icon-dress', 'value':'Dresses', 'count':getCount('Dress')},
-                    {'class':'m-icon m-icon-jeans', 'value':'Jeans', 'count':getCount('Jean')},
-                    {'class':'m-icon m-icon-skirts', 'value':'Skirts', 'count':getCount('Skirt')},
-                    {'class':'m-icon m-icon-lingerie', 'value':'Lingerie', 'count':getCount('Lingerie')},
-                    {'class':'m-icon m-icon-tops', 'value':'Tops', 'count':getCount('Top')}
+                    {'class':'m-icon m-icon-dress', 'value':'Dresses', search:'Dress', 'count':getCount('Dress')},
+                    {'class':'m-icon m-icon-jeans', 'value':'Jeans', search:'Jean', 'count':getCount('Jean')},
+                    {'class':'m-icon m-icon-skirts', 'value':'Skirts', search:'Skirt','count':getCount('Skirt')},
+                    {'class':'m-icon m-icon-lingerie', 'value':'Lingerie',search:'Lingerie', 'count':getCount('Lingerie')},
+                    {'class':'m-icon m-icon-tops', 'value':'Tops', search:'Top', 'count':getCount('Top')}
                 ];
                     break;
 
                 case 'Men'  :$scope.catMenu = [
-                    {'class':'m-icon m-icon-shirts', 'value':'Shirts', 'count':getCount('Shirt')},
-                    {'class':'m-icon m-icon-coats', 'value':'Coats', 'count':getCount('Coat')},
-                    {'class':'m-icon m-icon-jackets', 'value':'Jackets', 'count':getCount('Jacket')},
-                    {'class':'m-icon m-icon-shorts', 'value':'Shorts', 'count':getCount('Short')}
+                    {'class':'m-icon m-icon-shirts', 'value':'Shirts', search:'Shirt', 'count':getCount('Shirt')},
+                    {'class':'m-icon m-icon-coats', 'value':'Coats', search:'Coat', 'count':getCount('Coat')},
+                    {'class':'m-icon m-icon-jackets', 'value':'Jackets', search:'Jacket',  'count':getCount('Jacket')},
+                    {'class':'m-icon m-icon-shorts', 'value':'Shorts', search:'Short', 'count':getCount('Short')}
                 ];
                     break;
 
                 case 'Kids' :$scope.catMenu = [
-                    {'class':'m-icon m-icon-dress', 'value':'Dresses', 'count':getCount('Dress')},
-                    {'class':'m-icon m-icon-shirts', 'value':'Shirts', 'count':getCount('Shirt')},
-                    {'class':'m-icon m-icon-shorts', 'value':'Shorts', 'count':getCount('Short')},
-                    {'class':'m-icon m-icon-jeans', 'value':'Jeans', 'count':getCount('Jean')},
-                    {'class':'m-icon m-icon-skirts', 'value':'Skirts', 'count':getCount('Skirt')},
-                    {'class':'m-icon m-icon-tops', 'value':'Tops', 'count':getCount('Top')}
+                    {'class':'m-icon m-icon-dress', 'value':'Dresses', search:'Dress', 'count':getCount('Dress')},
+                    {'class':'m-icon m-icon-shirts', 'value':'Shirts', search:'Shirt', 'count':getCount('Shirt')},
+                    {'class':'m-icon m-icon-shorts', 'value':'Shorts', search:'Short', 'count':getCount('Short')},
+                    {'class':'m-icon m-icon-jeans', 'value':'Jeans', search:'Jean', 'count':getCount('Jean')},
+                    {'class':'m-icon m-icon-skirts', 'value':'Skirts', search:'Skirt', 'count':getCount('Skirt')},
+                    {'class':'m-icon m-icon-tops', 'value':'Tops', search:'Top', 'count':getCount('Top')}
                 ];
                     break;
 
                 case 'Other':$scope.catMenu = [
-                    {'class':'m-icon m-icon-dress', 'value':'Dresses', 'count':getCount('Tops')},
-                    {'class':'m-icon m-icon-shirts', 'value':'Shirts', 'count':getCount('Tops')},
-                    {'class':'m-icon m-icon-coats', 'value':'Coats', 'count':getCount('Tops')},
-                    {'class':'m-icon m-icon-jackets', 'value':'Jackets', 'count':getCount('Tops')},
-                    {'class':'m-icon m-icon-shorts', 'value':'Shorts', 'count':getCount('Tops')},
-                    {'class':'m-icon m-icon-jeans', 'value':'Jeans', 'count':getCount('Tops')},
-                    {'class':'m-icon m-icon-skirts', 'value':'Skirts', 'count':getCount('Tops')},
-                    {'class':'m-icon m-icon-lingerie', 'value':'Lingerie', 'count':getCount('Tops')},
-                    {'class':'m-icon m-icon-tops', 'value':'Tops', 'count':getCount('Tops')}
+                    {'class':'m-icon m-icon-dress', 'value':'Dresses', search:'Dress', 'count':getCount('Dress')},
+                    {'class':'m-icon m-icon-shirts', 'value':'Shirts', search:'Shirt', 'count':getCount('Shirt')},
+                    {'class':'m-icon m-icon-coats', 'value':'Coats', search:'Coat', 'count':getCount('Coat')},
+                    {'class':'m-icon m-icon-jackets', 'value':'Jackets', search:'Jacket', 'count':getCount('Jacket')},
+                    {'class':'m-icon m-icon-shorts', 'value':'Shorts', search:'Short', 'count':getCount('Short')},
+                    {'class':'m-icon m-icon-jeans', 'value':'Jeans', search:'Jean', 'count':getCount('Jean')},
+                    {'class':'m-icon m-icon-skirts', 'value':'Skirts', search:'Skirt', 'count':getCount('Skirt')},
+                    {'class':'m-icon m-icon-lingerie', 'value':'Lingerie', search:'Lingerie', 'count':getCount('Lingerie')},
+                    {'class':'m-icon m-icon-tops', 'value':'Tops', search:'Top', 'count':getCount('Top')}
                 ];
                     break;
             }
@@ -271,6 +271,7 @@
             if(init){
                 $scope.mainItems = [];
                 $scope.searchObj.skip =0;
+                $scope.mainItemShow = false;
             }
             $scope.loading = true;
             mainDataService.getSearchList($scope.searchObj).then(function(response){
@@ -385,7 +386,7 @@
 
 
         $scope.clickMenu = function(val){
-            $location.path('main/products/'+$scope.selectParams.shop? $scope.selectParams.shop:'all'+'/'+$scope.selectParams.category+'/'+val.value);
+            $location.path('main/products/'+$scope.selectParams.shop+'/'+$scope.selectParams.category+'/'+val.search);
         };
 
         //back button click
@@ -560,6 +561,7 @@
             if(init){
                 $scope.mainItems = [];
                 $scope.searchObj.skip =0;
+                $scope.mainItemShow = false;
             }
             $scope.loading = true;
             mainDataService.getSearchList($scope.searchObj).then(function(response){
