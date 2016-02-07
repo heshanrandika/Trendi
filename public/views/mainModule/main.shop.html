@@ -4,7 +4,7 @@
         <section class="container">
             <nav class="breadcrumbs"> Home <span class="icon-arrow-right-3"></span> {{selectParams.category}} <span class="icon-arrow-right-3"></span>{{selectParams.selected}}</nav>
         </section>
-        <section ng-hide="uiRef" class="container">
+        <section ng-show="selectParams.selected =='all'" class="container">
             <div class="row">
 
 
@@ -82,7 +82,7 @@
 
             </div>
         </section>
-        <section ng-show="uiRef" class="container" >
+        <section ng-hide="selectParams.selected =='all'" class="container" >
 
             <div class="row">
 
@@ -133,8 +133,7 @@
                                 < Back
                             </md-button>
                             <div class="hidden-xs flexslider-thumb-vertical-outer">
-                                <div class="large-image vertical hidden-xs"> <img alt="#" class = "cloudzoom" src = "images/products/product-02-01-593x722.jpg" data-cloudzoom = "zoomImage: 'images/products/product-02-01-888x1080.jpg', autoInside : 991" /> </div>
-                                ></div>
+                                <div class="large-image vertical hidden-xs"> <img  class = "cloudzoom" ng-src = ""  /> </div></div>
                         </div>
                     </div>
                     <div class="col-sm-6 col-md-6 col-lg-6">

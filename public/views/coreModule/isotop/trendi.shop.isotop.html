@@ -1,35 +1,36 @@
 <div>
 
 
-   <section class="container content slider-products">
-    <div class="row">
+    <section class="container content slider-products">
+        <div class="row">
 
-        <div ng-class="views == true ? 'products-list-in-row':'products-list-isotope'" id="isotopeContainer" isotope-container ng-cloak class="ng-cloak" infinite-scroll='paginationFunction()' infinite-scroll-distance='0.01'>
-            <div class="kindling product-preview " ng-repeat="x in xList " isotope-item  on-finish-render="repeated">
+            <div ng-class="views == true ? 'products-list-in-row':'products-list-isotope'" id="isotopeContainer" isotope-container ng-cloak class="ng-cloak" infinite-scroll='paginationFunction()' infinite-scroll-distance='0.01'>
+                <div class="kindling product-preview " ng-repeat="x in xList " isotope-item  on-finish-render="repeated" ng-click="openItem(x)">
 
-                    <div id="{{x.shopId}}" class="preview animate scale"> <a class="preview-image"><img ng-click="openItem(x)" class="img-responsive animate scale" ng-src="{{x.iconImage}}" width="270" height="328" alt=""></a>
+                    <div id="{{x.shopId}}" class="preview animate scale"> <a class="preview-image"><img ng-click="openItem(x)" class="img-responsive animate scale" ng-src="{{x.iconImage}}" width="100" height="200" alt=""></a>
                         <ul class="product-controls-list right hide-right">
                             <li class="top-out"></li>
-                            <li><a href="#" class="circle"><span class="icon-facebook"></span></a></li>
-                            <li><a href="#" class="circle"><span class="icon-justice"></span></a></li>
-                            <li><a href="#" class="circle"><span class="icon-basket"></span></a></li>
+                            <li><a class="circle"><span class="icon-facebook"></span></a></li>
+                            <li><a class="circle"><span class="icon-justice"></span></a></li>
+                            <li><a class="circle"><span class="icon-basket"></span></a></li>
                         </ul>
-                        <a href="_ajax_view-product-popup.html" class="quick-view  fancybox fancybox.ajax hidden-xs"> <span class="rating"> <i class="icon-star-3"></i> <i class="icon-star-3"></i> <i class="icon-star-3"></i> <i class="icon-star-3"></i> <i class="icon-star-empty"></i> </span> <span class="icon-zoom-in-2"></span> Quick View </a>
+                        <a class="quick-view  fancybox fancybox.ajax hidden-xs"> <span class="rating"> <i class="icon-star-3"></i> <i class="icon-star-3"></i> <i class="icon-star-3"></i> <i class="icon-star-3"></i> <i class="icon-star-empty"></i> </span> <span class="icon-zoom-in-2"></span> Quick View </a>
                         <div class="quick-view visible-xs"> <span class="rating"> <i class="icon-star-3"></i> <i class="icon-star-3"></i> <i class="icon-star-3"></i> <i class="icon-star-3"></i> <i class="icon-star-empty"></i> </span></div>
                     </div>
                     <h3 class="title"><a href="#">#{{x.shopId}} {{x.name}}</a></h3>
-                <div class="list_description">{{x.description}}</div>
-                <!--buttons-->
-                <div class="list_buttons"> <a class="btn btn-mega pull-left" href="#">More...</a>
+                    <h3 class="title"><a href="#">Hotline : {{x.hotline}}</a></h3>
+                    <div class="list_description">{{x.description}}</div>
+                    <!--buttons-->
+                    <div class="list_buttons"> <a class="btn btn-mega pull-left" href="#">More...</a>
+
+                    </div>
 
                 </div>
 
             </div>
-
         </div>
-       </div>
 
-   </section>
+    </section>
 
 
 </div>

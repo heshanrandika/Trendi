@@ -466,10 +466,8 @@
         $scope.shopList = [];
         $scope.categoryMenu = {};
         $scope.count = 0;
-        $scope.uiRef = $location.search().itemId;
         $scope.catMenu = [];
         $scope.selectedItem = {};
-        $scope.imageArray = [];
         $scope.searchOption = {};
 
 
@@ -563,14 +561,10 @@
             searchFromServer: function (d) {
                 $scope.paginationFuntion();
             },
-            goto: function (item) {
-                $scope.selectedItem = item;
-                $scope.imageArray = [];
-                $scope.imageArray.push($scope.selectedItem.item.image);
-                $scope.imageSelect(0);
-                $scope.loadSubItem(item.itemId);
-                $scope.uiRef = item.itemId;
-                $location.search('itemId', item.itemId);
+            goto: function (shop) {
+                $scope.selectedItem = shop;
+               // $scope.loadSubItem(shop.shopId);
+                $location.path('main/shop/'+shop.shopId);
                 $scope.scrollTo('back-btn');
                 $scope.getDirection();
             }
@@ -587,7 +581,6 @@
                 mainDataService.getMainItem({itemId : id}).then(function(response){
                     $scope.selectedItem =  response.data.responData.data;
                     $scope.imageArray.push($scope.selectedItem.item.image);
-                    $scope.imageSelect(0);
                     $scope.loadSubItem(id);
                     $scope.getDirection();
                 },function(){
@@ -595,54 +588,14 @@
             }
         }
 
-        var imageResize = function(url, width, height, callback) {
-            var sourceImage = new Image();
-
-            sourceImage.onload = function() {
-                var canvas = document.createElement("canvas");
-                canvas.width = width;
-                canvas.height = height;
-                canvas.getContext("2d").drawImage(sourceImage, 0, 0, width, height);
-                callback(canvas.toDataURL());
-            };
-
-            sourceImage.src = url;
-        };
-
-        //select image
-        $scope.imageSelect = function(index){
-            $scope.selectedImage = {
-                big : $scope.imageArray[index],
-                small : $scope.imageArray[index],
-                tiny : $scope.imageArray[index]
-            };
-
-            imageResize($scope.imageArray[index], 700, 700, function(data){
-                $scope.selectedImage.big = data;
-            });
-
-            imageResize($scope.imageArray[index], 400, 400, function(data){
-                $scope.selectedImage.small = data;
-            });
-
-            imageResize($scope.imageArray[index], 200, 200, function(data){
-                $scope.selectedImage.tiny = data;
-            });
-
-        };
-
-
-
         $scope.clickMenu = function(val){
             $location.path('main/products/'+$scope.selectParams.category+'/'+val.value);
         };
 
         //back button click
         $scope.backTo = function(){
-            var tmp = $scope.uiRef;
-            $scope.uiRef = 0;
             $location.search({});
-            $scope.scrollTo(tmp+"");
+            $scope.scrollTo($scope.selectParams.selected+"");
             $scope.selectedItem = {};
             $scope.showMap = false;
         };
@@ -672,9 +625,9 @@
                             lon:position.coords.longitude
                         },
                         end:{
-                            lat:$scope.selectedItem.item.shop.shop.pos[0],
-                            lon:$scope.selectedItem.item.shop.shop.pos[1],
-                            name:$scope.selectedItem.item.shop.shop.name
+                            lat:$scope.selectedItem.pos[0],
+                            lon:$scope.selectedItem.pos[1],
+                            name:$scope.selectedItem.name
                         }
                     };
 
