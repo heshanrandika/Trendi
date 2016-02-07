@@ -16,7 +16,22 @@
         };
         $scope.homeClick();
 
+        $scope.getShopList = function () {
+            mainDataService.getShopList(
+                {
+                    skip: 0,
+                    limit:6
+                }
+            ).then(function(response){
+                $scope.shopList = response.data.responData.data.list;
+            },function(){
+            });
+        };
+        $scope.getShopList();
 
+        $scope.gotoShop = function () {
+            $location.path('main/shop/all');
+        };
 
         $scope.womenMenu = [
             {category:'Women', search:'Dress', value:'Dresses'},
@@ -448,7 +463,7 @@
         $scope.mainItemShow = false;
         $scope.changeView = false;
         $scope.isoRefresh = true;
-        $scope.mainItems = [];
+        $scope.shopList = [];
         $scope.categoryMenu = {};
         $scope.count = 0;
         $scope.uiRef = $location.search().itemId;
@@ -471,101 +486,23 @@
         };
 
 
-
-
-        var getCount = function(val){
-            var result = _.find( $scope.categoryMenu, function(obj){ return obj._id == val; });
-            return result?result.count:0;
-        };
-
-
-
-        $scope.createCategoryMenu = function(){
-            switch($scope.selectParams.category){
-                case 'Women': $scope.catMenu = [
-                    {'class':'m-icon m-icon-dress', 'value':'Dresses', 'count':getCount('Dress')},
-                    {'class':'m-icon m-icon-jeans', 'value':'Jeans', 'count':getCount('Jean')},
-                    {'class':'m-icon m-icon-skirts', 'value':'Skirts', 'count':getCount('Skirt')},
-                    {'class':'m-icon m-icon-lingerie', 'value':'Lingerie', 'count':getCount('Lingerie')},
-                    {'class':'m-icon m-icon-tops', 'value':'Tops', 'count':getCount('Top')}
-                ];
-                    break;
-
-                case 'Men'  :$scope.catMenu = [
-                    {'class':'m-icon m-icon-shirts', 'value':'Shirts', 'count':getCount('Shirt')},
-                    {'class':'m-icon m-icon-coats', 'value':'Coats', 'count':getCount('Coat')},
-                    {'class':'m-icon m-icon-jackets', 'value':'Jackets', 'count':getCount('Jacket')},
-                    {'class':'m-icon m-icon-shorts', 'value':'Shorts', 'count':getCount('Short')}
-                ];
-                    break;
-
-                case 'Kids' :$scope.catMenu = [
-                    {'class':'m-icon m-icon-dress', 'value':'Dresses', 'count':getCount('Dress')},
-                    {'class':'m-icon m-icon-shirts', 'value':'Shirts', 'count':getCount('Shirt')},
-                    {'class':'m-icon m-icon-shorts', 'value':'Shorts', 'count':getCount('Short')},
-                    {'class':'m-icon m-icon-jeans', 'value':'Jeans', 'count':getCount('Jean')},
-                    {'class':'m-icon m-icon-skirts', 'value':'Skirts', 'count':getCount('Skirt')},
-                    {'class':'m-icon m-icon-tops', 'value':'Tops', 'count':getCount('Top')}
-                ];
-                    break;
-
-                case 'Other':$scope.catMenu = [
-                    {'class':'m-icon m-icon-dress', 'value':'Dresses', 'count':getCount('Tops')},
-                    {'class':'m-icon m-icon-shirts', 'value':'Shirts', 'count':getCount('Tops')},
-                    {'class':'m-icon m-icon-coats', 'value':'Coats', 'count':getCount('Tops')},
-                    {'class':'m-icon m-icon-jackets', 'value':'Jackets', 'count':getCount('Tops')},
-                    {'class':'m-icon m-icon-shorts', 'value':'Shorts', 'count':getCount('Tops')},
-                    {'class':'m-icon m-icon-jeans', 'value':'Jeans', 'count':getCount('Tops')},
-                    {'class':'m-icon m-icon-skirts', 'value':'Skirts', 'count':getCount('Tops')},
-                    {'class':'m-icon m-icon-lingerie', 'value':'Lingerie', 'count':getCount('Tops')},
-                    {'class':'m-icon m-icon-tops', 'value':'Tops', 'count':getCount('Tops')}
-                ];
-                    break;
-            }
-        };
-
-        $scope.getCategoryMenuData = function () {
-            mainDataService.getItemCount({category : $scope.selectParams.category}).then(function(response){
-                $scope.categoryMenu = response.data.responData.data;
-                $scope.createCategoryMenu();
-            },function(){
-            });
-        };
-        $scope.getCategoryMenuData();
-
-
-
-
-
-
         $scope.searchObj = {
-            skip: $scope.mainItems.length,
+            skip: $scope.shopList.length,
             limit:6,
-            searchKey:$stateParams.searchKey,
-            searchValue:$stateParams.searchValue,
-            searchText:$stateParams.searchText,
-            filterMap:{}
+            pos : {},
+            range:''
         };
 
-
-
-        $scope.searchChange = function(){
-            console.log("change");
-        };
-        $scope.$watch(function() { return $scope.searchOption.minPrice; },  $scope.searchChange);
-        $scope.$watch(function() { return $scope.searchOption.maxPrice; },  $scope.searchChange);
-        $scope.$watch(function() { return $scope.searchOption.color;    },  $scope.searchChange);
-        $scope.$watch(function() { return $scope.searchOption.size;     },  $scope.searchChange);
 
         $scope.loadData = function(init){
             if(init){
-                $scope.mainItems = [];
+                $scope.shopList = [];
                 $scope.searchObj.skip =0;
                 $scope.mainItemShow = false;
             }
             $scope.loading = true;
-            mainDataService.getSearchList($scope.searchObj).then(function(response){
-                $scope.mainItems.push.apply($scope.mainItems, response.data.responData.data.list);
+            mainDataService.getShopList($scope.searchObj).then(function(response){
+                $scope.shopList.push.apply($scope.shopList, response.data.responData.data.list);
                 if(response.data.responData.data.count){
                     $scope.count = response.data.responData.data.count;
                 }
@@ -577,8 +514,8 @@
 
         // Register event handler
         $scope.paginationFuntion = function() {
-            $scope.searchObj.skip = $scope.mainItems.length;
-            if ($scope.count > $scope.mainItems.length && !$scope.loading) {
+            $scope.searchObj.skip = $scope.shopList.length;
+            if ($scope.count > $scope.shopList.length && !$scope.loading) {
                 $scope.loadData();
             }
         };
@@ -588,17 +525,38 @@
 
         /*+++++++++++++++++++++++++++++++++++++PRODUCT VIEW PAGE++++++++++++++++++++++++++++++++++++++++++++++*/
 
-        $scope.loadSubItem = function(id){
-            $scope.subItem = {};
-            mainDataService.getSubItem({itemId : id}).then(function(response){
-                $scope.subItem =  response.data.responData.data;
-                _.each($scope.subItem.itemList, function(sub){
-                    $scope.imageArray.push(sub.image);
-                })
 
+
+        var getCount = function(val){
+            var result = _.find( $scope.categoryMenu, function(obj){ return obj._id == val; });
+            return result?result.count:0;
+        };
+
+
+
+        $scope.createCategoryMenu = function(){
+           $scope.catMenu = [
+                    {'class':'m-icon m-icon-dress', 'value':'Dresses', 'count':getCount('Tops')},
+                    {'class':'m-icon m-icon-shirts', 'value':'Shirts', 'count':getCount('Tops')},
+                    {'class':'m-icon m-icon-coats', 'value':'Coats', 'count':getCount('Tops')},
+                    {'class':'m-icon m-icon-jackets', 'value':'Jackets', 'count':getCount('Tops')},
+                    {'class':'m-icon m-icon-shorts', 'value':'Shorts', 'count':getCount('Tops')},
+                    {'class':'m-icon m-icon-jeans', 'value':'Jeans', 'count':getCount('Tops')},
+                    {'class':'m-icon m-icon-skirts', 'value':'Skirts', 'count':getCount('Tops')},
+                    {'class':'m-icon m-icon-lingerie', 'value':'Lingerie', 'count':getCount('Tops')},
+                    {'class':'m-icon m-icon-tops', 'value':'Tops', 'count':getCount('Tops')}
+                ];
+        };
+
+        $scope.getCategoryMenuData = function () {
+            mainDataService.getItemCount({category : 'all'}).then(function(response){
+                $scope.categoryMenu = response.data.responData.data;
+                $scope.createCategoryMenu();
             },function(){
             });
         };
+        $scope.getCategoryMenuData();
+
 
 
         $scope.isotopPagination = {

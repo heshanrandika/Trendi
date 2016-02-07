@@ -104,7 +104,7 @@
             templateUrl: '/views/coreModule/isotop/trendi.main.isotop.html',
             link: function(scope, elm, attrs) {
                 scope.xList = scope.items;
-                scope.$on('test', function(ngRepeatFinishedEvent) {
+                scope.$on('repeated', function(ngRepeatFinishedEvent) {
                     $timeout(function () {
                         scope.$emit('iso-method', {name:'shuffle', params:null})
                     },100);
@@ -138,7 +138,7 @@
                 scope.openItem = function(item) {
                     scope.action.goto(item);
                 };
-                scope.$on('test', function(ngRepeatFinishedEvent) {
+                scope.$on('repeated', function(ngRepeatFinishedEvent) {
                     $timeout(function () {
                         scope.$emit('iso-method', {params:null})
                     },100);
@@ -160,7 +160,7 @@
             link: function(scope, elm, attrs) {
                 scope.slides = scope.trendibxslider;
                 var slider;
-                scope.$on('test', function(ngRepeatFinishedEvent) {
+                scope.$on('repeated', function(ngRepeatFinishedEvent) {
                     /*  $(document).on("click", ".bx-pager-link", function() {
                      console.log("click");
                      slider.stopAuto();
@@ -245,7 +245,7 @@
             link: function(scope, elm, attrs) {
                 scope.slides = scope.brands;
                 var slider;
-                scope.$on('test', function(ngRepeatFinishedEvent) {
+                scope.$on('repeated', function(ngRepeatFinishedEvent) {
                     elm.ready(function () {
                         var slider = elm.bxSlider({
                             auto: true,
@@ -296,7 +296,7 @@
                     if(scope.images.length >= index+3)
                         scope.slides.push(scope.images.slice(index,index+3));
                 }
-                scope.$on('test', function(ngRepeatFinishedEvent) {
+                scope.$on('repeated', function(ngRepeatFinishedEvent) {
                     elm.ready(function () {
                         var slider = elm.bxSlider({
                             minSlides: 1,
@@ -357,7 +357,7 @@
 
 
                 var slider;
-                scope.$on('test', function(ngRepeatFinishedEvent) {
+                scope.$on('repeated', function(ngRepeatFinishedEvent) {
                     elm.ready(function () {
                         var slider = elm.owlCarousel({
                             items : items,
@@ -428,6 +428,29 @@
 
 
                 });
+
+            }
+        };
+    }]);
+
+    mod.directive('trendiWideMenuBar',['$location',function($location) {
+        return {
+            restrict: 'E',
+            replace: true,
+            scope: {
+                shoplist:'='
+            },
+            templateUrl: function(elem,attrs) {
+                var url = '/views/coreModule/menu/'+(attrs.template? attrs.template : 'trendi.shop.menu')+'.html';
+                return url;
+            },
+            link: function(scope, elm, attrs) {
+                scope.$on('repeated', function(ngRepeatFinishedEvent) {
+                    elm.ready(function () {
+                        var menu = elm.trendiHideMenu();
+                    });
+                });
+
 
             }
         };

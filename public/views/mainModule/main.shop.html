@@ -15,15 +15,15 @@
                     </md-button>
                     <div class="row" ng-if="searchOpen">
                         <div class="col-sm-6 col-md-4 col-lg-4"> Select Range
-                                <div class="btn-group btn-select sort-select" ng-class="openRange?'open':''"> <a class="btn btn-default btn-xs dropdown-toggle" ng-click="openRange = !openRange" ng-init="range = {txt : 'All', value:'0'}"> <span class="value">{{range.txt? range.txt :'' }}</span> <span class="caret min"></span> </a>
-                                    <ul class="dropdown-menu" ng-show="openRange">
-                                        <li ng-click="openRange = false"><a ng-click="range = {txt : 'All', value:'0'}" data-value="all">All</a></li>
-                                        <li ng-click="openRange = false"><a ng-click="range = {txt : '1 km', value:'1'}" data-value="1">Around 1 km</a></li>
-                                        <li ng-click="openRange = false"><a ng-click="range = {txt : '2 km', value:'2'}" data-value="2">Around 2 km</a></li>
-                                        <li ng-click="openRange = false"><a ng-click="range = {txt : '5 km', value:'5'}" data-value="5">Around 5 km</a></li>
-                                        <li ng-click="openRange = false"><a ng-click="range = {txt : '10 km', value:'10'}" data-value="10">Around 10 km</a></li>
-                                    </ul>
-                                </div>
+                            <div class="btn-group btn-select sort-select" ng-class="openRange?'open':''"> <a class="btn btn-default btn-xs dropdown-toggle" ng-click="openRange = !openRange" ng-init="range = {txt : 'All', value:'0'}"> <span class="value">{{range.txt? range.txt :'' }}</span> <span class="caret min"></span> </a>
+                                <ul class="dropdown-menu" ng-show="openRange">
+                                    <li ng-click="openRange = false"><a ng-click="range = {txt : 'All', value:'0'}" data-value="all">All</a></li>
+                                    <li ng-click="openRange = false"><a ng-click="range = {txt : '1 km', value:'1'}" data-value="1">Around 1 km</a></li>
+                                    <li ng-click="openRange = false"><a ng-click="range = {txt : '2 km', value:'2'}" data-value="2">Around 2 km</a></li>
+                                    <li ng-click="openRange = false"><a ng-click="range = {txt : '5 km', value:'5'}" data-value="5">Around 5 km</a></li>
+                                    <li ng-click="openRange = false"><a ng-click="range = {txt : '10 km', value:'10'}" data-value="10">Around 10 km</a></li>
+                                </ul>
+                            </div>
                         </div>
                         <trendi-map get-point="user.pos"></trendi-map>
 
@@ -51,7 +51,7 @@
                     </div>
 
                     <div ng-if="mainItemShow && isoRefresh">
-                        <trendi-isotop-product items="mainItems" views="changeView" action="isotopPagination" template="trendi.shop.isotop"></trendi-isotop-product>
+                        <trendi-isotop-product items="shopList" views="changeView" action="isotopPagination" template="trendi.shop.isotop"></trendi-isotop-product>
                     </div>
                     <!-- //end Listing products -->
 
@@ -90,15 +90,7 @@
                 <aside class="col-sm-4 col-md-3 col-lg-3 content-aside">
 
                     <!-- Shop by categories -->
-                    <section>
-                        <h3>SHOP BY CATEGORIES</h3>
-                        <trendi-product-expand-menu></trendi-product-expand-menu>
-                    </section>
-                    <!-- //end Shop by categories -->
 
-                    <div class="section-divider"></div>
-
-                    <!-- Shop by -->
                     <section>
                         <h3>SHOP BY</h3>
                         <p><strong>Category</strong></p>
@@ -106,7 +98,6 @@
                             <li ng-repeat="categ in catMenu"><span ng-class="categ.class"></span> <a ng-click="clickMenu(categ)">{{categ.value}} <span class="label label-mega">( {{categ.count?categ.count:0}} )</span></a></li>
                         </ul>
                         <br>
-                        <trendi-search-option shopoption="searchOption"></trendi-search-option>
                     </section>
                     <!-- //end Shop by -->
 
@@ -134,82 +125,83 @@
                     <div class="section-divider"></div>
 
                 </aside>
-            <!-- Product view -->
-            <section class="col-sm-8 col-md-9 col-lg-9 content-center">
-                <div class="product-view row">
+                <!-- Product view -->
+                <section class="col-sm-8 col-md-9 col-lg-9 content-center">
+                    <div class="product-view row">
+                        <div class="col-sm-6 col-md-6 col-lg-6">
+                            <md-button class="md-raised md-primary" md-autofocus ng-click="backTo()" id="back-btn">
+                                < Back
+                            </md-button>
+                            <div class="hidden-xs flexslider-thumb-vertical-outer">
+                                <div class="large-image vertical hidden-xs"> <img alt="#" class = "cloudzoom" src = "images/products/product-02-01-593x722.jpg" data-cloudzoom = "zoomImage: 'images/products/product-02-01-888x1080.jpg', autoInside : 991" /> </div>
+                                ></div>
+                        </div>
+                    </div>
                     <div class="col-sm-6 col-md-6 col-lg-6">
-                        <md-button class="md-raised md-primary" md-autofocus ng-click="backTo()" id="back-btn">
-                            < Back
-                        </md-button>
-                        <div class="hidden-xs flexslider-thumb-vertical-outer">
-                            <div class="large-image vertical hidden-xs"> <img alt="#" class = "cloudzoom" src = "images/products/product-02-01-593x722.jpg" data-cloudzoom = "zoomImage: 'images/products/product-02-01-888x1080.jpg', autoInside : 991" /> </div>
-                        ></div>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-md-6 col-lg-6">
 
-                    <!-- Product label -->
-                    <div class="product-label">
-                        <div class="box-wrap">
-                            <div class="box-wrap-top"></div>
-                            <div class="box-wrap-bot"></div>
-                            <div class="box-wrap-center"></div>
-                            <div class="box">
-                                <div class="box-content">
-                                    <h2>#{{selectedItem.itemId}} -  {{selectedItem.item.name}}</h2>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- //end Product label -->
-
-                    <!-- Description -->
-                    <div class="product-description"> <span class="rating"> <i class="icon-star-3"></i> <i class="icon-star-3"></i> <i class="icon-star-3"></i> <i class="icon-star-3"></i> <i class="icon-star-empty"></i> </span>
-                        <form>
-                            <div class="row">
-                                <div class="col-lg-6"> <strong>Colors</strong>
-                                    <div class="product-options"> <span ng-repeat="color in selectedItem.item.colors"> <i  class="icon icon-color" ng-style="{'background':color.color}"></i></span></div>
-                                </div>
-                                <div class="col-lg-6"> <strong>Sizes</strong>
-                                    <div class="product-options"> <span ng-repeat="size in selectedItem.item.sizes"> <i class="icon icon-size">{{size.value}}</i></span></div>
-                                </div>
-                            </div>
-                            <br>
-                            <div class="clearfix visible-xs"></div>
-                            <button class="btn btn-mega btn-lg" type="submit">Shop Now..</button>
-                        </form>
-                        <div class="panel-group accordion-simple" id="product-accordion">
-                            <div class="panel">
-                                <div class="panel-heading"> <a ng-click="desopen = !desopen"> <span ng-class="desopen?'arrow-up icon-arrow-up-4':'arrow-up icon-arrow-down-4'"></span> Description </a> </div>
-                                <div id="product-description" ng-class="desopen?'panel-collapse collapse in':'panel-collapse collapse'">
-                                    <div class="panel-body"> {{selectedItem.item.description}}</div>
-                                </div>
-                            </div>
-                            <div class="panel">
-                                <div class="panel-heading"> <a ng-click="shopopen = !shopopen"> <span ng-class="shopopen?'arrow-up icon-arrow-up-4':'arrow-up icon-arrow-down-4'"></span> Shop Details </a>  </div>
-                                <div id="product-size" ng-class="shopopen?'panel-collapse collapse in':'panel-collapse collapse'">
-                                    <div class="panel-body">
-                                        <img alt="{{ selectedItem.item.shop.shop.name }}" ng-src="{{selectedItem.item.shop.shop.iconImage}}" class="md-avatar" /></br>
-                                        <span>Name : {{ selectedItem.item.shop.shop.name }}</span></br>
-                                        <span>Hotline :{{ selectedItem.item.shop.shop.hotline }}</span></br>
-                                        <span>Mobile :{{ selectedItem.item.shop.shop.mobile }}</span></br>
-                                        <span>Address : {{ selectedItem.item.shop.shop.address.line1 }},{{selectedItem.item.shop.shop.address.line2 }},{{selectedItem.item.shop.shop.address.city }}</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="panel">
-                                <div class="panel-heading"> <a ng-click="revopen = !revopen"> <span ng-class="revopen?'arrow-up icon-arrow-up-4':'arrow-up icon-arrow-down-4'"></span> Reviews </a>  </div>
-                                <div id="product-reviews" ng-class="revopen?'panel-collapse collapse in':'panel-collapse collapse'">
-                                    <div class="panel-body">
-
+                        <!-- Product label -->
+                        <div class="product-label">
+                            <div class="box-wrap">
+                                <div class="box-wrap-top"></div>
+                                <div class="box-wrap-bot"></div>
+                                <div class="box-wrap-center"></div>
+                                <div class="box">
+                                    <div class="box-content">
+                                        <h2>#{{selectedItem.itemId}} -  {{selectedItem.item.name}}</h2>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <!-- //end Description -->
+                        <!-- //end Product label -->
 
-                </div>
+                        <!-- Description -->
+                        <div class="product-description"> <span class="rating"> <i class="icon-star-3"></i> <i class="icon-star-3"></i> <i class="icon-star-3"></i> <i class="icon-star-3"></i> <i class="icon-star-empty"></i> </span>
+                            <form>
+                                <div class="row">
+                                    <div class="col-lg-6"> <strong>Colors</strong>
+                                        <div class="product-options"> <span ng-repeat="color in selectedItem.item.colors"> <i  class="icon icon-color" ng-style="{'background':color.color}"></i></span></div>
+                                    </div>
+                                    <div class="col-lg-6"> <strong>Sizes</strong>
+                                        <div class="product-options"> <span ng-repeat="size in selectedItem.item.sizes"> <i class="icon icon-size">{{size.value}}</i></span></div>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="clearfix visible-xs"></div>
+                                <button class="btn btn-mega btn-lg" type="submit">Shop Now..</button>
+                            </form>
+                            <div class="panel-group accordion-simple" id="product-accordion">
+                                <div class="panel">
+                                    <div class="panel-heading"> <a ng-click="desopen = !desopen"> <span ng-class="desopen?'arrow-up icon-arrow-up-4':'arrow-up icon-arrow-down-4'"></span> Description </a> </div>
+                                    <div id="product-description" ng-class="desopen?'panel-collapse collapse in':'panel-collapse collapse'">
+                                        <div class="panel-body"> {{selectedItem.item.description}}</div>
+                                    </div>
+                                </div>
+                                <div class="panel">
+                                    <div class="panel-heading"> <a ng-click="shopopen = !shopopen"> <span ng-class="shopopen?'arrow-up icon-arrow-up-4':'arrow-up icon-arrow-down-4'"></span> Shop Details </a>  </div>
+                                    <div id="product-size" ng-class="shopopen?'panel-collapse collapse in':'panel-collapse collapse'">
+                                        <div class="panel-body">
+                                            <img alt="{{ selectedItem.item.shop.shop.name }}" ng-src="{{selectedItem.item.shop.shop.iconImage}}" class="md-avatar" /></br>
+                                            <span>Name : {{ selectedItem.item.shop.shop.name }}</span></br>
+                                            <span>Hotline :{{ selectedItem.item.shop.shop.hotline }}</span></br>
+                                            <span>Mobile :{{ selectedItem.item.shop.shop.mobile }}</span></br>
+                                            <span>Address : {{ selectedItem.item.shop.shop.address.line1 }},{{selectedItem.item.shop.shop.address.line2 }},{{selectedItem.item.shop.shop.address.city }}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel">
+                                    <div class="panel-heading"> <a ng-click="revopen = !revopen"> <span ng-class="revopen?'arrow-up icon-arrow-up-4':'arrow-up icon-arrow-down-4'"></span> Reviews </a>  </div>
+                                    <div id="product-reviews" ng-class="revopen?'panel-collapse collapse in':'panel-collapse collapse'">
+                                        <div class="panel-body">
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- //end Description -->
+
+                    </div>
+                </section>
             </div>
             <!-- //end Product view --> <!-- Services -->
             <section class="services-block single small row">
@@ -242,8 +234,8 @@
 
                 </section>
             </div>
-            </section>
-            </div>
         </section>
     </div>
+    </section>
+</div>
 </div>

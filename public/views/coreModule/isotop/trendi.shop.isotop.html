@@ -1,25 +1,13 @@
 <div>
-    <section class="filters-by-category clearfix">
-        <div class="container">
-            <div class="row">
-                <div class="text-center">
-                    <ul class="option-set" opt-kind ok-key="filter">
-                        <li><a  ok-sel="*" class="selected">all</a></li>
-                        <li><a  ok-sel=".onSale">RECENTLY ADDED</a></li>
-                        <li><a  ok-sel=".topRated">TOP RATED</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
+
 
    <section class="container content slider-products">
     <div class="row">
 
         <div ng-class="views == true ? 'products-list-in-row':'products-list-isotope'" id="isotopeContainer" isotope-container ng-cloak class="ng-cloak" infinite-scroll='paginationFunction()' infinite-scroll-distance='0.01'>
-            <div class="kindling {{x.class}} product-preview " ng-repeat="x in xList " isotope-item  on-finish-render="test">
+            <div class="kindling product-preview " ng-repeat="x in xList " isotope-item  on-finish-render="repeated">
 
-                    <div id="{{x.itemId}}" class="preview animate scale"> <a class="preview-image"><img ng-click="openItem(x)" class="img-responsive animate scale" ng-src="{{x.item.image}}" width="270" height="328" alt=""></a>
+                    <div id="{{x.shopId}}" class="preview animate scale"> <a class="preview-image"><img ng-click="openItem(x)" class="img-responsive animate scale" ng-src="{{x.iconImage}}" width="270" height="328" alt=""></a>
                         <ul class="product-controls-list right hide-right">
                             <li class="top-out"></li>
                             <li><a href="#" class="circle"><span class="icon-facebook"></span></a></li>
@@ -29,8 +17,8 @@
                         <a href="_ajax_view-product-popup.html" class="quick-view  fancybox fancybox.ajax hidden-xs"> <span class="rating"> <i class="icon-star-3"></i> <i class="icon-star-3"></i> <i class="icon-star-3"></i> <i class="icon-star-3"></i> <i class="icon-star-empty"></i> </span> <span class="icon-zoom-in-2"></span> Quick View </a>
                         <div class="quick-view visible-xs"> <span class="rating"> <i class="icon-star-3"></i> <i class="icon-star-3"></i> <i class="icon-star-3"></i> <i class="icon-star-3"></i> <i class="icon-star-empty"></i> </span></div>
                     </div>
-                    <h3 class="title"><a href="#">#{{x.itemId}} {{x.item.name}}</a></h3>
-                <div class="list_description">{{x.item.description}}</div>
+                    <h3 class="title"><a href="#">#{{x.shopId}} {{x.name}}</a></h3>
+                <div class="list_description">{{x.description}}</div>
                 <!--buttons-->
                 <div class="list_buttons"> <a class="btn btn-mega pull-left" href="#">More...</a>
 

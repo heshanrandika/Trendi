@@ -61,7 +61,7 @@
         };
 
         serviceCalls.getShopListDao = function () {
-            return angular.extend({functionId: MAIN_MOD_CONFIG.REQ_CONFIG.FUNC_GetRatedShopList}, _getCObj());
+            return angular.extend({functionId: MAIN_MOD_CONFIG.REQ_CONFIG.FUNC_GetShopList}, _getCObj());
         };
 
         serviceCalls.getSearchListDao = function () {

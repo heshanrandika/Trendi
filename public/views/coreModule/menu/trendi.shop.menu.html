@@ -1,0 +1,19 @@
+<div class="item-content">
+    <div class="navbar-main-submenu">
+        <div class="row wrapper">
+            <div class="col-xs-4 col-md-3 col-lg-2" ng-repeat="shop in shoplist" on-finish-render="repeated" >
+                <div class="submenu-block submenu-block-other"> <img ng-src="{{shop.iconImage}}" class="img-responsive" alt="">
+                    <div class="title"><a class="name" ng-href="#/main/shop/{{shop.shopId}}">#{{shop.shopId}} - {{shop.name}}</a> <span class="label label-mega">-15%</span></div>
+                    <ul>
+                        <li>{{shop.hotline}}</li>
+                        <li>{{shop.description}}</li>
+                        <li>{{shop.shopEmail}}</li>
+                    </ul>
+
+                </div>
+            </div>
+            <div class=" clearfix visible-sm"></div>
+
+        </div>
+    </div>
+</div>

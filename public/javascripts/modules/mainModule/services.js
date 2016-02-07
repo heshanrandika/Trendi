@@ -39,8 +39,8 @@
             return Data_Comm.postPromise(angular.extend({},mainServiceCalls.getTopRatedListDao()));
         };
 
-        var _getShopList = function(){
-            return Data_Comm.postPromise(angular.extend({},mainServiceCalls.getShopListDao()));
+        var _getShopList = function(d){
+            return Data_Comm.postPromise(angular.extend({params:d},mainServiceCalls.getShopListDao()));
         };
 
         var _getSearchList = function(d){

@@ -121,7 +121,7 @@
             $switcher = $(".navbar-switcher", $header),
             $menu = $(".navbar-main-menu", $header),
             $menuItems = $(".item", $menu),
-            $menuContainer = $("<dd class='item-content' id='menuScrollerWrapper'></dd>"),
+            $menuContainer = $("<div class='item-content' id='menuScrollerWrapper'></div>"),
             $menuScroller = $("<div style='overflow: hidden;' id='menuScroller'></div>"),
             $menuHeight = $("header .navbar-compact"),
             menuHeightInner = $("header .navbar-height-inner"),
@@ -178,7 +178,7 @@
         var menuTimer;
         $menuItems.each(function () {
             var $this = $(this),
-                $dropdown = $this.next("dd.item-content");
+                $dropdown = $this.next("div.item-content");
             if ($dropdown.length) {
                 var pos =
                     menuWidth;

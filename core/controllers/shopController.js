@@ -11,18 +11,35 @@ function getShopList(req,callback){
 
     var skip =(params.skip)?params.skip:0;
     var limit  = (params.limit)?params.limit:18;
-    var sorter = params.sorter;
+    var sorter = [['shop.point',-1]];
+    var query = {delete:0};
+    var data = {list:[]};
+
+    if(undefined != params.pos){
+        if(undefined != params.pos.lat && undefined != params.pos.lon){
+            query = {$and:[{"pos" : {$near: params.pos}},{delete:0}]};
+        }
+
+    }
 
     var option = {skip:skip, limit:limit, sort:sorter};
-    var query = {delete:0};
-    var data = [];
+
     var dbCon = daf.FindWithPagination(query,CONSTANT.SHOP_COLLECTION,option);
     dbCon.on('data', function(doc){
-        data.push(doc);
+        data.list.push(doc);
     });
 
     dbCon.on('end', function(){
-        callback(null,data);
+        if(skip == 0){
+            daf.Count(query,CONSTANT.SHOP_COLLECTION,function(err , count){
+                if(count){
+                    data.count = count;
+                }
+                callback(null,data);
+            })
+        }else{
+            callback(null,data);
+        }
     });
 };
 
