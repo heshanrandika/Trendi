@@ -23,8 +23,8 @@
             return Data_Comm.postPromise(angular.extend({},mainServiceCalls.getBlogListDao()));
         };
 
-        var _getBestSellerList = function(){ //TODO
-            return Data_Comm.postPromise(angular.extend({},mainServiceCalls.getBestSellerListDao()));
+        var _getShop = function(d){
+            return Data_Comm.postPromise(angular.extend({params:d},mainServiceCalls.getShopDao()));
         };
 
         var _getOnSaleList = function(){ //TODO
@@ -65,7 +65,7 @@
             getPromotionList:_getPromotionList,
             getMostTrendyItems:_getMostTrendyItems,
             getBlogList:_getBlogList,
-            getBestSellerList:_getBestSellerList,
+            getShop:_getShop,
             getOnSaleList:_getOnSaleList,
             getNewProductList:_getNewProductList,
             getTopRatedList:_getTopRatedList,

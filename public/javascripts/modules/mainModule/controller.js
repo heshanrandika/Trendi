@@ -30,7 +30,8 @@
         $scope.getShopList();
 
         $scope.gotoShop = function () {
-            $location.path('main/shop/all');
+            $location.search({});
+            $location.path('main/shop');
         };
 
         $scope.womenMenu = [
@@ -460,6 +461,17 @@
 
 
         $scope.selectParams = $stateParams;
+        $scope.uiRef = $location.search().shopId;
+        $scope.shopChange = function(){
+            $scope.uiRef = $location.search().shopId;
+            if($scope.uiRef){
+                var id = parseInt($scope.uiRef);
+                $scope.getShopData(id);
+            }
+
+        };
+        $scope.$watch(function() { return $location.search().shopId; },  $scope.shopChange);
+
         $scope.mainItemShow = false;
         $scope.changeView = false;
         $scope.isoRefresh = true;
@@ -510,7 +522,7 @@
             });
         };
 
-        // Register event handler
+
         $scope.paginationFuntion = function() {
             $scope.searchObj.skip = $scope.shopList.length;
             if ($scope.count > $scope.shopList.length && !$scope.loading) {
@@ -521,7 +533,22 @@
         $scope.loadData(1);
 
 
-        /*+++++++++++++++++++++++++++++++++++++PRODUCT VIEW PAGE++++++++++++++++++++++++++++++++++++++++++++++*/
+        $scope.isotopPagination = {
+            searchFromServer: function (d) {
+                $scope.paginationFuntion();
+            },
+            goto: function (shop) {
+                $scope.selectedItem = shop;
+                // $scope.loadSubItem(shop.shopId);
+                $location.search('shopId',shop.shopId);
+                $scope.scrollTo('back-btn');
+                $scope.getDirection();
+            }
+
+        };
+
+
+        /*+++++++++++++++++++++++++++++++++++++SHOP VIEW PAGE++++++++++++++++++++++++++++++++++++++++++++++*/
 
 
 
@@ -534,20 +561,20 @@
 
         $scope.createCategoryMenu = function(){
            $scope.catMenu = [
-                    {'class':'m-icon m-icon-dress', 'value':'Dresses', 'count':getCount('Tops')},
-                    {'class':'m-icon m-icon-shirts', 'value':'Shirts', 'count':getCount('Tops')},
-                    {'class':'m-icon m-icon-coats', 'value':'Coats', 'count':getCount('Tops')},
-                    {'class':'m-icon m-icon-jackets', 'value':'Jackets', 'count':getCount('Tops')},
-                    {'class':'m-icon m-icon-shorts', 'value':'Shorts', 'count':getCount('Tops')},
-                    {'class':'m-icon m-icon-jeans', 'value':'Jeans', 'count':getCount('Tops')},
-                    {'class':'m-icon m-icon-skirts', 'value':'Skirts', 'count':getCount('Tops')},
-                    {'class':'m-icon m-icon-lingerie', 'value':'Lingerie', 'count':getCount('Tops')},
-                    {'class':'m-icon m-icon-tops', 'value':'Tops', 'count':getCount('Tops')}
+               {'class':'m-icon m-icon-dress', 'value':'Dresses', search:'Dress', 'count':getCount('Dress')},
+               {'class':'m-icon m-icon-shirts', 'value':'Shirts', search:'Shirt', 'count':getCount('Shirt')},
+               {'class':'m-icon m-icon-coats', 'value':'Coats', search:'Coat', 'count':getCount('Coat')},
+               {'class':'m-icon m-icon-jackets', 'value':'Jackets', search:'Jacket', 'count':getCount('Jacket')},
+               {'class':'m-icon m-icon-shorts', 'value':'Shorts', search:'Short', 'count':getCount('Short')},
+               {'class':'m-icon m-icon-jeans', 'value':'Jeans', search:'Jean', 'count':getCount('Jean')},
+               {'class':'m-icon m-icon-skirts', 'value':'Skirts', search:'Skirt', 'count':getCount('Skirt')},
+               {'class':'m-icon m-icon-lingerie', 'value':'Lingerie', search:'Lingerie', 'count':getCount('Lingerie')},
+               {'class':'m-icon m-icon-tops', 'value':'Tops', search:'Top', 'count':getCount('Top')}
                 ];
         };
 
         $scope.getCategoryMenuData = function () {
-            mainDataService.getItemCount({category : 'all'}).then(function(response){
+            mainDataService.getItemCount({category : 'all', shop : $scope.selectedItem.shopId}).then(function(response){
                 $scope.categoryMenu = response.data.responData.data;
                 $scope.createCategoryMenu();
             },function(){
@@ -557,39 +584,30 @@
 
 
 
-        $scope.isotopPagination = {
-            searchFromServer: function (d) {
-                $scope.paginationFuntion();
-            },
-            goto: function (shop) {
-                $scope.selectedItem = shop;
-               // $scope.loadSubItem(shop.shopId);
-                $location.path('main/shop/'+shop.shopId);
-                $scope.scrollTo('back-btn');
-                $scope.getDirection();
-            }
 
-        };
 
 
 
         //get main item when there is no selected item
-        if($location.search().itemId){
-            var id = parseInt($location.search().itemId);
-            if(!$scope.selectedItem.item){
-                $scope.imageArray = [];
-                mainDataService.getMainItem({itemId : id}).then(function(response){
-                    $scope.selectedItem =  response.data.responData.data;
-                    $scope.imageArray.push($scope.selectedItem.item.image);
-                    $scope.loadSubItem(id);
-                    $scope.getDirection();
-                },function(){
-                });
+        if($location.search().shopId){
+            var id = parseInt($location.search().shopId);
+            if(!$scope.selectedItem){
+                $scope.getShopData(id);
             }
         }
 
-        $scope.clickMenu = function(val){
-            $location.path('main/products/'+$scope.selectParams.category+'/'+val.value);
+        $scope.getShopData = function(id){
+            mainDataService.getShop({shopId : id}).then(function(response){
+                $scope.selectedItem =  response.data.responData.data;
+                $scope.getCategoryMenuData();
+                //  $scope.loadSubItem(id);
+                $scope.getDirection();
+            },function(){
+            });
+        };
+
+        $scope.clickMenu = function(val, category){
+            $location.path('main/products/'+$scope.selectedItem.shopId+'/'+category+'/'+val.search);
         };
 
         //back button click

@@ -44,7 +44,7 @@
             return angular.extend({functionId: MAIN_MOD_CONFIG.REQ_CONFIG.FUNC_GetBlogList}, _getCObj());
         };
 
-        serviceCalls.getBestSellerListDao = function () {
+        serviceCalls.getShopDao = function () {
             return angular.extend({functionId: MAIN_MOD_CONFIG.REQ_CONFIG.FUNC_GetShop}, _getCObj());
         };
 

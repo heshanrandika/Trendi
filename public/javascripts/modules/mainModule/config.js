@@ -24,7 +24,7 @@
 
             },
             'main.shops': {
-                url: '/shop/:selected',
+                url: '/shop',
                 templateUrl: 'views/mainModule/main.shop.html',
                 controller: 'trendiShopProductsController'
 

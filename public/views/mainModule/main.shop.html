@@ -4,7 +4,7 @@
         <section class="container">
             <nav class="breadcrumbs"> Home <span class="icon-arrow-right-3"></span> {{selectParams.category}} <span class="icon-arrow-right-3"></span>{{selectParams.selected}}</nav>
         </section>
-        <section ng-show="selectParams.selected =='all'" class="container">
+        <section ng-hide="uiRef" class="container">
             <div class="row">
 
 
@@ -82,7 +82,7 @@
 
             </div>
         </section>
-        <section ng-hide="selectParams.selected =='all'" class="container" >
+        <section ng-show="uiRef" class="container" >
 
             <div class="row">
 
@@ -93,9 +93,19 @@
 
                     <section>
                         <h3>SHOP BY</h3>
-                        <p><strong>Category</strong></p>
+                        <p><strong>Women</strong></p>
                         <ul class="simple-list">
-                            <li ng-repeat="categ in catMenu"><span ng-class="categ.class"></span> <a ng-click="clickMenu(categ)">{{categ.value}} <span class="label label-mega">( {{categ.count?categ.count:0}} )</span></a></li>
+                            <li ng-repeat="categ in catMenu"><span ng-class="categ.class"></span> <a ng-click="clickMenu(categ, 'Women')">{{categ.value}} <span class="label label-mega">( {{categ.count?categ.count:0}} )</span></a></li>
+                        </ul>
+                        <br>
+                        <p><strong>Men</strong></p>
+                        <ul class="simple-list">
+                            <li ng-repeat="categ in catMenu"><span ng-class="categ.class"></span> <a ng-click="clickMenu(categ, 'Men')">{{categ.value}} <span class="label label-mega">( {{categ.count?categ.count:0}} )</span></a></li>
+                        </ul>
+                        <br>
+                        <p><strong>Kids</strong></p>
+                        <ul class="simple-list">
+                            <li ng-repeat="categ in catMenu"><span ng-class="categ.class"></span> <a ng-click="clickMenu(categ, 'Kids')">{{categ.value}} <span class="label label-mega">( {{categ.count?categ.count:0}} )</span></a></li>
                         </ul>
                         <br>
                     </section>
@@ -128,12 +138,14 @@
                 <!-- Product view -->
                 <section class="col-sm-8 col-md-9 col-lg-9 content-center">
                     <div class="product-view row">
+                        <md-button class="md-raised md-primary" md-autofocus ng-click="backTo()" id="back-btn">
+                            < Back
+                        </md-button>
                         <div class="col-sm-6 col-md-6 col-lg-6">
-                            <md-button class="md-raised md-primary" md-autofocus ng-click="backTo()" id="back-btn">
-                                < Back
-                            </md-button>
                             <div class="hidden-xs flexslider-thumb-vertical-outer">
-                                <div class="large-image vertical hidden-xs"> <img  class = "cloudzoom" ng-src = ""  /> </div></div>
+                                <img alt="{{ selectedItem.shopId }}" ng-src="{{selectedItem.iconImage}}" class="md-avatar" />
+                                <div class="large-image vertical hidden-xs"> <img  class = "cloudzoom" ng-src = ""  /> </div>
+                            </div>
                         </div>
                     </div>
                     <div class="col-sm-6 col-md-6 col-lg-6">
@@ -146,7 +158,7 @@
                                 <div class="box-wrap-center"></div>
                                 <div class="box">
                                     <div class="box-content">
-                                        <h2>#{{selectedItem.itemId}} -  {{selectedItem.item.name}}</h2>
+                                        <h2>#{{selectedItem.shopId}} -  {{selectedItem.name}}</h2>
                                     </div>
                                 </div>
                             </div>
