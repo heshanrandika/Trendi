@@ -542,7 +542,7 @@ function getItemCountByTags(req,callback){
     }
 
 
-    if(category){
+    if(undefined != category && category != 'all'){
         var catText = {};
         catText["item.group."+category.toLowerCase()]   = true;
 
