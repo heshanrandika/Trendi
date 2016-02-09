@@ -457,6 +457,7 @@
     mod.controller('trendiShopProductsController', ['$scope', '$rootScope','$state','mainDataService','$timeout','$stateParams','$location','$anchorScroll', function ($scope, $rootScope, $state, mainDataService, $timeout, $stateParams, $location, $anchorScroll) {
         $scope.user = {};
         $scope.user.pos = [];
+        $scope.range = {txt : 'All', value:'0'};
 
 
 
@@ -505,6 +506,10 @@
            }else{
                 $scope.searchOpen = true;  
            }
+        };
+
+        $scope.rangeSelect = function(val){
+            $scope.range = val;
         };
 
 
@@ -582,6 +587,7 @@
             mainDataService.getItemCount({category : 'all', shop : $scope.selectedItem.shopId}).then(function(response){
                 $scope.categoryMenu = response.data.responData.data;
                 $scope.createCategoryMenu();
+                $scope.getDirection();
             },function(){
             });
         };
@@ -642,17 +648,23 @@
         $scope.getDirection = function() {
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(function (position) {
-                    $scope.direction = {
-                        start : {
-                            lat:position.coords.latitude,
-                            lon:position.coords.longitude
-                        },
-                        end:{
-                            lat:$scope.selectedItem.pos[0],
-                            lon:$scope.selectedItem.pos[1],
-                            name:$scope.selectedItem.name
-                        }
-                    };
+                    if($scope.selectedItem.pos){
+                        $scope.direction = {
+                            start : {
+                                lat:position.coords.latitude,
+                                lon:position.coords.longitude
+                            },
+                            end:{
+                                lat:$scope.selectedItem.pos[0],
+                                lon:$scope.selectedItem.pos[1],
+                                name:$scope.selectedItem.name
+                            }
+                        };
+                    }else{
+                        $scope.user.pos = [position.coords.latitude,position.coords.longitude];
+                    }
+
+
 
                 });
             }

@@ -17,9 +17,9 @@ function getShopList(req,callback){
     var data = {list:[]};
 
     if(undefined != params.pos){
-        if(undefined != params.pos.lat && undefined != params.pos.lon){
+        if(undefined != params.pos[0] && undefined != params.pos[1]){
             if(distance){
-                query = {$and:[{"pos" : {$near: params.pos, $maxDistance:distance}},{delete:0}]};
+                query = {$and:[{"pos" : {$near: params.pos, $maxDistance:(distance/111.12)}},{delete:0}]};
             }else{
                 query = {$and:[{"pos" : {$near: params.pos}},{delete:0}]};
             }

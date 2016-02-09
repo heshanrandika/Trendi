@@ -569,8 +569,8 @@ function getMainItem(req,callback){
 
 function getItemMenu(req,callback){
     var params = (req.body.params) ? req.body.params : {};
-    var itemId = (params.menuId)? params.menuId:0;
-    var query = {'menuId':menuId};
+    var menuId = (params.menuId)? params.menuId:0;
+    var query = {};
     console.log("$$$$$$$  Item Menu $$$$$$ : ");
     daf.FindOne(query,CONSTANT.ITEM_MENU_COLLECTION,function(err,success){
         callback(err, success);

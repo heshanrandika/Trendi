@@ -13,15 +13,18 @@
                     <md-button  class="md-raised " ng-class="searchOpen?'md-primary':'md-warn'"  ng-click="searchSelect()" md-autofocus>
                         {{searchOpen? 'Search':'Search Option >'}}
                     </md-button>
+                    <md-button  class="md-raised " ng-class="searchOpen?'md-primary':'md-warn'"  ng-click="searchOpen = false" md-autofocus ng-show="searchOpen">
+                        Cancel
+                    </md-button>
                     <div class="row" ng-if="searchOpen">
                         <div class="col-sm-6 col-md-4 col-lg-4"> Select Range
-                            <div class="btn-group btn-select sort-select" ng-class="openRange?'open':''"> <a class="btn btn-default btn-xs dropdown-toggle" ng-click="openRange = !openRange" ng-init="range = {txt : 'All', value:'0'}"> <span class="value">{{range.txt? range.txt :'' }}</span> <span class="caret min"></span> </a>
+                            <div class="btn-group btn-select sort-select" ng-class="openRange?'open':''"> <a class="btn btn-default btn-xs dropdown-toggle" ng-click="openRange = !openRange"> <span class="value">{{range.txt? range.txt :'' }}</span> <span class="caret min"></span> </a>
                                 <ul class="dropdown-menu" ng-show="openRange">
-                                    <li ng-click="openRange = false"><a ng-click="range = {txt : 'All', value:'0'}" data-value="all">All</a></li>
-                                    <li ng-click="openRange = false"><a ng-click="range = {txt : '1 km', value:'1000'}" data-value="1">Around 1 km</a></li>
-                                    <li ng-click="openRange = false"><a ng-click="range = {txt : '2 km', value:'2000'}" data-value="2">Around 2 km</a></li>
-                                    <li ng-click="openRange = false"><a ng-click="range = {txt : '5 km', value:'5000'}" data-value="5">Around 5 km</a></li>
-                                    <li ng-click="openRange = false"><a ng-click="range = {txt : '10 km', value:'10000'}" data-value="10">Around 10 km</a></li>
+                                    <li ng-click="openRange = false"><a ng-click="rangeSelect({txt : 'All', value:'0'})" data-value="all">All</a></li>
+                                    <li ng-click="openRange = false"><a ng-click="rangeSelect({txt : '1 km', value:'1'})" data-value="1">Around 1 km</a></li>
+                                    <li ng-click="openRange = false"><a ng-click="rangeSelect({txt : '5 km', value:'5'})" data-value="2">Around 5 km</a></li>
+                                    <li ng-click="openRange = false"><a ng-click="rangeSelect({txt : '10 km', value:'10'})" data-value="5">Around 10 km</a></li>
+                                    <li ng-click="openRange = false"><a ng-click="rangeSelect({txt : '20 km', value:'20'})" data-value="10">Around 20 km</a></li>
                                 </ul>
                             </div>
                         </div>
