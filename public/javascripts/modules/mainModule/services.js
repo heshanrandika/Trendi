@@ -57,6 +57,10 @@
 
         var _getMainItem = function(d){
             return Data_Comm.postPromise(angular.extend({params:d},mainServiceCalls.getMainItemDao()));
+        }; 
+
+        var _getItemMenu = function(d){
+            return Data_Comm.postPromise(angular.extend({params:d},mainServiceCalls.getItemMenuDao()));
         };
 
         return{
@@ -73,7 +77,8 @@
             getSearchList:_getSearchList,
             getItemCount:_getItemCount,
             getSubItem:_getSubItem,
-            getMainItem:_getMainItem
+            getMainItem:_getMainItem,
+            getItemMenu:_getItemMenu
         }
     }]);
 })(com.TRENDI.CATEGORY.modules.mainTrendiModule);

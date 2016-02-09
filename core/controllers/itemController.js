@@ -567,6 +567,17 @@ function getMainItem(req,callback){
 
 };
 
+function getItemMenu(req,callback){
+    var params = (req.body.params) ? req.body.params : {};
+    var itemId = (params.menuId)? params.menuId:0;
+    var query = {'menuId':menuId};
+    console.log("$$$$$$$  Item Menu $$$$$$ : ");
+    daf.FindOne(query,CONSTANT.ITEM_MENU_COLLECTION,function(err,success){
+        callback(err, success);
+    });
+
+};
+
 module.exports.GetLatestItem = getLatestItems;
 module.exports.GetItemByShop = getItemByShop;
 module.exports.GetMostTrendyItems = getMostTrendyItems;
@@ -582,3 +593,4 @@ module.exports.AdminGetItemList = adminGetItemList;
 module.exports.GetSearchItemList = getSearchItemList;
 module.exports.GetItemCount = getItemCountByTags;
 module.exports.GetMainItem = getMainItem;
+module.exports.GetItemMenu = getItemMenu;

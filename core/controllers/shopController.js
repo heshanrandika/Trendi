@@ -11,13 +11,19 @@ function getShopList(req,callback){
 
     var skip =(params.skip)?params.skip:0;
     var limit  = (params.limit)?params.limit:18;
+    var distance = parseInt(params.range);
     var sorter = [['shop.point',-1]];
     var query = {delete:0};
     var data = {list:[]};
 
     if(undefined != params.pos){
         if(undefined != params.pos.lat && undefined != params.pos.lon){
-            query = {$and:[{"pos" : {$near: params.pos}},{delete:0}]};
+            if(distance){
+                query = {$and:[{"pos" : {$near: params.pos, $maxDistance:distance}},{delete:0}]};
+            }else{
+                query = {$and:[{"pos" : {$near: params.pos}},{delete:0}]};
+            }
+            
         }
 
     }
@@ -38,6 +44,7 @@ function getShopList(req,callback){
                 callback(null,data);
             })
         }else{
+            
             callback(null,data);
         }
     });
@@ -143,7 +150,8 @@ function getShop(req,callback){
 function getNearestShopList(req,callback){
     var params = (req.body.params) ? req.body.params : {};
     var pos = params.pos;
-    var query =  {$and:[{"pos" : {$near: pos}}]};
+    var distance = parseInt(params.range);
+    var query =  {$and:[{"pos" : {$near: pos, $maxDistance:distance}}]};
     var option = {};
     var data = [];
     var dbCon = daf.FindWithSorting(query,CONSTANT.SHOP_COLLECTION,option);

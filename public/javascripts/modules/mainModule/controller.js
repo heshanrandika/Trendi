@@ -481,6 +481,7 @@
         $scope.catMenu = [];
         $scope.selectedItem = {};
         $scope.searchOption = {};
+        $scope.searchOpen = false;
 
 
         $scope.changeList = function(val){
@@ -493,6 +494,17 @@
             $timeout(function () {
                 $scope.isoRefresh = true;
             },100);
+        };
+
+        $scope.searchSelect = function(){
+           if($scope.searchOpen){
+                $scope.searchOpen = false; 
+                $scope.searchObj.pos = $scope.user.pos;
+                $scope.searchObj.range = $scope.range.value;
+                $scope.loadData(1);
+           }else{
+                $scope.searchOpen = true;  
+           }
         };
 
 
@@ -552,7 +564,7 @@
 
 
 
-        var getCount = function(val){
+        $scope.getCount = function(val){
             var result = _.find( $scope.categoryMenu, function(obj){ return obj._id == val; });
             return result?result.count:0;
         };
@@ -560,17 +572,10 @@
 
 
         $scope.createCategoryMenu = function(){
-           $scope.catMenu = [
-               {'class':'m-icon m-icon-dress', 'value':'Dresses', search:'Dress', 'count':getCount('Dress')},
-               {'class':'m-icon m-icon-shirts', 'value':'Shirts', search:'Shirt', 'count':getCount('Shirt')},
-               {'class':'m-icon m-icon-coats', 'value':'Coats', search:'Coat', 'count':getCount('Coat')},
-               {'class':'m-icon m-icon-jackets', 'value':'Jackets', search:'Jacket', 'count':getCount('Jacket')},
-               {'class':'m-icon m-icon-shorts', 'value':'Shorts', search:'Short', 'count':getCount('Short')},
-               {'class':'m-icon m-icon-jeans', 'value':'Jeans', search:'Jean', 'count':getCount('Jean')},
-               {'class':'m-icon m-icon-skirts', 'value':'Skirts', search:'Skirt', 'count':getCount('Skirt')},
-               {'class':'m-icon m-icon-lingerie', 'value':'Lingerie', search:'Lingerie', 'count':getCount('Lingerie')},
-               {'class':'m-icon m-icon-tops', 'value':'Tops', search:'Top', 'count':getCount('Top')}
-                ];
+            mainDataService.getItemMenu().then(function(response){
+                $scope.allMenu  = response.data.responData.data;
+            },function(){
+            });
         };
 
         $scope.getCategoryMenuData = function () {
