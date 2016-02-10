@@ -1379,13 +1379,9 @@
         return {
             restrict: 'E',
             replace: true,
-            require:'ngModel',
             scope: {
-                origin: '=',
-                id: '=',
-                rating: '='
             },
-            template: '<uib-rating ng-model="rate" max="max" readonly="isReadonly" on-hover="hoveringOver(value)" on-leave="overStar = null" titles="["one","two","three"]" aria-labelledby="default-rating"></uib-rating>',
+            template: '<div><rating ng-model="rate" max="10" on-hover="hoveringOver(value)" on-leave="overStar = null" state-on="\'icon-star-3\'" state-off="\'icon-star-empty\'"></rating><span class="label" ng-class="{\'label-warning\': percent<30, \'label-info\': percent>=30 && percent<70, \'label-success\': percent>=70}" ng-show="overStar">{{percent}}%</span></div>',
             link: function(scope, elm, attrs) {
                 scope.rate = 7;
                 scope.max = 10;

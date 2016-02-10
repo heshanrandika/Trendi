@@ -2,6 +2,7 @@
     <section class="filters-by-category clearfix">
         <div class="container">
             <div class="row">
+                <uib-rating ng-model="rate" max="max" readonly="isReadonly" on-hover="hoveringOver(value)" on-leave="overStar = null" titles="['one','two','three']" aria-labelledby="default-rating"></uib-rating>
                 <div class="text-center">
                     <ul class="option-set" opt-kind ok-key="filter">
                         <li><a  ok-sel="*" class="selected">all</a></li>
@@ -31,8 +32,8 @@
                             <li><a href="#" class="circle"><span class="icon-justice"></span></a></li>
                             <li><a href="#" class="circle"><span class="icon-basket"></span></a></li>
                         </ul>
-                        <a href="_ajax_view-product-popup.html" class="quick-view  fancybox fancybox.ajax hidden-xs"> <span class="rating"> <i class="icon-star-3"></i> <i class="icon-star-3"></i> <i class="icon-star-3"></i> <i class="icon-star-3"></i> <i class="icon-star-empty"></i> </span> <span class="icon-zoom-in-2"></span> Quick View </a>
-                        <div class="quick-view visible-xs"> <span class="rating"> <i class="icon-star-3"></i> <i class="icon-star-3"></i> <i class="icon-star-3"></i> <i class="icon-star-3"></i> <i class="icon-star-empty"></i> </span></div>
+                        <a class="quick-view  fancybox fancybox.ajax hidden-xs"> <span class="rating"><trendi-star-bar></trendi-star-bar> </span><span class="icon-zoom-in-2"></span> Quick View</a>
+
                     </div>
                     <h3 class="title"><a href="#">#{{x.itemId}} {{x.item.name}}</a></h3>
                     <div class="product-options-outer">

@@ -584,7 +584,7 @@ function setRating(req,callback){
     var origin = params.origin
     var query = {};
 
-    switch(origin){
+/*    switch(origin){
         case 'item':
             query = {
                 {},{ $inc: { quantity: -2, "metrics.orders": 1 } }
@@ -594,7 +594,7 @@ function setRating(req,callback){
          query = {
                 {},{ $inc: { quantity: -2, "metrics.orders": 1 } }
             }
-    }
+    }*/
 /*db.products.update(
    { sku: "abc123" },
    { $inc: { quantity: -2, "metrics.orders": 1 } }
