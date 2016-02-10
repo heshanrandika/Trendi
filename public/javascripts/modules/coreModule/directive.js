@@ -1373,4 +1373,31 @@
             };
         }
     ]);
+
+
+    mod.directive('trendiStarBar',['mainDataService',function(mainDataService){
+        return {
+            restrict: 'E',
+            replace: true,
+            require:'ngModel',
+            scope: {
+                origin: '=',
+                id: '=',
+                rating: '='
+            },
+            template: '<uib-rating ng-model="rate" max="max" readonly="isReadonly" on-hover="hoveringOver(value)" on-leave="overStar = null" titles="["one","two","three"]" aria-labelledby="default-rating"></uib-rating>',
+            link: function(scope, elm, attrs) {
+                scope.rate = 7;
+                scope.max = 10;
+                scope.isReadonly = false;
+
+                scope.hoveringOver = function(value) {
+                    scope.overStar = value;
+                    scope.percent = 100 * (value / scope.max);
+                };
+
+            }
+        };
+    }]);
+    
 })(com.TRENDI.CATEGORY.modules.coreModule);

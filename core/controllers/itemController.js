@@ -578,6 +578,35 @@ function getItemMenu(req,callback){
 
 };
 
+function setRating(req,callback){
+    var params = (req.body.params) ? req.body.params : {};
+    var menuId = (params.menuId)? params.menuId:0;
+    var origin = params.origin
+    var query = {};
+
+    switch(origin){
+        case 'item':
+            query = {
+                {},{ $inc: { quantity: -2, "metrics.orders": 1 } }
+            }
+
+        case 'shop':
+         query = {
+                {},{ $inc: { quantity: -2, "metrics.orders": 1 } }
+            }
+    }
+/*db.products.update(
+   { sku: "abc123" },
+   { $inc: { quantity: -2, "metrics.orders": 1 } }
+)*/
+
+    console.log("$$$$$$$  Item Menu $$$$$$ : ");
+    daf.Update(query,CONSTANT.ITEM_MENU_COLLECTION,function(err,success){
+        callback(err, success);
+    });
+
+};
+
 module.exports.GetLatestItem = getLatestItems;
 module.exports.GetItemByShop = getItemByShop;
 module.exports.GetMostTrendyItems = getMostTrendyItems;
