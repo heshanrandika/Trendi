@@ -23,6 +23,12 @@
                 controller: 'trendiMainProductsController'
 
             },
+            'main.search': {
+                url: '/search/:term',
+                templateUrl: 'views/mainModule/main.search.html',
+                controller: 'trendiMainSearchController'
+
+            },
             'main.shops': {
                 url: '/shop',
                 templateUrl: 'views/mainModule/main.shop.html',

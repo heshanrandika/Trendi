@@ -231,7 +231,7 @@ function getSearchItemList(req,callback){
         filter.push({'item.shop.shopId': parseInt(shop)});
     }
     if(!(searchText == '' || undefined == searchText)){
-        filter.push({'$text':{ '$search': item}});
+        filter.push({'$text':{ '$search': searchText}});
     }
     if(!(filterMap.size == '' || undefined == filterMap.size)){
         if(!(filterMap.size.value == '' || undefined == filterMap.size.value)){
