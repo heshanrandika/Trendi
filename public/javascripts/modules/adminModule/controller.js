@@ -264,6 +264,7 @@
                     $scope.mainItem.sizes = $scope.slectedSizes;
                     $scope.mainItem.colors = $scope.selectedColors;
                     $scope.mainItem.group = $scope.group;
+                    $scope.mainItem.rate = {rate:0, star:0, hit:0};
                     var itemDetail = {};
                     switch (option) {
                         case 1 :
@@ -502,6 +503,7 @@
                 }else {
 
                     $scope.branch.iconImage = $scope.tmp.iconImage[0]?$scope.tmp.iconImage[0].image:'';
+                    $scope.branch.rate = {rate:0, star:0, hit:0};
                     var branchDetails = {};
 
 
@@ -789,6 +791,7 @@
                     $scope.shop.iconImage = $scope.tmp.iconImage[0]?$scope.tmp.iconImage[0].image:'';
                     $scope.bannerImage = $scope.tmp.bannerImage[0]?$scope.tmp.bannerImage[0].image:'';
                     $scope.regUser.profilePic = $scope.tmp.profilePic[0]?$scope.tmp.profilePic[0].image:'';
+                    $scope.shop.rate = {rate:0, star:0, hit:0};
                     var shopDetails = {};
 
                     $scope.regUser.entitlements =[];
@@ -1301,7 +1304,7 @@
                 }else {
                     $scope.promotion.promotionPic = $scope.tmp.promotionPic[0]?$scope.tmp.promotionPic[0].image:'';
                     $scope.promotion.tags = $scope.slectedTypes;
-
+                    $scope.promotion.rate = {rate:0, star:0, hit:0};
                     var promotionDetails = {};
 
                     switch (option) {
@@ -1813,6 +1816,7 @@
         $scope.add = function(){
             $scope.blogData.shop = $scope.shopDetails.branch.shop;
             $scope.blogData.img = $scope.blogImage[0]?$scope.blogImage[0].image:'';
+            $scope.blogData.rate = {rate:0, star:0, hit:0};
             adminDataService.insertBlog({blog:$scope.blogData}).then(function (response) {
                 $scope.blogData = {};
                 $scope.blogImage = [];

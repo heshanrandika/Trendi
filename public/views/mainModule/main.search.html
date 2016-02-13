@@ -2,7 +2,7 @@
     <div id="outer-canvas">
 
         <section class="container">
-            <nav class="breadcrumbs"> Home <span class="icon-arrow-right-3"></span> {{selectParams.category}} <span class="icon-arrow-right-3"></span>{{selectParams.selected}}</nav>
+            <nav class="breadcrumbs"> Search <span class="icon-arrow-right-3"></span> {{selectParams.term}} <span class="icon-arrow-right-3"></span>{{selectParams.selected}}</nav>
         </section>
         <section ng-hide="uiRef" class="container">
             <div class="row">
@@ -11,10 +11,10 @@
                 <aside class="col-sm-4 col-md-3 col-lg-3 content-aside">
 
                     <!-- Shop by categories -->
-                    <section>
+<!--                    <section>
                         <h3>SHOP BY CATEGORIES</h3>
                         <trendi-product-expand-menu></trendi-product-expand-menu>
-                    </section>
+                    </section>-->
                     <!-- //end Shop by categories -->
 
                     <div class="section-divider"></div>
@@ -22,12 +22,21 @@
                     <!-- Shop by -->
                     <section>
                         <h3>SHOP BY</h3>
-                        <p><strong>Category</strong></p>
+                        <p><strong>Women</strong></p>
                         <ul class="simple-list">
-                            <li ng-repeat="categ in catMenu"><span ng-class="categ.class"></span> <a ng-click="clickMenu(categ)">{{categ.value}} <span class="label label-mega">( {{categ.count?categ.count:0}} )</span></a></li>
+                            <li ng-repeat="categ in allMenu.womenMenu"><span ng-class="categ.class"></span> <a ng-click="clickMenu(categ, 'Women')">{{categ.value}} <span class="label label-mega">( {{getCount(categ.search)}} )</span></a></li>
                         </ul>
                         <br>
-                        <trendi-search-option shopoption="searchOption"></trendi-search-option>
+                        <p><strong>Men</strong></p>
+                        <ul class="simple-list">
+                            <li ng-repeat="categ in allMenu.menMenu"><span ng-class="categ.class"></span> <a ng-click="clickMenu(categ, 'Men')">{{categ.value}} <span class="label label-mega">( {{getCount(categ.search)}} )</span></a></li>
+                        </ul>
+                        <br>
+                        <p><strong>Kids</strong></p>
+                        <ul class="simple-list">
+                            <li ng-repeat="categ in allMenu.kidsMenu"><span ng-class="categ.class"></span> <a ng-click="clickMenu(categ, 'Kids')">{{categ.value}} <span class="label label-mega">( {{getCount(categ.search)}} )</span></a></li>
+                        </ul>
+                        <br>
                     </section>
                     <!-- //end Shop by -->
 

@@ -1375,15 +1375,17 @@
     ]);
 
 
-    mod.directive('trendiStarBar',['mainDataService',function(mainDataService){
+    mod.directive('trendiStarBar',['mainDataService','$rootScope',function(mainDataService, $rootScope){
         return {
             restrict: 'E',
             replace: true,
             scope: {
+                rateObject: "=",
+                category:"@"
             },
             template: '<div><rating ng-model="rate" max="10" on-hover="hoveringOver(value)" on-leave="overStar = null" state-on="\'icon-star-3\'" state-off="\'icon-star-empty\'"></rating><span class="label" ng-class="{\'label-warning\': percent<30, \'label-info\': percent>=30 && percent<70, \'label-success\': percent>=70}" ng-show="overStar">{{percent}}%</span></div>',
             link: function(scope, elm, attrs) {
-                scope.rate = 7;
+                scope.rate = scope.rateObject.rate;
                 scope.max = 10;
                 scope.isReadonly = false;
 
@@ -1391,6 +1393,17 @@
                     scope.overStar = value;
                     scope.percent = 100 * (value / scope.max);
                 };
+
+                scope.rateChange = function(){
+                    if(1 == 1) {
+                        mainDataService.setRate({}).then(function(response){
+
+                        },function(){
+                        });
+                    }
+                };
+                scope.$watch(function() { return scope.rate; },  scope.rateChange);
+
 
             }
         };

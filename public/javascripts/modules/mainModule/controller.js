@@ -246,7 +246,7 @@
 
 
         $scope.searchObj = {
-            skip: $scope.mainItems.length,
+            skip: $scope.mainItems.length-1,
             limit:6,
             item : $scope.selectParams.selected,
             category : $scope.selectParams.category,
@@ -303,7 +303,7 @@
 
         // Register event handler
         $scope.paginationFuntion = function() {
-            $scope.searchObj.skip = $scope.mainItems.length;
+            $scope.searchObj.skip = $scope.mainItems.length-1;
             if ($scope.count > $scope.mainItems.length && !$scope.loading) {
                 $scope.loadData();
             }
@@ -499,7 +499,7 @@
         };
 
         $scope.getCategoryMenuData = function () {
-            mainDataService.getItemCount({category : 'all'}).then(function(response){
+            mainDataService.getItemCount({category : 'all', shop : 'all'}).then(function(response){
                 $scope.categoryMenu = response.data.responData.data;
                 $scope.createCategoryMenu();
             },function(){
@@ -507,15 +507,15 @@
         };
         $scope.getCategoryMenuData();
 
-        $scope.clickMenu = function(val){
-            $location.path('main/products/'+$scope.selectParams.shop+'/'+$scope.selectParams.category+'/'+val.search);
+        $scope.clickMenu = function(val, category){
+            $location.path('main/products/all/'+category+'/'+val.search);
         };
 
 
 
 
         $scope.searchObj = {
-            skip: $scope.mainItems.length,
+            skip: $scope.mainItems.length-1,
             limit:6,
             searchText:$scope.selectParams.term?$scope.selectParams.term:'',
             filterMap:{}
@@ -566,7 +566,7 @@
 
         // Register event handler
         $scope.paginationFuntion = function() {
-            $scope.searchObj.skip = $scope.mainItems.length;
+            $scope.searchObj.skip = $scope.mainItems.length-1;
             if ($scope.count > $scope.mainItems.length && !$scope.loading) {
                 $scope.loadData();
             }
@@ -775,7 +775,7 @@
 
 
         $scope.searchObj = {
-            skip: $scope.shopList.length,
+            skip: $scope.shopList.length-1,
             limit:6,
             pos : {},
             range:''
@@ -802,7 +802,7 @@
 
 
         $scope.paginationFuntion = function() {
-            $scope.searchObj.skip = $scope.shopList.length;
+            $scope.searchObj.skip = $scope.shopList.length-1;
             if ($scope.count > $scope.shopList.length && !$scope.loading) {
                 $scope.loadData();
             }
