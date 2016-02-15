@@ -230,7 +230,7 @@ function getSearchItemList(req,callback){
     if(!(shop == '' || undefined == shop || shop == "all")){
         filter.push({'item.shop.shopId': parseInt(shop)});
     }
-    if(!(searchText == '' || undefined == searchText)){
+    if(!(searchText == '' || undefined == searchText || searchText == 'all')){
         filter.push({'$text':{ '$search': searchText}});
     }
     if(!(filterMap.size == '' || undefined == filterMap.size)){
@@ -275,7 +275,10 @@ function getSearchItemList(req,callback){
 
         dbCon.on('end', function(){
             if(skip == 0){
-                query = {$and: filter};
+                query = {};
+                if(filter.length > 0){
+                    query = {$and: filter};
+                }
                 daf.Count(query,CONSTANT.MAIN_ITEM_COLLECTION,function(err , count){
                     if(count){
                         data.count = count;
@@ -581,8 +584,8 @@ function getItemMenu(req,callback){
 function setRating(req,callback){
     var params = (req.body.params) ? req.body.params : {};
     var id = params.id;
-    var category = params.category
-    var rate = params.rate
+    var category = params.category;
+    var rate = params.rate;
     var query = {};
     var changeDoc = {};
     var table = "";
@@ -594,8 +597,8 @@ function setRating(req,callback){
             };
 
             query = {
-                 "item.itemId": id
-            }
+                 itemId : id
+            };
             table = CONSTANT.MAIN_ITEM_COLLECTION;
 
         case 'shop':
@@ -604,8 +607,8 @@ function setRating(req,callback){
             };
 
             query = {
-                 "item.itemId": id
-            }
+                 "itemId": id
+            };
             table = CONSTANT.MAIN_ITEM_COLLECTION;
     }
 

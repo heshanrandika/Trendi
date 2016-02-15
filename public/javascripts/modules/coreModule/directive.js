@@ -1382,11 +1382,13 @@
             scope: {
                 rateObject: "=",
                 category:"@",
-                objectId:"@"
+                objectId:"="
             },
-            template: '<div><rating ng-model="rate" max="10" on-hover="hoveringOver(value)" on-leave="overStar = null" state-on="\'icon-star-3\'" state-off="\'icon-star-empty\'"></rating><span class="label" ng-class="{\'label-warning\': percent<30, \'label-info\': percent>=30 && percent<70, \'label-success\': percent>=70}" ng-show="overStar">{{percent}}%</span></div>',
+            template: '<div><rating ng-model="rate" max="10" readonly="isReadonly" on-hover="hoveringOver(value)" ng-click="rateChange()" on-leave="overStar = null" state-on="\'icon-star-3\'" state-off="\'icon-star-empty\'"></rating><span class="label" ng-class="{\'label-warning\': percent<30, \'label-info\': percent>=30 && percent<70, \'label-success\': percent>=70}" ng-show="overStar">{{percent}}%</span></div>',
             link: function(scope, elm, attrs) {
-                scope.rate = scope.rateObject.star/scope.rateObject.hit;
+                scope.isReadonly = false;
+                if(scope.rateObject)
+                    scope.rate = scope.rateObject.star/scope.rateObject.hit;
                 scope.max = 10;
                 scope.isReadonly = false;
 
@@ -1396,13 +1398,13 @@
                 };
 
                 scope.rateChange = function(){
-                    if(1 == 1) {
+                    if(!scope.isReadonly) {
                         mainDataService.setRate({category:scope.category, id:scope.objectId, rate:scope.rate}).then(function(response){
+                            scope.isReadonly = true;
                         },function(){
                         });
                     }
                 };
-                scope.$watch(function() { return scope.rate; },  scope.rateChange);
 
 
             }

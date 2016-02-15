@@ -5,7 +5,7 @@
     "use strict";
 
     mod.controller('trendiMainController', ['$scope', '$rootScope','$state','mainDataService','$location', function ($scope, $rootScope, $state, mainDataService,$location) {
-
+        $scope.searchKey =  '';
         $scope.homeClick = function(val){
             if($location.path().split("/")[1] == "main" && undefined == $location.path().split("/")[2]){
                 $state.go('main.home');
@@ -32,6 +32,17 @@
         $scope.gotoShop = function () {
             $location.search({});
             $location.path('main/shop');
+        };
+
+        $scope.searchTerm = function () {
+            $location.search({});
+            $location.path('main/search/'+($scope.searchKey == ''?'all':$scope.searchKey));
+        };
+
+        $scope.searchType = function (event) {
+           if(event.keyCode == 13){
+               $scope.searchTerm();
+           }
         };
 
         $scope.womenMenu = [

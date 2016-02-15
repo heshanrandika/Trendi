@@ -177,8 +177,8 @@
                             <!-- Search -->
                             <form class="navbar-search form-inline hidden-xs pull-right" role="form">
                                 <div class="form-group">
-                                    <button type="submit" class="button"><span class="icon-search-2"></span></button>
-                                    <input type="text" class="form-control" value="Search" onblur="if (this.value == '') {this.value = 'Search';}" onfocus="if(this.value == 'Search') {this.value = '';}">
+                                    <button type="submit" ng-click="searchTerm()" class="button"><span class="icon-search-2"></span></button>
+                                    <input type="text" class="form-control" placeholder="Search" ng-keyup="searchType($event)" ng-model="searchKey">
                                 </div>
                                 <div class="dropdown-search">
                                     <ul>
