@@ -82,6 +82,10 @@
 
         serviceCalls.getItemMenuDao = function () {
             return angular.extend({functionId: MAIN_MOD_CONFIG.REQ_CONFIG.FUNC_GetItemMenu}, _getCObj());
+        }; 
+
+        serviceCalls.getRateDao = function () {
+            return angular.extend({functionId: MAIN_MOD_CONFIG.REQ_CONFIG.FUNC_GetItemMenu}, _getCObj());
         };
 
         serviceCalls.getSocketLogoutDao = function () {

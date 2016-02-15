@@ -244,10 +244,10 @@ function getSearchItemList(req,callback){
         }
     }
     if(!(filterMap.minPrice == '' || undefined == filterMap.minPrice)){
-
+        filter.push({'item.price': {$gt: filterMap.minPrice}});
     }
     if(!(filterMap.maxPrice == '' || undefined == filterMap.maxPrice)){
-
+        filter.push({'item.price': {$lt: filterMap.maxPrice}});
     }
 
 
@@ -580,31 +580,39 @@ function getItemMenu(req,callback){
 
 function setRating(req,callback){
     var params = (req.body.params) ? req.body.params : {};
-    var menuId = (params.menuId)? params.menuId:0;
-    var origin = params.origin
+    var id = params.id;
+    var category = params.category
+    var rate = params.rate
     var query = {};
+    var changeDoc = {};
+    var table = "";
 
-/*    switch(origin){
+    switch(category){
         case 'item':
+            changeDoc = {
+                 $inc: { "item.rate.star": rate, "item.rate.hit": 1 } 
+            };
+
             query = {
-                {},{ $inc: { quantity: -2, "metrics.orders": 1 } }
+                 "item.itemId": id
             }
+            table = CONSTANT.MAIN_ITEM_COLLECTION;
 
         case 'shop':
-         query = {
-                {},{ $inc: { quantity: -2, "metrics.orders": 1 } }
+         changeDoc = {
+                 $inc: { "item.rate.star": rate, "item.rate.hit": 1 } 
+            };
+
+            query = {
+                 "item.itemId": id
             }
-    }*/
-/*db.products.update(
-   { sku: "abc123" },
-   { $inc: { quantity: -2, "metrics.orders": 1 } }
-)*/
+            table = CONSTANT.MAIN_ITEM_COLLECTION;
+    }
 
     console.log("$$$$$$$  Item Menu $$$$$$ : ");
-    daf.Update(query,CONSTANT.ITEM_MENU_COLLECTION,function(err,success){
+    daf.Update(query,changeDoc,table,function(err,success){
         callback(err, success);
     });
-
 };
 
 module.exports.GetLatestItem = getLatestItems;
@@ -623,3 +631,4 @@ module.exports.GetSearchItemList = getSearchItemList;
 module.exports.GetItemCount = getItemCountByTags;
 module.exports.GetMainItem = getMainItem;
 module.exports.GetItemMenu = getItemMenu;
+module.exports.SetRating = setRating;
