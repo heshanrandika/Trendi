@@ -101,20 +101,19 @@
     }]);
 
 
-    mod.factory('Login.Window', ['$scope','$mdDialog','$mdMedia','mainDataService',function ($scope, $mdDialog, $mdMedia, mainDataService) {
+    mod.factory('Login.Window', ['$mdDialog','$mdMedia','mainDataService',function ($mdDialog, $mdMedia, mainDataService) {
         var _showLogin = function () {
                 $mdDialog.show({
                     controller: DialogController,
                     templateUrl: '/views/mainModule/login.modal.html',
                     parent: angular.element(document.body),
-                    targetEvent: ev,
                     clickOutsideToClose:true,
-                    fullscreen: useFullScreen
+                    fullscreen: $mdMedia('sm')
                 })
                 .then(function(answer) {
-                    $scope.status = 'You said the information was "' + answer + '".';
+
                 }, function() {
-                    $scope.status = 'You cancelled the dialog.';
+
                 });
                
 
@@ -129,7 +128,7 @@
                     $mdDialog.hide(answer);
                   };
                 };
-             }
+             };
 
         return {
             showLogin: _showLogin

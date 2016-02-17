@@ -36,7 +36,7 @@
                     <!-- Popular tags -->
                     <section class="cloud-tags">
                         <h3>TAGS</h3>
-                        <a ng-repeat="tag in tags" ng-click="clickTag(tag)" class="font-xs" >{{tag}}</a>
+                        <a ng-repeat="tag in tags" ng-click="clickTag(tag)" class="font-xs" >{{tag.key}}</a>
                     </section>
                     <!-- //end Popular tags -->
 
@@ -91,10 +91,10 @@
                                                         </div>-->
                         </div>
                         <div class="divider"></div>
-                        <div class="pull-left hidden-xs">Items 1 to 15 of 26 total</div>
-                        <div class="pull-right hidden-xs">
+                        <div class="pull-left hidden-xs">Items 1 to {{mainItems.length}} of {{count}} total</div>
+                       <!-- <div class="pull-right hidden-xs">
                             <div class="pagination"> <a href="#">1</a> <a href="#">2</a> <a href="#" class="icon"><span class="icon-arrow-right-3 "></span></a> </div>
-                        </div>
+                        </div>-->
                         <div class="clearfix"></div>
                     </div>
 
@@ -133,10 +133,10 @@
                                                         </div>-->
                         </div>
                         <div class="divider" id="yyy"></div>
-                        <div class="pull-left hidden-xs">Items 1 to 15 of 26 total</div>
-                        <div class="pull-right hidden-xs" >
+                        <div class="pull-left hidden-xs">Items 1 to {{mainItems.length}} of {{count}} total</div>
+                       <!-- <div class="pull-right hidden-xs" >
                             <div class="pagination"> <a href="#">1</a> <a href="#">2</a> <a href="#" class="icon"><span class="icon-arrow-right-3 "></span></a> </div>
-                        </div>
+                        </div>-->
                         <div class="clearfix"></div>
                     </div>
                     <!-- //end Filters -->

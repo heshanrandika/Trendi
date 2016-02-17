@@ -225,7 +225,7 @@ function getSearchItemList(req,callback){
         filter.push(tmp);
     }
     if(!(item == '' || undefined == item || item == "all")){
-        filter.push( {'item.types': { $elemMatch: { value: item } } });
+        filter.push( {'item.types': { $elemMatch: { value: {$regex : item , $options : 'i'}} } });
     }
     if(!(shop == '' || undefined == shop || shop == "all")){
         filter.push({'item.shop.shopId': parseInt(shop)});
@@ -235,7 +235,7 @@ function getSearchItemList(req,callback){
     }
     if(!(filterMap.size == '' || undefined == filterMap.size)){
         if(!(filterMap.size.value == '' || undefined == filterMap.size.value)){
-            filter.push( {'item.sizes': { $elemMatch: { value: filterMap.size.value } } });
+            filter.push( {'item.sizes': { $elemMatch: { value: {$regex : filterMap.size.value , $options : 'i'}}}});
         }
     }
     if(!(filterMap.color == '' || undefined == filterMap.color)){

@@ -1406,6 +1406,7 @@
                             });
                         }
                     }else{
+                         scope.rate = scope.rateObject.star/scope.rateObject.hit;
                          Login_Window.showLogin();
                     }
                   

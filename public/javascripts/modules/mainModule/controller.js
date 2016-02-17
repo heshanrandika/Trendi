@@ -319,7 +319,7 @@
 
         // Register event handler
         $scope.paginationFuntion = function() {
-            $scope.searchObj.skip = $scope.searchObj.limit-1;
+            $scope.searchObj.skip = $scope.searchObj.limit;
             if ($scope.count > $scope.mainItems.length && !$scope.loading) {
                 $scope.loadData();
             }
@@ -528,6 +528,11 @@
                 $scope.createCategoryMenu();
             },function(){
             });
+
+            mainDataService.getTagList({shop : 'all'}).then(function(response){
+                $scope.tags = response.data.responData.data;
+            },function(){
+            });
         };
         $scope.getCategoryMenuData();
 
@@ -535,7 +540,9 @@
             $location.path('main/products/all/'+category+'/'+val.search);
         };
 
-
+        $scope.clickTag = function(val){
+            $location.path('main/search/'+val.key);
+        };
 
 
         $scope.searchObj = {
@@ -590,7 +597,7 @@
 
         // Register event handler
         $scope.paginationFuntion = function() {
-            $scope.searchObj.skip = $scope.searchObj.limit-1;
+            $scope.searchObj.skip = $scope.searchObj.limit;
             if ($scope.count > $scope.mainItems.length && !$scope.loading) {
                 $scope.loadData();
             }
@@ -826,7 +833,7 @@
 
 
         $scope.paginationFuntion = function() {
-            $scope.searchObj.skip = $scope.searchObj.limit-1;
+            $scope.searchObj.skip = $scope.searchObj.limit;
             if ($scope.count > $scope.shopList.length && !$scope.loading) {
                 $scope.loadData();
             }
@@ -875,6 +882,11 @@
                 $scope.getDirection();
             },function(){
             });
+
+            mainDataService.getTagList({shop : 'all'}).then(function(response){
+                $scope.tags = response.data.responData.data;
+            },function(){
+            });
         };
         $scope.getCategoryMenuData();
 
@@ -905,6 +917,10 @@
         $scope.clickMenu = function(val, category){
             $location.path('main/products/'+$scope.selectedItem.shopId+'/'+category+'/'+val.search);
         };
+
+      /*  $scope.clickTag = function(val){
+            $location.path('main/products/'+$scope.selectedItem.shopId+'/'+$scope.selectParams.category+'/'+val.key);
+        };*/
 
         //back button click
         $scope.backTo = function(){
