@@ -1375,7 +1375,7 @@
     ]);
 
 
-    mod.directive('trendiStarBar',['mainDataService','$rootScope',function(mainDataService, $rootScope){
+    mod.directive('trendiStarBar',['mainDataService','$rootScope','Login.Window',function(mainDataService, $rootScope, Login_Window){
         return {
             restrict: 'E',
             replace: true,
@@ -1398,12 +1398,17 @@
                 };
 
                 scope.rateChange = function(){
-                    if(!scope.isReadonly) {
-                        mainDataService.setRate({category:scope.category, id:scope.objectId, rate:scope.rate}).then(function(response){
-                            scope.isReadonly = true;
-                        },function(){
-                        });
+                    if($rootScope.currentUser){
+                        if(!scope.isReadonly) {
+                            mainDataService.setRate({category:scope.category, id:scope.objectId, rate:scope.rate}).then(function(response){
+                                scope.isReadonly = true;
+                            },function(){
+                            });
+                        }
+                    }else{
+                         Login_Window.showLogin();
                     }
+                  
                 };
 
 

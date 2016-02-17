@@ -25,8 +25,12 @@ function addTag(req,callback){
 function getTagList(req,callback){
     console.log("$$$$$$$  GetTagList $$$$$$");
     var params = (req.body.params) ? req.body.params : {};
-    var query = {};
-
+    var shopId = params.shopId
+    var query ={};
+    if(!(shopId == 'all' || undefined == shopId)){
+        var query = {shopId : shopId};
+    }
+    
     var data = [];
     var dbCon = daf.Find(query,CONSTANT.TAG_COLLECTION);
     dbCon.on('data', function(doc){

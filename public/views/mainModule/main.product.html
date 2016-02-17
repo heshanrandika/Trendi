@@ -36,7 +36,8 @@
                     <!-- Popular tags -->
                     <section class="cloud-tags">
                         <h3>TAGS</h3>
-                        <a href="listing.html" class="font-xs">Camera</a> <a href="listing.html" class="font-xxl">Coats</a> <a href="listing.html" class="font-lg">Jackets</a> <a href="listing.html" class="font-lg">Jeans</a> <a href="listing.html" class="font-lg">Lingerie</a> <a href="listing.html" class="font-lg">Shirts</a> <a href="listing.html" class="font-lg">Shorts</a> <a href="listing.html" class="font-lg">Skirts</a> <a href="listing.html" class="fonf-xl">Tops</a> <a href="listing.html" class="font-xxs">Apple</a> <a href="listing.html" class="font-md">Awesome</a> <a href="listing.html" class="font-xs">Cool t-shirt</a> <a href="listing.html" class="font-xs">Dresses</a> <a href="listing.html" class="font-xs">Good laptop</a> <a href="listing.html" class="font-xs">Mobile</a> <a href="listing.html" class="font-xs">Nice notebook</a> <a href="listing.html" class="font-xs">Phone</a> </section>
+                        <a ng-repeat="tag in tags" ng-click="clickTag(tag)" class="font-xs" >{{tag}}</a>
+                    </section>
                     <!-- //end Popular tags -->
 
                     <div class="section-divider"></div>

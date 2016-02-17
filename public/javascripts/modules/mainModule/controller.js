@@ -248,6 +248,11 @@
                 $scope.createCategoryMenu();
             },function(){
             });
+
+            mainDataService.getTagList({shop : $scope.selectParams.shop}).then(function(response){
+                $scope.tags = response.data.responData.data;
+            },function(){
+            });
         };
         $scope.getCategoryMenuData();
 
@@ -321,6 +326,16 @@
         };
 
         $scope.loadData(1);
+
+        $scope.clickMenu = function(val){
+            $location.path('main/products/'+$scope.selectParams.shop+'/'+$scope.selectParams.category+'/'+val.search);
+        };
+
+
+
+        $scope.clickTag = function(val){
+            $location.path('main/products/'+$scope.selectParams.shop+'/'+$scope.selectParams.category+'/'+val.key);
+        };
 
 
 /*+++++++++++++++++++++++++++++++++++++PRODUCT VIEW PAGE++++++++++++++++++++++++++++++++++++++++++++++*/
@@ -412,9 +427,7 @@
 
 
 
-        $scope.clickMenu = function(val){
-            $location.path('main/products/'+$scope.selectParams.shop+'/'+$scope.selectParams.category+'/'+val.search);
-        };
+
 
         //back button click
         $scope.backTo = function(){

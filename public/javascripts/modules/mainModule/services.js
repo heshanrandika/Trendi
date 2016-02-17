@@ -67,6 +67,10 @@
             return Data_Comm.postPromise(angular.extend({params:d},mainServiceCalls.getRateDao()));
         };
 
+        var _getTagList = function(d){
+            return Data_Comm.postPromise(angular.extend({params:d},mainServiceCalls.getTagListDao()));
+        };
+
         return{
             getLatestItem:_getLatestItem,
             getMainItemList:_getMainItemList,
@@ -83,7 +87,8 @@
             getSubItem:_getSubItem,
             getMainItem:_getMainItem,
             getItemMenu:_getItemMenu,
-            setRate:_setRate
+            setRate:_setRate,
+            getTagList:_getTagList
         }
     }]);
 })(com.TRENDI.CATEGORY.modules.mainTrendiModule);

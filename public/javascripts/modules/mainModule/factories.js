@@ -86,6 +86,10 @@
 
         serviceCalls.getRateDao = function () {
             return angular.extend({functionId: MAIN_MOD_CONFIG.REQ_CONFIG.FUNC_SetRate}, _getCObj());
+        }; 
+
+        serviceCalls.getTagListDao = function () {
+            return angular.extend({functionId: MAIN_MOD_CONFIG.REQ_CONFIG.FUNC_GetTagList}, _getCObj());
         };
 
         serviceCalls.getSocketLogoutDao = function () {
@@ -93,6 +97,43 @@
         };
 
         return serviceCalls;
+
+    }]);
+
+
+    mod.factory('Login.Window', ['$scope','$mdDialog','$mdMedia','mainDataService',function ($scope, $mdDialog, $mdMedia, mainDataService) {
+        var _showLogin = function () {
+                $mdDialog.show({
+                    controller: DialogController,
+                    templateUrl: '/views/mainModule/login.modal.html',
+                    parent: angular.element(document.body),
+                    targetEvent: ev,
+                    clickOutsideToClose:true,
+                    fullscreen: useFullScreen
+                })
+                .then(function(answer) {
+                    $scope.status = 'You said the information was "' + answer + '".';
+                }, function() {
+                    $scope.status = 'You cancelled the dialog.';
+                });
+               
+
+                function DialogController($scope, $mdDialog, mainDataService) {
+                  $scope.hide = function() {
+                    $mdDialog.hide();
+                  };
+                  $scope.cancel = function() {
+                    $mdDialog.cancel();
+                  };
+                  $scope.answer = function(answer) {
+                    $mdDialog.hide(answer);
+                  };
+                };
+             }
+
+        return {
+            showLogin: _showLogin
+        };
 
     }]);
 
