@@ -262,7 +262,7 @@
 
 
         $scope.searchObj = {
-            skip: $scope.mainItems.length-1,
+            skip: 0,
             limit:6,
             item : $scope.selectParams.selected,
             category : $scope.selectParams.category,
@@ -319,7 +319,7 @@
 
         // Register event handler
         $scope.paginationFuntion = function() {
-            $scope.searchObj.skip = $scope.mainItems.length-1;
+            $scope.searchObj.skip = $scope.searchObj.limit-1;
             if ($scope.count > $scope.mainItems.length && !$scope.loading) {
                 $scope.loadData();
             }
@@ -590,7 +590,7 @@
 
         // Register event handler
         $scope.paginationFuntion = function() {
-            $scope.searchObj.skip = $scope.mainItems.length-1;
+            $scope.searchObj.skip = $scope.searchObj.limit-1;
             if ($scope.count > $scope.mainItems.length && !$scope.loading) {
                 $scope.loadData();
             }
@@ -826,7 +826,7 @@
 
 
         $scope.paginationFuntion = function() {
-            $scope.searchObj.skip = $scope.shopList.length-1;
+            $scope.searchObj.skip = $scope.searchObj.limit-1;
             if ($scope.count > $scope.shopList.length && !$scope.loading) {
                 $scope.loadData();
             }
