@@ -7,6 +7,7 @@ var SHOP = require("../controllers/shopController");
 var PROMOTION = require("../controllers/promotionController");
 var BLOG = require("../controllers/blogController");
 var TAG = require("../controllers/tagController");
+var COMMENT = require("../controllers/commentController");
 
 var normalRequestRoute = function(req,res){
     var functionId = parseInt(req.body.functionId);
@@ -219,7 +220,7 @@ var normalRequestRoute = function(req,res){
 
          case 1016:
 
-            ITEM.SetRating(req, function (err, data) {
+            ITEM.SetRating(req, function (err, data) {//TODO need to remove this function
                 if (err) {
                     resObject.resStatus = 0;
                     resObject.responData.Error = err.toString();
@@ -420,6 +421,67 @@ var normalRequestRoute = function(req,res){
             });
             break;
 
+
+        case 8000:
+
+            COMMENT.AddComment(req, function (err, data) { //TODO need to remove this function
+                if (err) {
+                    resObject.resStatus = 0;
+                    resObject.responData.Error = err.toString();
+                    res.status(500);
+                    res.send(resObject);
+
+                } else if (data) {
+
+                    resObject.resStatus = 1;
+                    resObject.responData.data = data;
+                    res.send(resObject);
+
+                }
+
+            });
+            break;
+
+
+        case 8001:
+
+            COMMENT.RemoveComment(req, function (err, data) { //TODO need to remove this function
+                if (err) {
+                    resObject.resStatus = 0;
+                    resObject.responData.Error = err.toString();
+                    res.status(500);
+                    res.send(resObject);
+
+                } else if (data) {
+
+                    resObject.resStatus = 1;
+                    resObject.responData.data = data;
+                    res.send(resObject);
+
+                }
+
+            });
+            break;
+
+        case 8002:
+
+            COMMENT.GetCommentList(req, function (err, data) {
+                if (err) {
+                    resObject.resStatus = 0;
+                    resObject.responData.Error = err.toString();
+                    res.status(500);
+                    res.send(resObject);
+
+                } else if (data) {
+
+                    resObject.resStatus = 1;
+                    resObject.responData.data = data;
+                    res.send(resObject);
+
+                }
+
+            });
+            break;
 
         default :
 

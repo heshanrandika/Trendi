@@ -23,9 +23,9 @@
                     limit:6
                 }
             ).then(function(response){
-                $scope.shopList = response.data.responData.data.list;
-            },function(){
-            });
+                    $scope.shopList = response.data.responData.data.list;
+                },function(){
+                });
         };
         $scope.getShopList();
 
@@ -40,9 +40,9 @@
         };
 
         $scope.searchType = function (event) {
-           if(event.keyCode == 13){
-               $scope.searchTerm();
-           }
+            if(event.keyCode == 13){
+                $scope.searchTerm();
+            }
         };
 
         $scope.womenMenu = [
@@ -174,6 +174,7 @@
         $scope.selectedItem = {};
         $scope.imageArray = [];
         $scope.searchOption = {};
+        $scope.typedComment = '';
 
 
         $scope.changeList = function(val){
@@ -193,7 +194,7 @@
 
         var getCount = function(val){
             var result = _.find( $scope.categoryMenu, function(obj){ return obj._id == val; });
-           return result?result.count:0;
+            return result?result.count:0;
         };
 
 
@@ -338,7 +339,7 @@
         };
 
 
-/*+++++++++++++++++++++++++++++++++++++PRODUCT VIEW PAGE++++++++++++++++++++++++++++++++++++++++++++++*/
+        /*+++++++++++++++++++++++++++++++++++++PRODUCT VIEW PAGE++++++++++++++++++++++++++++++++++++++++++++++*/
 
         $scope.loadSubItem = function(id){
             $scope.subItem = {};
@@ -350,8 +351,41 @@
 
             },function(){
             });
+            $scope.getCommentList();
         };
 
+        $scope.getCommentList = function(){
+            mainDataService.getCommentList({itemId : $scope.selectedItem.itemId}).then(function(response){
+                $scope.commentResponse =  response.data.responData.data;
+            },function(){
+                $scope.commentResponse =  {};
+            });
+        };
+
+
+
+        $scope.commentPost= function(event){
+            if(event.keyCode == 13 && $scope.typedComment != ''){
+                var commentObject = {
+                    user : 'h.r.randika',
+                    comment : $scope.typedComment
+                };
+                $scope.typedComment = '';
+                mainDataService.addComment({itemId : $scope.selectedItem.itemId, comment:commentObject}).then(function(response){
+                    $scope.typedComment = '';
+                    $scope.getCommentList();
+                },function(){
+                    $scope.typedComment = commentObject.comment;
+                });
+            }
+        };
+
+        $scope.removePost= function(commnt, commntObj){
+            mainDataService.removeComment({itemId : commntObj.itemId, comId:commnt.comId}).then(function(response){
+                $scope.getCommentList();
+            },function(){
+            });
+        };
 
         $scope.isotopPagination = {
             searchFromServer: function (d) {
@@ -403,25 +437,42 @@
             sourceImage.src = url;
         };
 
+
         //select image
+
         $scope.imageSelect = function(index){
+            $scope.renderd = 0;
             $scope.selectedImage = {
                 big : $scope.imageArray[index],
                 small : $scope.imageArray[index],
                 tiny : $scope.imageArray[index]
             };
 
+
+            function setImage(){
+                $scope.renderd += 1;
+                if($scope.renderd == 3){
+                    $scope.$apply(function(){
+                        $scope.renderd = true;
+                    });
+                }
+            }
             imageResize($scope.imageArray[index], 700, 700, function(data){
                 $scope.selectedImage.big = data;
+                setImage();
             });
 
             imageResize($scope.imageArray[index], 400, 400, function(data){
                 $scope.selectedImage.small = data;
+                setImage()
             });
 
             imageResize($scope.imageArray[index], 200, 200, function(data){
                 $scope.selectedImage.tiny = data;
+                setImage();
             });
+
+
 
         };
 
@@ -448,10 +499,10 @@
 
         //get related items
         mainDataService.getLatestItem({skip:0,limit:16}).then(function(response){
-                $scope.relatedItems = response.data.responData.data;
-                $scope.relatedItemsShow = true;
-            }, function(error){
-                $scope.relatedItemsShow = false;
+            $scope.relatedItems = response.data.responData.data;
+            $scope.relatedItemsShow = true;
+        }, function(error){
+            $scope.relatedItemsShow = false;
         });
 
 
@@ -673,23 +724,38 @@
 
         //select image
         $scope.imageSelect = function(index){
+            $scope.renderd = 0;
             $scope.selectedImage = {
                 big : $scope.imageArray[index],
                 small : $scope.imageArray[index],
                 tiny : $scope.imageArray[index]
             };
 
+
+            function setImage(){
+                $scope.renderd += 1;
+                if($scope.renderd == 3){
+                    $scope.$apply(function(){
+                        $scope.renderd = true;
+                    });
+                }
+            }
             imageResize($scope.imageArray[index], 700, 700, function(data){
                 $scope.selectedImage.big = data;
+                setImage();
             });
 
             imageResize($scope.imageArray[index], 400, 400, function(data){
                 $scope.selectedImage.small = data;
+                setImage()
             });
 
             imageResize($scope.imageArray[index], 200, 200, function(data){
                 $scope.selectedImage.tiny = data;
+                setImage();
             });
+
+
 
         };
 
@@ -790,14 +856,14 @@
         };
 
         $scope.searchSelect = function(){
-           if($scope.searchOpen){
-                $scope.searchOpen = false; 
+            if($scope.searchOpen){
+                $scope.searchOpen = false;
                 $scope.searchObj.pos = $scope.user.pos;
                 $scope.searchObj.range = $scope.range.value;
                 $scope.loadData(1);
-           }else{
-                $scope.searchOpen = true;  
-           }
+            }else{
+                $scope.searchOpen = true;
+            }
         };
 
         $scope.rangeSelect = function(val){
@@ -918,9 +984,9 @@
             $location.path('main/products/'+$scope.selectedItem.shopId+'/'+category+'/'+val.search);
         };
 
-      /*  $scope.clickTag = function(val){
-            $location.path('main/products/'+$scope.selectedItem.shopId+'/'+$scope.selectParams.category+'/'+val.key);
-        };*/
+        /*  $scope.clickTag = function(val){
+         $location.path('main/products/'+$scope.selectedItem.shopId+'/'+$scope.selectParams.category+'/'+val.key);
+         };*/
 
         //back button click
         $scope.backTo = function(){

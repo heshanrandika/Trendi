@@ -8,39 +8,58 @@ var CONSTANT = require('../utility/Constants');
 function addComment(req,callback){
     console.log("$$$$$$$  Add Tag $$$$$$");
     var params = (req.body.params) ? req.body.params : {};
-    var query = params.tag;
+    var query = {};
+    var comment = params.comment;
+    var shopId = params.shopId;
+    var itemId = params.itemId;
+    var addComment = {};
+    comment.comId = new Date().getTime();
+    comment.date = new Date();
 
-    daf.FindOne(query, CONSTANT.TAG_COLLECTION, function(err, data){
+    if(itemId){
+        query = {itemId:itemId};
+    }else{
+        query = {shopId:shopId};
+    }
+
+    daf.FindOne(query, CONSTANT.COMMENT_COLLECTION, function(err, data){
         if(!data){
-            daf.Insert(query, CONSTANT.TAG_COLLECTION, function(err , dataList){
+            if(itemId){
+                query = {itemId:itemId, commentList:[comment]};
+            }else{
+                query = {shopId:shopId, commentList:[comment]};
+            }
+            daf.Insert(query, CONSTANT.COMMENT_COLLECTION, function(err , dataList){
                 callback(err ,dataList);
             });
         }else{
-            callback('Already Exists Tag' ,null);
+            addComment = {$addToSet: {commentList: comment }};
+            daf.Update(query, addComment, CONSTANT.COMMENT_COLLECTION, function(err , dataList){
+                callback(err ,dataList);
+            });
         }
     });
 
-};
+}
 
 function getCommentList(req,callback){
     console.log("$$$$$$$  GetTagList $$$$$$");
     var params = (req.body.params) ? req.body.params : {};
-    var shopId = params.shopId
-    var query ={};
-    if(!(shopId == 'all' || undefined == shopId)){
-        var query = {shopId : shopId};
-    }
-    
-    var data = [];
-    var dbCon = daf.Find(query,CONSTANT.TAG_COLLECTION);
-    dbCon.on('data', function(doc){
-        data.push(doc);
-    });
+    var query = {};
+    var shopId = params.shopId;
+    var itemId = params.itemId;
 
-    dbCon.on('end', function(){
-        callback(null,data);
+
+    if(itemId){
+        query = {itemId:itemId};
+    }else{
+        query = {shopId:shopId};
+    }
+
+    daf.FindOne(query, CONSTANT.COMMENT_COLLECTION, function(err, data){
+        callback(err ,data);
     });
-};
+}
 
 function getAdminCommentList(req,callback){
     console.log("$$$$$$$  GetTagList $$$$$$");
@@ -48,7 +67,7 @@ function getAdminCommentList(req,callback){
     var query = {};
 
     var data = [];
-    var dbCon = daf.Find(query,CONSTANT.TAG_COLLECTION);
+    var dbCon = daf.Find(query,CONSTANT.COMMENT_COLLECTION);
     dbCon.on('data', function(doc){
         data.push(doc);
     });
@@ -56,18 +75,36 @@ function getAdminCommentList(req,callback){
     dbCon.on('end', function(){
         callback(null,data);
     });
-};
+}
 
 function removeComment(req,callback){
     console.log("$$$$$$$  Remove Tag $$$$$$");
     var params = (req.body.params) ? req.body.params : {};
-    var tag = params.tag;
-    var query = {key : tag.key, shopId : tag.shopId};
-    daf.Remove(query,CONSTANT.TAG_COLLECTION,function(err , success){
-        callback(err ,success);
+    var comId = params.comId;
+    var query = {};
+    var comment = params.comment;
+    var shopId = params.shopId;
+    var itemId = params.itemId;
+    var removeComment = {};
+
+    if(itemId){
+        query = {itemId:itemId};
+    }else{
+        query = {shopId:shopId};
+    }
+
+    daf.FindOne(query, CONSTANT.COMMENT_COLLECTION, function(err, data){
+        if(data){
+            removeComment = {$pull: {'commentList': {'comId': comId}}};
+            daf.Update(query, removeComment, CONSTANT.COMMENT_COLLECTION, function(err , dataList){
+                callback(err ,dataList);
+            });
+        }else{
+            callback('No comment for comId' ,null);
+        }
     });
 
-};
+}
 
 
 module.exports.AddComment = addComment;

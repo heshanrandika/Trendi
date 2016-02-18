@@ -92,6 +92,18 @@
             return angular.extend({functionId: MAIN_MOD_CONFIG.REQ_CONFIG.FUNC_GetTagList}, _getCObj());
         };
 
+        serviceCalls.getCommentListDao = function () {
+            return angular.extend({functionId: MAIN_MOD_CONFIG.REQ_CONFIG.FUNC_GetCommentList}, _getCObj());
+        };
+
+        serviceCalls.addCommentDao = function () {
+            return angular.extend({functionId: MAIN_MOD_CONFIG.REQ_CONFIG.FUNC_AddComment}, _getCObj());
+        };
+
+        serviceCalls.removeCommentDao = function () {
+            return angular.extend({functionId: MAIN_MOD_CONFIG.REQ_CONFIG.FUNC_RemoveComment}, _getCObj());
+        };
+
         serviceCalls.getSocketLogoutDao = function () {
             return _getCObj();
         };

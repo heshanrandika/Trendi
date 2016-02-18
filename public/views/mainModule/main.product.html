@@ -157,12 +157,12 @@
                     <div class="hidden-xs flexslider-thumb-vertical-outer">
                             <div class="flexslider flexslider-thumb-vertical vertical min">
                                 <ul class="previews-list slides">
-                                    <li ng-repeat="img in imageArray track by $index "><img class = 'cloudzoom-gallery' alt="#"  ng-src = "{{img}}"  ></li>
+                                    <li ng-repeat="img in imageArray track by $index " ng-click="imageSelect($index)"><img class = 'cloudzoom-gallery' alt="#"  ng-src = "{{img}}"  ></li>
                                 </ul>
                             </div>
 
                         <!--<div class="large-image vertical hidden-xs"> <img alt="#" class = "cloudzoom" src = "images/products/product-02-01-593x722.jpg" data-cloudzoom = "zoomImage: 'images/products/product-02-01-888x1080.jpg', autoInside : 991" /> </div>-->
-                        <div ng-if="selectedImage.big" zoom2 big="selectedImage.big" tiny="selectedImage.tiny" small="selectedImage.small" alt="" title="{{selectedItem.item.name}}"></div>
+                        <div ng-if="renderd" zoom2 big="selectedImage.big" tiny="selectedImage.tiny" small="selectedImage.small" alt="" title="{{selectedItem.item.name}}"></div>
                     </div>
                 </div>
                 <div class="col-sm-6 col-md-6 col-lg-6">
@@ -226,7 +226,25 @@
                                    <div class="panel-heading"> <a ng-click="revopen = !revopen"> <span ng-class="revopen?'arrow-up icon-arrow-up-4':'arrow-up icon-arrow-down-4'"></span> Reviews </a>  </div>
                                 <div id="product-reviews" ng-class="revopen?'panel-collapse collapse in':'panel-collapse collapse'">
                                     <div class="panel-body">
-
+                                        <ul class="check-element sample-show-hide">
+                                            <li ng-repeat="comnt in commentResponse.commentList" ng-animate="'animate'">
+                                                <span class="fa fa-times" ng-click="removePost(comnt, commentResponse)"></span>
+                                                <span class="name">{{comnt.user}}</span>
+                                                <span class="name">{{comnt.comment}}</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="panel-body">
+                                        <form novalidate="" name="commentForm">
+                                        <md-input-container class="md-icon-float" >
+                                            <!-- Use floating label instead of placeholder -->
+                                            <label>Add Review</label>
+                                            <input md-maxlength="200" name="description" ng-model="typedComment" ng-keyup="commentPost($event)">
+                                            <div ng-messages="commentForm.description.$error">
+                                                <div ng-message="md-maxlength">The review has to be less than 200 characters long.</div>
+                                            </div>
+                                        </md-input-container>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
