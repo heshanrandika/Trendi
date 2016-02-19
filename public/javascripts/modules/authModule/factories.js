@@ -38,4 +38,81 @@
 
     }]);
 
+    mod.factory('Login.Window', ['$mdDialog','$mdMedia','authDataService','$localStorage',function ($mdDialog, $mdMedia, authDataService, $localStorage) {
+        var _showLogin = function () {
+            $mdDialog.show({
+                controller: DialogController,
+                templateUrl: '/views/mainModule/login.modal.html',
+                parent: angular.element(document.body),
+                clickOutsideToClose:true,
+                fullscreen: $mdMedia('sm')
+            })
+                .then(function(answer) {
+
+                }, function() {
+
+                });
+
+
+            function DialogController($scope, $mdDialog, authDataService, $localStorage) {
+                $scope.regUser = {};
+                $scope.loginform = {};
+                $scope.tab = 1;
+                $scope.$storage = $localStorage;
+
+                $scope.login = function() {
+                    $scope.loginform.userType = 1;
+                    authDataService.loginService($scope.loginform)
+                        .then(function (response) {
+                            var completeUser = response.data.responData.data;
+                            $scope.$storage.loginUser = completeUser;
+                            $scope.error = false;
+                            $mdDialog.hide();
+                        }, function (error) {
+                            $scope.error = error.data.responData.Error;
+                        });
+
+                };
+                $scope.signup = function() {
+                    $scope.regUser.userType = 1;
+                    authDataService.registration({regUser: $scope.regUser})
+                        .then(function (response) {
+                            $scope.signUpError = false;
+                            $scope.tab = 1;
+                        }, function (error) {
+                            $scope.signUpError = error.data.responData.Error;
+                        });
+
+                };
+                $scope.close = function() {
+                    $mdDialog.hide();
+                };
+
+            };
+        };
+
+        var _checkUser = function(){
+            var $storage = $localStorage;
+            if($storage.loginUser == '' || undefined == $storage.loginUser){
+                return false;
+            }else{
+                return true;
+            }
+
+        };
+
+        var _logoutUser = function(){
+            var $storage = $localStorage;
+            $storage.loginUser = undefined;
+            return true;
+        };
+
+        return {
+            showLogin: _showLogin,
+            checkUser: _checkUser,
+            logoutUser:_logoutUser
+        };
+
+    }]);
+
 })(com.TRENDI.CATEGORY.modules.authModule);

@@ -4,7 +4,7 @@
 (function (mod) {
     "use strict";
 
-    mod.controller('trendiMainController', ['$scope', '$rootScope','$state','mainDataService','$location', function ($scope, $rootScope, $state, mainDataService,$location) {
+    mod.controller('trendiMainController', ['$scope', '$rootScope','$state','mainDataService','$location','Login.Window', function ($scope, $rootScope, $state, mainDataService, $location, Login_Window) {
         $scope.searchKey =  '';
         $scope.homeClick = function(val){
             if($location.path().split("/")[1] == "main" && undefined == $location.path().split("/")[2]){
@@ -43,6 +43,19 @@
             if(event.keyCode == 13){
                 $scope.searchTerm();
             }
+        };
+
+        $scope.loginOpen = function () {
+            if($scope.checkLogin()){
+                Login_Window.logoutUser();
+            }else{
+                Login_Window.showLogin();
+            }
+
+        };
+
+        $scope.checkLogin = function () {
+            return Login_Window.checkUser();
         };
 
         $scope.womenMenu = [

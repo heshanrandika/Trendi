@@ -11,8 +11,8 @@
         var commonCallObj = {};
 
         var _getCObj = function () {
-          /*  var userData = JSON.parse($window.localStorage.getItem('__'));
-            commonCallObj = {userName: userData.username, sessionId: userData.sessionId};*/
+            /*  var userData = JSON.parse($window.localStorage.getItem('__'));
+             commonCallObj = {userName: userData.username, sessionId: userData.sessionId};*/
             return commonCallObj;
         };
 
@@ -82,11 +82,11 @@
 
         serviceCalls.getItemMenuDao = function () {
             return angular.extend({functionId: MAIN_MOD_CONFIG.REQ_CONFIG.FUNC_GetItemMenu}, _getCObj());
-        }; 
+        };
 
         serviceCalls.getRateDao = function () {
             return angular.extend({functionId: MAIN_MOD_CONFIG.REQ_CONFIG.FUNC_SetRate}, _getCObj());
-        }; 
+        };
 
         serviceCalls.getTagListDao = function () {
             return angular.extend({functionId: MAIN_MOD_CONFIG.REQ_CONFIG.FUNC_GetTagList}, _getCObj());
@@ -112,40 +112,5 @@
 
     }]);
 
-
-    mod.factory('Login.Window', ['$mdDialog','$mdMedia','mainDataService',function ($mdDialog, $mdMedia, mainDataService) {
-        var _showLogin = function () {
-                $mdDialog.show({
-                    controller: DialogController,
-                    templateUrl: '/views/mainModule/login.modal.html',
-                    parent: angular.element(document.body),
-                    clickOutsideToClose:true,
-                    fullscreen: $mdMedia('sm')
-                })
-                .then(function(answer) {
-
-                }, function() {
-
-                });
-               
-
-                function DialogController($scope, $mdDialog, mainDataService) {
-                  $scope.hide = function() {
-                    $mdDialog.hide();
-                  };
-                  $scope.cancel = function() {
-                    $mdDialog.cancel();
-                  };
-                  $scope.answer = function(answer) {
-                    $mdDialog.hide(answer);
-                  };
-                };
-             };
-
-        return {
-            showLogin: _showLogin
-        };
-
-    }]);
 
 })(com.TRENDI.CATEGORY.modules.mainTrendiModule);

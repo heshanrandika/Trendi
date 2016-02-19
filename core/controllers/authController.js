@@ -74,7 +74,7 @@ function login(req,callback) {
                         });
 
                     }else{
-                        callback(err, state);
+                        callback("Incorrect password!", null);
                     }
 
                 });
@@ -91,7 +91,7 @@ function login(req,callback) {
 function register(req,callback) {
     var params = (req.body.params) ? req.body.params : {};
     var adminMail = (req.body.email)?req.body.email: 'trendi2015@gmail.com';
-    var userType = (params.userType)?params.userType: 0;
+    var userType = (params.regUser.userType)?params.regUser.userType: 0;
     var regUser =  (params.regUser)?params.regUser: 0;
     var query = {'email':regUser.email};
     var HashPWD = PWD.GetHashedPassword(regUser.password,CONSTANT.HASHING_ALGO);
@@ -99,7 +99,7 @@ function register(req,callback) {
         daf.FindOne(query,CONSTANT.USER_COLLECTION,function(err,found){
 
             if(!found){
-                var query = {'userType':CONSTANT.USER , 'firstName' : regUser.firstName, 'lastName' : regUser.lastName, 'dob':regUser.dob, 'mobile':regUser.mobile, 'email':regUser.email, 'password':HashPWD, 'session':'', 'watchList':[],'recentlyView':[]};
+                var query = {'userType':CONSTANT.USER , 'name' : regUser.name?regUser.name:'unknown', 'email':regUser.email, 'password':HashPWD, 'session':'', 'watchList':[],'recentlyView':[]};
                 daf.Insert(query,CONSTANT.USER_COLLECTION,function(err,success){
                     console.log("^^^^^^^  Shop Added ^^^^^^^ : ");
                     if(err){

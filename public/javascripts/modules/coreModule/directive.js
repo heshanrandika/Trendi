@@ -1398,7 +1398,7 @@
                 };
 
                 scope.rateChange = function(){
-                    if($rootScope.currentUser){
+                    if(Login_Window.checkUser()){
                         if(!scope.isReadonly) {
                             mainDataService.setRate({category:scope.category, id:scope.objectId, rate:scope.rate}).then(function(response){
                                 scope.isReadonly = true;
