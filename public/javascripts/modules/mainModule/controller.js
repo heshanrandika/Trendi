@@ -111,6 +111,11 @@
                 $scope.trendItemsShow = false;
             });
 
+            mainDataService.getMostTrendyItems({skip:0,limit:8}).then(function(response){
+                $scope.bestSeller = response.data.responData.data; 
+            }, function(error){
+            });
+
         };
 
         $scope.initWindow();
