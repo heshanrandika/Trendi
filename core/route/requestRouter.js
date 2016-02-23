@@ -10,6 +10,7 @@ var BLOG = require("../controllers/blogController");
 var TAG = require("../controllers/tagController");
 var COMMENT = require("../controllers/commentController");
 var AuthCtrl = require('../controllers/authController');
+var USER = require('../controllers/userController');
 
 var requestRoute = function(req,res){
     var functionId = parseInt(req.body.functionId);
@@ -1315,6 +1316,65 @@ var requestRoute = function(req,res){
             });
             break;
 
+        case 9000:
+
+            USER.AddItemToList(req, function (err, data) {
+                if (err) {
+                    resObject.resStatus = 0;
+                    resObject.responData.Error = err.toString();
+                    res.status(500);
+                    res.send(resObject);
+
+                } else if (data) {
+
+                    resObject.resStatus = 1;
+                    resObject.responData.data = data;
+                    res.send(resObject);
+
+                }
+
+            });
+            break;
+
+        case 9001:
+
+            USER.RemoveItemFromList(req, function (err, data) {
+                if (err) {
+                    resObject.resStatus = 0;
+                    resObject.responData.Error = err.toString();
+                    res.status(500);
+                    res.send(resObject);
+
+                } else if (data) {
+
+                    resObject.resStatus = 1;
+                    resObject.responData.data = data;
+                    res.send(resObject);
+
+                }
+
+            });
+            break;
+
+        case 9002:
+
+            USER.GetListItem(req, function (err, data) {
+                if (err) {
+                    resObject.resStatus = 0;
+                    resObject.responData.Error = err.toString();
+                    res.status(500);
+                    res.send(resObject);
+
+                } else if (data) {
+
+                    resObject.resStatus = 1;
+                    resObject.responData.data = data;
+                    res.send(resObject);
+
+                }
+
+            });
+            break;
 
         default :
 

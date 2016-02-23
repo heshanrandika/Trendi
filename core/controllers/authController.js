@@ -414,18 +414,22 @@ function authentication(req, callback) {
 }
 
 function authorization(req, callback) {
-    var entitlements =  req.user.entitlements;
-    var functionId = parseInt(req.body.functionId);
-    var authorized = _.filter(entitlements, { '_id': functionId});
-    if(authorized.length > 0){
-       // if(authorized.expDate > new Date()){
-            callback(null, true);
-       /* }else{
-            callback(CONSTANT.ERROR_FAIL_AUTHORIZATION_EXP_DATE, true);
-        }*/
-
+    if(req.body.userType == 1){
+        callback(null, true);
     }else{
-        callback(CONSTANT.ERROR_NOT_AUTHORIZED,null);
+        var entitlements =  req.user.entitlements;
+        var functionId = parseInt(req.body.functionId);
+        var authorized = _.filter(entitlements, { '_id': functionId});
+        if(authorized.length > 0){
+            // if(authorized.expDate > new Date()){
+            callback(null, true);
+            /* }else{
+             callback(CONSTANT.ERROR_FAIL_AUTHORIZATION_EXP_DATE, true);
+             }*/
+
+        }else{
+            callback(CONSTANT.ERROR_NOT_AUTHORIZED,null);
+        }
     }
 }
 

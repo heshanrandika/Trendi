@@ -59,7 +59,10 @@
             FUNC_GetTagList:            7001,
             FUNC_AddComment:            8000,
             FUNC_RemoveComment:         8001,
-            FUNC_GetCommentList:        8002
+            FUNC_GetCommentList:        8002,
+            FUNC_AddToWatchList:        9000,
+            FUNC_RemoveFromWatchList:   9001,
+            FUNC_GetWatchList:          9002
 
 
 

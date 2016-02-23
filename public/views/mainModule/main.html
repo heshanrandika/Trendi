@@ -135,7 +135,7 @@
                         <div class="container">
                             <!-- Logo -->
                             <div class="navbar-logo pull-left"> <a href="index.html"><img src="images/header-logo.png" alt="Trendi"></a></div>
-                            <div class="navbar-welcome pull-left compact-hidden hidden-xs">Welcome Pathum Goonawardene </div>
+                            <div class="navbar-welcome pull-left compact-hidden hidden-xs">Welcome {{user.name}} </div>
                             <div class="clearfix visible-sm"></div>
                             <!-- //end Logo -->
                             <!-- Secondary menu -->
@@ -156,7 +156,8 @@
                                 </div>
                                 <div class="btn-group compact-hidden"> <a ng-click="loginOpen()" class="btn btn-xs btn-default dropdown-toggle">{{checkLogin()?'Logout':'Login'}}</a>
                                 </div>
-                                <div class="btn-group"> <a href="#"  class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown"> <span class="compact-hidden">Bag - <strong>Rs 2000</strong></span> <span class="icon-xcart-animate"><span class="box">3</span><span class="handle"></span></span> </a>
+                                <trendi-bag></trendi-bag>
+                                <!--<div class="btn-group" ng-class="bagOpen?'open':''"> <a  class="btn btn-xs btn-default dropdown-toggle" ng-click="bagOpen = !bagOpen"> <span class="compact-hidden">Bag - <strong>Rs 2000</strong></span> <span class="icon-xcart-animate"><span class="box">3</span><span class="handle"></span></span> </a>
                                     <div class="dropdown-menu pull-right shoppingcart-box" role="menu"> Recently added item(s)
                                         <ul class="list">
                                             <li class="item"> <a href="product_default.html" class="preview-image"><img class="preview" src="images/products/product-07-small.jpg" alt=""></a>
@@ -173,7 +174,7 @@
                                         <a href="#" class="btn btn-mega">Visit Store</a>
                                         <div class="view-link"><a href="shopping_cart.html">View bag </a></div>
                                     </div>
-                                </div>
+                                </div>-->
                             </div>
 
                             <!-- Search -->

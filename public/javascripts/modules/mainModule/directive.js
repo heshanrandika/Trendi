@@ -199,20 +199,27 @@
                 itemId: '='
             },
             template: '<div>'+
-                    '<button class="btn btn-mega btn-lg" type="submit">Add to Watch list</button>'+
+                    '<button class="btn btn-mega btn-lg" type="submit" ng-click="addToWatchList()"><span class="icon-xcart-animate"><span class="box">B</span><span class="handle"></span></span>  Add to Bag</button>'+
                     '</div>',
                 
             link: function(scope, elm, attrs) {
                 scope.addToWatchList = function(){
                     var user = Login_Window.checkUser();
                     if(user){
-                            mainDataService.setRate({itemId: scope.itemId}).then(function(response){
+                            mainDataService.addToWatchList({itemId: scope.itemId}).then(function(response){
+                                if (user.watchList.indexOf(scope.itemId) == -1) {
+                                    user.watchList.push(scope.itemId);
+                                }
+
                             },function(){
                             });
                     }else{
                        var login = Login_Window.showLogin();
                        if(login){
-                            mainDataService.setRate({itemId: scope.itemId}).then(function(response){
+                            mainDataService.addToWatchList({itemId: scope.itemId}).then(function(response){
+                                if (user.watchList.indexOf(scope.itemId) == -1) {
+                                    user.watchList.push(scope.itemId);
+                                }
                             },function(){
                             });
                        }
@@ -220,6 +227,41 @@
                 }
             }
         };
+    }]);
+
+    mod.directive('trendiBag',['mainDataService','Login.Window',function(mainDataService, Login_Window){
+        return{
+            restrict:'E',
+            templateUrl:'/views/mainModule/main.bag.small.html',
+            scope:{
+            },
+            link:function(scope, elm, attrs){
+                scope.user = Login_Window.checkUser();
+
+                scope.loadItem = function(){
+                    var itemArray = scope.user.watchList;
+                    itemArray.reverse();
+
+                    mainDataService.getWatchList({itemList:itemArray.slice(0, 3)}).then(function(response){
+                        scope.itemList = response.data.responData.data;
+                    },function(){
+                    });
+                };
+                if(scope.user){
+                    scope.loadItem();
+                }
+
+                scope.openBagFunction = function(){
+                    if(scope.user){
+                        scope.openBag = !scope.openBag;
+                        if(scope.openBag){
+                            scope.loadItem();
+                        }
+                    }
+
+                }
+            }
+        }
     }]);
 
 })(com.TRENDI.CATEGORY.modules.mainTrendiModule);

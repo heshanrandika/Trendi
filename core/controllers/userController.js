@@ -63,39 +63,40 @@ function updateUser(req,callback){
 
 function addItemToList(req,callback){
     var params = (req.body.params) ? req.body.params : {};
-    var query = {'itemId':params.itemId};
     var email = req.body.email;
-    var changeDoc ={$inc:{ 'item.seen': 1}};
-    daf.Update(query,changeDoc,CONSTANT.MAIN_ITEM_COLLECTION,function(err , data){
-        daf.FindOne(query,CONSTANT.SUB_ITEM_COLLECTION, function(err , data){
-            callback(err ,data);
-        });
+    var query = {email:email};
+    var changeDoc ={$addToSet:{ watchList: params.itemId}};
+    daf.Update(query,changeDoc,CONSTANT.USER_COLLECTION,function(err , data){
+        callback(err ,data);
     });
 
 };
 
 function removeItemFromList(req,callback){
     var params = (req.body.params) ? req.body.params : {};
-    var query = {'itemId':params.itemId};
-    var changeDoc ={$inc:{ 'item.seen': 1}};
-    daf.Update(query,changeDoc,CONSTANT.MAIN_ITEM_COLLECTION,function(err , data){
-        daf.FindOne(query,CONSTANT.SUB_ITEM_COLLECTION, function(err , data){
+    var itemId = params.itemId;
+    var email = req.body.email;
+    var changeDoc = { $pull: { watchList: itemId}};
+    var query = {email:email};
+    daf.Update(query,changeDoc,CONSTANT.USER_COLLECTION,function(err , data){
             callback(err ,data);
-        });
     });
 
 };
 
 function getListItem(req,callback){
     var params = (req.body.params) ? req.body.params : {};
-    var query = {'itemId':params.itemId};
-    var changeDoc ={$inc:{ 'item.seen': 1}};
-    daf.Update(query,changeDoc,CONSTANT.MAIN_ITEM_COLLECTION,function(err , data){
-        daf.FindOne(query,CONSTANT.SUB_ITEM_COLLECTION, function(err , data){
-            callback(err ,data);
-        });
+    var itemList = params.itemList;
+    var query = {'itemId':{$in:itemList}};
+    var data = [];
+    var dbCon = daf.Find(query,CONSTANT.MAIN_ITEM_COLLECTION);
+    dbCon.on('data', function(doc){
+        data.push(doc);
     });
 
+    dbCon.on('end', function(){
+        callback(null,data);
+    });
 };
 
 module.exports.GetUserList = getUserList;

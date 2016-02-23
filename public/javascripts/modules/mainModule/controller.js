@@ -46,7 +46,7 @@
         };
 
         $scope.loginOpen = function () {
-            if($scope.checkLogin()){
+            if($scope.user){
                 Login_Window.logoutUser();
             }else{
                 Login_Window.showLogin();
@@ -55,7 +55,7 @@
         };
 
         $scope.checkLogin = function () {
-            return Login_Window.checkUser();
+            $scope.user =  Login_Window.checkUser();
         };
 
         $scope.womenMenu = [

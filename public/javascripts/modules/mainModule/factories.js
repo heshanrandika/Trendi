@@ -5,14 +5,17 @@
 (function (mod) {
     "use strict";
 
-    mod.factory('mainServiceCalls', ['MAIN_MOD_CONFIG', '$window', function (MAIN_MOD_CONFIG, $window) {
+    mod.factory('mainServiceCalls', ['MAIN_MOD_CONFIG', '$window','$localStorage', function (MAIN_MOD_CONFIG, $window, $localStorage) {
 
         var serviceCalls = {};
         var commonCallObj = {};
 
+        var $storage = $localStorage;
+
+
         var _getCObj = function () {
-            /*  var userData = JSON.parse($window.localStorage.getItem('__'));
-             commonCallObj = {userName: userData.username, sessionId: userData.sessionId};*/
+            var userData = $storage.loginUser;
+            commonCallObj = {email: userData.email , session: userData.session, userType: userData.userType };
             return commonCallObj;
         };
 
@@ -105,15 +108,15 @@
         };
 
         serviceCalls.addToWatchListDao = function () {
-            return angular.extend({functionId: MAIN_MOD_CONFIG.REQ_CONFIG.FUNC_RemoveComment}, _getCObj());
+            return angular.extend({functionId: MAIN_MOD_CONFIG.REQ_CONFIG.FUNC_AddToWatchList}, _getCObj());
         };
 
         serviceCalls.removeFromWatchListDao = function () {
-            return angular.extend({functionId: MAIN_MOD_CONFIG.REQ_CONFIG.FUNC_RemoveComment}, _getCObj());
+            return angular.extend({functionId: MAIN_MOD_CONFIG.REQ_CONFIG.FUNC_RemoveFromWatchList}, _getCObj());
         };
 
         serviceCalls.getWatchListDao = function () {
-            return angular.extend({functionId: MAIN_MOD_CONFIG.REQ_CONFIG.FUNC_RemoveComment}, _getCObj());
+            return angular.extend({functionId: MAIN_MOD_CONFIG.REQ_CONFIG.FUNC_GetWatchList}, _getCObj());
         };
 
         serviceCalls.getSocketLogoutDao = function () {
