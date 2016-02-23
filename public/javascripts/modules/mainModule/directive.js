@@ -190,4 +190,36 @@
             };
         }
     ]);
+
+    mod.directive('trendiWatchListAdd',['mainDataService','Login.Window',function(mainDataService, Login_Window){
+        return {
+            restrict: 'E',
+            replace: true,
+            scope: {
+                itemId: '='
+            },
+            template: '<div>'+
+                    '<button class="btn btn-mega btn-lg" type="submit">Add to Watch list</button>'+
+                    '</div>',
+                
+            link: function(scope, elm, attrs) {
+                scope.addToWatchList = function(){
+                    var user = Login_Window.checkUser();
+                    if(user){
+                            mainDataService.setRate({itemId: scope.itemId}).then(function(response){
+                            },function(){
+                            });
+                    }else{
+                       var login = Login_Window.showLogin();
+                       if(login){
+                            mainDataService.setRate({itemId: scope.itemId}).then(function(response){
+                            },function(){
+                            });
+                       }
+                    }
+                }
+            }
+        };
+    }]);
+
 })(com.TRENDI.CATEGORY.modules.mainTrendiModule);

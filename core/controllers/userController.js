@@ -64,6 +64,7 @@ function updateUser(req,callback){
 function addItemToList(req,callback){
     var params = (req.body.params) ? req.body.params : {};
     var query = {'itemId':params.itemId};
+    var email = req.body.email;
     var changeDoc ={$inc:{ 'item.seen': 1}};
     daf.Update(query,changeDoc,CONSTANT.MAIN_ITEM_COLLECTION,function(err , data){
         daf.FindOne(query,CONSTANT.SUB_ITEM_COLLECTION, function(err , data){

@@ -104,6 +104,18 @@
             return angular.extend({functionId: MAIN_MOD_CONFIG.REQ_CONFIG.FUNC_RemoveComment}, _getCObj());
         };
 
+        serviceCalls.addToWatchListDao = function () {
+            return angular.extend({functionId: MAIN_MOD_CONFIG.REQ_CONFIG.FUNC_RemoveComment}, _getCObj());
+        };
+
+        serviceCalls.removeFromWatchListDao = function () {
+            return angular.extend({functionId: MAIN_MOD_CONFIG.REQ_CONFIG.FUNC_RemoveComment}, _getCObj());
+        };
+
+        serviceCalls.getWatchListDao = function () {
+            return angular.extend({functionId: MAIN_MOD_CONFIG.REQ_CONFIG.FUNC_RemoveComment}, _getCObj());
+        };
+
         serviceCalls.getSocketLogoutDao = function () {
             return _getCObj();
         };

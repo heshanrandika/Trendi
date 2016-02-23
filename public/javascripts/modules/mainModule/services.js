@@ -82,6 +82,18 @@
         var _removeComment = function(d){
             return Data_Comm.postPromise(angular.extend({params:d},mainServiceCalls.removeCommentDao()));
         };
+         
+        var _addToWatchList = function(d){
+            return Data_Comm.postPromise(angular.extend({params:d},mainServiceCalls.addToWatchListDao()));
+        };
+         
+        var _getWatchList = function(d){
+            return Data_Comm.postPromise(angular.extend({params:d},mainServiceCalls.getWatchListDao()));
+        };
+
+        var _removeFromWatchList = function(d){
+            return Data_Comm.postPromise(angular.extend({params:d},mainServiceCalls.removeFromWatchListDao()));
+        };
 
         return{
             getLatestItem:_getLatestItem,
@@ -103,7 +115,10 @@
             getTagList:_getTagList,
             getCommentList:_getCommentList,
             addComment:_addComment,
-            removeComment:_removeComment
+            removeComment:_removeComment,
+            addToWatchList:_addToWatchList,
+            getWatchList:_getWatchList,
+            removeFromWatchList:_removeFromWatchList
         }
     }]);
 })(com.TRENDI.CATEGORY.modules.mainTrendiModule);

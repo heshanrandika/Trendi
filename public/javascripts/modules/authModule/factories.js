@@ -48,9 +48,9 @@
                 fullscreen: $mdMedia('sm')
             })
                 .then(function(answer) {
-
+                    return true;
                 }, function() {
-
+                    return false;
                 });
 
 
@@ -67,7 +67,7 @@
                             var completeUser = response.data.responData.data;
                             $scope.$storage.loginUser = completeUser;
                             $scope.error = false;
-                            $mdDialog.hide();
+                            $mdDialog.hide(1);
                         }, function (error) {
                             $scope.error = error.data.responData.Error;
                         });
@@ -96,7 +96,7 @@
             if($storage.loginUser == '' || undefined == $storage.loginUser){
                 return false;
             }else{
-                return true;
+                return $storage.loginUser;
             }
 
         };
