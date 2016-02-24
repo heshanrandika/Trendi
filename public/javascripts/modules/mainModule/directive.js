@@ -232,7 +232,7 @@
     mod.directive('trendiBag',['mainDataService','Login.Window',function(mainDataService, Login_Window){
         return{
             restrict:'E',
-            templateUrl:'/views/mainModule/main.bag.small.html',
+            templateUrl:'/views/mainModule/directiveViews/main.bag.small.html',
             scope:{
             },
             link:function(scope, elm, attrs){
@@ -260,6 +260,69 @@
                     }
 
                 }
+            }
+        }
+    }]);
+
+     mod.directive('trendiComment',['mainDataService','Login.Window',function(mainDataService, Login_Window){
+        return{
+            restrict:'E',
+            templateUrl:'/views/mainModule/directiveViews/main.comment.html',
+            scope:{
+                id : "=",
+                category:"@"
+            },
+            link:function(scope, elm, attrs){
+
+            scope.user = Login_Window.checkUser();    
+            scope.typedComment = '';
+            scope.getCommentList = function(){
+                var query = {};
+                if(category == 'item'){
+                    query = {itemId : scope.id};
+                }else{
+                    query = {shopId : scope.id};
+                }
+            mainDataService.getCommentList(query).then(function(response){
+                scope.commentResponse =  response.data.responData.data;
+            },function(){
+                scope.commentResponse =  {};
+            });
+        };
+
+
+
+        scope.commentPost= function(event){
+            if(event.keyCode == 13 && scope.typedComment != ''){
+                var commentObject = {
+                    user : scope.user.email,
+                    comment : scope.typedComment
+                };
+                scope.typedComment = '';
+                var query = {};
+                if(category == 'item'){
+                    query = {itemId : scope.id, comment:commentObject};
+                }else{
+                    query = {shopId : scope.id, comment:commentObject};
+                }
+                mainDataService.addComment(query).then(function(response){
+                    scope.typedComment = '';
+                    scope.getCommentList();
+                },function(){
+                    scope.typedComment = commentObject.comment;
+                });
+            }
+        };
+
+        scope.removePost= function(commnt, commntObj){
+            if(comnt.user == scope.user.email){
+                mainDataService.removeComment({itemId : commntObj.itemId, comId:commnt.comId}).then(function(response){
+                    scope.getCommentList();
+                },function(){
+                });
+            }
+        };
+
             }
         }
     }]);

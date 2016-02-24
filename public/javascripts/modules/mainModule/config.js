@@ -34,6 +34,12 @@
                 templateUrl: 'views/mainModule/main.shop.html',
                 controller: 'trendiShopProductsController'
 
+            },
+            'main.bag': {
+                url: '/bag',
+                templateUrl: 'views/mainModule/main.bag.html',
+                controller: 'trendiBagController'
+
             }
 
         },REQ_CONFIG: {

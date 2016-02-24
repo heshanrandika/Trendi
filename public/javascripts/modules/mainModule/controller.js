@@ -192,7 +192,7 @@
         $scope.selectedItem = {};
         $scope.imageArray = [];
         $scope.searchOption = {};
-        $scope.typedComment = '';
+        
 
 
         $scope.changeList = function(val){
@@ -369,42 +369,9 @@
 
             },function(){
             });
-            $scope.getCommentList();
         };
 
-        $scope.getCommentList = function(){
-            mainDataService.getCommentList({itemId : $scope.selectedItem.itemId}).then(function(response){
-                $scope.commentResponse =  response.data.responData.data;
-            },function(){
-                $scope.commentResponse =  {};
-            });
-        };
-
-
-
-        $scope.commentPost= function(event){
-            if(event.keyCode == 13 && $scope.typedComment != ''){
-                var commentObject = {
-                    user : 'h.r.randika',
-                    comment : $scope.typedComment
-                };
-                $scope.typedComment = '';
-                mainDataService.addComment({itemId : $scope.selectedItem.itemId, comment:commentObject}).then(function(response){
-                    $scope.typedComment = '';
-                    $scope.getCommentList();
-                },function(){
-                    $scope.typedComment = commentObject.comment;
-                });
-            }
-        };
-
-        $scope.removePost= function(commnt, commntObj){
-            mainDataService.removeComment({itemId : commntObj.itemId, comId:commnt.comId}).then(function(response){
-                $scope.getCommentList();
-            },function(){
-            });
-        };
-
+       
         $scope.isotopPagination = {
             searchFromServer: function (d) {
                 $scope.paginationFuntion();
