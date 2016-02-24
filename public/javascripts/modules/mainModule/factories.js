@@ -15,7 +15,10 @@
 
         var _getCObj = function () {
             var userData = $storage.loginUser;
-            commonCallObj = {email: userData.email , session: userData.session, userType: userData.userType };
+            if(userData != undefined){
+                commonCallObj = {email: userData.email , session: userData.session, userType: userData.userType };
+            }
+
             return commonCallObj;
         };
 

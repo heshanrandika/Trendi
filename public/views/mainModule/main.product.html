@@ -222,7 +222,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="panel">
+<!--                            <div class="panel">
                                    <div class="panel-heading"> <a ng-click="revopen = !revopen"> <span ng-class="revopen?'arrow-up icon-arrow-up-4':'arrow-up icon-arrow-down-4'"></span> Reviews </a>  </div>
                                 <div id="product-reviews" ng-class="revopen?'panel-collapse collapse in':'panel-collapse collapse'">
                                     <div class="panel-body">
@@ -237,7 +237,7 @@
                                     <div class="panel-body">
                                         <form novalidate="" name="commentForm">
                                         <md-input-container class="md-icon-float" >
-                                            <!-- Use floating label instead of placeholder -->
+                                            &lt;!&ndash; Use floating label instead of placeholder &ndash;&gt;
                                             <label>Add Review</label>
                                             <input md-maxlength="200" name="description" ng-model="typedComment" ng-keyup="commentPost($event)">
                                             <div ng-messages="commentForm.description.$error">
@@ -247,7 +247,8 @@
                                         </form>
                                     </div>
                                 </div>
-                            </div>
+                            </div>-->
+                            <trendi-comment ng-if="selectedItem.itemId" id="selectedItem.itemId" category="item"></trendi-comment>
                         </div>
                     </div>
                     <!-- //end Description -->

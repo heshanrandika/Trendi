@@ -106,7 +106,7 @@
                             scope.shopoption.color = val;
                             break;
 
-                        case 'size' : 
+                        case 'size' :
                             scope.sizePalletShow = false;
                             scope.shopoption.size = val;
                             break;
@@ -121,7 +121,7 @@
                             //delete scope.shopoption.color;
                             break;
 
-                        case 'size' : 
+                        case 'size' :
                             scope.sizePalletShow = true;
                             scope.shopoption.size = {};
                             //delete scope.shopoption.size;
@@ -199,30 +199,30 @@
                 itemId: '='
             },
             template: '<div>'+
-                    '<button class="btn btn-mega btn-lg" type="submit" ng-click="addToWatchList()"><span class="icon-xcart-animate"><span class="box">B</span><span class="handle"></span></span>  Add to Bag</button>'+
-                    '</div>',
-                
+            '<button class="btn btn-mega btn-lg" type="submit" ng-click="addToWatchList()"><span class="icon-xcart-animate"><span class="box">B</span><span class="handle"></span></span>  Add to Bag</button>'+
+            '</div>',
+
             link: function(scope, elm, attrs) {
                 scope.addToWatchList = function(){
                     var user = Login_Window.checkUser();
                     if(user){
-                            mainDataService.addToWatchList({itemId: scope.itemId}).then(function(response){
-                                if (user.watchList.indexOf(scope.itemId) == -1) {
-                                    user.watchList.push(scope.itemId);
-                                }
+                        mainDataService.addToWatchList({itemId: scope.itemId}).then(function(response){
+                            if (user.watchList.indexOf(scope.itemId) == -1) {
+                                user.watchList.push(scope.itemId);
+                            }
 
-                            },function(){
-                            });
+                        },function(){
+                        });
                     }else{
-                       var login = Login_Window.showLogin();
-                       if(login){
+                        var login = Login_Window.showLogin();
+                        if(login){
                             mainDataService.addToWatchList({itemId: scope.itemId}).then(function(response){
                                 if (user.watchList.indexOf(scope.itemId) == -1) {
                                     user.watchList.push(scope.itemId);
                                 }
                             },function(){
                             });
-                       }
+                        }
                     }
                 }
             }
@@ -239,10 +239,8 @@
                 scope.user = Login_Window.checkUser();
 
                 scope.loadItem = function(){
-                    var itemArray = scope.user.watchList;
-                    itemArray.reverse();
-
-                    mainDataService.getWatchList({itemList:itemArray.slice(0, 3)}).then(function(response){
+                    scope.listSize = scope.user.watchList.length;
+                    mainDataService.getWatchList().then(function(response){
                         scope.itemList = response.data.responData.data;
                     },function(){
                     });
@@ -252,6 +250,7 @@
                 }
 
                 scope.openBagFunction = function(){
+                    scope.user = Login_Window.checkUser();
                     if(scope.user){
                         scope.openBag = !scope.openBag;
                         if(scope.openBag){
@@ -259,12 +258,16 @@
                         }
                     }
 
+                };
+
+                scope.closeBag = function(){
+                    scope.openBag = false;
                 }
             }
         }
     }]);
 
-     mod.directive('trendiComment',['mainDataService','Login.Window',function(mainDataService, Login_Window){
+    mod.directive('trendiComment',['mainDataService','Login.Window',function(mainDataService, Login_Window){
         return{
             restrict:'E',
             templateUrl:'/views/mainModule/directiveViews/main.comment.html',
@@ -274,55 +277,78 @@
             },
             link:function(scope, elm, attrs){
 
-            scope.user = Login_Window.checkUser();    
-            scope.typedComment = '';
-            scope.getCommentList = function(){
-                var query = {};
-                if(category == 'item'){
-                    query = {itemId : scope.id};
-                }else{
-                    query = {shopId : scope.id};
-                }
-            mainDataService.getCommentList(query).then(function(response){
-                scope.commentResponse =  response.data.responData.data;
-            },function(){
-                scope.commentResponse =  {};
-            });
-        };
-
-
-
-        scope.commentPost= function(event){
-            if(event.keyCode == 13 && scope.typedComment != ''){
-                var commentObject = {
-                    user : scope.user.email,
-                    comment : scope.typedComment
-                };
+                scope.user = Login_Window.checkUser();
                 scope.typedComment = '';
-                var query = {};
-                if(category == 'item'){
-                    query = {itemId : scope.id, comment:commentObject};
-                }else{
-                    query = {shopId : scope.id, comment:commentObject};
-                }
-                mainDataService.addComment(query).then(function(response){
-                    scope.typedComment = '';
-                    scope.getCommentList();
-                },function(){
-                    scope.typedComment = commentObject.comment;
-                });
-            }
-        };
+                scope.getCommentList = function(){
+                    var query = {};
+                    if(scope.category == 'item'){
+                        query = {itemId : scope.id};
+                    }else{
+                        query = {shopId : scope.id};
+                    }
+                    mainDataService.getCommentList(query).then(function(response){
+                        scope.commentResponse =  response.data.responData.data;
+                    },function(){
+                        scope.commentResponse =  {};
+                    });
+                };
+                scope.getCommentList();
 
-        scope.removePost= function(commnt, commntObj){
-            if(comnt.user == scope.user.email){
-                mainDataService.removeComment({itemId : commntObj.itemId, comId:commnt.comId}).then(function(response){
-                    scope.getCommentList();
-                },function(){
-                });
-            }
-        };
 
+                scope.commentPost= function(event){
+                    if(event.keyCode == 13 && scope.typedComment != ''){
+                        var commentObject = {
+                            user : scope.user.email,
+                            name : scope.user.name?scope.user.name:'unknown',
+                            comment : scope.typedComment
+                        };
+                        scope.typedComment = '';
+                        var query = {};
+                        if(scope.category == 'item'){
+                            query = {itemId : scope.id, comment:commentObject};
+                        }else{
+                            query = {shopId : scope.id, comment:commentObject};
+                        }
+                        mainDataService.addComment(query).then(function(response){
+                            scope.typedComment = '';
+                            scope.getCommentList();
+                        },function(){
+                            scope.typedComment = commentObject.comment;
+                        });
+                    }
+                };
+
+                scope.removePost= function(commnt, commntObj){
+                    if(commnt.user == scope.user.email){
+                        mainDataService.removeComment({itemId : commntObj.itemId, comId:commnt.comId}).then(function(response){
+                            scope.getCommentList();
+                        },function(){
+                        });
+                    }
+                };
+
+            }
+        }
+    }]);
+
+
+    mod.directive("outsideClick", ['$document','$parse', function( $document, $parse ){
+        return {
+            link: function( $scope, $element, $attributes ){
+                var scopeExpression = $attributes.outsideClick,
+                    onDocumentClick = function(event){
+                        var isChild = $element.find(event.target).length > 0;
+
+                        if(!isChild) {
+                            $scope.$apply(scopeExpression);
+                        }
+                    };
+
+                $document.on("click", onDocumentClick);
+
+                $element.on('$destroy', function() {
+                    $document.off("click", onDocumentClick);
+                });
             }
         }
     }]);

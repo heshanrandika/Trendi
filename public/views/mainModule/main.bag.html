@@ -2,7 +2,7 @@
     <div id="outer-canvas">
 
         <section class="container">
-            <nav class="breadcrumbs"> Home <span class="icon-arrow-right-3"></span> {{selectParams.category}} <span class="icon-arrow-right-3"></span>{{selectParams.selected}}</nav>
+            <nav class="breadcrumbs"> Search <span class="icon-arrow-right-3"></span> {{selectParams.term}} <span class="icon-arrow-right-3"></span>{{selectParams.selected}}</nav>
         </section>
         <section ng-hide="uiRef" class="container">
             <div class="row">
@@ -11,10 +11,10 @@
                 <aside class="col-sm-4 col-md-3 col-lg-3 content-aside">
 
                     <!-- Shop by categories -->
-                    <section>
-                        <h3>SHOP BY CATEGORIES</h3>
-                        <trendi-product-expand-menu></trendi-product-expand-menu>
-                    </section>
+                    <!--                    <section>
+                                            <h3>SHOP BY CATEGORIES</h3>
+                                            <trendi-product-expand-menu></trendi-product-expand-menu>
+                                        </section>-->
                     <!-- //end Shop by categories -->
 
                     <div class="section-divider"></div>
@@ -22,12 +22,21 @@
                     <!-- Shop by -->
                     <section>
                         <h3>SHOP BY</h3>
-                        <p><strong>Category</strong></p>
+                        <p><strong>Women</strong></p>
                         <ul class="simple-list">
-                            <li ng-repeat="categ in catMenu"><span ng-class="categ.class"></span> <a ng-click="clickMenu(categ)">{{categ.value}} <span class="label label-mega">( {{categ.count?categ.count:0}} )</span></a></li>
+                            <li ng-repeat="categ in allMenu.womenMenu"><span ng-class="categ.class"></span> <a ng-click="clickMenu(categ, 'Women')">{{categ.value}} <span class="label label-mega">( {{getCount(categ.search)}} )</span></a></li>
                         </ul>
                         <br>
-                        <trendi-search-option shopoption="searchOption"></trendi-search-option>
+                        <p><strong>Men</strong></p>
+                        <ul class="simple-list">
+                            <li ng-repeat="categ in allMenu.menMenu"><span ng-class="categ.class"></span> <a ng-click="clickMenu(categ, 'Men')">{{categ.value}} <span class="label label-mega">( {{getCount(categ.search)}} )</span></a></li>
+                        </ul>
+                        <br>
+                        <p><strong>Kids</strong></p>
+                        <ul class="simple-list">
+                            <li ng-repeat="categ in allMenu.kidsMenu"><span ng-class="categ.class"></span> <a ng-click="clickMenu(categ, 'Kids')">{{categ.value}} <span class="label label-mega">( {{getCount(categ.search)}} )</span></a></li>
+                        </ul>
+                        <br>
                     </section>
                     <!-- //end Shop by -->
 
@@ -37,24 +46,23 @@
                     <section class="cloud-tags">
                         <h3>TAGS</h3>
                         <a ng-repeat="tag in tags" ng-click="clickTag(tag)" class="font-xs" >{{tag.key}}</a>
+                        <!-- //end Popular tags -->
+
+                        <div class="section-divider"></div>
+
+                        <!-- Price -->
+                        <!--<section>
+                            <h3>PRICE RANGE</h3>
+                            <div class="slider-range">
+                                <div class="control"></div>
+                                <div class="min">Rs<span class="value">500</span></div>
+                                <div class="max">Rs<span class="value">5000</span></div>
+                            </div>
+                        </section> -->
+                        <!-- //end Price -->
+
+                        <div class="section-divider"></div>
                     </section>
-                    <!-- //end Popular tags -->
-
-                    <div class="section-divider"></div>
-
-                    <!-- Price -->
-                    <!--<section>
-                        <h3>PRICE RANGE</h3>
-                        <div class="slider-range">
-                            <div class="control"></div>
-                            <div class="min">Rs<span class="value">500</span></div>
-                            <div class="max">Rs<span class="value">5000</span></div>
-                        </div>
-                    </section> -->
-                    <!-- //end Price -->
-
-                    <div class="section-divider"></div>
-
                 </aside>
                 <!-- //end Left column -->
 
@@ -92,9 +100,9 @@
                         </div>
                         <div class="divider"></div>
                         <div class="pull-left hidden-xs">Items 1 to {{mainItems.length}} of {{count}} total</div>
-                       <!-- <div class="pull-right hidden-xs">
+                        <div class="pull-right hidden-xs">
                             <div class="pagination"> <a href="#">1</a> <a href="#">2</a> <a href="#" class="icon"><span class="icon-arrow-right-3 "></span></a> </div>
-                        </div>-->
+                        </div>
                         <div class="clearfix"></div>
                     </div>
 
@@ -134,9 +142,9 @@
                         </div>
                         <div class="divider" id="yyy"></div>
                         <div class="pull-left hidden-xs">Items 1 to {{mainItems.length}} of {{count}} total</div>
-                       <!-- <div class="pull-right hidden-xs" >
+                        <div class="pull-right hidden-xs" >
                             <div class="pagination"> <a href="#">1</a> <a href="#">2</a> <a href="#" class="icon"><span class="icon-arrow-right-3 "></span></a> </div>
-                        </div>-->
+                        </div>
                         <div class="clearfix"></div>
                     </div>
                     <!-- //end Filters -->
@@ -155,11 +163,11 @@
                         < Back
                     </md-button>
                     <div class="hidden-xs flexslider-thumb-vertical-outer">
-                            <div class="flexslider flexslider-thumb-vertical vertical min">
-                                <ul class="previews-list slides">
-                                    <li ng-repeat="img in imageArray track by $index " ng-click="imageSelect($index)"><img class = 'cloudzoom-gallery' alt="#"  ng-src = "{{img}}"  ></li>
-                                </ul>
-                            </div>
+                        <div class="flexslider flexslider-thumb-vertical vertical min">
+                            <ul class="previews-list slides">
+                                <li ng-repeat="img in imageArray track by $index "><img class = 'cloudzoom-gallery' alt="#"  ng-src = "{{img}}"  ></li>
+                            </ul>
+                        </div>
 
                         <!--<div class="large-image vertical hidden-xs"> <img alt="#" class = "cloudzoom" src = "images/products/product-02-01-593x722.jpg" data-cloudzoom = "zoomImage: 'images/products/product-02-01-888x1080.jpg', autoInside : 991" /> </div>-->
                         <div ng-if="renderd" zoom2 big="selectedImage.big" tiny="selectedImage.tiny" small="selectedImage.small" alt="" title="{{selectedItem.item.name}}"></div>
@@ -184,7 +192,7 @@
                     <!-- //end Product label -->
 
                     <!-- Description -->
-                    <div class="product-description"> <span class="rating"><trendi-star-bar></trendi-star-bar> </span>
+                    <div class="product-description"> <span class="rating"><trendi-star-bar rate-object="selectedItem.item.rate" category="item" object-id="selectedItem.itemId"></trendi-star-bar> </span>
                         <form>
                             <div class="row">
                                 <div class="col-lg-6"> <strong>Colors</strong>
@@ -195,13 +203,13 @@
                                 </div>
                             </div>
                             <br>
-<!--                            <div class="option"> <b>Quantity:</b>
-                                <div class="input-group quantity-control"> <span class="input-group-addon">&minus;</span>
-                                    <input type="text" class="form-control" value="1">
-                                    <span class="input-group-addon">+</span> </div>
-                            </div>-->
+                            <!--                            <div class="option"> <b>Quantity:</b>
+                                                            <div class="input-group quantity-control"> <span class="input-group-addon">&minus;</span>
+                                                                <input type="text" class="form-control" value="1">
+                                                                <span class="input-group-addon">+</span> </div>
+                                                        </div>-->
                             <div class="clearfix visible-xs"></div>
-                            <trendi-watch-list-add item-id="selectedItem.itemId"></trendi-watch-list-add>
+                            <button class="btn btn-mega btn-lg" type="submit">Add to Watch list</button>
                         </form>
                         <div class="panel-group accordion-simple" id="product-accordion">
                             <div class="panel">
@@ -223,28 +231,10 @@
                                 </div>
                             </div>
                             <div class="panel">
-                                   <div class="panel-heading"> <a ng-click="revopen = !revopen"> <span ng-class="revopen?'arrow-up icon-arrow-up-4':'arrow-up icon-arrow-down-4'"></span> Reviews </a>  </div>
+                                <div class="panel-heading"> <a ng-click="revopen = !revopen"> <span ng-class="revopen?'arrow-up icon-arrow-up-4':'arrow-up icon-arrow-down-4'"></span> Reviews </a>  </div>
                                 <div id="product-reviews" ng-class="revopen?'panel-collapse collapse in':'panel-collapse collapse'">
                                     <div class="panel-body">
-                                        <ul class="check-element sample-show-hide">
-                                            <li ng-repeat="comnt in commentResponse.commentList" ng-animate="'animate'">
-                                                <span class="fa fa-times" ng-click="removePost(comnt, commentResponse)"></span>
-                                                <span class="name">{{comnt.user}}</span>
-                                                <span class="name">{{comnt.comment}}</span>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="panel-body">
-                                        <form novalidate="" name="commentForm">
-                                        <md-input-container class="md-icon-float" >
-                                            <!-- Use floating label instead of placeholder -->
-                                            <label>Add Review</label>
-                                            <input md-maxlength="200" name="description" ng-model="typedComment" ng-keyup="commentPost($event)">
-                                            <div ng-messages="commentForm.description.$error">
-                                                <div ng-message="md-maxlength">The review has to be less than 200 characters long.</div>
-                                            </div>
-                                        </md-input-container>
-                                        </form>
+
                                     </div>
                                 </div>
                             </div>

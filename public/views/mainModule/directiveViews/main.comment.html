@@ -1,26 +1,26 @@
-                            <div class="panel">
-                                   <div class="panel-heading"> <a ng-click="revopen = !revopen"> <span ng-class="revopen?'arrow-up icon-arrow-up-4':'arrow-up icon-arrow-down-4'"></span> Reviews </a>  </div>
-                                <div id="product-reviews" ng-class="revopen?'panel-collapse collapse in':'panel-collapse collapse'">
-                                    <div class="panel-body">
-                                        <ul class="check-element sample-show-hide">
-                                            <li ng-repeat="comnt in commentResponse.commentList" ng-animate="'animate'">
-                                                <span class="fa fa-times" ng-click="removePost(comnt, commentResponse)" ng-show="comnt.user == user.email"></span>
-                                                <span class="name">{{comnt.user}}</span>
-                                                <span class="name">{{comnt.comment}}</span>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="panel-body" ng-show="user.email">
-                                        <form novalidate="" name="commentForm">
-                                        <md-input-container class="md-icon-float" >
-                                            <!-- Use floating label instead of placeholder -->
-                                            <label>Add Review</label>
-                                            <input md-maxlength="200" name="description" ng-model="typedComment" ng-keyup="commentPost($event)">
-                                            <div ng-messages="commentForm.description.$error">
-                                                <div ng-message="md-maxlength">The review has to be less than 200 characters long.</div>
-                                            </div>
-                                        </md-input-container>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
+<div class="panel">
+    <div class="panel-heading"> <a ng-click="revopen = !revopen"> <span ng-class="revopen?'arrow-up icon-arrow-up-4':'arrow-up icon-arrow-down-4'"></span> Reviews </a>  </div>
+    <div id="product-reviews" ng-class="revopen?'panel-collapse collapse in':'panel-collapse collapse'">
+        <div class="panel-body">
+            <ul class="check-element sample-show-hide">
+                <li ng-repeat="comnt in commentResponse.commentList" ng-animate="'animate'">
+                    <span class="fa fa-times" ng-click="removePost(comnt, commentResponse)" ng-show="comnt.user == user.email"></span>
+                    <span class="name">{{comnt.name}}</span>
+                    <span class="name">{{comnt.comment}}</span>
+                </li>
+            </ul>
+        </div>
+        <div class="panel-body" ng-show="user.email">
+            <form novalidate="" name="commentForm">
+                <md-input-container class="md-icon-float" >
+                    <!-- Use floating label instead of placeholder -->
+                    <label>Add Review</label>
+                    <input md-maxlength="200" name="description" ng-model="typedComment" ng-keyup="commentPost($event)">
+                    <div ng-messages="commentForm.description.$error">
+                        <div ng-message="md-maxlength">The review has to be less than 200 characters long.</div>
+                    </div>
+                </md-input-container>
+            </form>
+        </div>
+    </div>
+</div>
