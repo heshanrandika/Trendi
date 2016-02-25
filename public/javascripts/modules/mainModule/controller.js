@@ -111,22 +111,32 @@
                 $scope.latestItemShow = false;
             });
 
-            mainDataService.getMainItemList({skip:0,limit:16}).then(function(response){
+            mainDataService.getMainItemList({skip:0,limit:10}).then(function(response){
                 $scope.mainItems = response.data.responData.data;
                 $scope.mainItemShow = true;
             }, function(error){
                 $scope.mainItemShow = false;
             });
 
-            mainDataService.getMostTrendyItems({skip:0,limit:8}).then(function(response){
+            mainDataService.getMostTrendyItems({skip:10,limit:18}).then(function(response){
                 $scope.trendItems = response.data.responData.data;
                 $scope.trendItemsShow = true;
             }, function(error){
                 $scope.trendItemsShow = false;
             });
 
-            mainDataService.getMostTrendyItems({skip:0,limit:8}).then(function(response){
-                $scope.bestSeller = response.data.responData.data; 
+            mainDataService.getNewProductList({skip:0, limit:18, type:2}).then(function(response){
+                $scope.newProductList = response.data.responData.data;
+            }, function(error){
+            });
+
+            mainDataService.getOnSaleList({skip:0, limit:18, type:1}).then(function(response){
+                $scope.onSaleList = response.data.responData.data;
+            }, function(error){
+            });
+
+            mainDataService.getMostSeen({skip:0,tlimit:18, type:3}).then(function(response){
+                $scope.mostSeenList = response.data.responData.data;
             }, function(error){
             });
 

@@ -31,7 +31,7 @@
 
 <div class="container" ng-if="latestItemShow">
     <section class="content slider-products">
-        <h3>Today's Featured </h3>images
+        <h3>Today's Featured </h3>
 
         <div class="row">
             <div class="product-carousel">
@@ -75,15 +75,15 @@
 <section class="container content nopad-bottom hidden-xs">
     <div class="row">
         <div class="col-sm-6 col-md-3 col-lg-3">
-            <h3><a href="listing.html">BEST SELLERS</a></h3>
-            <div class="products-widget jcarousel-skin-previews vertical">
-                <trendi-vertical-slider images="bestSeller"></trendi-vertical-slider>
+            <h3><a>ON SALE</a></h3>
+            <div class="products-widget jcarousel-skin-previews vertical" ng-if="onSaleList">
+                <trendi-vertical-slider images="onSaleList"></trendi-vertical-slider>
             </div>
         </div>
         <div class="col-sm-6 col-md-3 col-lg-3">
             <h3><a href="listing.html">NEW PRODUCTS</a></h3>
-            <div class="products-widget jcarousel-skin-previews vertical">
-                <trendi-vertical-slider images="newProduct"></trendi-vertical-slider>
+            <div class="products-widget jcarousel-skin-previews vertical" ng-if="newProductList">
+                <trendi-vertical-slider images="newProductList"></trendi-vertical-slider>
             </div>
         </div>
         <section class="col-sm-6 col-md-3 col-lg-3  slider-products module">
@@ -95,9 +95,9 @@
 
         </section>
         <div class="col-sm-6 col-md-3 col-lg-3">
-            <h3><a href="listing.html">TOP RATED</a></h3>
-            <div class="products-widget jcarousel-skin-previews vertical">
-                <trendi-vertical-slider images="topRated"></trendi-vertical-slider>
+            <h3><a href="listing.html">MOST SEEN</a></h3>
+            <div class="products-widget jcarousel-skin-previews vertical" ng-if="mostSeenList">
+                <trendi-vertical-slider images="mostSeenList"></trendi-vertical-slider>
             </div>
         </div>
     </div>

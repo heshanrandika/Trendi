@@ -262,9 +262,10 @@
 
                 scope.closeBag = function(){
                     scope.openBag = false;
-                }
+                };
 
                 scope.viewBag = function(){
+                    scope.openBag = false;
                     delete $location.$$search.itemId;
                     $location.path('main/bag');
                 }

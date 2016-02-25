@@ -294,8 +294,12 @@
             link: function(scope, elm, attrs) {
                 scope.slides = [];
                 for (var index = 0; index<scope.images.length; index+=3) {
-                    if(scope.images.length >= index+3)
+                    if(scope.images.length >= index+3){
                         scope.slides.push(scope.images.slice(index,index+3));
+                    }else{
+                        scope.slides.push(scope.images);
+                    }
+
                 }
                 scope.$on('repeated', function(ngRepeatFinishedEvent) {
                     elm.ready(function () {

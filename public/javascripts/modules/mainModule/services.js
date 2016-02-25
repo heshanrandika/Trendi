@@ -15,8 +15,8 @@
             return Data_Comm.postPromise(angular.extend({},mainServiceCalls.getPromotionListDao()));
         };
 
-        var _getMostTrendyItems = function(){
-            return Data_Comm.postPromise(angular.extend({},mainServiceCalls.getMostTrendyListDao()));
+        var _getMostTrendyItems = function(d){
+            return Data_Comm.postPromise(angular.extend({params:d},mainServiceCalls.getMostTrendyListDao()));
         };
 
         var _getBlogList = function(){
@@ -27,16 +27,16 @@
             return Data_Comm.postPromise(angular.extend({params:d},mainServiceCalls.getShopDao()));
         };
 
-        var _getOnSaleList = function(){ //TODO
-            return Data_Comm.postPromise(angular.extend({},mainServiceCalls.getOnSaleListDao()));
+        var _getOnSaleList = function(d){ //TODO
+            return Data_Comm.postPromise(angular.extend({params:d},mainServiceCalls.getOnSaleListDao()));
         };
 
-        var _getNewProductList = function(){ //TODO
-            return Data_Comm.postPromise(angular.extend({},mainServiceCalls.getNewProductListDao()));
+        var _getNewProductList = function(d){ //TODO
+            return Data_Comm.postPromise(angular.extend({params:d},mainServiceCalls.getNewProductListDao()));
         };
 
-        var _getTopRatedList = function(){ //TODO
-            return Data_Comm.postPromise(angular.extend({},mainServiceCalls.getTopRatedListDao()));
+        var _getMostSeen = function(d){ //TODO
+            return Data_Comm.postPromise(angular.extend({params:d},mainServiceCalls.getMostSeenDao()));
         };
 
         var _getShopList = function(d){
@@ -104,7 +104,7 @@
             getShop:_getShop,
             getOnSaleList:_getOnSaleList,
             getNewProductList:_getNewProductList,
-            getTopRatedList:_getTopRatedList,
+            getMostSeen:_getMostSeen,
             getShopList:_getShopList,
             getSearchList:_getSearchList,
             getItemCount:_getItemCount,

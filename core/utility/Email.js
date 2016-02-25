@@ -20,7 +20,7 @@ function sendMail(user,callback) {
         '</td></tr></tbody></table><table style="padding:0px 0 40px 0;width:80%;margin:auto" border="0" cellpadding="0" cellspacing="0" align="center"><tbody><tr><td style="color:#9d9d9a;text-align:center;font-size:13px;line-height:20px" align="center">For help, please email us at <a href="trendi2015@gmail.com" style="text-decoration:none" target="_blank"><span style="color:#4d4d4a">trendi2015@gmail.com</span>.'+
         '</a></td></tr></tbody></table></td></tr></tbody></table><table border="0" cellpadding="0" cellspacing="0" align="center" style="margin:auto">'+
         '<tbody><tr><td style="color:#9a9a93;font-size:11px;padding-bottom:30px;text-align:center"><tr style="margin:auto;width:35px;text-align:center" align="center"><td><img src="./Password Reset Request - h.r.randika@gmail.com - Gmail_files/DHgFofluCjQ7--Y2gdGKojrkU3hRV-Z6I0ouR6K6yfldVhl6P5671CslNJt3iyE838I1kWUAXiWklf5x9F0YLah8RvwrhotPnobFvMFIWlqm8R07=s0-d-e1-ft" alt="" style="padding-top:20px" class="CToWUd"></td></tr>'+
-        '</tbody></table></td></tr></tbody></table><div class="yj6qo"></div><div class="adL">'
+        '</tbody></table></td></tr></tbody></table><div class="yj6qo"></div><div class="adL">';
 
     var generator = require('xoauth2').createXOAuth2Generator({
         user: "trendi2015@gmail.com", // Your gmail address.

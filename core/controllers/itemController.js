@@ -38,8 +38,7 @@ function getLatestItems(req,callback){
     });
 };
 
-
-function getItemByShop(req,callback){
+/*function getItemByShop(req,callback){
     console.log("$$$$$$$  Get Items by Shop $$$$$$");
     var params = (req.body.params) ? req.body.params : {};
 
@@ -60,8 +59,7 @@ function getItemByShop(req,callback){
     dbCon.on('end', function(){
         callback(null,data);
     });
-};
-
+};*/
 
 function adminGetItemList(req,callback){
     console.log("$$$$$$$  Get Items by Shop $$$$$$");
@@ -123,7 +121,7 @@ function getMostTrendyItems(req,callback){
 
     var skip = params.skip;
     var limit = params.limit;
-    var sorter = [["item.seen",-1],["item.like",-1],["item.trend",-1]];
+    var sorter = [["item.seen",-1],["item.rate.hit",-1],["item.trend",-1]];
 
     var option = {skip:skip, limit:limit, sort:sorter};
     var query = "";
@@ -137,7 +135,6 @@ function getMostTrendyItems(req,callback){
         callback(null,data);
     });
 };
-
 
 function getMainItemList(req,callback){
     console.log("$$$$$$$  Get Main Item List $$$$$$");
@@ -172,7 +169,7 @@ function getMainItemList(req,callback){
         skip = 0;
         limit = 5;
         query = {$and: [ {'item.onSale' : { $exists : false }}, {"itemId": { $nin: idArray }} ]};
-        sorter = [["item.like",-1],["item.trend",-1]];
+        sorter = [["item.rate.hit",-1],["item.trend",-1]];
         option = {skip:skip, limit:limit, sort:sorter};
         var dbCon = daf.FindWithSorting(query,CONSTANT.MAIN_ITEM_COLLECTION,option);
         dbCon.on('data', function(doc){
@@ -182,7 +179,7 @@ function getMainItemList(req,callback){
 
         dbCon.on('end', function(){
             query = {$and: [ {'item.onSale' : true}, {"itemId": { $nin: idArray }} ]};
-            sorter = [["item.like",-1],["item.trend",-1]];
+            sorter = [["item.rate.hit",-1],["item.trend",-1]];
             option = {skip:skip, limit:limit, sort:sorter};
             var dbCon = daf.FindWithSorting(query,CONSTANT.MAIN_ITEM_COLLECTION,option);
             dbCon.on('data', function(doc){
@@ -254,7 +251,7 @@ function getSearchItemList(req,callback){
 
     query = {$and: [ {'item.onSale' : { $exists : false }}]};
     query.$and = query.$and.concat(filter);
-    sorter = [["item.like",-1],["item.trend",-1]];
+    sorter = [["item.rate.hit",-1],["item.trend",-1]];
     option = {skip:skip, limit:limit, sort:sorter};
     var dbCon = daf.FindWithSorting(query,CONSTANT.MAIN_ITEM_COLLECTION,option);
     dbCon.on('data', function(doc){
@@ -265,7 +262,7 @@ function getSearchItemList(req,callback){
     dbCon.on('end', function(){
         query = {$and: [ {'item.onSale' : true}]};
         query.$and = query.$and.concat(filter);
-        sorter = [["item.like",-1],["item.trend",-1]];
+        sorter = [["item.rate.hit",-1],["item.trend",-1]];
         option = {skip:skip, limit:limit, sort:sorter};
         var dbCon = daf.FindWithSorting(query,CONSTANT.MAIN_ITEM_COLLECTION,option);
         dbCon.on('data', function(doc){
@@ -295,7 +292,6 @@ function getSearchItemList(req,callback){
 
 };
 
-
 function getCommonItemList(req,callback){
     console.log("$$$$$$$  GetMostTrendyItems $$$$$$");
     var params = (req.body.params) ? req.body.params : {};
@@ -311,17 +307,17 @@ function getCommonItemList(req,callback){
 
     switch (type){
         case CONSTANT.ON_SALE:
-            query = {"mainItem.onSale":1};
-            sorter = [["mainItem.trend",-1]];
+            query = {"item.onSale":true};
+            sorter = [["item.trend",-1]];
             break;
 
         case CONSTANT.NEW_PRODUCT:
-            query = {"mainItem.onSale":0};
-            sorter = [["mainItem.trend",-1]];
+            query = {'item.onSale' : { $exists : false }};
+            sorter = [["item.trend",-1]];
             break;
-        case CONSTANT.TOP_RATED:
-            query = {"mainItem.onSale":0};
-            sorter = [["mainItem.trend",-1],["mainItem.like",-1]];
+        case CONSTANT.MOST_SEEN:
+            query = {'item.onSale' : { $exists : false }};
+            sorter = [["item.trend",-1],["item.rate.hit",-1]];
             break;
 
         default :break;
@@ -337,8 +333,6 @@ function getCommonItemList(req,callback){
         callback(null,data);
     });
 };
-
-
 
 function getSubItem(req,callback){
     var params = (req.body.params) ? req.body.params : {};
@@ -525,7 +519,6 @@ function removeItem(req,callback){
 
 };
 
-
 function getItemCountByTags(req,callback){
     var params = (req.body.params) ? req.body.params : {};
     var category = params.category;
@@ -557,7 +550,6 @@ function getItemCountByTags(req,callback){
     });
 
 };
-
 
 function getMainItem(req,callback){
     var params = (req.body.params) ? req.body.params : {};
@@ -619,7 +611,6 @@ function setRating(req,callback){
 };
 
 module.exports.GetLatestItem = getLatestItems;
-module.exports.GetItemByShop = getItemByShop;
 module.exports.GetMostTrendyItems = getMostTrendyItems;
 module.exports.AddItems = addItems;
 module.exports.GetSubItem = getSubItem;

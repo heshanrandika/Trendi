@@ -62,7 +62,7 @@
             return angular.extend({functionId: MAIN_MOD_CONFIG.REQ_CONFIG.FUNC_GetCommonItemList}, _getCObj());
         };
 
-        serviceCalls.getTopRatedListDao = function () {
+        serviceCalls.getMostSeenDao = function () {
             return angular.extend({functionId: MAIN_MOD_CONFIG.REQ_CONFIG.FUNC_GetCommonItemList}, _getCObj());
         };
 

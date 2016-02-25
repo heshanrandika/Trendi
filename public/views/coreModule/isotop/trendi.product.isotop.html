@@ -24,31 +24,26 @@
                     <div id="{{x.itemId}}" class="preview animate scale"> <a class="preview-image"><img ng-click="openItem(x)" class="img-responsive animate scale" ng-src="{{x.item.image}}" width="270" height="328" alt=""></a>
                         <ul class="product-controls-list right" ng-if="x.item.onSale" >
                             <li><span class="label label-sale">SALE</span></li>
-                            <li><span class="label">-20%</span></li>
+                            <li><span class="label">-{{x.item.discount}}%</span></li>
                         </ul>
                         <ul class="product-controls-list right hide-right">
                             <li class="top-out"></li>
-                            <li><a href="#" class="circle"><span class="icon-facebook"></span></a></li>
-                            <li><a href="#" class="circle"><span class="icon-justice"></span></a></li>
-                            <li><a href="#" class="circle"><span class="icon-basket"></span></a></li>
+                            <li><a class="circle"><span class="icon-facebook"></span></a></li>
+                            <li><a class="circle"><span class="icon-justice"></span></a></li>
+                            <li><a class="circle"><span class="icon-basket"></span></a></li>
                         </ul>
                         <a class="quick-view  fancybox fancybox.ajax hidden-xs"> <span class="rating"><trendi-star-bar rate-object="x.item.rate" category="item" object-id="x.itemId"></trendi-star-bar> </span><span class="icon-zoom-in-2"></span> Quick View</a>
 
                     </div>
-                    <h3 class="title"><a href="#">#{{x.itemId}} {{x.item.name}}</a></h3>
+                    <h3 class="title"><a>#{{x.itemId}} {{x.item.name}}</a></h3>
                     <div class="product-options-outer">
                         <div class="product-options"><span ng-repeat="color in x.item.colors"> <i  class="icon icon-color" ng-style="{'background':color.color}"></i></span> </div>
                     </div>
                 <span class="price old" ng-if="x.item.onSale">Rs {{x.item.price}}</span> <span class="price new">Rs {{(x.item.price)*(100-x.item.discount)/100}}</span>
                 <div class="list_description">{{x.item.description}}</div>
                 <!--buttons-->
-                <div class="list_buttons"> <a class="btn btn-mega pull-left" href="#">More...</a>
-                    <div class="add-to-links">
-                        <ul>
-                            <li> <a  href="#"><i class="icon-heart"></i></a> <a  href="#">Add to Wish List</a> </li>
-                            <li> <a  href="#"><i class="icon-justice"></i></a> <a  href="#">Add to Compare</a> </li>
-                        </ul>
-                    </div>
+                <div class="list_buttons" ng-hide="selector">
+                    <trendi-watch-list-add item-id="x.itemId"></trendi-watch-list-add>
                 </div>
 
             </div>
