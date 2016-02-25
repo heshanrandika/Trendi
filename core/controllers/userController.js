@@ -87,12 +87,19 @@ function removeItemFromList(req,callback){
 function getListItem(req,callback){
     var params = (req.body.params) ? req.body.params : {};
     var email = req.body.email;
+    var all =  params.all;
     var query = {email:email};
     var results = [];
 
     daf.FindOne(query,CONSTANT.USER_COLLECTION, function(err , data){
         if(data){
-            var itemList = data.watchList.reverse().slice(0,3);
+            var itemList = [];
+            if(all){
+                itemList = data.watchList.reverse();
+            }else{
+                itemList = data.watchList.reverse().slice(0,3);
+            }
+            
             query = {'itemId':{$in:itemList}};
             var dbCon = daf.Find(query,CONSTANT.MAIN_ITEM_COLLECTION);
             dbCon.on('data', function(doc){

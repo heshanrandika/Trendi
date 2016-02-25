@@ -229,7 +229,7 @@
         };
     }]);
 
-    mod.directive('trendiBag',['mainDataService','Login.Window',function(mainDataService, Login_Window){
+    mod.directive('trendiBag',['mainDataService','Login.Window','$location',function(mainDataService, Login_Window, $location){
         return{
             restrict:'E',
             templateUrl:'/views/mainModule/directiveViews/main.bag.small.html',
@@ -240,7 +240,7 @@
 
                 scope.loadItem = function(){
                     scope.listSize = scope.user.watchList.length;
-                    mainDataService.getWatchList().then(function(response){
+                    mainDataService.getWatchList({all:false}).then(function(response){
                         scope.itemList = response.data.responData.data;
                     },function(){
                     });
@@ -262,6 +262,11 @@
 
                 scope.closeBag = function(){
                     scope.openBag = false;
+                }
+
+                scope.viewBag = function(){
+                    delete $location.$$search.itemId;
+                    $location.path('main/bag');
                 }
             }
         }

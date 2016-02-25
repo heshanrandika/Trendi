@@ -1,5 +1,5 @@
 <div>
-    <section class="filters-by-category clearfix">
+    <section class="filters-by-category clearfix" ng-hide="selector">
         <div class="container">
             <div class="row">
                 <uib-rating ng-model="rate" max="max" readonly="isReadonly" on-hover="hoveringOver(value)" on-leave="overStar = null" titles="['one','two','three']" aria-labelledby="default-rating"></uib-rating>

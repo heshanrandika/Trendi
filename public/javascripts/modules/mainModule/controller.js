@@ -1030,129 +1030,22 @@
     mod.controller('trendiBagController', ['$scope', '$rootScope','$state','mainDataService','$timeout','$stateParams','$location','$anchorScroll', function ($scope, $rootScope, $state, mainDataService, $timeout, $stateParams, $location, $anchorScroll) {
         $scope.selectParams = $stateParams;
         $scope.mainItemShow = false;
-        $scope.changeView = false;
-        $scope.isoRefresh = true;
         $scope.mainItems = [];
-        $scope.categoryMenu = {};
         $scope.count = 0;
         $scope.uiRef = $location.search().itemId;
-        $scope.catMenu = [];
         $scope.selectedItem = {};
         $scope.imageArray = [];
-        $scope.searchOption = {};
 
 
-        $scope.changeList = function(val){
-            $scope.isoRefresh = false;
-            if(val == 1){
-                $scope.changeView = true;
-            }else{
-                $scope.changeView = false;
-            }
-            $timeout(function () {
-                $scope.isoRefresh = true;
-            },100);
-        };
-
-
-
-
-        $scope.getCount = function(val){
-            var result = _.find( $scope.categoryMenu, function(obj){ return obj._id == val; });
-            return result?result.count:0;
-        };
-
-
-
-        $scope.createCategoryMenu = function(){
-            mainDataService.getItemMenu().then(function(response){
-                $scope.allMenu  = response.data.responData.data;
-            },function(){
-            });
-        };
-
-        $scope.getCategoryMenuData = function () {
-            mainDataService.getItemCount({category : 'all', shop : 'all'}).then(function(response){
-                $scope.categoryMenu = response.data.responData.data;
-                $scope.createCategoryMenu();
-            },function(){
-            });
-
-            mainDataService.getTagList({shop : 'all'}).then(function(response){
-                $scope.tags = response.data.responData.data;
-            },function(){
-            });
-        };
-        $scope.getCategoryMenuData();
-
-        $scope.clickMenu = function(val, category){
-            $location.path('main/products/all/'+category+'/'+val.search);
-        };
-
-        $scope.clickTag = function(val){
-            $location.path('main/search/'+val.key);
-        };
-
-
-        $scope.searchObj = {
-            skip: $scope.mainItems.length-1,
-            limit:6,
-            searchText:$scope.selectParams.term?$scope.selectParams.term:'',
-            filterMap:{}
-        };
-
-
-
-        $scope.priceChange = function(){
-            if($scope.searchOption.maxPrice){
-                $scope.searchObj.filterMap['minPrice'] = $scope.searchOption.minPrice;
-                $scope.searchObj.filterMap['maxPrice'] = $scope.searchOption.maxPrice;
-                $scope.loadData(1);
-            }
-        };
-        $scope.colorChange = function(){
-            if($scope.searchOption.color) {
-                $scope.searchObj.filterMap['color'] = $scope.searchOption.color;
-                $scope.loadData(1);
-            }
-        };
-        $scope.sizeChange = function(){
-            if($scope.searchOption.size) {
-                $scope.searchObj.filterMap['size'] = $scope.searchOption.size;
-                $scope.loadData(1);
-            }
-        };
-        $scope.$watch(function() { return $scope.searchOption.priceChange; },  $scope.priceChange);
-        $scope.$watch(function() { return $scope.searchOption.color;    },  $scope.colorChange);
-        $scope.$watch(function() { return $scope.searchOption.size;     },  $scope.sizeChange);
-
-        $scope.loadData = function(init){
-            if(init){
-                $scope.mainItems = [];
-                $scope.searchObj.skip =0;
-                $scope.mainItemShow = false;
-            }
-            $scope.loading = true;
-            mainDataService.getSearchList($scope.searchObj).then(function(response){
-                $scope.mainItems.push.apply($scope.mainItems, response.data.responData.data.list);
-                if(response.data.responData.data.count){
-                    $scope.count = response.data.responData.data.count;
-                }
-                $scope.loading = false;
+        $scope.loadData = function(){
+            $scope.mainItemShow = false;
+            mainDataService.getWatchList({all:true}).then(function(response){
+                $scope.mainItems = response.data.responData.data;
                 $scope.mainItemShow = true;
             },function(){
             });
         };
-
-        // Register event handler
-        $scope.paginationFuntion = function() {
-            $scope.searchObj.skip = $scope.searchObj.limit;
-            if ($scope.count > $scope.mainItems.length && !$scope.loading) {
-                $scope.loadData();
-            }
-        };
-
-        $scope.loadData(1);
+        $scope.loadData();
 
 
         /*+++++++++++++++++++++++++++++++++++++PRODUCT VIEW PAGE++++++++++++++++++++++++++++++++++++++++++++++*/
@@ -1172,7 +1065,6 @@
 
         $scope.isotopPagination = {
             searchFromServer: function (d) {
-                $scope.paginationFuntion();
             },
             goto: function (item) {
                 $scope.selectedItem = item;

@@ -122,7 +122,8 @@
             scope: {
                 items: '=',
                 views: '=',
-                action: '='
+                action: '=',
+                selector: '='
             },
             templateUrl: function(elem,attrs) {
                 var url = '/views/coreModule/isotop/'+(attrs.template? attrs.template : 'trendi.product.isotop')+'.html';
@@ -457,7 +458,7 @@
     }]);
 
 
-    mod.directive('trendiMobileMenu',['$state',function($state) {
+    mod.directive('trendiMobileMenu',['$location',function($location) {
         return {
             restrict: 'E',
             replace: true,
