@@ -34,6 +34,10 @@
             return angular.extend({functionId: MAIN_MOD_CONFIG.REQ_CONFIG.FUNC_GetLatestItem}, _getCObj());
         };
 
+        serviceCalls.getRelatedItemsDao = function () {
+            return angular.extend({functionId: MAIN_MOD_CONFIG.REQ_CONFIG.FUNC_GetRelatedItems}, _getCObj());
+        };
+
         serviceCalls.getMainItemListDao = function () {
             return angular.extend({functionId: MAIN_MOD_CONFIG.REQ_CONFIG.FUNC_GetMainItemList}, _getCObj());
         };
@@ -120,6 +124,30 @@
 
         serviceCalls.getWatchListDao = function () {
             return angular.extend({functionId: MAIN_MOD_CONFIG.REQ_CONFIG.FUNC_GetWatchList}, _getCObj());
+        };
+  
+        serviceCalls.getMessageListDao = function () {
+            return angular.extend({functionId: MAIN_MOD_CONFIG.REQ_CONFIG.FUNC_GetMessageList}, _getCObj());
+        };
+
+        serviceCalls.sendMessageDao = function () {
+            return angular.extend({functionId: MAIN_MOD_CONFIG.REQ_CONFIG.FUNC_SendMessage}, _getCObj());
+        };
+
+        serviceCalls.replyMessageDao = function () {
+            return angular.extend({functionId: MAIN_MOD_CONFIG.REQ_CONFIG.FUNC_ReplyMessage}, _getCObj());
+        };
+
+        serviceCalls.updateMessageDao = function () {
+            return angular.extend({functionId: MAIN_MOD_CONFIG.REQ_CONFIG.FUNC_UpdateMessage}, _getCObj());
+        };
+
+        serviceCalls.getUnreadMessageListDao = function () {
+            return angular.extend({functionId: MAIN_MOD_CONFIG.REQ_CONFIG.FUNC_GetUnreadMessageList}, _getCObj());
+        };
+
+        serviceCalls.getMessageCountDao = function () {
+            return angular.extend({functionId: MAIN_MOD_CONFIG.REQ_CONFIG.FUNC_GetMessageCount}, _getCObj());
         };
 
         serviceCalls.getSocketLogoutDao = function () {

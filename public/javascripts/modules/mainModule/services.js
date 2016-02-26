@@ -5,6 +5,10 @@
     mod.service('mainDataService',['$window','Data.Comm','mainServiceCalls',function($window, Data_Comm,mainServiceCalls){
         var _getLatestItem = function(d){
             return Data_Comm.postPromise(angular.extend({params:d},mainServiceCalls.getLatestItemDao()));
+        }; 
+
+        var _getRelatedItem = function(d){
+            return Data_Comm.postPromise(angular.extend({params:d},mainServiceCalls.getRelatedItemsDao()));
         };
 
         var _getMainItemList = function(d){
@@ -95,8 +99,33 @@
             return Data_Comm.postPromise(angular.extend({params:d},mainServiceCalls.removeFromWatchListDao()));
         };
 
+        var _getMessageList = function(d){
+            return Data_Comm.postPromise(angular.extend({params:d},mainServiceCalls.getMessageListDao()));
+        };
+
+        var _sendMessage = function(d){
+            return Data_Comm.postPromise(angular.extend({params:d},mainServiceCalls.sendMessageDao()));
+        };
+
+        var _replyMessage = function(d){
+            return Data_Comm.postPromise(angular.extend({params:d},mainServiceCalls.replyMessageDao()));
+        };
+
+        var _updateMessage = function(d){
+            return Data_Comm.postPromise(angular.extend({params:d},mainServiceCalls.updateMessageDao()));
+        };
+
+        var _getUnreadMessageList = function(d){
+            return Data_Comm.postPromise(angular.extend({params:d},mainServiceCalls.getUnreadMessageListDao()));
+        };
+
+        var _getMessageCount = function(d){
+            return Data_Comm.postPromise(angular.extend({params:d},mainServiceCalls.getMessageCountDao()));
+        };
+
         return{
             getLatestItem:_getLatestItem,
+            getRelatedItem:_getRelatedItem,
             getMainItemList:_getMainItemList,
             getPromotionList:_getPromotionList,
             getMostTrendyItems:_getMostTrendyItems,
@@ -118,7 +147,13 @@
             removeComment:_removeComment,
             addToWatchList:_addToWatchList,
             getWatchList:_getWatchList,
-            removeFromWatchList:_removeFromWatchList
+            removeFromWatchList:_removeFromWatchList,
+            getMessageList:_getMessageList,
+            sendMessage:_sendMessage,
+            replyMessage:_replyMessage,
+            updateMessage:_updateMessage,
+            getUnreadMessageList:_getUnreadMessageList,
+            getMessageCount:_getMessageCount
         }
     }]);
 })(com.TRENDI.CATEGORY.modules.mainTrendiModule);

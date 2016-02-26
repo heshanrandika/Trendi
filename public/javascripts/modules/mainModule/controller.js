@@ -397,6 +397,7 @@
                 $location.search('itemId', item.itemId);
                 $scope.scrollTo('back-btn');
                 $scope.getDirection();
+                $scope.getRelatedItems($scope.selectedItem);
             }
 
         };
@@ -414,6 +415,7 @@
                     $scope.imageSelect(0);
                     $scope.loadSubItem(id);
                     $scope.getDirection();
+                    $scope.getRelatedItems($scope.selectedItem);
                 },function(){
                 });
             }
@@ -494,12 +496,15 @@
         };
 
         //get related items
-        mainDataService.getLatestItem({skip:0,limit:16}).then(function(response){
+        $scope.getRelatedItems = function(item){
+            mainDataService.getLatestItem({skip:0,limit:16, searchText : item.searchText, group:item.group}).then(function(response){
             $scope.relatedItems = response.data.responData.data;
             $scope.relatedItemsShow = true;
         }, function(error){
             $scope.relatedItemsShow = false;
         });
+        }
+        
 
 
         $scope.getDirection = function() {
@@ -1054,6 +1059,21 @@
                 $scope.mainItemShow = true;
             },function(){
             });
+
+            mainDataService.getNewProductList({skip:0, limit:18, type:2}).then(function(response){
+                $scope.newProductList = response.data.responData.data;
+            }, function(error){
+            });
+
+            mainDataService.getOnSaleList({skip:0, limit:18, type:1}).then(function(response){
+                $scope.onSaleList = response.data.responData.data;
+            }, function(error){
+            });
+
+            mainDataService.getMostSeen({skip:0,tlimit:18, type:3}).then(function(response){
+                $scope.mostSeenList = response.data.responData.data;
+            }, function(error){
+            });
         };
         $scope.loadData();
 
@@ -1208,6 +1228,231 @@
             }
         };
 
+
+
+    }]);  mod.controller('trendiMessageController', ['$scope', '$rootScope','$state','mainDataService','$timeout','$stateParams','$mdMedia','$mdDialog', 'Login.Window', function ($scope, $rootScope, $state, mainDataService, $timeout, $stateParams, $mdMedia, $mdDialog, Login_Window) {
+       $scope.unreadCount = 0;
+        $scope.draftCount = 0;
+        $scope.userDetails = {};
+
+        var inbox = 'INBOX';
+        var draft = 'DRAFTS';
+        var sent = 'SENT';
+        var itemPerPage = 10;
+        $scope.messageList =[];
+
+
+
+
+
+        $scope.userDetails = Login_Window.checkUser();
+        var userDetails = $scope.userDetails;
+        $scope.format = function(from, mail){
+            if($scope.userDetails.email.trim() == from.trim()){
+                return "me"+(undefined == mail.REPLY?'':" ("+mail.REPLY.length+")");
+            }else{
+                return from+(undefined == mail.REPLY?'':" ("+mail.REPLY.length+")");
+            }
+        };
+
+
+
+        $scope.searchObj = {
+            skip: $scope.messageList.length,
+            limit:itemPerPage,
+            searchKey:'',
+            searchValue:'',
+            type: inbox
+        };
+
+
+        $scope.getCounts = function(){
+            mainDataService.getMessageCount({type:inbox, read:true}).then(function(response){
+                $scope.unreadCount = response.data.responData.data.count;
+                mainDataService.getMessageCount({type:draft}).then(function(response){
+                    $scope.draftCount = response.data.responData.data.count;
+                },function(){
+                    $scope.draftCount = 0;
+                });
+            },function(){
+                $scope.unreadCount = 0;
+            });
+
+
+        };
+        $scope.getCounts();
+
+        $scope.changeStatus = function(data){
+            if(!data.read){
+                mainDataService.updateMessage(data).then(function(response){
+                    data.read = true;
+                    $scope.getCounts();
+                },function(){
+                    data.read = false;
+                });
+            }
+        };
+
+        $scope.loadData = function(init){
+            if(init){
+                $scope.messageList = [];
+                $scope.searchObj.skip =0;
+            }
+            $scope.loading = true;
+            mainDataService.getMessageList($scope.searchObj).then(function(response){
+                $scope.messageList.push.apply($scope.messageList, response.data.responData.data.list);
+                if(response.data.responData.data.count){
+                    $scope.count = response.data.responData.data.count;
+                }
+                $scope.loading = false;
+            },function(){
+                $scope.messageList = [];
+            });
+
+
+        };
+
+        $scope.paginationFuntion = function() {
+            $scope.searchObj.skip = $scope.messageList.length;
+            if ($scope.count > $scope.messageList.length  && !$scope.loading) {
+                $scope.loadData();
+            }
+        };
+
+
+
+
+        $scope.selectTab = function(tab){
+            $scope.selectedTab = tab;
+            switch (tab){
+                case 0:
+                    $scope.currentTab = 'Inbox';
+                    $scope.searchObj.type =  inbox;
+                    break;
+                case 1:
+                    $scope.currentTab = 'Sent';
+                    $scope.searchObj.type =  sent;
+                    break;
+                case 2:
+                    $scope.currentTab = 'Draft';
+                    $scope.searchObj.type =  draft;
+                    break;
+            }
+            $scope.loadData(1);
+
+        };
+        $scope.selectTab(0);
+
+
+        $scope.composeMail = function(event, data) {
+
+            $mdDialog.show({
+                locals:{mailData: data},
+                controller: DialogController,
+                templateUrl: '/views/adminModule/extras/compose.mail.modal.html',
+                parent: angular.element(document.body),
+                targetEvent: event,
+                clickOutsideToClose:false,
+                focusOnOpen:false,
+                fullscreen: $mdMedia('sm') && $scope.customFullscreen
+            })
+                .then(function(answer) {
+
+                    mainDataService.sendMessage({message:answer}).then(function(response){
+                        $scope.loadData(1);
+                    },function(){
+                        $scope.composeMail(event, answer);
+                    });
+
+
+                }, function() {
+
+                });
+            $scope.$watch(function() {
+                return $mdMedia('sm');
+            }, function(sm) {
+                $scope.customFullscreen = (sm === true);
+            });
+        };
+
+        function DialogController($scope, $mdDialog, mailData){
+            $scope.sendClicked = true;
+            $scope.mail = {};
+            $scope.mail.to = mailData?mailData.to:'';
+            $scope.mail.subject = mailData?mailData.subject:'';
+            $scope.mail.message = mailData?mailData.message:'';
+
+            $scope.hide = function() {
+                $mdDialog.hide();
+            };
+            $scope.cancel = function() {
+                $mdDialog.cancel();
+            };
+            $scope.answer = function(answer) {
+                $scope.sendClicked = false;
+                $mdDialog.hide(answer);
+            };
+
+        }
+
+
+        $scope.replyMailClick = function(event, data, type, rplyMsg) {
+            if(type == 0){
+                $scope.changeStatus(data);
+            }
+            $mdDialog.show({
+                locals:{mailData: data, type:type, rplyMsg:rplyMsg},
+                controller: ReplyDialogController,
+                templateUrl: '/views/adminModule/extras/reply.mail.modal.html',
+                parent: angular.element(document.body),
+                targetEvent: event,
+                clickOutsideToClose:false,
+                focusOnOpen:false,
+                fullscreen: $mdMedia('sm') && $scope.customFullscreen
+            })
+                .then(function(answer) {
+                    mainDataService.replyMessage({message:answer}).then(function(response){
+                        $scope.loadData(1);
+                    },function(){
+                        $scope.replyMailClick(answer, event, type, rplyMsg);
+                    });
+
+
+                }, function() {
+
+                });
+            $scope.$watch(function() {
+                return $mdMedia('sm');
+            }, function(sm) {
+                $scope.customFullscreen = (sm === true);
+            });
+        };
+
+        function ReplyDialogController($scope, $mdDialog, mailData, type, rplyMsg){
+            $scope.replyClicked = true;
+            $scope.rplyMail = mailData?mailData:{};
+            $scope.replyMail = {};
+            $scope.replyMail.replyId = mailData?mailData.id:'';
+            if(userDetails.email.trim() == mailData.from.trim()){
+                $scope.replyMail.to = mailData?mailData.to:'';
+            }else{
+                $scope.replyMail.to = mailData?mailData.from:'';
+            }
+
+            $scope.replyMail.message = rplyMsg?rplyMsg:'';
+
+            $scope.hide = function() {
+                $mdDialog.hide();
+            };
+            $scope.cancel = function() {
+                $mdDialog.cancel();
+            };
+            $scope.answer = function(answer) {
+                $scope.replyClicked = false;
+                $mdDialog.hide(answer);
+            };
+
+        }
 
 
     }]);

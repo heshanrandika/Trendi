@@ -10,9 +10,22 @@
 
                     <div class="section-divider"></div>
                     <section>
-                        <!-- Add new section -->
+                        <h3><a>ON SALE</a></h3>
+                        <div class="products-widget jcarousel-skin-previews vertical" ng-if="onSaleList">
+                            <trendi-vertical-slider images="onSaleList"></trendi-vertical-slider>
+                        </div>
+                        <div class="section-divider"></div>
+                        <h3><a>NEW PRODUCTS</a></h3>
+                        <div class="products-widget jcarousel-skin-previews vertical" ng-if="newProductList">
+                            <trendi-vertical-slider images="newProductList"></trendi-vertical-slider>
+                        </div>
+                        <div class="section-divider"></div>
+                        <h3><a>MOST SEEN</a></h3>
+                        <div class="products-widget jcarousel-skin-previews vertical" ng-if="mostSeenList">
+                            <trendi-vertical-slider images="mostSeenList"></trendi-vertical-slider>
+                        </div>
+                        <div class="section-divider"></div>
                     </section>
-                    <div class="section-divider"></div>
 
                 </aside>
                 <section class="col-sm-8 col-md-9 col-lg-9 content-center">

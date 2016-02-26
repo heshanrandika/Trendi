@@ -1,0 +1,81 @@
+<div>
+    <md-content class="md-padding">
+        <div class="container">
+            <h3 class="page-title">
+                MESSAGE
+                <small>Happy &nbsp <span class="fa fa-cart-plus"></span> &nbsp Me</small>
+            </h3>
+
+            <div class="raw message-container">
+                <div class="col-md-3 message">
+                    <md-button  class="md-raised md-primary" ng-click="composeMail($event)">
+                        COMPOSE
+                    </md-button>
+                    <ul class="list-group ">
+                        <li class="list-group-item" ng-class="selectedTab == 0?'message-select-li':''" ng-click="selectTab(0)">
+                            <a><i class="fa fa-inbox"></i> Inbox <span class="label label-danger pull-right" ng-if="unreadCount > 0">{{unreadCount}}</span></a>
+                        </li>
+                        <li class="list-group-item" ng-class="selectedTab == 1?'message-select-li':''" ng-click="selectTab(1)">
+                            <a><i class="fa fa-envelope"></i> Sent Mail</a>
+                        </li>
+                        <li class="list-group-item" ng-class="selectedTab == 2?'message-select-li':''" ng-click="selectTab(2)">
+                            <a><i class="fa fa-external-link"></i> Drafts <span class="label label-info pull-right" ng-if="draftCount > 0">{{draftCount}}</span></a>
+                        </li>
+                    </ul>
+
+                </div>
+                <aside class="col-md-9">
+                    <span>
+                        {{currentTab}}
+                    </span>
+                    <div class="inbox-head">
+                        <div class="mail-option">
+                            <div class="btn-group">
+                                <a class="btn mini tooltips" ng-click="loadData(1)" data-original-title="Refresh">
+                                    <i class=" fa fa-refresh"></i>
+                                </a>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="inbox-body no-pad">
+
+                        <table class="table table-inbox table-hover" ng-if="selectedTab == 0">
+                            <tbody infinite-scroll='paginationFuntion()' infinite-scroll-distance='0.01'>
+                            <tr ng-repeat="message in messageList"  ng-class="message.read?'':'unread'" ng-click="replyMailClick($event, message, 0)">
+                                <td class="inbox-small-cells"><i class="fa fa-star inbox-started"></i></td>
+                                <td class="view-message  dont-show">{{format(message.from, message)}}</td>
+                                <td class="view-message ">{{message.subject}}</td>
+                                <td class="view-message  text-right">{{message.date | date:'short'}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+                        <table class="table table-inbox table-hover" ng-if="selectedTab == 1">
+                            <tbody infinite-scroll='paginationFuntion()' infinite-scroll-distance='0.01'>
+                            <tr ng-repeat="message in messageList" ng-click="replyMailClick($event, message, 1)">
+                                <td class="inbox-small-cells"><i class="fa fa-star inbox-started"></i></td>
+                                <td class="view-message  dont-show">{{format(message.to, message)}}</td>
+                                <td class="view-message ">{{message.subject}}</td>
+                                <td class="view-message  text-right">{{message.date | date:'short'}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+                        <table class="table table-inbox table-hover" ng-if="selectedTab == 2">
+                            <tbody infinite-scroll='paginationFuntion()' infinite-scroll-distance='0.01'>
+                            <tr ng-repeat="message in messageList"  ng-class="message.read?'':'unread'" ng-click="replyMailClick($event, message, 2)">
+                                <td class="inbox-small-cells"><i class="fa fa-star inbox-started"></i></td>
+                                <td class="view-message  dont-show">{{message.to}}</td>
+                                <td class="view-message ">{{message.subject}}</td>
+                                <td class="view-message  text-right">{{message.date | date:'short'}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </aside>
+            </div>
+
+        </div>
+    </md-content>
+</div>

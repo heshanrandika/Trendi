@@ -40,6 +40,12 @@
                 templateUrl: 'views/mainModule/main.bag.html',
                 controller: 'trendiBagController'
 
+            },
+            'main.message': {
+                url: '/message',
+                templateUrl: 'views/mainModule/main.message.html',
+                controller: 'trendiMessageController'
+
             }
 
         },REQ_CONFIG: {
@@ -60,7 +66,7 @@
             FUNC_GetShop:               2004,
             FUNC_GetPromotionList:      3000,
             FUNC_GetRatedPromotionList: 3001,
-            FUNC_GetPromotion:          3005,
+            FUNC_GetPromotion:          3005,   
             FUNC_GetBlogList:           6000,
             FUNC_GetTagList:            7001,
             FUNC_AddComment:            8000,
@@ -68,7 +74,13 @@
             FUNC_GetCommentList:        8002,
             FUNC_AddToWatchList:        9000,
             FUNC_RemoveFromWatchList:   9001,
-            FUNC_GetWatchList:          9002
+            FUNC_GetWatchList:          9002,
+            FUNC_GetMessageList  :      5000,
+            FUNC_SendMessage:           5001,
+            FUNC_ReplyMessage  :        5002,
+            FUNC_UpdateMessage:         5003,
+            FUNC_GetUnreadMessageList:  5004,
+            FUNC_GetMessageCount  :     5005
 
 
 

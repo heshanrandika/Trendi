@@ -360,12 +360,11 @@ function getRelatedItems(req,callback){
     var skip = params.skip;
     var limit = params.limit;
     var sorter = params.sorter;
-    var price = (params.price)? params.price : 0;
-    var name = (params.name)? params.name : '';
-    var type = (params.type)? params.type : '';
+    var searchText = (params.searchText)? params.searchText : "";
+    var group = params.group;
 
-    var option = {};
-    var query = {'name':name,'type':type,'price':price};
+    var option = [["item.rate.hit",-1],["item.trend",-1]];
+    var query = {$and: [{'$text':{ '$search': searchText}}, {'item.group': group} ]};
     var data = [];
     var dbCon = daf.FindWithPagination(query,CONSTANT.MAIN_ITEM_COLLECTION,option);
     dbCon.on('data', function(doc){
