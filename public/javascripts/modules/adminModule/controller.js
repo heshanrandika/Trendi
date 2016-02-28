@@ -599,7 +599,7 @@
             skip: $scope.shopList.length,
             limit:itemPerPage,
             searchKey:'',
-            searchValue:'',
+            searchValue:''
         };
 
         $scope.loadData = function(init){
