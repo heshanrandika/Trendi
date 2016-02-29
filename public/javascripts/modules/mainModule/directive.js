@@ -269,6 +269,12 @@
                     delete $location.$$search.itemId;
                     $location.path('main/bag');
                 }
+
+                scope.itemClicked = function (selected) {
+                $location.path('main/bag');
+                $location.search('itemId', selected.itemId);
+                scope.openBag = false;
+            }
             }
         }
     }]);

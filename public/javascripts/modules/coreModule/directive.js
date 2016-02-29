@@ -288,7 +288,8 @@
             restrict: 'E',
             replace: true,
             scope: {
-                images: '='
+                images: '=',
+                action:'='
             },
             templateUrl:'/views/coreModule/imageSlider/trendi.vertical.slider.html',
             link: function(scope, elm, attrs) {
@@ -316,6 +317,10 @@
 
 
                 })
+
+                scope.openItem = function(item) {
+                    scope.action.itemClicked(item);
+                };
             }
         };
     }]);

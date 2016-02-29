@@ -2,7 +2,7 @@
     <div id="outer-canvas">
 
         <section class="container">
-            <nav class="breadcrumbs"> Search <span class="icon-arrow-right-3"></span> {{selectParams.term}} <span class="icon-arrow-right-3"></span>{{selectParams.selected}}</nav>
+            <nav class="breadcrumbs"><a ng-click="selectedItem.itemId && backTo()"> Bag </a><span class="icon-arrow-right-3"></span> {{selectedItem.itemId?'#'+selectedItem.itemId:''}} </nav>
         </section>
         <section ng-hide="uiRef" class="container">
             <div class="row">
@@ -11,18 +11,18 @@
                     <div class="section-divider"></div>
                     <section>
                         <h3><a>ON SALE</a></h3>
-                        <div class="products-widget jcarousel-skin-previews vertical" ng-if="onSaleList">
-                            <trendi-vertical-slider images="onSaleList"></trendi-vertical-slider>
+                        <div class="products-widget jcarousel-skin-previews vertical" ng-if="onSaleList && mainItemShow">
+                            <trendi-vertical-slider images="onSaleList" action="moduleClick"></trendi-vertical-slider>
                         </div>
                         <div class="section-divider"></div>
                         <h3><a>NEW PRODUCTS</a></h3>
-                        <div class="products-widget jcarousel-skin-previews vertical" ng-if="newProductList">
-                            <trendi-vertical-slider images="newProductList"></trendi-vertical-slider>
+                        <div class="products-widget jcarousel-skin-previews vertical" ng-if="newProductList && mainItemShow">
+                            <trendi-vertical-slider images="newProductList" action="moduleClick"></trendi-vertical-slider>
                         </div>
                         <div class="section-divider"></div>
                         <h3><a>MOST SEEN</a></h3>
-                        <div class="products-widget jcarousel-skin-previews vertical" ng-if="mostSeenList">
-                            <trendi-vertical-slider images="mostSeenList"></trendi-vertical-slider>
+                        <div class="products-widget jcarousel-skin-previews vertical" ng-if="mostSeenList && mainItemShow">
+                            <trendi-vertical-slider images="mostSeenList" action="moduleClick"></trendi-vertical-slider>
                         </div>
                         <div class="section-divider"></div>
                     </section>
@@ -35,10 +35,10 @@
                             <div class="col-sm-6 col-md-4 col-lg-4"> Sort by
                                 <div class="btn-group btn-select sort-select"> <a href="#" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown"> <span class="value">Position</span> <span class="caret min"></span> </a>
                                     <ul class="dropdown-menu">
-                                        <li><a href="#" data-value="position">Position</a></li>
-                                        <li><a href="#" data-value="rating">Rating</a></li>
-                                        <li><a href="#" data-value="price">Price</a></li>
-                                        <li><a href="#" data-value="dateAdded">Date added</a></li>
+                                        <li><a data-value="position">Position</a></li>
+                                        <li><a data-value="rating">Rating</a></li>
+                                        <li><a data-value="price">Price</a></li>
+                                        <li><a data-value="dateAdded">Date added</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -51,10 +51,10 @@
                             <div class="col-sm-6 col-md-4 col-lg-4"> Sort by
                                 <div class="btn-group btn-select sort-select"> <a href="#" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown"> <span class="value">Position</span> <span class="caret min"></span> </a>
                                     <ul class="dropdown-menu">
-                                        <li><a href="#" data-value="position">Position</a></li>
-                                        <li><a href="#" data-value="rating">Rating</a></li>
-                                        <li><a href="#" data-value="price">Price</a></li>
-                                        <li><a href="#" data-value="dateAdded">Date added</a></li>
+                                        <li><a data-value="position">Position</a></li>
+                                        <li><a data-value="rating">Rating</a></li>
+                                        <li><a data-value="price">Price</a></li>
+                                        <li><a data-value="dateAdded">Date added</a></li>
                                     </ul>
                                 </div>
                         </div>

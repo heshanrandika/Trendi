@@ -94,7 +94,7 @@
 
     }]);
 
-    mod.controller('trendiMainHomeController', ['$scope', '$rootScope','$state','mainDataService', function ($scope, $rootScope, $state, mainDataService) {
+    mod.controller('trendiMainHomeController', ['$scope', '$rootScope','$state','mainDataService','$location', function ($scope, $rootScope, $state, mainDataService, $location) {
 
         $scope.slider ;
         $scope.showSlider = true;
@@ -187,6 +187,23 @@
             if(tab == 4)
                 $state.go('shop');
         }
+
+
+         $scope.moduleClick = {
+            itemClicked: function (selected) {
+                var shopId = selected.item.shop.shopId;
+                var category = "Women";
+                if(selected.item.group.women){
+                    category = "Women";
+                }else if(selected.item.group.men){
+                    category = "Men";
+                }else if(selected.item.group.kids){
+                    category = "Kids";
+                }
+                $location.path('main/products/'+shopId+'/'+category+'/'+'all');
+                $location.search('itemId', selected.itemId);
+            }
+        };
 
     }]);
 
@@ -342,7 +359,11 @@
                     $scope.count = response.data.responData.data.count;
                 }
                 $scope.loading = false;
-                $scope.mainItemShow = true;
+                if($location.search().itemId){
+                    $scope.mainItemShow = false;
+                }else{
+                    $scope.mainItemShow = true;
+                }
             },function(){
             });
         };
@@ -407,6 +428,7 @@
         //get main item when there is no selected item
         if($location.search().itemId){
             var id = parseInt($location.search().itemId);
+            $scope.mainItemShow = false;
             if(!$scope.selectedItem.item){
                 $scope.imageArray = [];
                 mainDataService.getMainItem({itemId : id}).then(function(response){
@@ -483,9 +505,15 @@
             var tmp = $scope.uiRef;
             $scope.uiRef = 0;
             $location.search({});
+            $scope.mainItemShow = true;
             $scope.scrollTo(tmp+"");
             $scope.selectedItem = {};
             $scope.showMap = false;
+        };
+
+         $scope.homeBtn= function(){
+            $location.search({});
+            $location.path('main/home');
         };
 
         //set scroll position
@@ -642,7 +670,12 @@
                     $scope.count = response.data.responData.data.count;
                 }
                 $scope.loading = false;
-                $scope.mainItemShow = true;
+                if($location.search().itemId){
+                    $scope.mainItemShow = false;
+                }else{
+                    $scope.mainItemShow = true;
+                }
+                
             },function(){
             });
         };
@@ -695,6 +728,7 @@
 
         //get main item when there is no selected item
         if($location.search().itemId){
+            $scope.mainItemShow = false;
             var id = parseInt($location.search().itemId);
             if(!$scope.selectedItem.item){
                 $scope.imageArray = [];
@@ -768,6 +802,7 @@
         $scope.backTo = function(){
             var tmp = $scope.uiRef;
             $scope.uiRef = 0;
+            $scope.mainItemShow = true;
             $location.search({});
             $scope.scrollTo(tmp+"");
             $scope.selectedItem = {};
@@ -893,7 +928,12 @@
                     $scope.count = response.data.responData.data.count;
                 }
                 $scope.loading = false;
-                $scope.mainItemShow = true;
+                if($location.search().shopId){
+                    $scope.mainItemShow = false;
+                }else{
+                    $scope.mainItemShow = true;
+                }
+                
             },function(){
             });
         };
@@ -965,6 +1005,7 @@
 
         //get main item when there is no selected item
         if($location.search().shopId){
+            $scope.mainItemShow = false;
             var id = parseInt($location.search().shopId);
             if(!$scope.selectedItem){
                 $scope.getShopData(id);
@@ -992,9 +1033,11 @@
         //back button click
         $scope.backTo = function(){
             $location.search({});
-            $scope.scrollTo($scope.selectParams.selected+"");
+            $scope.scrollTo($scope.selectedItem.shopId+"");
             $scope.selectedItem = {};
             $scope.showMap = false;
+            $scope.mainItemShow = true;
+            
         };
 
         //set scroll position
@@ -1056,7 +1099,12 @@
             $scope.mainItemShow = false;
             mainDataService.getWatchList({all:true}).then(function(response){
                 $scope.mainItems = response.data.responData.data;
-                $scope.mainItemShow = true;
+                if($location.search().itemId){
+                    $scope.mainItemShow = false;
+                }else{
+                    $scope.mainItemShow = true;
+                }
+                
             },function(){
             });
 
@@ -1076,6 +1124,23 @@
             });
         };
         $scope.loadData();
+
+
+                 $scope.moduleClick = {
+            itemClicked: function (selected) {
+                var shopId = selected.item.shop.shopId;
+                var category = "Women";
+                if(selected.item.group.women){
+                    category = "Women";
+                }else if(selected.item.group.men){
+                    category = "Men";
+                }else if(selected.item.group.kids){
+                    category = "Kids";
+                }
+                $location.path('main/products/'+shopId+'/'+category+'/'+'all');
+                $location.search('itemId', selected.itemId);
+            }
+        };
 
 
         /*+++++++++++++++++++++++++++++++++++++PRODUCT VIEW PAGE++++++++++++++++++++++++++++++++++++++++++++++*/
@@ -1115,6 +1180,7 @@
         //get main item when there is no selected item
         if($location.search().itemId){
             var id = parseInt($location.search().itemId);
+            $scope.mainItemShow = false;
             if(!$scope.selectedItem.item){
                 $scope.imageArray = [];
                 mainDataService.getMainItem({itemId : id}).then(function(response){
@@ -1187,6 +1253,7 @@
         $scope.backTo = function(){
             var tmp = $scope.uiRef;
             $scope.uiRef = 0;
+            $scope.mainItemShow = true;
             $location.search({});
             $scope.scrollTo(tmp+"");
             $scope.selectedItem = {};
