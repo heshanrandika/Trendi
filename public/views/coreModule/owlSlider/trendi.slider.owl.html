@@ -2,7 +2,7 @@
     <div ng-repeat="slide in slides" on-finish-render="repeated">
         <div class="item">
             <div class="product-preview">
-                <div class="preview animate scale"> <a  class="preview-image"><img class="img-responsive animate scale" ng-src="{{slide.item.image}}" width="270" height="328" alt=""></a>
+                <div class="preview animate scale"> <a  class="preview-image" ng-click="openItem(slide)"><img class="img-responsive animate scale" ng-src="{{slide.item.image}}" width="270" height="328" alt=""></a>
                     <ul class="product-controls-list right" ng-if="slide.item.onSale">
                         <li><span class="label label-sale">SALE</span></li>
                         <li><span class="label">-{{slide.item.discount}}%</span></li>

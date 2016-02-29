@@ -99,7 +99,8 @@
             restrict: 'E',
             replace: true,
             scope: {
-                items: '='
+                items: '=',
+                action:'='
             },
             templateUrl: '/views/coreModule/isotop/trendi.main.isotop.html',
             link: function(scope, elm, attrs) {
@@ -109,6 +110,10 @@
                         scope.$emit('iso-method', {name:'shuffle', params:null})
                     },100);
                 });
+
+                scope.openItem = function(item) {
+                    scope.action.itemClicked(item);
+                };
 
             }
         };
@@ -332,6 +337,7 @@
             replace: true,
             scope: {
                 images: '=',
+                action : '=',
                 slideSpeed : '@',
                 paginationSpeed:'@',
                 stopOnHover : '@',
@@ -350,6 +356,12 @@
             },
             link: function(scope, elm, attrs) {
                 scope.slides = scope.images;
+
+                scope.openItem = function(item) {
+                    scope.action.itemClicked(item);
+                };
+
+
                 var stopOnHover = Boolean(scope.stopOnHover)? Boolean(scope.stopOnHover) : false;
                 var slideSpeed = scope.slideSpeed? parseInt(scope.slideSpeed) : 200;
                 var items = scope.items? parseInt(scope.items) : 1;

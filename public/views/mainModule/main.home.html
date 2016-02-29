@@ -35,7 +35,7 @@
 
         <div class="row">
             <div class="product-carousel">
-                <trendi-owl-slider images="latestItems" items="4" stop-on-hover="true"  auto-play="true" navigation-display="true"></trendi-owl-slider>
+                <trendi-owl-slider images="latestItems" items="4" stop-on-hover="true"  auto-play="true" navigation-display="true" action="moduleClick"></trendi-owl-slider>
             </div>
         </div>
 
@@ -43,7 +43,7 @@
 </div>
 
 <div ng-if="mainItemShow">
-    <trendi-isotop items="mainItems"></trendi-isotop>
+    <trendi-isotop items="mainItems" action="moduleClick"></trendi-isotop>
 </div>
 
 
@@ -53,7 +53,7 @@
         <h3>BRANDS</h3>
         <div class="brands carouFredSel row">
             <div class="carouFredSel-controls">
-                <div class="carouFredSel-buttons"><a id="brands-carousel-prev" class="prev" href="#"></a><a id="brands-carousel-next" class="next" href="#"></a></div>
+                <div class="carouFredSel-buttons"><a id="brands-carousel-prev" class="prev" href="#"></a><a id="brands-carousel-next" class="next"></a></div>
             </div>
             <div class="brands-carousel">
                 <trendi-owl-slider images="brands" items="4" stop-on-hover="true" template="trendi.slider.brand" auto-play="true" navigation-display="true"></trendi-owl-slider>
@@ -90,7 +90,7 @@
             <h3><a>Trending Now</a></h3>
 
             <div class="row" ng-if="trendItemsShow">
-                <trendi-owl-slider images="trendItems" items="1" stop-on-hover="true" auto-play="true" item-display="1" navigation-display="true"></trendi-owl-slider>
+                <trendi-owl-slider images="trendItems" items="1" stop-on-hover="true" auto-play="true" item-display="1" navigation-display="true" action="moduleClick"></trendi-owl-slider>
             </div>
 
         </section>
