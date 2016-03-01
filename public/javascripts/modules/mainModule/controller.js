@@ -6,6 +6,9 @@
 
     mod.controller('trendiMainController', ['$scope', '$rootScope','$state','mainDataService','$location','Login.Window', function ($scope, $rootScope, $state, mainDataService, $location, Login_Window) {
         $scope.searchKey =  '';
+        $scope.messageList = [];
+        $scope.unreadCount = 0;
+
         $scope.homeClick = function(val){
             if($location.path().split("/")[1] == "main" && undefined == $location.path().split("/")[2]){
                 $state.go('main.home');
@@ -37,6 +40,12 @@
         $scope.searchTerm = function () {
             $location.search({});
             $location.path('main/search/'+($scope.searchKey == ''?'all':$scope.searchKey));
+        };
+
+        $scope.gotoMessage = function () {
+            $location.search({});
+            $scope.getCounts();
+            $location.path('main/message');
         };
 
         $scope.searchType = function (event) {
@@ -90,6 +99,19 @@
             {category:'Kids', search:'Skirt', value:'Skirts'}
 
         ];
+
+
+        $scope.getCounts = function(){
+            mainDataService.getMessageCount({type:'INBOX', read:true}).then(function(response){
+                $scope.unreadCount = response.data.responData.data.count;
+                $scope.messageList.push.apply($scope.messageList, response.data.responData.data.list);
+            },function(){
+                $scope.unreadCount = 0;
+            });
+
+
+        };
+        $scope.getCounts();
 
 
     }]);
@@ -1354,6 +1376,7 @@
                 mainDataService.updateMessage(data).then(function(response){
                     data.read = true;
                     $scope.getCounts();
+                     $scope.$parent.getCounts();
                 },function(){
                     data.read = false;
                 });

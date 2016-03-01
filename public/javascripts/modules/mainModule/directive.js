@@ -279,6 +279,43 @@
         }
     }]);
 
+
+    mod.directive('trendiMessageSmall',['mainDataService','Login.Window',function(mainDataService, Login_Window){
+        return{
+            restrict:'E',
+            templateUrl:'/views/mainModule/directiveViews/main.message.small.html',
+            scope:{
+                itemObj : '=',
+                shop : '='
+            },
+            link:function(scope, elm, attrs){
+                scope.user = Login_Window.checkUser();
+
+                if(scope.itemObj){
+                    scope.shopMail = scope.itemObj.item.shop.shopEmail;
+                }else if(scope.shop){
+                    scope.shopMail = scope.shop.shopEmail;
+                }
+
+                scope.openMessageFunction = function(){
+                    scope.user = Login_Window.checkUser();
+                    if(scope.user){
+                        scope.openMessage = !scope.openMessage;
+                        if(scope.openMessage){
+                            scope.loadItem();
+                        }
+                    }
+
+                };
+
+                scope.closeMessage = function(){
+                    scope.openMessage = false;
+                };
+
+            }
+        }
+    }]);
+
     mod.directive('trendiComment',['mainDataService','Login.Window',function(mainDataService, Login_Window){
         return{
             restrict:'E',

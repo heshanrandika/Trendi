@@ -1,0 +1,26 @@
+<div class="btn-group" outside-click="closeMessage()" ng-class="openMessage?'open':''"> <a  class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown" ng-click="openMessageFunction()"><span class="icon icon-envelop"></span> Contact Shop</a>
+
+    <div class="dropdown-menu pull-right shoppingcart-box" role="menu"> Shop Email - {{shopMail}}
+    	
+
+		<form novalidate="" name="commentForm">
+				<md-input-container flex>
+                    <label>Subject</label>
+                    <input ng-model="mail.subject" name="subject" type="text">
+                </md-input-container>
+
+                <md-input-container class="md-icon-float" >
+                    <!-- Use floating label instead of placeholder -->
+                    <label>Add Review</label>
+                    <input md-maxlength="200" name="description" ng-model="typedComment" ng-keyup="commentPost($event)">
+                    <div ng-messages="commentForm.description.$error">
+                        <div ng-message="md-maxlength">The review has to be less than 200 characters long.</div>
+                    </div>
+                </md-input-container>
+            </form>
+
+        <a class="btn " ng-click="viewBag()">Clear</a>
+        <a class="btn btn-mega" ng-click="viewBag()">Send</a>
+    </div>
+
+</div>

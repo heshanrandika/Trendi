@@ -9,6 +9,23 @@ var UTIL = require('./utilController');
 var _ = require('lodash');
 
 
+function sendMessage(message, callback) {
+    var toEmail = message.to.trim();
+    var fromEmail = message.from.trim();
+    daf.MInsert(message,toEmail,function(err , success){
+        if(success){
+            message.tag = 'SENT';
+        }else{
+            message.tag = 'DRAFTS';
+        }
+        message.read = true;
+        daf.MInsert(message,fromEmail,function(err , success){
+            callback(err , success);
+        });
+
+    });
+}
+
 function login(req,callback) {
     var params = (req.body.params) ? req.body.params : {};
 
@@ -89,6 +106,7 @@ function login(req,callback) {
     }
 }
 
+
 function register(req,callback) {
     var params = (req.body.params) ? req.body.params : {};
     var adminMail = (req.body.email)?req.body.email: 'trendi2015@gmail.com';
@@ -117,12 +135,16 @@ function register(req,callback) {
                             callback(("Registration Failed :" + err), null);
                         } else {
                             var messageDoc = {
+                                id : new Date().getTime()+"",
                                 from: adminMail,
                                 to: regUser.email,
-                                subject: "Test Mail",
-                                body: "Test mail from admin"
+                                subject: "Confimation Message",
+                                message : "<p>hi user,</p><p>This is a confirmation message from admin.</p><p>Admin</p>",
+                                date : new Date(),
+                                read : true,
+                                tag : 'INBOX'
                             };
-                            daf.MInsert(messageDoc, regUser.email, function (err, success) {
+                            sendMessage(messageDoc, function (err, success) {
                                 console.log("^^^^^^^  Message Added ^^^^^^^ : ");
                                 callback(err, ("Successfully Registered :" + success));
                             })
@@ -198,10 +220,14 @@ function shopRegistration(req,callback) {
                             title:{value:10 , key:'Super Admin'}
                         };
                         var messageDoc = {
-                            from:adminMail,
-                            to: regUser.email,
-                            subject: "Test Mail",
-                            body: "Test mail from admin"
+                                id :new Date().getTime()+"",
+                                from: adminMail,
+                                to: regUser.email,
+                                subject: "Confimation Message",
+                                message : "<p>hi user,</p><p>This is a confirmation message from admin.</p><p>Admin</p>",
+                                date : new Date(),
+                                read : true,
+                                tag : 'INBOX'
                         };
 
                         var bannerDoc = {
@@ -222,7 +248,7 @@ function shopRegistration(req,callback) {
                                                 callback(("Branch Registration Failed :"+err),null);
                                             }else {
                                                 console.log("^^^^^^^  Shop Added ^^^^^^^ : ");
-                                                daf.MInsert(messageDoc, regUser.email, function (err, success) {
+                                                sendMessage(messageDoc, function (err, success) {
                                                     if(err){
                                                         callback(("Message Adding Failed :"+err),null);
                                                     }else{
@@ -445,6 +471,9 @@ function authorization(req, callback) {
         }
     }
 }
+
+
+
 
 module.exports.Login = login;
 module.exports.Register = register;

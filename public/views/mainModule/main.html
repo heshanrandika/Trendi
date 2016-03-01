@@ -17,22 +17,15 @@
                             <!-- //end Logo -->
                             <!-- Secondary menu -->
                             <div class="navbar-secondary-menu pull-right hidden-xs">
-                                <div class="btn-group compact-hidden"> <a href="#"  class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown"> <span class="icon icon-vcard"></span> Account <span class="caret"></span> </a>
-                                    <ul class="dropdown-menu" role="menu">
-                                        <li><a href="#">Account</a></li>
-                                        <li><a href="#">Wishlist</a></li>
-                                        <li><a href="#">Checkout</a></li>
-                                        <li class="divider"></li>
-                                        <li><a href="login.html">Log In</a></li>
-                                        <li><a href="login.html">Sign Up</a></li>
-                                    </ul>
+                                <div class="btn-group compact-hidden"> <a  class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown"> <span class="icon icon-vcard"></span> Account </a>
                                 </div>
 
-                                <div class="btn-group compact-hidden"> <a href="#"  class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown"> <span class="icon icon-justice"></span> Compare (0) <span class="caret"></span> </a>
-                                    <div class="dropdown-menu pull-right shoppingcart-box empty" role="menu"> No items to compare </div>
+                                <div class="btn-group compact-hidden"> <a class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown" ng-click="gotoMessage()"> <span class="icon icon-envelop"></span> Message <span class="label label-info pull-right" ng-if="unreadCount > 0">{{unreadCount}}</span></a>
                                 </div>
-                                <div class="btn-group compact-hidden"> <a ng-click="loginOpen()" class="btn btn-xs btn-default dropdown-toggle">{{checkLogin()?'Logout':'Login'}}</a>
+
+                                <div class="btn-group compact-hidden"> <a class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown" ng-click="loginOpen()"> <span class="icon icon-user"></span> {{checkLogin()?'Logout':'Login'}} </a>
                                 </div>
+                               
                                 <trendi-bag></trendi-bag>
                             </div>
 
