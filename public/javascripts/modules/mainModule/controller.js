@@ -4,10 +4,14 @@
 (function (mod) {
     "use strict";
 
-    mod.controller('trendiMainController', ['$scope', '$rootScope','$state','mainDataService','$location','Login.Window', function ($scope, $rootScope, $state, mainDataService, $location, Login_Window) {
+    mod.controller('trendiMainController', ['$scope', '$rootScope','$state','mainDataService','$location','Login.Window','socket', function ($scope, $rootScope, $state, mainDataService, $location, Login_Window, socket) {
         $scope.searchKey =  '';
         $scope.messageList = [];
         $scope.unreadCount = 0;
+
+        socket.on('ticket', function(message){
+            console.log('massege recieved');
+        })
 
         $scope.homeClick = function(val){
             if($location.path().split("/")[1] == "main" && undefined == $location.path().split("/")[2]){

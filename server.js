@@ -2,6 +2,7 @@
 
 var express = require('express');
 var route  = require('./core/route/routes.js');
+var itemCtrl  = require('./core/controllers/itemController.js');
 var App = function(){
     var self = this;
 
@@ -23,6 +24,9 @@ var App = function(){
     self.app.use(bodyParser.json());
     self.app.use(methodOverride('_method'))
     self.app.use(express.static(__dirname + '/public'));
+    var server = require('http').createServer(self.app).listen(self.port);
+    var io = require('socket.io').listen(server);
+    itemCtrl.Invoke(io);
     //starting the nodejs server with express
     self.startServer = function(){
         self.app.listen(self.port, self.ipaddr, function(){

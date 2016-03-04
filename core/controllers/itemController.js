@@ -5,6 +5,7 @@ var daf = require('../persistence/MongoPersistence');
 var CONSTANT = require('../utility/Constants');
 var UTIL = require('./utilController');
 var _ = require('lodash');
+var createdSocket = '';
 
 function getLatestItems(req,callback){
     console.log("$$$$$$$  GetLatestItems $$$$$$");
@@ -137,6 +138,7 @@ function getMostTrendyItems(req,callback){
 };
 
 function getMainItemList(req,callback){
+    createdSocket.emit('ticket',{test : "gfdgg"});
     console.log("$$$$$$$  Get Main Item List $$$$$$");
     var data = [];
 
@@ -609,6 +611,12 @@ function setRating(req,callback){
     });
 };
 
+function invoke(socket_io){
+    console.log("**********************************************************************************************");
+    createdSocket = socket_io;
+        
+}
+
 module.exports.GetLatestItem = getLatestItems;
 module.exports.GetMostTrendyItems = getMostTrendyItems;
 module.exports.AddItems = addItems;
@@ -625,3 +633,4 @@ module.exports.GetItemCount = getItemCountByTags;
 module.exports.GetMainItem = getMainItem;
 module.exports.GetItemMenu = getItemMenu;
 module.exports.SetRating = setRating;
+module.exports.Invoke = invoke;
