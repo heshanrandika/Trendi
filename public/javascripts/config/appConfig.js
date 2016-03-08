@@ -21,7 +21,8 @@ window.com = {TRENDI:{CATEGORY:{modules:{}}}};
             'authModule',
             'iso.directives',
             'textAngular',
-            'ui-rangeSlider'
+            'ui-rangeSlider',
+            'angular-web-notification'
         ]
     };
 })(com.TRENDI.CATEGORY);

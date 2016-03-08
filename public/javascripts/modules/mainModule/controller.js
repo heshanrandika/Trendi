@@ -4,14 +4,29 @@
 (function (mod) {
     "use strict";
 
-    mod.controller('trendiMainController', ['$scope', '$rootScope','$state','mainDataService','$location','Login.Window','socket', function ($scope, $rootScope, $state, mainDataService, $location, Login_Window, socket) {
+    mod.controller('trendiMainController', ['$scope', '$rootScope','$state','mainDataService','$location','Login.Window','socket','webNotification', function ($scope, $rootScope, $state, mainDataService, $location, Login_Window, socket, webNotification) {
         $scope.searchKey =  '';
         $scope.messageList = [];
         $scope.unreadCount = 0;
 
         socket.on('ticket', function(message){
-            console.log('massege recieved');
-        })
+            webNotification.showNotification('Example Notification', {
+                        body: 'Notification Text...',
+                        icon: message.item.image,
+                        onClick: function onNotificationClicked() {
+                            window.alert('Notification clicked.');
+                        },
+                        autoClose: 4000
+                    }, function onShow(error, hide) {
+                        if (error) {
+                            console.log('Unable to show notification: ' + error.message);
+                        } else {
+                            setTimeout(function hideNotification() {
+                                hide();
+                            }, 5000);
+                        }
+                    });
+            })
 
         $scope.homeClick = function(val){
             if($location.path().split("/")[1] == "main" && undefined == $location.path().split("/")[2]){

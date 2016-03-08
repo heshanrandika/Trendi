@@ -138,7 +138,7 @@ function getMostTrendyItems(req,callback){
 };
 
 function getMainItemList(req,callback){
-    createdSocket.emit('ticket',{test : "gfdgg"});
+   
     console.log("$$$$$$$  Get Main Item List $$$$$$");
     var data = [];
 
@@ -187,6 +187,7 @@ function getMainItemList(req,callback){
             dbCon.on('data', function(doc){
                 doc.class = "onSale";
                 data.push(doc);
+                createdSocket.emit('ticket',doc);
             });
 
             dbCon.on('end', function(){
