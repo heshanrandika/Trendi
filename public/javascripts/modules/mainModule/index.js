@@ -15,8 +15,6 @@
 
     ns.mainTrendiModule.config(['uiGmapGoogleMapApiProvider', function (GoogleMapApi) {
             GoogleMapApi.configure({
-              /*  key: "AIzaSyBc0hlX12uRJKKte6Gk43GzMKZGS0sroJU",
-                v: '3.21',*/
                 libraries: 'weather,geometry,visualization'
             });
     }]);
