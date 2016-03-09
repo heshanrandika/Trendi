@@ -12,7 +12,7 @@
                         <div class="container">
                             <!-- Logo -->
                             <div class="navbar-logo pull-left"> <a href="index.html"><img src="images/header-logo.png" alt="Trendi"></a></div>
-                            <div class="navbar-welcome pull-left compact-hidden hidden-xs"> {{user.name?'Welcome '+user.name:''}} </div>
+                            <div class="navbar-welcome pull-left compact-hidden hidden-xs"><div class="loading"><img ng-if="user.image" ng-src="{{user.image}}" class="ajaxloader" alt="loader"></div> {{user.name?'Welcome '+user.name:''}} </div>
                             <div class="clearfix visible-sm"></div>
                             <!-- //end Logo -->
                             <!-- Secondary menu -->

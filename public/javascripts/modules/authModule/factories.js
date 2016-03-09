@@ -38,7 +38,7 @@
 
     }]);
 
-    mod.factory('Login.Window', ['$mdDialog','$mdMedia','authDataService','$localStorage',function ($mdDialog, $mdMedia, authDataService, $localStorage) {
+    mod.factory('Login.Window', ['$mdDialog','$mdMedia','authDataService','$localStorage','ngFB',function ($mdDialog, $mdMedia, authDataService, $localStorage, ngFB) {
         var _showLogin = function () {
             $mdDialog.show({
                 controller: DialogController,
@@ -73,6 +73,31 @@
                         });
 
                 };
+
+                $scope.fbLogin = function(){
+                    ngFB.login({scope: 'email,read_stream,publish_actions'}).then(
+                        function (response) {
+                            if (response.status === 'connected') {
+                                console.log('Facebook login succeeded');
+                                ngFB.api({
+                                        path: '/me',
+                                        params: {fields: 'id,name,email,picture'}
+                                }).then(
+                                    function (user) {
+                                        $scope.$storage.loginUser = {userType : 1, name:user.name, email: user.email, image:user.picture.data.url, watchList:[]};
+                                    },
+                                    function (error) {
+                                        alert('Facebook error: ' + error.error_description);
+                                    });
+                            } else {
+                                alert('Facebook login failed');
+                            }
+                        });
+                };
+
+
+
+
                 $scope.signup = function() {
                     $scope.regUser.userType = 1;
                     authDataService.registration({regUser: $scope.regUser})
