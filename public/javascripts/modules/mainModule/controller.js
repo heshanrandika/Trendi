@@ -4,13 +4,32 @@
 (function (mod) {
     "use strict";
 
-    mod.controller('trendiMainController', ['$scope', '$rootScope','$state','mainDataService','$location','Login.Window','socket','webNotification', function ($scope, $rootScope, $state, mainDataService, $location, Login_Window, socket, webNotification) {
+    mod.controller('trendiMainController', ['$scope', '$rootScope','$state','mainDataService','$location','Login.Window','socket','webNotification','$timeout', function ($scope, $rootScope, $state, mainDataService, $location, Login_Window, socket, webNotification, $timeout) {
         $scope.searchKey =  '';
         $scope.messageList = [];
         $scope.unreadCount = 0;
+        var x = 1;
 
         socket.on('ticket', function(message){
-            webNotification.showNotification('Example Notification', {
+            /*webNotification.showNotification('Example Notification', {
+                        body: 'Notification Text...',
+                        icon: message.item.image,
+                        onClick: function onNotificationClicked() {
+                            window.alert('Notification clicked.');
+                        },
+                        autoClose: 4000
+                    }, function onShow(error, hide) {
+                        if (error) {
+                            console.log('Unable to show notification: ' + error.message);
+                        } else {
+                            setTimeout(function hideNotification() {
+                                hide();
+                            }, 5000);
+                        }
+                    });*/
+            
+                $timeout(function() {
+                webNotification.showNotification('Example Notification', {
                         body: 'Notification Text...',
                         icon: message.item.image,
                         onClick: function onNotificationClicked() {
@@ -26,6 +45,9 @@
                             }, 5000);
                         }
                     });
+                }, 1000*x);
+                x++;
+
             })
 
         $scope.homeClick = function(val){
@@ -85,6 +107,28 @@
         $scope.checkLogin = function () {
             $scope.user =  Login_Window.checkUser();
             return $scope.user
+        };
+
+        $scope.testNoti = function () {
+              webNotification.showNotification('Example Notification', {
+                    body: 'Notification Text...',
+                    icon: '../bower_components/HTML5-Desktop-Notifications2/alert.ico',
+                    onClick: function onNotificationClicked() {
+                        console.log('Notification clicked.');
+                    },
+                    autoClose: 4000 //auto close the notification after 4 seconds (you can manually close it via hide function)
+                }, function onShow(error, hide) {
+                    if (error) {
+                        window.alert('Unable to show notification: ' + error.message);
+                    } else {
+                        console.log('Notification Shown.');
+
+                        setTimeout(function hideNotification() {
+                            console.log('Hiding notification....');
+                            hide(); //manually close the notification (you can skip this if you use the autoClose option)
+                        }, 5000);
+                    }
+                });
         };
 
         $scope.womenMenu = [
