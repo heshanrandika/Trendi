@@ -8,25 +8,9 @@
         $scope.searchKey =  '';
         $scope.messageList = [];
         $scope.unreadCount = 0;
-        var x = 1;
+        var notifyCount = 1;
 
         socket.on('ticket', function(message){
-            /*webNotification.showNotification('Example Notification', {
-                        body: 'Notification Text...',
-                        icon: message.item.image,
-                        onClick: function onNotificationClicked() {
-                            window.alert('Notification clicked.');
-                        },
-                        autoClose: 4000
-                    }, function onShow(error, hide) {
-                        if (error) {
-                            console.log('Unable to show notification: ' + error.message);
-                        } else {
-                            setTimeout(function hideNotification() {
-                                hide();
-                            }, 5000);
-                        }
-                    });*/
             
                 $timeout(function() {
                 webNotification.showNotification('Example Notification', {
@@ -45,10 +29,15 @@
                             }, 5000);
                         }
                     });
-                }, 1000*x);
-                x++;
+                }, 1000*notifyCount);
+                if(notifyCount > 5){
+                    notifyCount = 1;
+                }else{
+                    notifyCount++;
+                }
 
-            })
+
+            });
 
         $scope.homeClick = function(val){
             if($location.path().split("/")[1] == "main" && undefined == $location.path().split("/")[2]){
@@ -109,27 +98,6 @@
             return $scope.user
         };
 
-        $scope.testNoti = function () {
-              webNotification.showNotification('Example Notification', {
-                    body: 'Notification Text...',
-                    icon: '../bower_components/HTML5-Desktop-Notifications2/alert.ico',
-                    onClick: function onNotificationClicked() {
-                        console.log('Notification clicked.');
-                    },
-                    autoClose: 4000 //auto close the notification after 4 seconds (you can manually close it via hide function)
-                }, function onShow(error, hide) {
-                    if (error) {
-                        window.alert('Unable to show notification: ' + error.message);
-                    } else {
-                        console.log('Notification Shown.');
-
-                        setTimeout(function hideNotification() {
-                            console.log('Hiding notification....');
-                            hide(); //manually close the notification (you can skip this if you use the autoClose option)
-                        }, 5000);
-                    }
-                });
-        };
 
         $scope.womenMenu = [
             {category:'Women', search:'Dress', value:'Dresses'},
