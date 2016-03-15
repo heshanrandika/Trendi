@@ -1,6 +1,23 @@
 #!/bin/env node
 /**
  * Created by heshanr on 11/20/2014.
+
+
+
+
+use trendi
+db.createUser(
+  {
+    user: "admin",
+    pwd: "19891222",
+    roles: [ { role: "readWrite", db: "trendi" }]
+  }
+)  
+
+then run 
+
+
+mongod.exe --auth
  */
 var mongodb = require('mongodb');
 var mdbc = this;
@@ -14,6 +31,9 @@ mdbc.dbm = new mongodb.Db('message', mdbc.dbServer, {auto_reconnect: true});
 mdbc.connectDb = function(){
     mdbc.db.open(function(err, db){
         if(err){ throw err };
+        mdbc.db.authenticate('admin', '19891222', function(err, result) {
+          if(err){ throw err };
+        });
 
     });
 };
