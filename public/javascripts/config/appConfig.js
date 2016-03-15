@@ -22,7 +22,8 @@ window.com = {TRENDI:{CATEGORY:{modules:{}}}};
             'iso.directives',
             'textAngular',
             'ui-rangeSlider',
-            'angular-web-notification'
+            'angular-web-notification',
+            'directive.g+signin'
         ]
     };
 })(com.TRENDI.CATEGORY);
