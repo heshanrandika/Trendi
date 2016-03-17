@@ -2,7 +2,7 @@
  * Created by Heshanr on 3/25/2015.
  */
 
-var daf = require('../persistence/MongoPersistence');
+var daf = require('../persistence/MessageMongoPersistence');
 var CONSTANT = require('../utility/Constants');
 
 function getMessageList(req,callback){

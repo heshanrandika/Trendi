@@ -5,12 +5,12 @@
 
 
 
-use trendi
+use message
 db.createUser(
   {
     user: "admin",
     pwd: "19891222",
-    roles: [ { role: "readWrite", db: "trendi" }]
+    roles: [ { role: "readWrite", db: "message" }]
   }
 )  
 
@@ -26,7 +26,7 @@ var EventEmitter = require('events').EventEmitter;
 
 mdbc.dbServer = new mongodb.Server('127.0.0.1',parseInt('27017'));
 mdbc.db = new mongodb.Db('trendi', mdbc.dbServer, {auto_reconnect: true});
-mdbc.dbm = new mongodb.Db('message', mdbc.dbServer, {auto_reconnect: true});
+//mdbc.dbm = new mongodb.Db('message', mdbc.dbServer, {auto_reconnect: true});
 
 mdbc.connectDb = function(){
     mdbc.db.open(function(err, db){
@@ -39,13 +39,15 @@ mdbc.connectDb = function(){
 };
 mdbc.connectDb();
 
-mdbc.connectDbm = function(){
+/*mdbc.connectDbm = function(){
     mdbc.dbm.open(function(err, dbm){
         if(err){ throw err };
-
+        mdbc.dbm.authenticate('admin', '19891222', function(err, result) {
+          if(err){ throw err };
+        });
     });
 };
-mdbc.connectDbm();
+mdbc.connectDbm();*/
 
 
 function findOne(query,fromCollection,callback){
@@ -88,7 +90,7 @@ function findWithPagination(query,fromCollection,condition){
     return event;
 }
 
-function mFindWithPagination(query,fromCollection,condition){
+/*function mFindWithPagination(query,fromCollection,condition){
 
     var event = new EventEmitter();
     query = (query) ? query : {};
@@ -100,7 +102,7 @@ function mFindWithPagination(query,fromCollection,condition){
         event.emit('end');
     });
     return event;
-}
+}*/
 
 function findWithSorting(query,fromCollection,condition){
     var event = new EventEmitter();
@@ -122,12 +124,12 @@ function insert(doc, toCollection, callback){
     });
 }
 
-function mInsert(doc, toCollection, callback){
+/*function mInsert(doc, toCollection, callback){
     mdbc.dbm.collection(toCollection).insert(doc, function(err, success){
         if (err) { callback(err,success); }
         if(success) { callback(err,success); }
     });
-}
+}*/
 
 function update(query, changeDoc, fromCollection, callback){
     mdbc.db.collection(fromCollection).update(query ,changeDoc, function(err, result){
@@ -135,11 +137,11 @@ function update(query, changeDoc, fromCollection, callback){
     });
 }
 
-function mUpdate(query, changeDoc, fromCollection, callback){
+/*function mUpdate(query, changeDoc, fromCollection, callback){
     mdbc.dbm.collection(fromCollection).update(query ,changeDoc, function(err, result){
         callback(err,result);
     });
-}
+}*/
 
 function remove(query, fromCollection, callback){
     mdbc.db.collection(fromCollection).remove(query , function(err, remDoc){
@@ -147,11 +149,11 @@ function remove(query, fromCollection, callback){
     });
 }
 
-function mRemove(query, fromCollection, callback){
+/*function mRemove(query, fromCollection, callback){
     mdbc.dbm.collection(fromCollection).remove(query , function(err, remDoc){
         callback(err,remDoc);
     });
-}
+}*/
 
 function count(query, fromCollection, callback){
     mdbc.db.collection(fromCollection).count(query,function(err, docCount){
@@ -159,11 +161,11 @@ function count(query, fromCollection, callback){
     });
 }
 
-function mCount(query, fromCollection, callback){
+/*function mCount(query, fromCollection, callback){
     mdbc.dbm.collection(fromCollection).count(query,function(err, docCount){
         callback(err,docCount);
     });
-}
+}*/
 
 
 function upsert(query, newDoc, fromCollection, callback){
@@ -205,10 +207,10 @@ module.exports.Upsert = upsert;
 module.exports.Aggregate = aggregate;
 
 
-module.exports.MFindWithPagination = mFindWithPagination;
+/*module.exports.MFindWithPagination = mFindWithPagination;
 module.exports.MInsert = mInsert;
 module.exports.MUpdate = mUpdate;
 module.exports.MRemove = mRemove;
-module.exports.MCount = mCount;
+module.exports.MCount = mCount;*/
 
 
