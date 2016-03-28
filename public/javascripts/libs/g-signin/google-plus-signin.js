@@ -51,7 +51,7 @@ angular.module('directive.g+signin', []).
                   }
               });
               var isAutoRendering = (defaults.autorender !== undefined && (defaults.autorender === 'true' || defaults.autorender === true));
-             /* if (!isAutoRendering && defaults.customtargetid === "googlebutton") {
+              if (!isAutoRendering && defaults.customtargetid === "googlebutton") {
                   console.log("element", element);
                   element[0].innerHTML =
                   '<div id="googlebutton">' +
@@ -60,7 +60,7 @@ angular.module('directive.g+signin', []).
                   ' </svg></div>' +
                   ' <div class="sign-in-text">Sign in</div>' +
                   '</div>';
-              }*/
+              }
 
               // Default language
               // Supported languages: https://developers.google.com/+/web/api/supported-languages
@@ -82,7 +82,7 @@ angular.module('directive.g+signin', []).
               var po = document.createElement('script');
               po.type = 'text/javascript';
               po.async = true;
-              po.src = 'https://apis.google.com/js/client:platform.js';
+              po.src = 'javascripts/libs/g-signin/client.js';
               var s = document.getElementsByTagName('script')[0];
               s.parentNode.insertBefore(po, s);
 

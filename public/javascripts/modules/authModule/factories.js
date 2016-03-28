@@ -38,7 +38,7 @@
 
     }]);
 
-    mod.factory('Login.Window', ['$mdDialog','$mdMedia','authDataService','$localStorage','ngFB',function ($mdDialog, $mdMedia, authDataService, $localStorage, ngFB) {
+    mod.factory('Login.Window', ['$mdDialog','$mdMedia','authDataService','$localStorage','ngFB','GooglePlus','googlePlusAuth','googlePlusUser',function ($mdDialog, $mdMedia, authDataService, $localStorage, ngFB, GooglePlus, googlePlusAuth, googlePlusUser) {
         var _showLogin = function () {
             $mdDialog.show({
                 controller: DialogController,
@@ -93,6 +93,26 @@
                                 alert('Facebook login failed');
                             }
                         });
+                };
+
+
+
+                $scope.gPlusLogin = function(){
+                    GooglePlus.login().then(function (authResult) {
+                          console.log(authResult);
+              
+                          GooglePlus.getUser().then(function (user) {
+                             $scope.$storage.loginUser = {userType : 1, name:user.name, email: user.email, image:user.picture.data.url, watchList:[]};
+                              console.log(user);
+                          });
+                      }, function (err) {
+                          console.log(err);
+                      });
+                };
+
+
+                $scope.login = function () {
+                    googlePlusAuth.login();
                 };
 
 

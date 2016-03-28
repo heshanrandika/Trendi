@@ -19,6 +19,19 @@
             });
     }]);
 
+    ns.mainTrendiModule.config(['googlePlusAuthProvider', function(googlePlusAuthProvider) {
+
+        var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+        po.src = 'https://apis.google.com/js/client:platform.js?onload=googleAuthDone';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+
+         googlePlusAuthProvider.config({
+           clientId: '811153390327-3l876lu29rinqttsnvpmhrkcupmf9nnh.apps.googleusercontent.com'
+         });
+
+
+    }]);
+
     ns.mainTrendiModule.run(['$templateCache', function ($templateCache) {
             $templateCache.put('control.tpl.html', '<button class="btn btn-sm btn-primary" ng-class="{\'btn-warning\': danger}" ng-click="controlClick()">{{controlText}}</button>');
     }]);

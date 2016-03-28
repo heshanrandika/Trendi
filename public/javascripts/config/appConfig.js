@@ -23,7 +23,9 @@ window.com = {TRENDI:{CATEGORY:{modules:{}}}};
             'textAngular',
             'ui-rangeSlider',
             'angular-web-notification',
-            'directive.g+signin'
+            'directive.g+signin',
+            'googleplus',
+            'google.plus.auth'
         ]
     };
 })(com.TRENDI.CATEGORY);
