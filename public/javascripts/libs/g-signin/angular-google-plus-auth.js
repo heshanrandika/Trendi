@@ -48,8 +48,8 @@ angular.module('google.plus.auth', [])
             $get: [
                 '$rootScope',
                 '$q',
-                'googlePlusUser',
-                function($rootScope, $q, googlePlusUser) {
+                '$localStorage',
+                function($rootScope, $q, $localStorage) {
 
                     /**
                      * login - Initiates the OAuth 2.0 authorization process and gets the user info.
@@ -168,10 +168,9 @@ angular.module('google.plus.auth', [])
                      * @return {Object}  An object with user information and login status
                      */
                     function resetUser() {
-                        googlePlusUser.profile = null;
-                        googlePlusUser.authType = null;
-                        googlePlusUser.loggedIn = false;
-                        return googlePlusUser;
+                        var $storage = $localStorage;
+                        $storage.loginUser = undefined;
+                        return true;
                     }
 
                     /**
@@ -181,13 +180,11 @@ angular.module('google.plus.auth', [])
                      * @return {Object}         An object with user information and login status
                      */
                     function setupUser(profile) {
-                       var user =  {userType : 1, name:profile.name, email: profile.email, image:profile.picture, watchList:[]};
-                        localStorage.setItem('ngStorage-loginUser', JSON.stringify(user));
-                        $rootScope.$apply();
-                        googlePlusUser.profile = profile;
-                        googlePlusUser.authType = 'googlePlus';
-                        googlePlusUser.loggedIn = true;
-                        return googlePlusUser;
+                        var $storage = $localStorage;
+                        var user =  {userType : 1, name:profile.name, email: profile.email, image:profile.picture, watchList:[]};
+                        $storage.loginUser = user;
+                        $rootScope.$broadcast('event:trendi-signin-success', 'success');
+                        return true;
                     }
 
                     return {

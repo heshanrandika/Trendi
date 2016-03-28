@@ -256,6 +256,8 @@
                         if(scope.openBag){
                             scope.loadItem();
                         }
+                    }else{
+                        scope.listSize = 0;
                     }
 
                 };
@@ -268,13 +270,24 @@
                     scope.openBag = false;
                     delete $location.$$search.itemId;
                     $location.path('main/bag');
-                }
+                };
 
                 scope.itemClicked = function (selected) {
                 $location.path('main/bag');
                 $location.search('itemId', selected.itemId);
                 scope.openBag = false;
             }
+
+                scope.$on('event:trendi-signin-success', function (event,authResult) {
+
+                    scope.user = Login_Window.checkUser();
+                    if(scope.user){
+                        scope.loadItem();
+                    }else{
+                        scope.itemList = [];
+                        scope.listSize = 0;
+                    }
+                });
             }
         }
     }]);

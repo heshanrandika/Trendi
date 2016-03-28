@@ -38,7 +38,7 @@
 
     }]);
 
-    mod.factory('Login.Window', ['$mdDialog','$mdMedia','authDataService','$localStorage','ngFB','GooglePlus','googlePlusAuth','googlePlusUser',function ($mdDialog, $mdMedia, authDataService, $localStorage, ngFB, GooglePlus, googlePlusAuth, googlePlusUser) {
+    mod.factory('Login.Window', ['$mdDialog','$mdMedia','authDataService','$localStorage','ngFB','googlePlusAuth','$rootScope',function ($mdDialog, $mdMedia, authDataService, $localStorage, ngFB, googlePlusAuth, $rootScope) {
         var _showLogin = function () {
             $mdDialog.show({
                 controller: DialogController,
@@ -54,11 +54,14 @@
                 });
 
 
-            function DialogController($scope, $mdDialog, authDataService, $localStorage) {
+            function DialogController($scope, $mdDialog, authDataService, $localStorage, $rootScope) {
                 $scope.regUser = {};
                 $scope.loginform = {};
                 $scope.tab = 1;
                 $scope.$storage = $localStorage;
+                function onSignIn(authResult) {
+                    $rootScope.$broadcast('event:trendi-signin-success', authResult);
+                };
 
                 $scope.login = function() {
                     $scope.loginform.userType = 1;
@@ -67,6 +70,7 @@
                             var completeUser = response.data.responData.data;
                             $scope.$storage.loginUser = completeUser;
                             $scope.error = false;
+                            onSignIn('success');
                             $mdDialog.hide(1);
                         }, function (error) {
                             $scope.error = error.data.responData.Error;
@@ -85,6 +89,7 @@
                                 }).then(
                                     function (user) {
                                         $scope.$storage.loginUser = {userType : 1, name:user.name, email: user.email, image:user.picture.data.url, watchList:[]};
+                                        onSignIn('success');
                                     },
                                     function (error) {
                                         alert('Facebook error: ' + error.error_description);
@@ -96,26 +101,9 @@
                 };
 
 
-
-                $scope.gPlusLogin = function(){
-                    GooglePlus.login().then(function (authResult) {
-                          console.log(authResult);
-              
-                          GooglePlus.getUser().then(function (user) {
-                             $scope.$storage.loginUser = {userType : 1, name:user.name, email: user.email, image:user.picture.data.url, watchList:[]};
-                              console.log(user);
-                          });
-                      }, function (err) {
-                          console.log(err);
-                      });
-                };
-
-
-                $scope.login = function () {
+                $scope.gpluslogin = function () {
                     googlePlusAuth.login();
                 };
-
-
 
 
                 $scope.signup = function() {
@@ -149,6 +137,7 @@
         var _logoutUser = function(){
             var $storage = $localStorage;
             $storage.loginUser = undefined;
+            $rootScope.$broadcast('event:trendi-signin-success', 'logout-success');
             return true;
         };
 
@@ -161,7 +150,7 @@
     }]);
 
 
-mod.factory('socket', ['$rootScope',function ($rootScope) {
+    mod.factory('socket', ['$rootScope',function ($rootScope) {
   var socket = io.connect();
   return {
     on: function (eventName, callback) {

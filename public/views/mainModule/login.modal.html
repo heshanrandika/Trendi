@@ -77,11 +77,14 @@
                     </div>
                   </a>
 
-                  <!-- <google-plus-signin clientid="811153390327-3l876lu29rinqttsnvpmhrkcupmf9nnh" autorender="false" customtargetid="googlebutton">
-                  <div class="connect__context" id="click_gplus">
-                      <span>Sign in with <strong>Google+</strong></span>
+                  <a class="connect googleplus">
+                    <div class="connect__icon">
+                      <i class="fa fa-google-plus"></i>
                     </div>
-                  </google-plus-signin> -->
+                    <div class="connect__context">
+                      <span ng-click=gpluslogin()>Sign in with <strong>Google+</strong></span>
+                    </div>
+                  </a>
                 </div>
               </div>
             </div>
@@ -132,13 +135,16 @@
                     </div>
                   </a>
 
-                 <div>Hello <span class="highlight">Stranger</span>!</div>
-                <button class="google-button" ng-click=login()>Sign in with Google</button>
-                  <!-- <google-plus-signin clientid="811153390327-3l876lu29rinqttsnvpmhrkcupmf9nnh" autorender="false" customtargetid="googlebutton">
-                  <div class="connect__context" id="click_gplus">
-                      <span>Sign in with <strong>Google+</strong></span>
+                  <a class="connect googleplus">
+                    <div class="connect__icon">
+                      <i class="fa fa-google-plus"></i>
                     </div>
-                  </google-plus-signin> -->
+                    <div class="connect__context" id="click_gplus">
+                      <span ng-click=gpluslogin()>Sign in with <strong>Google+</strong></span>
+                    </div>
+                  </a>
+
+
                 </div>
               </div>
             </div>
