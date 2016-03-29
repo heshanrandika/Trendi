@@ -415,4 +415,33 @@
         }
     }]);
 
+    mod.directive('trendiFbShare',['mainDataService','Login.Window','ngFB',function(mainDataService, Login_Window, ngFB){
+        return{
+            restrict:'E',
+            template:'<a ng-click="share()"  class="circle"><span class="icon-facebook"></span></a>',
+            scope:{
+            },
+            link:function(scope, elm, attrs){
+                scope.user = Login_Window.checkUser();
+                scope.share = function () {
+                ngFB.api({
+                    method: 'POST',
+                    path: '/me/feed',
+                    params: {
+                        message: "I'll be attending: by"
+                    }
+                }).then(
+                    function () {
+                        alert('The session was shared on Facebook');
+                    },
+                    function () {
+                        alert('An error occurred while sharing this session on Facebook');
+                    });
+                };
+
+            }
+        }
+    }]);
+
+
 })(com.TRENDI.CATEGORY.modules.mainTrendiModule);

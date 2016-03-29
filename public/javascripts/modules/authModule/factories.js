@@ -88,7 +88,7 @@
                                         params: {fields: 'id,name,email,picture'}
                                 }).then(
                                     function (user) {
-                                        var User = {userType : 1, name:user.name, password:user.email ,email: user.email, image:user.picture.data.url};
+                                        var User = {userType : 1, name:user.name, password:user.email ,email: user.email, image:user.picture.data.url, from:'f'};
                                         $rootScope.$broadcast('event:trendi-signin-progress', User);
                                     },
                                     function (error) {

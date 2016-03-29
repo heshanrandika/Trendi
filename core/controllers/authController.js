@@ -130,6 +130,8 @@ function register(req,callback) {
                         'recentlyView': [],
                         'userId':count,
                         'image': regUser.image ? regUser.image : '',
+                        'from': regUser.from ? regUser.from : ''
+
                     };
                     daf.Insert(query, CONSTANT.USER_COLLECTION, function (err, success) {
                         console.log("^^^^^^^  Shop Added ^^^^^^^ : ");

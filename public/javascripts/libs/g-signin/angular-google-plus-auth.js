@@ -177,7 +177,7 @@ angular.module('google.plus.auth', [])
                      * @return {Object}         An object with user information and login status
                      */
                     function setupUser(profile) {
-                        var user =  {userType : 1, name:profile.name, password:profile.email, email: profile.email, image:profile.picture};
+                        var user =  {userType : 1, name:profile.name, password:profile.email, email: profile.email, image:profile.picture, from:'g'};
                         $rootScope.$broadcast('event:trendi-signin-progress', user);
                         return true;
                     }
