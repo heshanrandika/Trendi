@@ -88,8 +88,8 @@
                                         params: {fields: 'id,name,email,picture'}
                                 }).then(
                                     function (user) {
-                                        $scope.$storage.loginUser = {userType : 1, name:user.name, email: user.email, image:user.picture.data.url, watchList:[]};
-                                        onSignIn('success');
+                                        var User = {userType : 1, name:user.name, password:user.email ,email: user.email, image:user.picture.data.url};
+                                        $rootScope.$broadcast('event:trendi-signin-progress', User);
                                     },
                                     function (error) {
                                         alert('Facebook error: ' + error.error_description);
@@ -120,6 +120,32 @@
                 $scope.close = function() {
                     $mdDialog.hide();
                 };
+
+
+
+                var logingOther = function(user){
+                     authDataService.loginService(user)
+                        .then(function (response) {
+                            var completeUser = response.data.responData.data;
+                            $scope.$storage.loginUser = completeUser;
+                            $scope.error = false;
+                            onSignIn('success');
+                            $mdDialog.hide(1);
+                        }, function (error) {
+                            $scope.error = error.data.responData.Error;
+                        });
+                }
+
+                $scope.$on('event:trendi-signin-progress', function (event,user) {
+                    authDataService.registration({regUser: user})
+                        .then(function (response) {
+                            $scope.signUpError = false; 
+                            logingOther(user);
+                        }, function (error) {
+                            logingOther(user);
+                        });
+
+                });
 
             };
         };

@@ -17,6 +17,8 @@
             var userData = $storage.loginUser;
             if(userData != undefined){
                 commonCallObj = {email: userData.email , session: userData.session, userType: userData.userType };
+            }else{
+                commonCallObj = {};   
             }
 
             return commonCallObj;

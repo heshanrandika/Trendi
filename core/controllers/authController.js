@@ -2,6 +2,7 @@
  * Created by randika on 3/8/2015.
  */
 var daf = require('../persistence/MongoPersistence');
+var mdaf = require('../persistence/MessageMongoPersistence');
 var CONSTANT = require('../utility/Constants');
 var PWD = require('../utility/GeneralFunctions');
 var SHOP = require('../controllers/shopController');
@@ -12,14 +13,14 @@ var _ = require('lodash');
 function sendMessage(message, callback) {
     var toEmail = message.to.trim();
     var fromEmail = message.from.trim();
-    daf.MInsert(message,toEmail,function(err , success){
+    mdaf.MInsert(message,toEmail,function(err , success){
         if(success){
             message.tag = 'SENT';
         }else{
             message.tag = 'DRAFTS';
         }
         message.read = true;
-        daf.MInsert(message,fromEmail,function(err , success){
+        mdaf.MInsert(message,fromEmail,function(err , success){
             callback(err , success);
         });
 
@@ -127,7 +128,8 @@ function register(req,callback) {
                         'session': '',
                         'watchList': [],
                         'recentlyView': [],
-                        'userId':count
+                        'userId':count,
+                        'image': regUser.image ? regUser.image : '',
                     };
                     daf.Insert(query, CONSTANT.USER_COLLECTION, function (err, success) {
                         console.log("^^^^^^^  Shop Added ^^^^^^^ : ");
