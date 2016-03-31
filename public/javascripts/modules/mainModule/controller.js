@@ -498,12 +498,13 @@
 
         var imageResize = function(url, width, height, callback) {
             var sourceImage = new Image();
-
+           
             sourceImage.onload = function() {
                 var canvas = document.createElement("canvas");
+                var ratio= sourceImage.height/sourceImage.width;
                 canvas.width = width;
-                canvas.height = height;
-                canvas.getContext("2d").drawImage(sourceImage, 0, 0, width, height);
+                canvas.height = height*ratio;
+                canvas.getContext("2d").drawImage(sourceImage, 0, 0, width, height*ratio);
                 callback(canvas.toDataURL());
             };
 
@@ -801,9 +802,10 @@
 
             sourceImage.onload = function() {
                 var canvas = document.createElement("canvas");
+                var ratio= sourceImage.height/sourceImage.width;
                 canvas.width = width;
-                canvas.height = height;
-                canvas.getContext("2d").drawImage(sourceImage, 0, 0, width, height);
+                canvas.height = height*ratio;
+                canvas.getContext("2d").drawImage(sourceImage, 0, 0, width, height*ratio);
                 callback(canvas.toDataURL());
             };
 
@@ -1252,9 +1254,10 @@
 
             sourceImage.onload = function() {
                 var canvas = document.createElement("canvas");
+                var ratio= sourceImage.height/sourceImage.width;
                 canvas.width = width;
-                canvas.height = height;
-                canvas.getContext("2d").drawImage(sourceImage, 0, 0, width, height);
+                canvas.height = height*ratio;
+                canvas.getContext("2d").drawImage(sourceImage, 0, 0, width, height*ratio);
                 callback(canvas.toDataURL());
             };
 
