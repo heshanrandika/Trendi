@@ -10,6 +10,13 @@
         $scope.unreadCount = 0;
         var notifyCount = 1;
 
+
+        $scope.callback = function(response){
+            console.log(response);
+            alert('share callback');
+        }
+
+
         socket.on('ticket', function(message){
             
                 $timeout(function() {

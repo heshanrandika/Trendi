@@ -36,6 +36,10 @@
             $templateCache.put('control.tpl.html', '<button class="btn btn-sm btn-primary" ng-class="{\'btn-warning\': danger}" ng-click="controlClick()">{{controlText}}</button>');
     }]);
 
+    ns.mainTrendiModule.run(function($FB){
+        $FB.init('1594432914169826');
+    });
+
 })(com.TRENDI.CATEGORY.modules);
 
 
