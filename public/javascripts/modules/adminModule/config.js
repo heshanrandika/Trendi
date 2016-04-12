@@ -138,6 +138,122 @@
                     }
                 }
 
+            },
+
+
+
+
+            'admin.sysitems': {
+                url: '/sysitems',
+                templateUrl: 'views/adminModule/sysAdmin/sys.admin.items.html',
+                controller: 'sysAdminItemController',
+                access: {
+                    requiresLogin: true
+                }
+            },
+
+            'admin.sysshops': {
+                url: '/sysshops',
+                templateUrl: 'views/adminModule/sysAdmin/sys.admin.shops.html',
+                controller: 'sysAdminShopsController',
+                access: {
+                    requiresLogin: true
+                }
+            },
+
+            'admin.syspromotions': {
+                url: '/syspromotions',
+                templateUrl: 'views/adminModule/sysAdmin/sys.admin.promotions.html',
+                controller: 'sysAdminPromotionsController',
+                access: {
+                    requiresLogin: true
+                }
+            },
+
+            'admin.sysusers': {
+                url: '/sysusers',
+                templateUrl: 'views/adminModule/sysAdmin/sys.admin.users.html',
+                controller: 'sysAdminUsersController',
+                access: {
+                    requiresLogin: true
+                }
+            },
+
+            'admin.sysextras': {
+                url: '/sysextras',
+                templateUrl: 'views/adminModule/sysAdmin/sys.admin.extras.html',
+                controller: 'sysAdminExtrasController',
+                access: {
+                    requiresLogin: true
+                }
+            },
+
+            'admin.sysextras.profile': {
+                url: '/sysprofile',
+                data:{
+                    'currentTab': 0
+                },
+                views :{
+                    'profile':{
+                        controller:'sysAdminExtraProfileController',
+                        templateUrl: 'views/adminModule/extras/admin.extras.profile.html',
+                        access: {
+                            requiresLogin: true
+                        }
+                    }
+                }
+
+            },
+
+            'admin.sysextras.message': {
+                url: '/sysmessage',
+                data:{
+                    'currentTab': 1
+                },
+                views :{
+                    'message':{
+                        controller:'sysAdminExtraMessageController',
+                        templateUrl: 'views/adminModule/extras/admin.extras.message.html',
+                        access: {
+                            requiresLogin: true
+                        }
+                    }
+                }
+
+            },
+
+            'admin.sysextras.tags': {
+                url: '/systags',
+                data:{
+                    'currentTab': 2
+                },
+                views :{
+                    'tag':{
+                        controller:'sysAdminExtraTagsController',
+                        templateUrl: 'views/adminModule/extras/admin.extras.tags.html',
+                        access: {
+                            requiresLogin: true
+                        }
+                    }
+                }
+
+            },
+
+            'admin.sysextras.blog': {
+                url: '/sysblog',
+                data:{
+                    'currentTab': 3
+                },
+                views :{
+                    'blog':{
+                        controller:'sysAdminExtraBlogController',
+                        templateUrl: 'views/adminModule/extras/admin.extras.blog.html',
+                        access: {
+                            requiresLogin: true
+                        }
+                    }
+                }
+
             }
 
         },
@@ -226,6 +342,40 @@
 
         ],
 
+         SYS_MENU_CONFIG:[
+            {
+                value:'Shops ',
+                key:'admin.sysshops',
+                authorization: 2008
+            },
+            {
+                value:'Items ',
+                key:'admin.sysitems',
+                authorization: 1010
+            },
+            {
+                value:'Users ',
+                key:'admin.sysusers',
+                authorization: 2016
+            },
+            {
+                value:'Branches ',
+                key:'admin.sysbranches',
+                authorization: 2011
+            },
+            {
+                value:'Promotions ',
+                key:'admin.syspromotions',
+                authorization: 3000
+            },
+            {
+                value:'Extras ',
+                key:'admin.sysextras.profile',
+                authorization: 3000
+            }
+
+        ],
+
         EXTRA_MENU_CONFIG:[
             {
                 value:'Profile ',
@@ -261,6 +411,7 @@
             'URL_CONFIG': defs.URL_CONFIG,
             'REQ_CONFIG': defs.REQ_CONFIG,
             'MENU_CONFIG':defs.MENU_CONFIG,
+            'SYS_MENU_CONFIG':defs.SYS_MENU_CONFIG,
             'EXTRA_MENU_CONFIG':defs.EXTRA_MENU_CONFIG
         });
 

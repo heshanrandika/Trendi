@@ -1,0 +1,102 @@
+<div>
+    <md-content class="md-padding">
+        <md-tabs md-dynamic-height md-border-bottom md-selected="selectedIndex">
+            <md-tab label="Full Item List">
+                <md-content class="md-padding">
+                    <div>
+                        <trendi-search actions="search"></trendi-search>
+                        <div style="padding-top: 150px;">
+                            <md-button class="md-raised md-primary" ng-click="EditViewController('')"><md-icon md-svg-src="add-circle"></md-icon> Add New Promotion</md-button>
+                            <div style="padding-top: 20px;">
+                                <md-list infinite-scroll='paginationFuntion()' infinite-scroll-distance='0.01'>
+                                    <md-list-item ng-repeat="promotion in promotionList" ng-click="EditViewController(promotion)">
+                                        <img alt="{{ promotion.title }}" ng-src="{{promotion.promotionPic}}" class="md-avatar" />
+                                        <p>{{ promotion.title }}</p>
+                                        <!-- <md-svg-icon class="ic_24px" icon="{{person.iconimg}}"></md-svg-icon>-->
+                                        <md-icon md-svg-icon="communication:ic_settings" ng-click="EditViewController(promotion)" aria-label="Open Chat" class="md-secondary md-hue-3" ng-class="{'md-primary': promotion.title}"></md-icon>
+                                    </md-list-item>
+                                </md-list>
+                            </div>
+                        </div>
+                    </div>
+                </md-content>
+            </md-tab>
+            <md-tab label="{{headerText}}" ng-disabled="selectedIndex == 0">
+                <md-content class="md-padding">
+                    <h5 class="md-display-2">{{headerText}}</h5>
+                    <form novalidate="" name="itemForm">
+                        <div>
+
+                            <!--<p>
+                                The mango is a juicy stone fruit belonging to the genus Mangifera, consisting of numerous tropical fruiting trees, cultivated mostly for edible fruit. The majority of these species are found in nature as wild mangoes. They all belong to the flowering plant family Anacardiaceae. The mango is native to South and Southeast Asia, from where it has been distributed worldwide to become one of the most cultivated fruits in the tropics.
+                            </p>-->
+                            <div>
+                                <div>
+                                    <div class="col-md-12">
+                                        <!--<md-content layout-padding class="autoScroll">-->
+                                        <md-input-container class="md-icon-float" >
+                                            <!-- Use floating label instead of placeholder -->
+                                            <label>Title</label>
+                                            <input ng-model="promotion.title" name="title" type="text" ng-required="true">
+                                            <div ng-messages="itemForm.title.$error">
+                                                <div ng-message="required">This is required.</div>
+                                            </div>
+
+                                        </md-input-container>
+
+                                        <div>
+                                            <div ng-if="initDirective">
+                                                <trendi-file-upload files="tmp.promotionPic" image-size="promotionPicSize"  image-count="promotionPicCount"></trendi-file-upload>
+                                            </div>
+                                        </div>
+
+                                        <md-input-container class="md-icon-float" >
+                                            <!-- Use floating label instead of placeholder -->
+                                            <label>Description</label>
+                                            <input md-maxlength="200"  name="description" ng-model="promotion.description">
+                                            <div ng-messages="itemForm.description.$error">
+                                                <div ng-message="md-maxlength">The description has to be less than 200 characters long.</div>
+                                            </div>
+                                        </md-input-container>
+
+
+                                        <md-input-container md-no-float>
+                                            <md-icon md-svg-src="img/icons/ic_phone_24px.svg"></md-icon>
+                                            <trendi-chips selected-items="slectedTypes" item-list="types" placeholder="Enter Type Tags"></trendi-chips>
+                                        </md-input-container>
+
+
+
+                                        <div class="md-actions" layout="row">
+                                            <div ng-if="addNew">
+                                                <md-button  class="md-raised md-primary" ng-disabled="itemForm.$invalid || mainImage.length == 0" ng-click="answer(1)" md-autofocus>
+                                                    Save
+                                                </md-button>
+                                                <span flex></span>
+                                            </div>
+                                            <div ng-if="!addNew">
+                                                <md-button class="md-raised md-primary" ng-disabled="itemForm.$invalid || mainImage.length == 0" ng-click="answer(2)" md-autofocus>
+                                                    Update
+                                                </md-button>
+                                                <span flex></span>
+                                                <md-button class="md-raised md-warn" ng-click="answer(0)" >
+                                                    Remove
+                                                </md-button>
+                                            </div>
+
+                                            <md-button ng-click="close('2')" style="margin-right:20px;" >
+                                                Close
+                                            </md-button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </form>
+                </md-content>
+            </md-tab>
+        </md-tabs>
+    </md-content>
+</div>
+
