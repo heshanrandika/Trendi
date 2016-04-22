@@ -47,6 +47,10 @@
             });
 
         $scope.homeClick = function(val){
+            var encrypt = CryptoJS.TripleDES.encrypt("message", "dsgfbdusiduigdfgndsgyufigyfldg");
+            console.log("_____________+++++++++++++++_______________"+encrypt);
+            var decrypted = CryptoJS.TripleDES.decrypt(encrypt, "dsgfbdusiduigdfgndsgyufigyfldg"); 
+            console.log("_____________+++++++++++++++_______________"+decrypted.toString(CryptoJS.enc.Utf8));
             if($location.path().split("/")[1] == "main" && undefined == $location.path().split("/")[2]){
                 $state.go('main.home');
             }else if(val == 0){

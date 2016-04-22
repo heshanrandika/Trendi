@@ -4,7 +4,14 @@ var AuthRouter = require('../route/authRouter');
 var NormalUser = require('../route/normalUser');
 
 
+
 module.exports = function(app) {
+    var decrypt = function(encrypted){
+        var decrypted = TripleDES.decrypt(encrypted, "dsgfbdusiduigdfgndsgyufigyfldg"); 
+        return JSON.parse(decrypted.toString(CryptoJS.enc.Utf8));
+    }
+
+
     app.get('/forgotPassword/:id', function(req, res) {
         req.body.functionId = 4005;
         AuthRouter.AuthRoute(req, res);
@@ -15,7 +22,7 @@ module.exports = function(app) {
 
     });
     app.use(function(req, res, next){
-
+       // console.log("++++++++++++++======================================="+decrypt(req));
         if(req.method =='GET'){
             if(req.path == '/'){
                 res.render('index', {});// load the single view file (angular will handle the page changes on the front-end)
@@ -95,5 +102,8 @@ module.exports = function(app) {
         RequestRouter.RequestRoute(req, res);
 
     });
+
+
+
 
 };
