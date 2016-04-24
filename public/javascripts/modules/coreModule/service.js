@@ -18,7 +18,9 @@
         };
 
         var _postPromise = function (p) {
-            return $http.post(URL, (p) ? p : {});
+            var value = CryptoJS.TripleDES.encrypt(JSON.stringify(p), "dsgfbdusiduigdfgndsgyufigyfldg");
+            var encrypt = {enc : ""+value};
+            return $http.post(URL, (encrypt) ? encrypt : {});
         };
 
         return {
