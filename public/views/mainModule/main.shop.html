@@ -141,11 +141,8 @@
                 <!-- Product view -->
                 <section class="col-sm-8 col-md-9 col-lg-9 content-center">
                     <div class="product-view row">
-                        <md-button class="md-raised md-primary" md-autofocus ng-click="backTo()" id="back-btn">
-                            < Back
-                        </md-button>
                         <div class="col-sm-6 col-md-6 col-lg-6">
-                            <div class="hidden-xs flexslider-thumb-vertical-outer">
+                            <div class="hidden-xs flexslider-thumb-vertical-outer" id="back-btn">
                                 <img alt="{{ selectedItem.shopId }}" ng-src="{{selectedItem.iconImage}}" class="md-avatar" />
                                 <div class="large-image vertical hidden-xs"> <img  class = "cloudzoom" ng-src = ""  /> </div>
                             </div>

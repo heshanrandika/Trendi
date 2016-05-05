@@ -48,9 +48,7 @@
 
         $scope.homeClick = function(val){
             var encrypt = CryptoJS.TripleDES.encrypt("message", "dsgfbdusiduigdfgndsgyufigyfldg");
-            console.log("_____________+++++++++++++++_______________"+encrypt);
             var decrypted = CryptoJS.TripleDES.decrypt(encrypt, "dsgfbdusiduigdfgndsgyufigyfldg");
-            console.log("_____________+++++++++++++++_______________"+decrypted.toString(CryptoJS.enc.Utf8));
             if($location.path().split("/")[1] == "main" && undefined == $location.path().split("/")[2]){
                 $state.go('main.home');
             }else if(val == 0){
@@ -467,6 +465,7 @@
             });
         };
 
+
        
         $scope.isotopPagination = {
             searchFromServer: function (d) {
@@ -474,6 +473,7 @@
             },
             goto: function (item) {
                 $scope.selectedItem = item;
+                $scope.itemSelected = true;
                 $scope.imageArray = [];
                 $scope.imageArray.push($scope.selectedItem.item.image);
                 $scope.imageSelect(0);
@@ -488,12 +488,19 @@
         };
 
 
+        $rootScope.$on('$locationChangeSuccess', function(event){
+            if(!$location.search().itemId && $scope.itemSelected){
+                $scope.backTo();
+            }
+        });
+
 
         //get main item when there is no selected item
         if($location.search().itemId){
             var id = parseInt($location.search().itemId);
             $scope.mainItemShow = false;
             if(!$scope.selectedItem.item){
+                $scope.itemSelected = true;
                 $scope.imageArray = [];
                 mainDataService.getMainItem({itemId : id}).then(function(response){
                     $scope.selectedItem =  response.data.responData.data;
@@ -505,6 +512,8 @@
                 },function(){
                 });
             }
+        }else{
+            $scope.itemSelected = false;
         }
 
         var imageResize = function(url, width, height, callback) {
@@ -563,8 +572,6 @@
 
 
 
-
-
         //back button click
         $scope.backTo = function(){
             var tmp = $scope.uiRef;
@@ -573,6 +580,7 @@
             $scope.mainItemShow = true;
             $scope.scrollTo(tmp+"");
             $scope.selectedItem = {};
+            $scope.itemSelected = false;
             $scope.showMap = false;
         };
 
@@ -777,6 +785,7 @@
             },
             goto: function (item) {
                 $scope.selectedItem = item;
+                $scope.itemSelected = true;
                 $scope.imageArray = [];
                 $scope.imageArray.push($scope.selectedItem.item.image);
                 $scope.imageSelect(0);
@@ -790,12 +799,19 @@
         };
 
 
+        $rootScope.$on('$locationChangeSuccess', function(event){
+            if(!$location.search().itemId && $scope.itemSelected){
+                $scope.backTo();
+            }
+        });
+
 
         //get main item when there is no selected item
         if($location.search().itemId){
             $scope.mainItemShow = false;
             var id = parseInt($location.search().itemId);
             if(!$scope.selectedItem.item){
+                $scope.itemSelected = true;
                 $scope.imageArray = [];
                 mainDataService.getMainItem({itemId : id}).then(function(response){
                     $scope.selectedItem =  response.data.responData.data;
@@ -806,6 +822,8 @@
                 },function(){
                 });
             }
+        }else{
+            $scope.itemSelected = false;
         }
 
         var imageResize = function(url, width, height, callback) {
@@ -872,6 +890,7 @@
             $location.search({});
             $scope.scrollTo(tmp+"");
             $scope.selectedItem = {};
+            $scope.itemSelected = false;
             $scope.showMap = false;
         };
 
@@ -1021,6 +1040,7 @@
             },
             goto: function (shop) {
                 $scope.selectedItem = shop;
+                $scope.itemSelected = true;
                 // $scope.loadSubItem(shop.shopId);
                 $location.search('shopId',shop.shopId);
                 $scope.scrollTo('back-btn');
@@ -1068,14 +1088,23 @@
 
 
 
+        $rootScope.$on('$locationChangeSuccess', function(event){
+            if(!$location.search().shopId && $scope.itemSelected){
+                $scope.backTo();
+            }
+        });
+
 
         //get main item when there is no selected item
         if($location.search().shopId){
             $scope.mainItemShow = false;
             var id = parseInt($location.search().shopId);
             if(!$scope.selectedItem){
+                $scope.itemSelected = true;
                 $scope.getShopData(id);
             }
+        }else{
+            $scope.itemSelected = false;
         }
 
         $scope.getShopData = function(id){
@@ -1101,6 +1130,7 @@
             $location.search({});
             $scope.scrollTo($scope.selectedItem.shopId+"");
             $scope.selectedItem = {};
+            $scope.itemSelected = false;
             $scope.showMap = false;
             $scope.mainItemShow = true;
             
@@ -1229,6 +1259,7 @@
             },
             goto: function (item) {
                 $scope.selectedItem = item;
+                $scope.itemSelected = true;
                 $scope.imageArray = [];
                 $scope.imageArray.push($scope.selectedItem.item.image);
                 $scope.imageSelect(0);
@@ -1242,12 +1273,19 @@
         };
 
 
+        $rootScope.$on('$locationChangeSuccess', function(event){
+           if(!$location.search().itemId && $scope.itemSelected){
+                $scope.backTo();
+            }
+        });
+
 
         //get main item when there is no selected item
         if($location.search().itemId){
             var id = parseInt($location.search().itemId);
             $scope.mainItemShow = false;
             if(!$scope.selectedItem.item){
+                $scope.itemSelected = true;
                 $scope.imageArray = [];
                 mainDataService.getMainItem({itemId : id}).then(function(response){
                     $scope.selectedItem =  response.data.responData.data;
@@ -1258,6 +1296,8 @@
                 },function(){
                 });
             }
+        }else{
+            $scope.itemSelected = false;
         }
 
         var imageResize = function(url, width, height, callback) {
@@ -1324,6 +1364,7 @@
             $location.search({});
             $scope.scrollTo(tmp+"");
             $scope.selectedItem = {};
+            $scope.itemSelected = true;
             $scope.showMap = false;
         };
 

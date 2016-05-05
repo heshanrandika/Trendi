@@ -151,12 +151,9 @@
             <!-- Product view -->
             <div class="product-view row">
                 <div class="col-sm-6 col-md-6 col-lg-6">
-                    <md-button class="md-raised md-primary" md-autofocus ng-click="backTo()" id="back-btn">
-                        < Back
-                    </md-button>
                     <div class="hidden-xs flexslider-thumb-vertical-outer">
                             <div class="flexslider flexslider-thumb-vertical vertical min">
-                                <ul class="previews-list slides">
+                                <ul class="previews-list slides" id="back-btn">
                                     <li ng-repeat="img in imageArray track by $index " ng-click="imageSelect($index)"><img class = 'cloudzoom-gallery' alt="#"  ng-src = "{{img}}"  ></li>
                                 </ul>
                             </div>
