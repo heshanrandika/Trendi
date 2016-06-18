@@ -8,7 +8,7 @@
         URL_CONFIG: {
             'admin': {
                 url: '/admin',
-                templateUrl: 'views/adminModule/admin.master.html',
+                templateUrl: 'views/adminModule/sysAdmin/sys.admin.master.html',
                 controller: 'adminMasterController'
 
             },

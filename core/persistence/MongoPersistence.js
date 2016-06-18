@@ -31,9 +31,9 @@ mdbc.db = new mongodb.Db('trendi', mdbc.dbServer, {auto_reconnect: true});
 mdbc.connectDb = function(){
     mdbc.db.open(function(err, db){
         if(err){ throw err };
-        mdbc.db.authenticate('admin', '19891222', function(err, result) {
+       /* mdbc.db.authenticate('admin', '19891222', function(err, result) {
           if(err){ throw err };
-        });
+        });*/
 
     });
 };
