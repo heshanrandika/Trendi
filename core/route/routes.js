@@ -28,10 +28,12 @@ module.exports = function(app) {
 
     });
     app.use(function(req, res, next){
-        console.log("++++++++++========================="+req);
         req.body = decrypt(req.body.enc);
         if(req.method =='GET'){
-            if(req.path == '/'){
+			console.log('++++++++++++======================='+req.path);
+			if(req.path == '/admin/'){
+                res.render('admin/layout4/angularjs/app/index', {});// load the single view file (angular will handle the page changes on the front-end)
+            }else if(req.path == '/'){
                 res.render('index', {});// load the single view file (angular will handle the page changes on the front-end)
             }else{
                 res.status(404);
