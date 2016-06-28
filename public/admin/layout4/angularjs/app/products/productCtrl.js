@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('newApp')
-  .controller('filterCtrl', function ($scope) {
-      $scope.$on('$destroy', function () {
+  .controller('productCtrl', ['$scope', 'applicationService', 'pluginsService', function ($scope, applicationService, pluginsService) {
+     $scope.$on('$destroy', function () {
           $('table').each(function () {
               if ($.fn.dataTable.isDataTable($(this))) {
                   $(this).dataTable({
@@ -12,5 +12,4 @@ angular.module('newApp')
           });
       });
 
-      
-  });
+  }]);

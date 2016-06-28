@@ -24,6 +24,10 @@ var MakeApp = angular
             templateUrl: '/admin/layout4/angularjs/app/dashboard/dashboard.html',
             controller: 'dashboardCtrl'
         })
+        .when('/products', {
+            templateUrl: '/admin/layout4/angularjs/app/products/products.html',
+            controller: 'productCtrl'
+        })
         .when('/frontend', {
             templateUrl: '/admin/layout4/angularjs/app/frontend/frontend.html',
             controller: 'frontendCtrl'
