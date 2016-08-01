@@ -12,4 +12,15 @@ angular.module('newApp')
           });
       });
 
+        $scope.check = function(){
+            var k =angular.element(document.querySelectorAll(".bootstrap-tagsinput"));
+            var count = k[0].children.length;
+
+            console.log(k[0].children);
+            console.log(count);
+            k[0].children[count-1].value = 'green';
+            console.log(k[0].children[count-1].value);
+        };
+
+
   }]);
