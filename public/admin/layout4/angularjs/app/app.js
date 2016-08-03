@@ -20,11 +20,15 @@ var MakeApp = angular
   ])
   .config(function ($routeProvider) {
       $routeProvider
-        .when('/', {
+       /* .when('/', {
             templateUrl: '/admin/layout4/angularjs/app/dashboard/dashboard.html',
             controller: 'dashboardCtrl'
         })
         .when('/products', {
+            templateUrl: '/admin/layout4/angularjs/app/products/products.html',
+            controller: 'productCtrl'
+        })
+        .when('/productst', {
             templateUrl: '/admin/layout4/angularjs/app/products/products.html',
             controller: 'productCtrl'
         })
@@ -214,7 +218,7 @@ var MakeApp = angular
         })
         .otherwise({
             redirectTo: '/'
-        });
+        });*/
   });
 
 

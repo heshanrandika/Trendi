@@ -335,10 +335,7 @@ angular.module('newApp').factory('pluginsService', [function () {
                 if ($(this).hasClass('filter-head')) {
                     $('.filter-head thead th').each(function () {
                         var title = $('.filter-head thead th').eq($(this).index()).text();
-                        if (title != 'Action')  {
-                            $(this).append('<input type="text" onclick="" class="form-control" placeholder="Filter ' + title + '" />');
-                        }
-
+                        $(this).append('<input type="text" onclick="" class="form-control" placeholder="Filter ' + title + '" />');       
                     });
                     var table = $('.filter-head').DataTable();
                     $(".filter-head thead input").on('keyup change', function () {
@@ -348,7 +345,7 @@ angular.module('newApp').factory('pluginsService', [function () {
                 if ($(this).hasClass('filter-footer')) {
                     $('.filter-footer tfoot th').each(function () {
                         var title = $('.filter-footer thead th').eq($(this).index()).text();
-                        $(this).html('<input type="text" class="form-control" placeholder="Filter ' + title + '" />');
+                        $(this).html('<input type="text" onclick="" class="form-control" placeholder="Filter ' + title + '" />');
                     });
                     var table = $('.filter-footer').DataTable();
                     $(".filter-footer tfoot input").on('keyup change', function () {

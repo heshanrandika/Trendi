@@ -399,7 +399,7 @@ function tableDynamic(){
             if ($(this).hasClass('filter-head')) {
                 $('.filter-head thead th').each( function () {
                     var title = $('.filter-head thead th').eq($(this).index()).text();
-                   // $(this).append( '<input type="text" onclick="stopPropagation(event);" class="form-control" placeholder="Filter '+title+'" />' );
+                  //  $(this).append( '<input type="text" onclick="stopPropagation(event);" class="form-control" placeholder="Filter '+title+'" />' );
                 });
                 var table = $('.filter-head').DataTable();
                 $(".filter-head thead input").on( 'keyup change', function () {

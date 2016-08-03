@@ -12,14 +12,24 @@ angular.module('newApp')
           });
       });
 
+var tagsData = [
+  {id:1,tag:'Apple'},
+  {id:2,tag:'Banana'},
+  {id:3,tag:'Cherry'},
+  {id:4,tag:'Cantelope'},
+  {id:5,tag:'Grapefruit'},
+  {id:6,tag:'Grapes',selected:true},
+  {id:7,tag:'Lemon'},
+  {id:8,tag:'Lime'},
+  {id:9,tag:'Melon',selected:true},
+  {id:10,tag:'Orange'},
+  {id:11,tag:'Strawberry'},
+  {id:11,tag:'Watermelon'}
+];
+       $scope.items = tagsData;
+       $scope.item = {};
         $scope.check = function(){
-            var k =angular.element(document.querySelectorAll(".bootstrap-tagsinput"));
-            var count = k[0].children.length;
-
-            console.log(k[0].children);
-            console.log(count);
-            k[0].children[count-1].value = 'green';
-            console.log(k[0].children[count-1].value);
+            console.log($scope.items);
         };
 
 

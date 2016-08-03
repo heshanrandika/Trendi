@@ -7,7 +7,7 @@ var App = function(){
     var self = this;
 
 
-    self.ipaddr  = '0.0.0.0';
+    self.ipaddr  = '127.0.0.1';
     self.port    = 3001;
 
 

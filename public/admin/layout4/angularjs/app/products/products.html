@@ -19,17 +19,16 @@
                 <h3><i class="icon-bulb"></i> <strong>Filtering </strong></h3>
             </div>
             <div class="panel-content">
-                <table class="table table-hover table-dynamic filter-head">
-                    <thead>
-                    <tr>
-                        <th>Rendering engine</th>
-                        <th>Browser</th>
-                        <th>Platform(s)</th>
-                        <th>Platform(s)</th>
-                        <th>Engine version</th>
-                        <th>Action</th>
-                    </tr>
-                    </thead>
+                <table  class="table table-hover table-dynamic">
+                     <thead>
+                            <tr>
+                                <th>Reesr</th>
+                                <th>FErgf</th>
+                                <th>fgf(s)</th>
+                                <th>Engrgdegine version</th>
+                                <th>fgdfgfg grade</th>
+                            </tr>
+                        </thead>
                     <tbody>
                     <tr>
                         <td><span class="pull-left p-r-5">
@@ -37,9 +36,8 @@
                                                 </span>Trident</td>
                         <td>Internet Explorer 4.0</td>
                         <td>Win 95+</td>
-                        <td>Win 95+</td>
                         <td>4</td>
-                        <td><a class="edit btn btn-sm btn-default" href="javascript:;" data-toggle="modal" data-target="#modal-large"><i class="icon-note" ></i></a>  <a class="delete btn btn-sm btn-danger" href="javascript:;"><i class="icons-office-52"></i></a></td>
+                        <td><div><a class="edit btn btn-sm btn-default" href="javascript:;" data-toggle="modal" data-target="#modal-large"><i class="icon-note" ></i></a>  <a class="delete btn btn-sm btn-danger" href="javascript:;"><i class="icons-office-52"></i></a></div></td>
                     </tr>
                     </tbody>
                 </table>
@@ -153,10 +151,10 @@
                                             <div class="row">
                                                 <div class="col-sm-6">
                                                     <div class="form-group">
-                                                        <label>Tags Input</label>
-                                                        <div ng-keyup="check()">
-                                                            <input class="select-tags form-control" value="brown,red,green">
-                                                        </div>
+                                                         <label ng-click="check()">Multiple Select</label>
+                                                        <select multiple class="form-control" ng-model="testValue" data-placeholder="Choose one or various country...">
+                                                             <option ng-repeat="item in items" ng-selected="item.selected" ng-model="item.tag">{{item.tag}}</option>
+                                                        </select>
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-6">

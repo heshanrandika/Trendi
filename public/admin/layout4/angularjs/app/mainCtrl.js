@@ -1,16 +1,13 @@
 ﻿angular.module('newApp').controller('mainCtrl',
-    ['$scope', 'applicationService', 'quickViewService', 'builderService', 'pluginsService', '$location',
-        function ($scope, applicationService, quickViewService, builderService, pluginsService, $location) {
+    ['$scope', 'applicationService', 'builderService', '$location',
+        function ($scope, applicationService, builderService, $location) {
             $(document).ready(function () {
                 applicationService.init();
-                quickViewService.init();
                 builderService.init();
-                pluginsService.init();
-                Dropzone.autoDiscover = false;
             });
 
             $scope.$on('$viewContentLoaded', function () {
-                pluginsService.init();
+               // pluginsService.init();
                 applicationService.customScroll();
                 applicationService.handlePanelAction();
                 $('.nav.nav-sidebar .nav-active').removeClass('nav-active active');
