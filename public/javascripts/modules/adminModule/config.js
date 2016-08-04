@@ -13,16 +13,13 @@
              controller: 'adminAuthController'
              },*/
 
-/*            'admin.items': {
-                url: '/items',
-                templateUrl: 'views/adminModule/admin.items.html',
-                controller: 'adminItemController',
-                access: {
-                    requiresLogin: true
-                }
-            },
+           'items': {
+                url: '/products',
+                templateUrl: '/views/adminModule/admin.items.html',
+                controller: 'adminItemController'
+            }
 
-            'admin.shops': {
+            /*         'admin.shops': {
                 url: '/shops',
                 templateUrl: 'views/adminModule/admin.shops.html',
                 controller: 'adminShopsController',
@@ -408,6 +405,18 @@
             'MENU_CONFIG':defs.MENU_CONFIG,
             'SYS_MENU_CONFIG':defs.SYS_MENU_CONFIG,
             'EXTRA_MENU_CONFIG':defs.EXTRA_MENU_CONFIG
+        });
+
+        $provide.constant('MESSAGE_CONFIG', {
+            ERROR_REQUIRED_FIELDS : 'Please fill required fields',
+            ERROR_REQUIRED_IMAGE : 'Please select image',
+            ERROR_SAVE_FAIL : 'Failed to save',
+            ERROR_UPDATE_FAIL : 'Failed to update',
+            ERROR_REMOVE_FAIL : 'Failed to remove',
+
+            SUCCESS_SAVED_SUCCESSFULLY : 'Successfully saved',
+            SUCCESS_REMOVED_SUCCESSFULLY : 'Successfully removed',
+            SUCCESS_UPDATE_SUCCESSFULLY : 'Successfully updated'
         });
 
     }]);

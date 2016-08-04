@@ -9,4 +9,4 @@
             };
         }
     );
-})(com.TRENDI.CATEGORY.modules.adminModule);
+})(com.TRENDI.ADMIN.modules.mainAdminModule);

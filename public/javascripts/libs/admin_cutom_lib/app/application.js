@@ -289,19 +289,19 @@ angular.module('mainAdminModule').factory('applicationService', ['pluginsService
 
                     }
                 }
-                $.backstretch(["../../../assets/global/images/gallery/bg1.jpg", "../../../assets/global/images/gallery/bg2.jpg", "../../../assets/global/images/gallery/bg3.jpg", "../../../assets/global/images/gallery/bg4.jpg"], {
+              /*  $.backstretch(["../../../assets/global/images/gallery/bg1.jpg", "../../../assets/global/images/gallery/bg2.jpg", "../../../assets/global/images/gallery/bg3.jpg", "../../../assets/global/images/gallery/bg4.jpg"], {
                     fade: 3000,
                     duration: 4000
-                });
+                });*/
             }
             if ($('body').hasClass('sidebar-top') && windowWidth > 1220) {
-                $.backstretch(["../../../assets/global/images/gallery/bg1.jpg", "../../../assets/global/images/gallery/bg2.jpg", "../../../assets/global/images/gallery/bg3.jpg", "../../../assets/global/images/gallery/bg4.jpg"], {
+               /* $.backstretch(["../../../assets/global/images/gallery/bg1.jpg", "../../../assets/global/images/gallery/bg2.jpg", "../../../assets/global/images/gallery/bg3.jpg", "../../../assets/global/images/gallery/bg4.jpg"], {
                     fade: 3000,
                     duration: 4000
-                });
+                });*/
             }
              else {
-                $('.backstretch').remove();
+                //$('.backstretch').remove();
             }
 
         }
@@ -326,7 +326,7 @@ angular.module('mainAdminModule').factory('applicationService', ['pluginsService
             $sidebarFooter.css('left', '').css('right', '');
             $.removeCookie('boxed-layout', {path: '/'});
             $('#switch-boxed').prop('checked', false);
-            $.backstretch("destroy");
+           // $.backstretch("destroy");
         }
     }
 
