@@ -16,7 +16,6 @@ window.com = {TRENDI:{CATEGORY:{modules:{}}}};
             'mainTrendiModule',
             'uiGmapgoogle-maps',
             'coreModule',
-            'adminModule',
             'ngOpenFB',
             'authModule',
             'iso.directives',

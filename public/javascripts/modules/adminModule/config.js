@@ -6,19 +6,14 @@
 
     var defs = {
         URL_CONFIG: {
-            'admin': {
-                url: '/admin',
-                templateUrl: 'views/adminModule/admin.master.html',
-                controller: 'adminMasterController'
 
-            },
             /*  'admin.login': {
              url: '/login',
              templateUrl: 'views/adminModule/admin.login.html',
              controller: 'adminAuthController'
              },*/
 
-            'admin.items': {
+/*            'admin.items': {
                 url: '/items',
                 templateUrl: 'views/adminModule/admin.items.html',
                 controller: 'adminItemController',
@@ -254,7 +249,7 @@
                     }
                 }
 
-            }
+            }*/
 
         },
         REQ_CONFIG: {
@@ -421,14 +416,8 @@
         _.each(defs.URL_CONFIG, function (e, k) {
             $stateProvider.state(k, e);
         });
-        $urlRouterProvider.otherwise('/admin/login');
+        $urlRouterProvider.otherwise('/');
     }]);
 
-    mod.config(['$mdIconProvider', function($mdIconProvider) {
-        $mdIconProvider
-            .iconSet('social', 'images/svg/social-icons.svg', 24)
-            .iconSet('communication', 'images/svg/test.svg', 24)
-            .defaultIconSet('images/svg/core-icons.svg', 24);
-    }])
 
-})(com.TRENDI.CATEGORY.modules.adminModule);
+})(com.TRENDI.ADMIN.modules.mainAdminModule);

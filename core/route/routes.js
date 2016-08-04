@@ -32,7 +32,7 @@ module.exports = function(app) {
         if(req.method =='GET'){
 			console.log('++++++++++++======================='+req.path);
 			if(req.path == '/admin/'){
-                res.render('admin/layout4/angularjs/app/index', {});// load the single view file (angular will handle the page changes on the front-end)
+                res.render('adminIndex', {});// load the single view file (angular will handle the page changes on the front-end)
             }else if(req.path == '/'){
                 res.render('index', {});// load the single view file (angular will handle the page changes on the front-end)
             }else{
