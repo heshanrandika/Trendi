@@ -13,12 +13,17 @@
              controller: 'adminAuthController'
              },*/
 
-           'items': {
+           'products': {
                 url: '/products',
                 templateUrl: '/views/adminModule/admin.items.html',
                 controller: 'adminItemController'
-            }
+            },
 
+            'test': {
+                url: '/test',
+                templateUrl: '/views/adminModule/admin.test.html',
+                controller: 'adminTest'
+            }
             /*         'admin.shops': {
                 url: '/shops',
                 templateUrl: 'views/adminModule/admin.shops.html',

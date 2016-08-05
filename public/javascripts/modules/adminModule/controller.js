@@ -341,4 +341,8 @@
 
     }]);
 
+    mod.controller('adminTest',['$scope',function($scope){
+        
+    }]);
+
 })(com.TRENDI.ADMIN.modules.mainAdminModule);
