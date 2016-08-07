@@ -36,7 +36,7 @@
     }]);
 
 
-    mod.controller('adminItemController', ['$scope', '$rootScope','$state','adminDataService','Data.Toast','MESSAGE_CONFIG', function ($scope, $rootScope, $state, adminDataService, Data_Toast, MESSAGE_CONFIG) {
+    mod.controller('adminItemController', ['$scope', '$rootScope','$state','adminDataService','Data.Toast','MESSAGE_CONFIG','$modal', function ($scope, $rootScope, $state, adminDataService, Data_Toast, MESSAGE_CONFIG, uiModal) {
         $scope.itemList = [];
         $scope.count = 0;
         var shopDetails = {};
@@ -137,6 +137,21 @@
         $scope.loadData(1);
 
 
+        $scope.open = function () {
+
+            var modalInstance = uiModal.open({
+                animation: true,
+                templateUrl: '/views/adminModule/models/admin.product.model.html',
+                controller: 'productModel',
+                size: 'lg'
+            });
+
+            modalInstance.result.then(function (selectedItem) {
+                $scope.selected = selectedItem;
+            }, function () {
+                $log.info('Modal dismissed at: ' + new Date());
+            });
+        };
 
 
 
@@ -341,8 +356,22 @@
 
     }]);
 
-    mod.controller('adminTest',['$scope',function($scope){
-        
+    mod.controller('adminTest',['$scope','$modal',function($scope, uiModal){
+        $scope.open = function () {
+
+            var modalInstance = uiModal.open({
+                animation: true,
+                templateUrl: '/views/adminModule/models/admin.product.model.html',
+                controller: 'productModel',
+                size: 'lg'
+            });
+
+            modalInstance.result.then(function (selectedItem) {
+                $scope.selected = selectedItem;
+            }, function () {
+                $log.info('Modal dismissed at: ' + new Date());
+            });
+        };
     }]);
 
 })(com.TRENDI.ADMIN.modules.mainAdminModule);
