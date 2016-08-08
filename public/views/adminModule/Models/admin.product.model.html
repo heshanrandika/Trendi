@@ -11,14 +11,17 @@
                 <div class="panel-content">
                     <div class="row">
                         <div class="col-md-12 col-sm-12 col-xs-12">
-                            <form role="form" class="form-validation">
+                            <form role="form" class="form-validation" novalidate=""  name="itemForm">
                                 <div class="row">
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label class="control-label">Item Name</label>
                                             <div class="append-icon">
-                                                <input type="text" name="itemname" class="form-control" placeholder="Ex : Maxi dress.." required>
+                                                <input type="text"  class="form-control" placeholder="Ex : Maxi dress.." ng-model="mainItem.name" name="name"  ng-required="true">
                                                 <i class="icons-shopping-13"></i>
+                                                <div ng-messages="itemForm.name.$error">
+                                                    <div ng-message="required">This is required.</div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -26,8 +29,11 @@
                                         <div class="form-group">
                                             <label class="control-label">Price</label>
                                             <div class="append-icon">
-                                                <input type="number" name="price" class="form-control" minlength="2" placeholder="1000" required>
+                                                <input class="form-control" ng-model="mainItem.price" type="number" ng-required="true" name="price">
                                                 <i class="fa fa-money"></i>
+                                            </div>
+                                            <div ng-messages="itemForm.price.$error">
+                                                <div ng-message="required">This is required.</div>
                                             </div>
                                         </div>
                                     </div>
@@ -37,8 +43,12 @@
                                         <div class="form-group">
                                             <label class="control-label">Description</label>
                                             <div class="append-icon">
-                                                <textarea name="comment" rows="7" class="form-control" placeholder="Write your description... (minimum 30 characters)" minlength="30" required="" aria-required="true"></textarea>
+                                                <textarea rows="7" class="form-control" placeholder="Write your description... (maximum 200 characters)" maxlength="200" ng-required="true" name="description" ng-model="mainItem.description"></textarea>
                                                 <i class="fa fa-info-circle"></i>
+                                            </div>
+                                             <div ng-messages="itemForm.description.$error">
+                                                <div ng-message="required">This is required.</div>
+                                                <div ng-message="maxlength">The description has to be less than 200 characters long.</div>
                                             </div>
                                         </div>
                                     </div>

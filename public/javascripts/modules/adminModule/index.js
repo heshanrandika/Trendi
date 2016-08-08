@@ -9,17 +9,7 @@
         $locationProvider.html5Mode(false);
     }]);
 
-    /*ns.mainTrendiModule.value("rndAddToLatLon", function () {
-        return Math.floor(((Math.random() < 0.5 ? -1 : 1) * 2) + 1);
-    });
-
-    ns.mainTrendiModule.config(['uiGmapGoogleMapApiProvider', function (GoogleMapApi) {
-            GoogleMapApi.configure({
-                libraries: 'weather,geometry,visualization'
-            });
-    }]);
-
-    ns.mainTrendiModule.config(['googlePlusAuthProvider', function(googlePlusAuthProvider) {
+    ns.mainAdminModule.config(['googlePlusAuthProvider', function(googlePlusAuthProvider) {
 
         var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
         po.src = 'https://apis.google.com/js/client:platform.js?onload=googleAuthDone';
@@ -31,6 +21,18 @@
 
 
     }]);
+
+    /*ns.mainTrendiModule.value("rndAddToLatLon", function () {
+        return Math.floor(((Math.random() < 0.5 ? -1 : 1) * 2) + 1);
+    });
+
+    ns.mainTrendiModule.config(['uiGmapGoogleMapApiProvider', function (GoogleMapApi) {
+            GoogleMapApi.configure({
+                libraries: 'weather,geometry,visualization'
+            });
+    }]);
+
+  
 
     ns.mainTrendiModule.run(['$templateCache', function ($templateCache) {
             $templateCache.put('control.tpl.html', '<button class="btn btn-sm btn-primary" ng-class="{\'btn-warning\': danger}" ng-click="controlClick()">{{controlText}}</button>');

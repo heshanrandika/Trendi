@@ -9,6 +9,7 @@ window.com = {TRENDI:{ADMIN:{modules:{}}}};
         MODULES:[
             'ui.router',
             'ngAnimate',
+            'ngMessages',
             'ngCookies',
             'ngResource',
             'ngSanitize',
