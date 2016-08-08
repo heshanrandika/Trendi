@@ -314,32 +314,37 @@
         MENU_CONFIG:[
             {
                 value:'Shops ',
-                key:'admin.shops',
-                authorization: 2008
+                key:'main.shops',
+                authorization: 2008,
+                icon:'icon-home'
             },
             {
-                value:'Items ',
-                key:'admin.items',
-                authorization: 1010
+                value:'Products ',
+                key:'main.products',
+                authorization: 1010,
+                icon:'icon-bag'
             },
             {
                 value:'Users ',
-                key:'admin.users',
-                authorization: 2016
+                key:'main.users',
+                authorization: 2016,
+                icon:'icon-user'
             },
             {
                 value:'Branches ',
-                key:'admin.branches',
-                authorization: 2011
+                key:'main.branches',
+                authorization: 2011,
+                icon:'icon-share'
             },
             {
                 value:'Promotions ',
-                key:'admin.promotions',
-                authorization: 3000
+                key:'main.promotions',
+                authorization: 3000,
+                icon:'icon-badge'
             },
             {
                 value:'Extras ',
-                key:'admin.extras.profile',
+                key:'main.extras.profile',
                 authorization: 3000
             }
 
@@ -348,32 +353,37 @@
         SYS_MENU_CONFIG:[
             {
                 value:'Shops ',
-                key:'admin.sysshops',
-                authorization: 2008
+                key:'main.shops',
+                authorization: 2008,
+                icon:'icon-home'
             },
             {
-                value:'Items ',
-                key:'admin.sysitems',
-                authorization: 1010
+                value:'Products ',
+                key:'main.products',
+                authorization: 1010,
+                icon:'icon-bag'
             },
             {
                 value:'Users ',
-                key:'admin.sysusers',
-                authorization: 2016
+                key:'main.test',
+                authorization: 2016,
+                icon:'icon-user'
             },
             {
                 value:'Branches ',
-                key:'admin.sysbranches',
-                authorization: 2011
+                key:'main.branches',
+                authorization: 2011,
+                icon:'icon-share'
             },
             {
                 value:'Promotions ',
-                key:'admin.syspromotions',
-                authorization: 3000
+                key:'main.promotions',
+                authorization: 3000,
+                icon:'icon-badge'
             },
             {
                 value:'Extras ',
-                key:'admin.sysextras.profile',
+                key:'main.extras.profile',
                 authorization: 3000
             }
 

@@ -32,7 +32,7 @@
             });
         }, 0);
         $scope.isActive = function (viewLocation) {
-            return viewLocation === $location.path();
+            return (viewLocation.split('.')[0] === $state.current.name.split('.')[0] && viewLocation.split('.')[1] === $state.current.name.split('.')[1]);
         };
 
         $scope.goto = function (category) {
