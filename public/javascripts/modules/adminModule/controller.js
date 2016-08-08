@@ -4,17 +4,19 @@
 (function (mod) {
     "use strict";
 
-    mod.controller('masterCtrl',['$scope', 'applicationService', 'builderService', '$location',function ($scope, applicationService, builderService, $location) {
+    mod.controller('masterCtrl',['$scope', 'applicationService', 'builderService','$state','$location','ADMIN_MOD_CONFIG','adminDataService',function ($scope, applicationService, builderService, $state, $location, ADMIN_MOD_CONFIG, adminDataService) {
+        setTimeout(function(){
             $(document).ready(function () {
                 applicationService.init();
                 builderService.init();
             });
 
             $scope.$on('$viewContentLoaded', function () {
-                setTimeout(function(){
-                    applicationService.customScroll();
-                }, 0);
+
+                applicationService.customScroll();
                 applicationService.handlePanelAction();
+
+
                 $('.nav.nav-sidebar .nav-active').removeClass('nav-active active');
                 $('.nav.nav-sidebar .active:not(.nav-parent)').closest('.nav-parent').addClass('nav-active active');
 
@@ -28,10 +30,39 @@
                 }
 
             });
+        }, 0);
+        $scope.isActive = function (viewLocation) {
+            return viewLocation === $location.path();
+        };
 
-            $scope.isActive = function (viewLocation) {
-                return viewLocation === $location.path();
-            };
+        $scope.goto = function (category) {
+            var state = 'main.'+category;
+            $state.go(state);
+        };
+
+
+
+
+        $scope.userData = adminDataService.fullUserData();
+        if($scope.userData.superAdmin){
+            $scope.menuList = ADMIN_MOD_CONFIG.SYS_MENU_CONFIG;
+        }else{
+            $scope.menuList = ADMIN_MOD_CONFIG.MENU_CONFIG;
+        }
+
+        var entitlementList = [];
+        if($scope.userData.entitlements.length > 0){
+            entitlementList = _.pluck($scope.userData.entitlements, '_id');
+        }
+
+        $scope.initMenu = function(menu){
+            return _.contains(entitlementList, menu.authorization);
+        };
+
+        $scope.menuClick= function(menu){
+            $state.go(menu.key);
+        };
+
 
     }]);
 

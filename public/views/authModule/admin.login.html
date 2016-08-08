@@ -1,30 +1,41 @@
-<div>
-    <h1>LOGIN</h1>
-
-    <div class="login-form">
-        <form name="login_form">
-            <div class="form-group">
-                <div>
-                    <input id="ath_login_uname" required class="form-control placeholder-no-fix" type="text" ng-model="credentials.email" autocomplete="off" placeholder="Email" name="email"/>
-                </div>
+<div class="account separate-inputs">
+<div class="container" id="login-block">
+    <div class="row">
+        <div class="col-sm-6 col-md-4 col-md-offset-4">
+            <div class="account-wall">
+                <i class="user-img icons-faces-users-03"></i>
+                <form class="form-signin" role="form" name="login_form">
+                    <div class="append-icon">
+                        <input id="ath_login_uname" required class="form-control form-white username" type="email" ng-model="credentials.email" ng-required="true" autocomplete="off" placeholder="Email" name="email"/>
+                        <i class="icon-envelope"></i>
+                    </div>
+                    <div class="append-icon m-b-20">
+                        <input id="ath_login_pwod" type="password" name="password" class="form-control form-white password" placeholder="Password" ng-required="true" ng-model="credentials.password">
+                        <i class="icon-lock"></i>
+                    </div>
+                    <button id="submit-form" ng-click="login_form.$valid && login_user(credentials)" class="btn btn-lg btn-danger btn-block ladda-button" data-style="expand-left">Sign In</button>
+                    <div class="clearfix">
+                        <p class="pull-left m-t-20"><a id="password" href="#">Forgot password?</a></p>
+                        <p class="pull-right m-t-20"><a href="user-signup-v1.html">New here? Sign up</a></p>
+                    </div>
+                </form>
+                <form class="form-password" role="form">
+                    <div class="append-icon m-b-20">
+                        <input type="password" name="password" class="form-control form-white password" placeholder="Password" required>
+                        <i class="icon-lock"></i>
+                    </div>
+                    <button type="submit" id="submit-password" class="btn btn-lg btn-danger btn-block ladda-button" data-style="expand-left">Send Password Reset Link</button>
+                    <div class="clearfix">
+                        <p class="pull-left m-t-20"><a id="login" href="#">Already got an account? Sign In</a></p>
+                        <p class="pull-right m-t-20"><a href="user-signup-v1.html">New here? Sign up</a></p>
+                    </div>
+                </form>
             </div>
-            <div class="form-group">
-                <div>
-                    <input id="ath_login_pwod" required class="form-control placeholder-no-fix" type="password" ng-model="credentials.password" autocomplete="off" placeholder="Password" name="password"/>
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="login-btn">
-                    <a class="btn btn-block btn-primary" ng-click="login_form.$valid && login_user(credentials)">
-                        Sign in
-                    </a>
-                </div>
-                <div class="login-btn">
-                    <a class="btn btn-block btn-default" ng-click="login_close()">
-                        Close
-                    </a>
-                </div>
-            </div>
-        </form>
+        </div>
     </div>
+    <p class="account-copyright">
+        <span>Copyright © 2015 </span><span>Trendi</span>.<span>All rights reserved.</span>
+    </p>
+
+</div>
 </div>

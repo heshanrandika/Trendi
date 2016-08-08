@@ -18,8 +18,8 @@
                 <div class="sidebar-inner">
                     <ul class="nav nav-sidebar">
                         <li ng-class="{ active  : isActive('/')}"><a href="#/"><i class="icon-home"></i><span>Dashboard</span></a></li>
-                        <li ng-class="{ active  : isActive('/products')}"><a href="#products"><i class="icons-shopping-11"></i><span>Products</span></a></li>
-                        <li ng-class="{ active  : isActive('/test')}"><a href="#test"><i class="icons-shopping-11"></i><span>Productst</span></a></li>
+                        <li ng-class="{ active  : isActive('/main/products')}"><a ng-click="goto('products')"><i class="icons-shopping-11"></i><span>Products</span></a></li>
+                        <li ng-class="{ active  : isActive('/main/test')}"><a ng-click="goto('test')"><i class="icons-shopping-11"></i><span>Productst</span></a></li>
                         <li class="nav-parent" >
                             <a href="#"><i class="icon-bulb"></i><span>Mailbox</span> <span class="fa arrow"></span></a>
                             <ul class="children collapse">
@@ -346,8 +346,11 @@
                 </div>
                 <!-- END TOPBAR -->
                 <!-- BEGIN PAGE CONTENT -->
-                <div ng-view class="at-view-slide-in-left page-content" ng-view-class=" page-wizard : /forms-wizard , page-thin : / , page-contact : /pages-contact, 
+                <div  class="at-view-slide-in-left page-content" ng-view-class=" page-wizard : /forms-wizard , page-thin : / , page-contact : /pages-contact,
                     page-profil : /user-profile, page-app : /user-profile" >
+                    <ui-view>
+
+                    </ui-view>
                 </div>
                 <!-- END PAGE CONTENT -->
             </div>

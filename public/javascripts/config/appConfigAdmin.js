@@ -17,6 +17,7 @@ window.com = {TRENDI:{ADMIN:{modules:{}}}};
             'mainAdminModule',
             'ui.bootstrap',
             'ngMaterial',
+            'authModule',
             'ngStorage',
             'ui.select'
         ]

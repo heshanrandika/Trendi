@@ -38,7 +38,7 @@
 
     }]);
 
-    mod.factory('Login.Window', ['$mdDialog','$mdMedia','authDataService','$localStorage','ngFB','googlePlusAuth','$rootScope',function ($mdDialog, $mdMedia, authDataService, $localStorage, ngFB, googlePlusAuth, $rootScope) {
+   /* mod.factory('Login.Window', ['$mdDialog','$mdMedia','authDataService','$localStorage','ngFB','googlePlusAuth','$rootScope',function ($mdDialog, $mdMedia, authDataService, $localStorage, ngFB, googlePlusAuth, $rootScope) {
         var _showLogin = function () {
             $mdDialog.show({
                 controller: DialogController,
@@ -174,7 +174,7 @@
         };
 
     }]);
-
+*/
 
     mod.factory('socket', ['$rootScope',function ($rootScope) {
   var socket = io.connect();
@@ -200,4 +200,4 @@
   };
 }]);
 
-})(com.TRENDI.CATEGORY.modules.authModule);
+})(com.TRENDI.ADMIN.modules.authModule);
