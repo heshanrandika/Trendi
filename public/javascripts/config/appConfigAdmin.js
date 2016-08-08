@@ -16,7 +16,8 @@ window.com = {TRENDI:{ADMIN:{modules:{}}}};
             'mainAdminModule',
             'ui.bootstrap',
             'ngMaterial',
-            'ngStorage'
+            'ngStorage',
+            'ui.select'
         ]
     };
 })(com.TRENDI.ADMIN);

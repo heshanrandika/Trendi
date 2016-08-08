@@ -37,6 +37,7 @@
     "angularjs-color-picker": "~0.6.5",
     "tinycolor": "~1.2.1",
     "textAngular": "~1.4.6",
-    "angular-resource": "^1.5.8"
+    "angular-resource": "^1.5.8",
+    "angular-ui-select": "^0.19.1"
   }
 }
