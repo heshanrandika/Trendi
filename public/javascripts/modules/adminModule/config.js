@@ -312,108 +312,137 @@
 
         },
         MENU_CONFIG:[
-            {
-                value:'Shops ',
+               {
+                value:'Shops',
                 key:'main.shops',
                 authorization: 2008,
                 icon:'icon-home'
             },
             {
-                value:'Products ',
+                value:'Products',
                 key:'main.products',
                 authorization: 1010,
                 icon:'icon-bag'
             },
             {
-                value:'Users ',
-                key:'main.users',
+                value:'Users',
+                key:'main.test',
                 authorization: 2016,
                 icon:'icon-user'
             },
             {
-                value:'Branches ',
+                value:'Branches',
                 key:'main.branches',
                 authorization: 2011,
                 icon:'icon-share'
             },
             {
-                value:'Promotions ',
+                value:'Promotions',
                 key:'main.promotions',
                 authorization: 3000,
                 icon:'icon-badge'
             },
             {
+                value:'Messages',
+                key:'main.messages',
+                authorization: 3000,
+                icon:'icon-envelope-letter'
+            },
+            {
+                value:'Blogs',
+                key:'main.blogs',
+                authorization: 3000,
+                icon:'icon-feed'
+            },
+            {
                 value:'Extras ',
-                key:'main.extras.profile',
-                authorization: 3000
+                icon:'icon-cup',
+                subMenu : [
+                     {
+                        value:'Profile ',
+                        key:'main.extras.profile',
+                        view:'profile',
+                        authorization: 3000
+                    },
+                    {
+                        value:'Tags ',
+                        key:'main.extras.tags',
+                        view:'message',
+                        authorization: 3000
+                    }
+                ]
+
             }
 
         ],
 
         SYS_MENU_CONFIG:[
             {
-                value:'Shops ',
+                value:'Shops',
                 key:'main.shops',
                 authorization: 2008,
                 icon:'icon-home'
             },
             {
-                value:'Products ',
+                value:'Products',
                 key:'main.products',
                 authorization: 1010,
                 icon:'icon-bag'
             },
             {
-                value:'Users ',
+                value:'Users',
                 key:'main.test',
                 authorization: 2016,
                 icon:'icon-user'
             },
             {
-                value:'Branches ',
+                value:'Branches',
                 key:'main.branches',
                 authorization: 2011,
                 icon:'icon-share'
             },
             {
-                value:'Promotions ',
+                value:'Promotions',
                 key:'main.promotions',
                 authorization: 3000,
                 icon:'icon-badge'
             },
             {
+                value:'Messages',
+                key:'main.messages',
+                authorization: 3000,
+                icon:'icon-envelope-letter'
+            },
+            {
+                value:'Blogs',
+                key:'main.blogs',
+                authorization: 3000,
+                icon:'icon-feed'
+            },
+            {
                 value:'Extras ',
-                key:'main.extras.profile',
-                authorization: 3000
+                icon:'icon-cup',
+                subMenu : [
+                     {
+                        value:'Profile ',
+                        key:'main.extras.profile',
+                        view:'profile',
+                        authorization: 3000
+                    },
+                    {
+                        value:'Tags ',
+                        key:'main.extras.tags',
+                        view:'message',
+                        authorization: 3000
+                    }
+                ]
+
             }
 
         ],
 
         EXTRA_MENU_CONFIG:[
-            {
-                value:'Profile ',
-                key:'admin.extras.profile',
-                view:'profile',
-                authorization: 3000
-            },
-            {
-                value:'Messages ',
-                key:'admin.extras.message',
-                view:'message',
-                authorization: 3000
-            },
-            {
-                value:'Tags ',
-                key:'admin.extras.tags',
-                view:'message',
-                authorization: 3000
-            },
-            {
-                value:'Blog ',
-                key:'admin.extras.blog',
-                view:'message',
-                authorization: 3000
-            }
+           
         ]
 
 

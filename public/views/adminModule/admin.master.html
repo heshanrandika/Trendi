@@ -17,7 +17,11 @@
                 </div>
                 <div class="sidebar-inner">
                     <ul class="nav nav-sidebar">
-                        <li ng-repeat="menu in menuList" ng-class="{ active: isActive(menu.key)}" ng-if="initMenu(menu)"><a ng-click="menuClick(menu)"><i ng-class="menu.icon"></i><span> {{menu.value}}</span></a></li>
+                        <li ng-repeat="menu in menuList" ng-class="menu.subMenu? 'nav-parent' : isActive(menu.key)? 'active': ''" ng-if="initMenu(menu)"><a ng-click="!menu.subMenu && menuClick(menu)"><i ng-class="menu.icon"></i><span> {{menu.value}}</span></a>
+                            <ul class="children collapse" ng-if="menu.subMenu">
+                                <li ng-repeat="subItem in menu.subMenu" ng-class="{ active  : isActive(subItem.key)}"><a ng-click="menuClick(subItem)">{{subItem.value}} </a></li>
+                            </ul>
+                        </li>
                     </ul>
                 </div>
             </div>

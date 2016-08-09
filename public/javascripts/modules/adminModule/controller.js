@@ -41,22 +41,30 @@
         };
 
 
-
-
-        $scope.userData = adminDataService.fullUserData();
-        if($scope.userData.superAdmin){
-            $scope.menuList = ADMIN_MOD_CONFIG.SYS_MENU_CONFIG;
-        }else{
-            $scope.menuList = ADMIN_MOD_CONFIG.MENU_CONFIG;
-        }
-
         var entitlementList = [];
-        if($scope.userData.entitlements.length > 0){
-            entitlementList = _.pluck($scope.userData.entitlements, '_id');
-        }
+        var init= function(){
+                $scope.userData = adminDataService.fullUserData();
+            if($scope.userData.superAdmin){
+                $scope.menuList = ADMIN_MOD_CONFIG.SYS_MENU_CONFIG;
+            }else{
+                $scope.menuList = ADMIN_MOD_CONFIG.MENU_CONFIG;
+            }
+
+            
+            if($scope.userData.entitlements.length > 0){
+                entitlementList = _.pluck($scope.userData.entitlements, '_id');
+            }
+        };
+        init();
+        
 
         $scope.initMenu = function(menu){
-            return _.contains(entitlementList, menu.authorization);
+            if(menu.subMenu){
+                return true;
+            }else{
+                return _.contains(entitlementList, menu.authorization);
+            }
+            
         };
 
         $scope.menuClick= function(menu){
