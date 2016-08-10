@@ -475,7 +475,7 @@
         _.each(defs.URL_CONFIG, function (e, k) {
             $stateProvider.state(k, e);
         });
-        $urlRouterProvider.otherwise('/');
+        $urlRouterProvider.otherwise('/login');
     }]);
 
 
