@@ -26,4 +26,26 @@ function updateCount(type, callback){
     });
 }
 
+
+function insertSize(req,callback){
+    console.log("$$$$$$$  AddBlog $$$$$$");
+    var params = (req.body.params) ? req.body.params : {};
+    var blog = params.sizes;
+    UTIL.UpdateCount(CONSTANT.SIZE_COLLECTION, function (err, count) {
+        if (count) {
+            console.log("$$$$$$$  blog $$$$$$ Count : " + count);
+            blog.blogId = count;
+            daf.Insert(blog, CONSTANT.SIZE_COLLECTION, function(err , dataList){
+                callback(err ,dataList);
+            });
+
+        } else {
+            callback(err, null);
+        }
+
+    });
+
+
+}; 
+
 module.exports.UpdateCount = updateCount;

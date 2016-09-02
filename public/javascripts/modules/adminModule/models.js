@@ -4,12 +4,33 @@
 (function (mod) {
     "use strict";
 
-    mod.controller('productModel',['$scope', '$modalInstance',function ($scope, uiModalInstance) {
+    mod.controller('productModel',['$scope', '$modalInstance','item','adminDataService',function ($scope, uiModalInstance, selectedItem, adminDataService) {
+        $scope.item = selectedItem.item;
+        $scope.uploadedImages = [];
+        $scope.imageSize = {value:1000000, text:'1MB'};
+        $scope.imageCount = 5;
+
+        $scope.uploadedImages.push({image:$scope.item.image,default:true});
+        adminDataService.getSubItem({itemId : selectedItem.itemId, seenEnable:false}).then(function(response){
+            var subItemList = response.data.responData.data.itemList;
+            if(subItemList.length > 0){
+                _.each(subItemList,function(k){
+                    $scope.uploadedImages.push({image: k.image,default:false});
+                });
+            }
+        });
+
+        
+
+
+
+
+
     	$scope.availableColors = ['Red','Green','Blue','Yellow','Magenta','Maroon','Umbra','Turquoise'];
     	$scope.multipleDemo = {};
     	$scope.multipleDemo.colors2 = ['Blue','Red'];
 
-    	 $scope.disable = function() {
+    	$scope.disable = function() {
     			$scope.disabled = true;
   		};
     	var tagsData = [

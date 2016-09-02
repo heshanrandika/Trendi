@@ -82,9 +82,6 @@
         var itemPerPage = 8;
 
         //=======Item Edit Window================
-        $scope.mainImage = [];
-        $scope.imageSize = {value:1000000, text:'1MB'};
-        $scope.imageCount = 5;
         $scope.subItem = [];
         $scope.headerText = '';
         $scope.addNew = true;
@@ -97,42 +94,6 @@
         $scope.btnPressed = false;
         $scope.group = {};
 
-        $scope.sizes = [
-            {
-                'value': 'X-small'
-            },
-            {
-                'value': 'Small'
-            },
-            {
-                'value': 'Medium'
-            },
-            {
-                'value': 'Large'
-            },
-            {
-                'value': 'X-large'
-            }
-        ];
-
-
-        $scope.types = [
-            {
-                'value': 'Blouse'
-            },
-            {
-                'value': 'High-neck'
-            },
-            {
-                'value': 'Short-skirt'
-            },
-            {
-                'value': 'Shirt'
-            },
-            {
-                'value': 'Short'
-            }
-        ];
 
 
 
@@ -176,13 +137,18 @@
         $scope.loadData(1);
 
 
-        $scope.open = function () {
+        $scope.open = function (selectedItem) {
 
             var modalInstance = uiModal.open({
                 animation: true,
                 templateUrl: '/views/adminModule/models/admin.product.model.html',
                 controller: 'productModel',
-                size: 'lg'
+                size: 'lg',
+                resolve:{
+                    item : function(){
+                        return selectedItem;
+                    }
+                }
             });
 
             modalInstance.result.then(function (selectedItem) {
@@ -192,41 +158,6 @@
             });
         };
 
-
-
-        $scope.search = {
-            one: [{
-                key: "All",
-                value: 0
-            }, {
-                key: "Name",
-                value: 1
-            }, {
-                key: "Application ID",
-                value: 2
-            }, {
-                key: "Mobile Number",
-                value: 3
-            }, {
-                key: "Loan Amount",
-                value: 4
-            }],
-            two: [{
-                keyc: "--",
-                value: "--"
-            }],
-            searchDataFromServer: function (d) {
-                $scope.searchObj = {
-                    skip:0,
-                    limit:itemPerPage,
-                    searchKey: d.searchKey,
-                    searchValue: d.searchValue,
-                    shopId : shopDetails.branch.shopId,
-                    branchId : shopDetails.branch.branchId
-                };
-                $scope.load(1);
-            }
-        };
 
         $scope.resetForm = function(){
             $scope.mainImage = [];

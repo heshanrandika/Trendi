@@ -30,14 +30,14 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
+                    <tr ng-repeat="item in itemList">
                         <td><span class="pull-left p-r-5">
-                                                <img src="/admin/assets/global/images/avatars/avatar3.png" alt="avatar 3">
+                                                <img alt="{{ item.item.name }}" ng-src="{{item.item.image}}" class="table-img-icon"/>
                                                 </span></td>
-                        <td>Trident</td>
-                        <td>Internet Explorer 4.0</td>
-                        <td>Win 95+</td>
-                        <td><div><a class="edit btn btn-sm btn-default" href="javascript:;" ng-click="open()"><i class="icon-note" ></i></a>  <a class="delete btn btn-sm btn-danger" href="javascript:;"><i class="icons-office-52"></i></a></div></td>
+                        <td>{{ item.itemId }}</td>
+                        <td>{{ item.item.name }}</td>
+                        <td>{{ item.item.price }}</td>
+                        <td><div><a class="edit btn btn-sm btn-default" href="javascript:;" ng-click="open(item)"><i class="icon-note" ></i></a>  <a class="delete btn btn-sm btn-danger" href="javascript:;"><i class="icons-office-52"></i></a></div></td>
                     </tr>
                     </tbody>
                 </table>

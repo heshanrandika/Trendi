@@ -77,93 +77,161 @@
         };
     }]);
 
+    mod.directive('trendiFileUpload',['Data.Toast',function(Data_Toast) {
+        return {
+            restrict: 'E',
+            replace: true,
+            scope: {
+                files : '=',
+                imageSize:'=',
+                imageCount:'='
+            },
+            templateUrl: function(elem,attrs) {
+                var url = '/views/coreModule/fileUpload/'+(attrs.template? attrs.template : 'trendi.fileupload.main')+'.html';
+                return url;
+            },
+            link: function(scope, elm, attrs) {
+                scope.imageCount = parseInt(scope.imageCount);
+                scope.clickedDefault = false;
+                var dropbox = angular.element('#dropbox').context;
+                scope.dropText = 'Drop files here...';
+                scope.successfullyUploaded = false;
+                // init event handlers
+                function dragEnterLeave(evt) {
+                    evt.stopPropagation();
+                    evt.preventDefault();
+                    scope.$apply(function () {
+                        scope.dropText = 'Drop files here...';
+                        scope.dropClass = '';
+                    });
+                }
 
-mod.directive('tagsInput', [function() {
+                dropbox.addEventListener("dragenter", dragEnterLeave, false);
+                dropbox.addEventListener("dragleave", dragEnterLeave, false);
+                dropbox.addEventListener("dragover", function (evt) {
+                    evt.stopPropagation();
+                    evt.preventDefault();
+                    var clazz = 'not-available';
+                    var ok = evt.dataTransfer && evt.dataTransfer.types && evt.dataTransfer.types.indexOf('Files') >= 0;
+                    scope.$apply(function () {
+                        scope.dropText = ok ? 'Drop files here...' : 'Only files are allowed!';
+                        scope.dropClass = ok ? 'over' : 'not-available';
+                    });
+                }, false);
 
-  function getItemProperty(scope, property) {
-    if (!property)
-      return undefined;
+                //============== DRAG & DROP =============
+                dropbox.addEventListener("drop", function (evt) {
+                    evt.stopPropagation();
+                    evt.preventDefault();
+                    scope.$apply(function () {
+                        scope.dropText = 'Drop files here...';
+                        scope.dropClass = '';
+                    });
+                    var files = evt.dataTransfer.files;
+                    if (files.length > 0) {
+                        scope.$apply(function () {
+                            scope.progressVisible = false;
+                            scope.successfullyUploaded = false;
+                            for (var i = 0; i < files.length; i++) {
+                                if (files[i].size < scope.imageSize.value) {
+                                    // scope.files.push(files[i]);
+                                    if (files[i].type == "image/jpeg" || files[i].type == "image/png" ) {
+                                        scope.getFileContent(files[i]);
+                                    } else {
+                                        Data_Toast.error('File type should be PNG or JPEG');
+                                    }
+                                } else {
+                                    Data_Toast.error('File size limit exceeded');
+                                }
 
-    if (angular.isFunction(scope.$parent[property]))
-      return scope.$parent[property];
+                            }
+                        });
+                    }
+                }, false);
 
-    return function(item) {
-      return item[property];
-    };
-  }
 
-  return {
-    restrict: 'EA',
-    scope: {
-      model: '=ngModel'
-    },
-    template: '<div class="bootstrap-tagsinput"><span class="tag label label-primary">hjk<span data-role="remove"></span></span><input type="text" placeholder="" style="width: 3em !important;"></div>',
-    replace: false,
-    link: function(scope, element, attrs) {
-      $(function() {
-        if (!angular.isArray(scope.model))
-          scope.model = [];
+                scope.setFiles = function (element) {
+                    scope.progressVisible = false;
+                    scope.successfullyUploaded = false;
+                    var files = element.files;
+                    // Turn the FileList object into an Array
+                    for (var i = 0; i < files.length; i++) {
+                        if (files[i].size < scope.imageSize.value) {
+                            // scope.files.push(files[i]);
+                            if (files[i].type == "image/jpeg" || files[i].type == "image/png" ) {
+                                scope.getFileContent(files[i]);
+                            } else {
+                                Data_Toast.error('File type should be PNG or JPEG');
+                            }
+                        } else {
+                            Data_Toast.error('File size limit exceeded');
+                        }
+                    }
+                    scope.progressVisible = false;
 
-        var select = $('select', element);
-        var typeaheadSourceArray = attrs.typeaheadSource ? attrs.typeaheadSource.split('.') : null;
-        var typeaheadSource = typeaheadSourceArray ?
-            (typeaheadSourceArray.length > 1 ?
-                scope.$parent[typeaheadSourceArray[0]][typeaheadSourceArray[1]]
-                : scope.$parent[typeaheadSourceArray[0]])
-            : null;
+                };
 
-        select.tagsinput(scope.$parent[attrs.options || ''] || {
-          typeahead : {
-            source   : angular.isFunction(typeaheadSource) ? typeaheadSource : null
-          },
-          itemValue: getItemProperty(scope, attrs.itemvalue),
-          itemText : getItemProperty(scope, attrs.itemtext),
-          confirmKeys : getItemProperty(scope, attrs.confirmkeys) ? JSON.parse(attrs.confirmkeys) : [13],
-          tagClass : angular.isFunction(scope.$parent[attrs.tagclass]) ? scope.$parent[attrs.tagclass] : function(item) { return attrs.tagclass; }
-        });
+                function uploadCanceled(evt) {
+                    scope.$apply(function () {
+                        scope.progressVisible = false;
+                    });
+                    alert("The upload has been canceled by the user or the browser dropped the connection.");
+                }
 
-        for (var i = 0; i < scope.model.length; i++) {
-          select.tagsinput('add', scope.model[i]);
-        }
 
-        select.on('itemAdded', function(event) {
-          if (scope.model.indexOf(event.item) === -1)
-            scope.model.push(event.item);
-        });
+                scope.removeFile = function (index) {
+                    if(scope.files[index].default){
+                        scope.clickedDefault = false;
+                        scope.files.splice(index, 1);
+                        scope.fileContent = '';
+                        if(scope.files.length > 0)
+                            scope.files[0].default = true;
+                    }else{
+                        scope.files.splice(index, 1);
+                        scope.fileContent = '';
+                    }
 
-        select.on('itemRemoved', function(event) {
-          var idx = scope.model.indexOf(event.item);
-          if (idx !== -1)
-            scope.model.splice(idx, 1);
-        });
 
-        // create a shallow copy of model's current state, needed to determine
-        // diff when model changes
-        var prev = scope.model.slice();
-        scope.$watch("model", function() {
-          var added = scope.model.filter(function(i) {return prev.indexOf(i) === -1;}),
-              removed = prev.filter(function(i) {return scope.model.indexOf(i) === -1;}),
-              i;
 
-          prev = scope.model.slice();
+                };
 
-          // Remove tags no longer in binded model
-          for (i = 0; i < removed.length; i++) {
-            select.tagsinput('remove', removed[i]);
-          }
+                scope.setDefault = function (index) {
+                    scope.clickedDefault = true;
+                    _.each(scope.files,function(k){
+                        k.default = false;
+                    });
+                    scope.files[index].default = true;
+                };
 
-          // Refresh remaining tags
-          select.tagsinput('refresh');
+                scope.getFileContent = function(file) {
+                    var data = '';
+                    var r;
+                    r = new FileReader();
+                    r.onloadend = function (e) {
+                        var fileDetail = {
+                            size : file.size,
+                            name : file.name,
+                            type : file.type,
+                            image : e.target.result
+                        };
+                        scope.$apply(function (scope) {
+                            if(scope.files.length < scope.imageCount) {
+                                scope.files.push(fileDetail);
+                                if (!scope.clickedDefault) {
+                                    scope.files[0].default = true;
+                                }
+                            }else{
+                                Data_Toast.error('You can upload only '+scope.imageCount+' images');
+                            }
+                        });
+                    };
 
-          // Add new items in model as tags
-          for (i = 0; i < added.length; i++) {
-            select.tagsinput('add', added[i]);
-          }
-        }, true);
-      });
-    }
-  };
-}]);
+                    r.readAsDataURL(file);
+                }
 
+
+            }
+        };
+    }]);
 
 })(com.TRENDI.ADMIN.modules.mainAdminModule);
