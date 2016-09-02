@@ -1,7 +1,7 @@
 <div class="modal-header">
     <div class="panel-header">
-                    <h3> <strong>Product</strong> Details</h3>
-                </div>
+        <h3> <strong>Product</strong> Details</h3>
+    </div>
 </div>
 <div class="modal-body">
 
@@ -46,7 +46,7 @@
                                                 <textarea rows="7" class="form-control" placeholder="Write your description... (maximum 200 characters)" maxlength="200" ng-required="true" name="description" ng-model="mainItem.description"></textarea>
                                                 <i class="fa fa-info-circle"></i>
                                             </div>
-                                             <div ng-messages="itemForm.description.$error">
+                                            <div ng-messages="itemForm.description.$error">
                                                 <div ng-message="required">This is required.</div>
                                                 <div ng-message="maxlength">The description has to be less than 200 characters long.</div>
                                             </div>
@@ -110,44 +110,52 @@
                                 <div class="row">
                                     <div class="col-sm-6">
                                         <div class="form-group">
-                                            <label ng-click="check()">Multiple Select</label>
-                                            <ui-select multiple tagging tagging-label="(custom 'new' label)" ng-model="multipleDemo.colors" theme="bootstrap" sortable="true" title="Choose a color">
-                                            <ui-select-match placeholder="Select colors...">{{$item}}</ui-select-match>
-                                            <ui-select-choices repeat="color in availableColors | filter:$select.search">
-                                              {{color}}
-                                            </ui-select-choices>
-                                          </ui-select>
+                                            <label ng-click="check()">Item Tagging</label>
+                                            <ui-select multiple ng-model="multipleDemo.colors" theme="bootstrap" sortable="true" title="Choose a color">
+                                                <ui-select-match placeholder="Select colors...">{{$item}}</ui-select-match>
+                                                <ui-select-choices repeat="color in availableColors | filter:$select.search">
+                                                    {{color}}
+                                                </ui-select-choices>
+                                            </ui-select>
                                         </div>
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="form-group">
-                                            <label class="control-label">Upload your avatar</label>
-                                            <div class="file">
-                                                <div class="option-group">
-                                                    <span class="file-button btn-primary">Choose File</span>
-                                                    <input type="file" class="custom-file" name="avatar" id="avatar" onchange="document.getElementById('uploader').value = this.value;" required>
-                                                    <input type="text" class="form-control" id="uploader" placeholder="no file selected" readonly="">
-                                                </div>
-                                            </div>
+                                            <label ng-click="check()">Select Sizes</label>
+                                            <ui-select multiple ng-model="multipleDemo.colors" theme="bootstrap" sortable="true" title="Choose a color">
+                                                <ui-select-match placeholder="Select colors...">{{$item}}</ui-select-match>
+                                                <ui-select-choices repeat="color in availableColors | filter:$select.search">
+                                                    {{color}}
+                                                </ui-select-choices>
+                                            </ui-select>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-6">
                                         <div class="form-group">
-                                            <label class="control-label">Password</label>
+                                            <label class="control-label">Discount <input type="checkbox" class="icheckbox_square-blue"></label>
                                             <div class="append-icon">
-                                                <input type="password" name="password" id="password" class="form-control" placeholder="Between 4 and 16 characters" minlength="4" maxlength="16" required>
-                                                <i class="icon-lock"></i>
+                                                <input type="number" name="password" id="password" class="form-control" placeholder="10">
+                                                <i class="icon-emoticon-smile"></i>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="form-group">
-                                            <label class="control-label">Repeat your password</label>
-                                            <div class="append-icon">
-                                                <input type="password" name="password2" id="password2" class="form-control" placeholder="Must be equal to your first password..." minlength="4" maxlength="16" required>
-                                                <i class="icon-lock"></i>
+                                            <label class="control-label">Select Category</label>
+                                            <div class="input-group">
+                                                <div class="icheck-inline">
+                                                    <label>
+                                                        <input type="checkbox" class="icheckbox_square-blue"> Female
+                                                    </label>
+                                                    <label>
+                                                        <input type="checkbox"  class="icheckbox_square-blue"> Male
+                                                    </label>
+                                                    <label>
+                                                        <input type="checkbox" class="icheckbox_square-blue"> Kids
+                                                    </label>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
