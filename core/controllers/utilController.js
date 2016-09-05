@@ -27,25 +27,17 @@ function updateCount(type, callback){
 }
 
 
-function insertSize(req,callback){
-    console.log("$$$$$$$  AddBlog $$$$$$");
+function changeSize(req,callback){
+    console.log("$$$$$$$  AddSize $$$$$$");
     var params = (req.body.params) ? req.body.params : {};
-    var blog = params.sizes;
-    UTIL.UpdateCount(CONSTANT.SIZE_COLLECTION, function (err, count) {
-        if (count) {
-            console.log("$$$$$$$  blog $$$$$$ Count : " + count);
-            blog.blogId = count;
-            daf.Insert(blog, CONSTANT.SIZE_COLLECTION, function(err , dataList){
-                callback(err ,dataList);
-            });
-
-        } else {
-            callback(err, null);
-        }
-
+    var query = {};
+    var changeDoc = {'sizes':params.sizes};    
+    daf.Update(query, changeDoc, CONSTANT.SIZE_COLLECTION, function (err, update) {
+        callback(err, update);
     });
-
-
 }; 
 
+
+
 module.exports.UpdateCount = updateCount;
+module.exports.ChangeSize = changeSize;
