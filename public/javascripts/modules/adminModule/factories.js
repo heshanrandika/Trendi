@@ -157,6 +157,10 @@
             return angular.extend({functionId: ADMIN_MOD_CONFIG.REQ_CONFIG.FUNC_AdminGetTagList}, _getCObj());
         };
 
+        serviceCalls.getTagListDao = function () {
+            return angular.extend({functionId: ADMIN_MOD_CONFIG.REQ_CONFIG.FUNC_GetTagList}, _getCObj());
+        };
+
         serviceCalls.addTagDao = function () {
             return angular.extend({functionId: ADMIN_MOD_CONFIG.REQ_CONFIG.FUNC_AddTag}, _getCObj());
         };

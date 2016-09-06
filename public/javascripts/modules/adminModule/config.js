@@ -301,6 +301,7 @@
             FUNC_RemoveBlog :     6003,
             FUNC_UpdateBlog :     6005,
             FUNC_AdminGetTagList :      7000,
+            FUNC_GetTagList :     7001,
             FUNC_AddTag     :     7002,
             FUNC_RemoveTag  :     7003,
             FUNC_GetMessageList  :      5000,

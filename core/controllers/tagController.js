@@ -25,7 +25,7 @@ function addTag(req,callback){
 function getTagList(req,callback){
     console.log("$$$$$$$  GetTagList $$$$$$");
     var params = (req.body.params) ? req.body.params : {};
-    var shopId = params.shopId
+    var shopId = params.shopId;
     var query ={};
     if(!(shopId == 'all' || undefined == shopId)){
         var query = {shopId : shopId};

@@ -101,10 +101,10 @@
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label ng-click="check()">Item Tagging</label>
-                                            <ui-select multiple ng-model="multipleDemo.colors" theme="bootstrap" sortable="true" title="Choose a color">
-                                                <ui-select-match placeholder="Select colors...">{{$item}}</ui-select-match>
-                                                <ui-select-choices repeat="color in availableColors | filter:$select.search">
-                                                    {{color}}
+                                            <ui-select multiple ng-model="item.types" theme="bootstrap" sortable="true" title="Choose a Tag">
+                                                <ui-select-match placeholder="Select tags...">{{$item.key}}</ui-select-match>
+                                                <ui-select-choices repeat="type in availableTypes | filter:$select.search">
+                                                    {{type.key}}
                                                 </ui-select-choices>
                                             </ui-select>
                                         </div>

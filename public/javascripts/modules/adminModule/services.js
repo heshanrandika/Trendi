@@ -154,6 +154,10 @@
             return Data_Comm.postPromise(angular.extend({params:d},adminServiceCalls.adminGetTagListDao()));
         };
 
+        var _getTagList = function(d){
+            return Data_Comm.postPromise(angular.extend({params:d},adminServiceCalls.getTagListDao()));
+        };
+
         var _addTag = function(d){
             return Data_Comm.postPromise(angular.extend({params:d},adminServiceCalls.addTagDao()));
         };
@@ -245,6 +249,7 @@
             updateBlog:_updateBlog,
             removeBlog:_removeBlog,
             adminGetTagList:_adminGetTagList,
+            getTagList:_getTagList,
             addTag:_addTag,
             removeTag:_removeTag,
             getMessageList:_getMessageList,
