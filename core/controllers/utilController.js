@@ -26,8 +26,22 @@ function updateCount(type, callback){
     });
 }
 
+function getSizes(req,callback){
+    console.log("$$$$$$$  AddSize $$$$$$");
+    var query = {};
+    var data = [];
+    var dbCon = daf.Find(query,CONSTANT.SIZE_COLLECTION);
+    dbCon.on('data', function(doc){
+        data.push(doc);
+    });
 
-function changeSize(req,callback){
+    dbCon.on('end', function(){
+        callback(null,data);
+    });
+}; 
+
+
+function changeSizes(req,callback){
     console.log("$$$$$$$  AddSize $$$$$$");
     var params = (req.body.params) ? req.body.params : {};
     var query = {};
@@ -40,4 +54,5 @@ function changeSize(req,callback){
 
 
 module.exports.UpdateCount = updateCount;
-module.exports.ChangeSize = changeSize;
+module.exports.ChangeSizes = changeSizes;
+module.exports.GetSizes = getSizes;

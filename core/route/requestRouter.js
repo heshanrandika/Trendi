@@ -11,6 +11,7 @@ var TAG = require("../controllers/tagController");
 var COMMENT = require("../controllers/commentController");
 var AuthCtrl = require('../controllers/authController');
 var USER = require('../controllers/userController');
+var UTIL = require('../controllers/utilController');
 
 var requestRoute = function(req,res){
     var functionId = parseInt(req.body.functionId);
@@ -363,7 +364,45 @@ var requestRoute = function(req,res){
             });
             break;
 
+        case 1017:
 
+            UTIL.GetSizes(req, function (err, data) {
+                if (err) {
+                    resObject.resStatus = 0;
+                    resObject.responData.Error = err.toString();
+                    res.status(500);
+                    res.send(resObject);
+
+                } else if (data) {
+
+                    resObject.resStatus = 1;
+                    resObject.responData.data = data;
+                    res.send(resObject);
+
+                }
+
+            });
+            break
+
+        case 1018:
+
+            UTIL.ChangeSizes(req, function (err, data) {
+                if (err) {
+                    resObject.resStatus = 0;
+                    resObject.responData.Error = err.toString();
+                    res.status(500);
+                    res.send(resObject);
+
+                } else if (data) {
+
+                    resObject.resStatus = 1;
+                    resObject.responData.data = data;
+                    res.send(resObject);
+
+                }
+
+            });
+            break;
         case 2000:
 
             SHOP.GetShopList(req, function (err, data) {

@@ -47,6 +47,14 @@
             return Data_Comm.postPromise(angular.extend({params:d},adminServiceCalls.removeItemDao()));
         };
 
+        var _getSizes = function(d){
+            return Data_Comm.postPromise(angular.extend({params:d},adminServiceCalls.getSizesDao()));
+        };
+
+        var _changeSizes = function(d){
+            return Data_Comm.postPromise(angular.extend({params:d},adminServiceCalls.changeSizesDao()));
+        };
+
         var _registerShop = function(d){
             return Data_Comm.postPromise(angular.extend({params:d},adminServiceCalls.registerShopDao()));
         };
@@ -244,7 +252,9 @@
             replyMessage:_replyMessage,
             updateMessage:_updateMessage,
             getUnreadMessageList:_getUnreadMessageList,
-            getMessageCount:_getMessageCount
+            getMessageCount:_getMessageCount,
+            getSizes:_getSizes,
+            changeSizes:_changeSizes
         }
     }]);
 })(com.TRENDI.ADMIN.modules.mainAdminModule);

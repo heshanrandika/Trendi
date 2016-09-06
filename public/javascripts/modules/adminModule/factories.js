@@ -41,6 +41,14 @@
             return angular.extend({functionId: ADMIN_MOD_CONFIG.REQ_CONFIG.FUNC_RemoveItems}, _getCObj());
         };
 
+        serviceCalls.getSizesDao = function () {
+            return angular.extend({functionId: ADMIN_MOD_CONFIG.REQ_CONFIG.FUNC_GetSizes}, _getCObj());
+        };
+
+        serviceCalls.changeSizesDao = function () {
+            return angular.extend({functionId: ADMIN_MOD_CONFIG.REQ_CONFIG.FUNC_ChangeSizes}, _getCObj());
+        };
+
         serviceCalls.getShopListDao = function () {
             return angular.extend({functionId: ADMIN_MOD_CONFIG.REQ_CONFIG.FUNC_GetShopList}, _getCObj());
         };

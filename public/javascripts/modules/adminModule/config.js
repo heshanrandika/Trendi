@@ -268,6 +268,8 @@
             FUNC_RemoveItems:     1011,
             FUNC_GetItemList:     1010,
             FUNC_AdminGetItemList:1000,
+            FUNC_GetSizes:        1017,
+            FUNC_ChangeSizes:     1018,
             //++++++shop function list++++++++++++++++
             FUNC_GetShopList:     2008,
             FUNC_RegisterShop:    2009,
