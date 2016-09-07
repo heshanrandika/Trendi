@@ -80,22 +80,7 @@
         $scope.count = 0;
         var shopDetails = {};
         var itemPerPage = 8;
-
-        //=======Item Edit Window================
-        $scope.subItem = [];
-        $scope.headerText = '';
-        $scope.addNew = true;
-
-        $scope.mainItem = {};
-        $scope.selectedColors = [];
-        $scope.slectedSizes = [];
-        $scope.slectedTypes = [];
-        $scope.selectedIndex = 0;
-        $scope.btnPressed = false;
-        $scope.group = {};
-
-
-
+       
 
         shopDetails = adminDataService.shopData();
         $scope.searchObj = {
@@ -152,10 +137,20 @@
                 }
             });
 
-            modalInstance.result.then(function (selectedItem) {
-                $scope.selected = selectedItem;
+            modalInstance.result.then(function (editedItem) {
+                switch(editedItem.option){
+                    case 1 : $scope.loadData(1);
+                                break;
+
+                    case 2 : selectedItem.item = editedItem.item;
+                                break;
+
+                    case 3 : $scope.loadData(1);
+                                break;
+                }
+                
             }, function () {
-                $log.info('Modal dismissed at: ' + new Date());
+                
             });
         };
 
@@ -178,172 +173,6 @@
             }, function () {
             });
         };
-
-
-        $scope.resetForm = function(){
-            $scope.mainImage = [];
-            $scope.subItem = [];
-            $scope.headerText = '';
-            $scope.addNew = '';
-            $scope.selectedColors = [];
-            $scope.slectedSizes = [];
-            $scope.slectedTypes = [];
-            $scope.btnPressed = false;
-            $scope.group = {
-                men: false,
-                women: false,
-                kids: false
-            };
-
-        };
-
-        $scope.$watch('selectedIndex', function(current, old){
-            if(current<old){
-                $scope.headerText = '';
-            }
-        });
-
-        $scope.EditViewController = function(itemData) {
-            $scope.itemId = itemData.itemId;
-            $scope.resetForm();
-            $scope.selectedIndex = 1;
-            if(itemData){
-                $scope.mainItem = itemData.item;
-                $scope.mainImage.push({image:$scope.mainItem.image,default:true});
-
-                $scope.selectedColors = itemData.item.colors;
-                $scope.slectedSizes = itemData.item.sizes?itemData.item.sizes:[];
-                $scope.slectedTypes = itemData.item.types?itemData.item.types:[];
-                $scope.group = itemData.item.group?itemData.item.group:{
-                    men: false,
-                    women: false,
-                    kids: false
-                };
-
-                adminDataService.getSubItem({itemId : itemData.itemId, seenEnable:false}).then(function(response){
-                    var subItemList = response.data.responData.data.itemList;
-                    if(subItemList.length > 0){
-                        _.each(subItemList,function(k){
-                            $scope.mainImage.push({image: k.image,default:false});
-                        });
-                    }
-                });
-                $scope.headerText = 'Edit Item #'+itemData.itemId;
-                $scope.addNew = false;
-            }else{
-
-                $scope.mainItem = {};
-                $scope.selectedColors = [{color:'#FFFFFF'},{color:'#FFFFFF'},{color:'#FFFFFF'},{color:'#FFFFFF'}];
-                $scope.slectedSizes = [{'value': 'X-small'}];
-                $scope.slectedTypes = [];
-                $scope.headerText = 'Add New Item';
-                $scope.addNew = true;
-                $scope.group = {
-                    men: false,
-                    women: false,
-                    kids: false
-                };
-            }
-
-
-
-
-
-
-
-
-        };
-
-        $scope.close = function() {
-            $scope.selectedIndex = 0;
-        };
-
-        $scope.answer = function(option) {
-            $scope.btnPressed = true;
-            if(option){
-                if(($scope.mainItem.name == '' || $scope.mainItem.name == undefined) ||
-                    ($scope.mainItem.price == '' || $scope.mainItem.price == undefined) ||
-                    ($scope.mainItem.description == '' || $scope.mainItem.description == undefined) ||
-                    $scope.mainImage.length == 0){
-                    Data_Toast.warning(MESSAGE_CONFIG.ERROR_REQUIRED_FIELDS);
-                    $scope.btnPressed = false;
-                }else {
-                    _.each($scope.mainImage, function (k) {
-                        if (k.default) {
-                            $scope.mainItem.image = k.image;
-                        } else {
-                            $scope.subItem.push({image: k.image});
-                        }
-                    });
-                    $scope.mainItem.shop = shopDetails.branch;
-                    $scope.mainItem.types = $scope.slectedTypes;
-                    $scope.mainItem.sizes = $scope.slectedSizes;
-                    $scope.mainItem.colors = $scope.selectedColors;
-                    $scope.mainItem.group = $scope.group;
-                    $scope.mainItem.rate = {rate:0, star:0, hit:0};
-                    var itemDetail = {};
-                    switch (option) {
-                        case 1 :
-                            itemDetail = {mainItem: $scope.mainItem, subItem: $scope.subItem};
-                            adminDataService.addItem(itemDetail).then(function (response) {
-                                $scope.loadData(1);
-                                $scope.selectedIndex = 0;
-                                Data_Toast.success(MESSAGE_CONFIG.SUCCESS_SAVED_SUCCESSFULLY);
-                            },function(error){
-                                Data_Toast.error(MESSAGE_CONFIG.ERROR_SAVE_FAIL,error.data.responData.Error);
-                                $scope.btnPressed = false;
-                            });
-                            break;
-                        case 2 :
-                            itemDetail = {mainItem: $scope.mainItem, subItem: $scope.subItem, itemId:$scope.itemId};
-                            adminDataService.updateItem(itemDetail).then(function (response) {
-                                $scope.loadData(1);
-                                $scope.selectedIndex = 0;
-                                Data_Toast.success(MESSAGE_CONFIG.SUCCESS_UPDATE_SUCCESSFULLY);
-                            },function(error){
-                                Data_Toast.error(MESSAGE_CONFIG.ERROR_UPDATE_FAIL,error.data.responData.Error);
-                                $scope.btnPressed = false;
-                            });
-                            break;
-                        default :
-                            $scope.btnPressed = false;
-                            break;
-                    }
-
-                }
-
-            }else{
-                $scope.btnPressed = true;
-                var itemDetail={itemId:$scope.itemId};
-                adminDataService.removeItem(itemDetail).then(function(response){
-                    $scope.loadData(1);
-                    $scope.selectedIndex = 0;
-                    Data_Toast.success(MESSAGE_CONFIG.SUCCESS_REMOVED_SUCCESSFULLY);
-                },function(error){
-                    Data_Toast.error(MESSAGE_CONFIG.ERROR_REMOVE_FAIL,error.data.responData.Error);
-                    $scope.btnPressed = false;
-                });
-            }
-
-        };
-
-        /*  $scope.goToItem = function(item, event) {
-         $mdDialog.show({
-         locals:{itemData: item},
-         controller: DialogController,
-         templateUrl: '/views/adminModule/admin.item.modal.html',
-         parent: angular.element(document.body),
-         targetEvent: event,
-         clickOutsideToClose:false,
-         focusOnOpen:false
-         })
-         .then(function(answer) {
-         $scope.status = 'You said the information was "' + answer + '".';
-         }, function() {
-         $scope.status = 'You cancelled the dialog.';
-         });
-         };*/
-
 
     }]);
 

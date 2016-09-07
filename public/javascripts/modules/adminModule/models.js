@@ -58,6 +58,13 @@
                     $scope.item.colors = [];
                     $scope.item.rate = {rate:0, star:0, hit:0};
 
+                    _.each($scope.item.types, function (k) {
+                        delete k.$$hashKey
+                    });
+
+                    _.each($scope.item.sizes, function (k) {
+                        delete k.$$hashKey
+                    });
                 }
 
 		}
@@ -68,7 +75,7 @@
 			var itemDetail = {mainItem: $scope.item, subItem: $scope.subItem};
             adminDataService.addItem(itemDetail).then(function (response) {
                 Data_Toast.success(MESSAGE_CONFIG.SUCCESS_SAVED_SUCCESSFULLY);
-                uiModalInstance.close();
+                uiModalInstance.close({'option' :1, 'item' :$scope.item});
             },function(error){
                 Data_Toast.error(MESSAGE_CONFIG.ERROR_SAVE_FAIL,error.data.responData.Error);
                 $scope.btnPressed = false;
@@ -81,7 +88,7 @@
 			var itemDetail = {mainItem: $scope.item, subItem: $scope.subItem, itemId:$scope.itemId};
             adminDataService.updateItem(itemDetail).then(function (response) {
                 Data_Toast.success(MESSAGE_CONFIG.SUCCESS_UPDATE_SUCCESSFULLY);
-                uiModalInstance.close();
+                uiModalInstance.close({'option' :2, 'item' :$scope.item});
             },function(error){
                 Data_Toast.error(MESSAGE_CONFIG.ERROR_UPDATE_FAIL,error.data.responData.Error);
                 $scope.btnPressed = false;
@@ -93,17 +100,12 @@
             var itemDetail={itemId:$scope.itemId};
             adminDataService.removeItem(itemDetail).then(function(response){
                 Data_Toast.success(MESSAGE_CONFIG.SUCCESS_REMOVED_SUCCESSFULLY);
-                uiModalInstance.close();
+                uiModalInstance.close({'option' :3, 'item' :$scope.item});
             },function(error){
                 Data_Toast.error(MESSAGE_CONFIG.ERROR_REMOVE_FAIL,error.data.responData.Error);
                 $scope.btnPressed = false;
             });
 		}
-
-		$scope.ok = function () {
-			console.log($scope.item);
-			uiModalInstance.close();
-		};
 
 		$scope.cancel = function () {
 			uiModalInstance.dismiss('cancel');

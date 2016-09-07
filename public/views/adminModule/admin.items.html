@@ -31,7 +31,7 @@
                         <th>&nbsp;</th>
                     </tr>
                     </thead>
-                    <tbody>
+                    <tbody infinite-scroll='paginationFuntion()' infinite-scroll-distance='0.01'>
                     <tr ng-repeat="item in itemList">
                         <td><span class="pull-left p-r-5">
                                                 <img alt="{{ item.item.name }}" ng-src="{{item.item.image}}" class="table-img-icon"/>
