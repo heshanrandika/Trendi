@@ -146,7 +146,8 @@
                 size: 'lg',
                 resolve:{
                     item : function(){
-                        return selectedItem;
+                        var editItem = angular.copy(selectedItem);
+                        return editItem;
                     }
                 }
             });
@@ -155,6 +156,26 @@
                 $scope.selected = selectedItem;
             }, function () {
                 $log.info('Modal dismissed at: ' + new Date());
+            });
+        };
+
+        $scope.addNew = function () {
+
+            var modalInstance = uiModal.open({
+                animation: true,
+                templateUrl: '/views/adminModule/models/admin.product.model.html',
+                controller: 'productModel',
+                size: 'lg',
+                resolve:{
+                    item : function(){
+                        return undefined;
+                    }
+                }
+            });
+
+            modalInstance.result.then(function (selectedItem) {
+                $scope.selected = selectedItem;
+            }, function () {
             });
         };
 
