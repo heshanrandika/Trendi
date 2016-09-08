@@ -17,7 +17,7 @@
 
                                         <div class="panel bg-aero">
                                             <div class="panel-header">
-                                                <h3>User <strong>Details</strong></h3>
+                                                <h3>Basic <strong>Details</strong></h3>
                                             </div>
                                             <div class="panel-content">
                                                 <div class="row">
@@ -57,6 +57,11 @@
                                                                 <i class="fa fa-mobile-phone"></i>
                                                             </div>
                                                         </div>
+                                                        <div class="form-group">
+                                                            <label class="control-label">Select Title</label>
+                                                            <select ng-model="tmp.selectedTitle" ng-options="data.key for data in titles"
+                                                                    class="form-control form-filter srch-select-opt"></select>
+                                                        </div>
                                                         <div class="panel bg-red">
                                                             <div class="panel-content">
                                                                <div class="form-group">
@@ -82,13 +87,26 @@
                                                                 </div>
                                                             </div>
                                                         </div>
+
+
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>  
                                     </div>
                                     <div class="col-sm-6">
-                                        
+                                        <div class="panel bg-aero">
+                                            <div class="panel-header">
+                                                <h3><strong>Profile </strong>Picture</h3>
+                                            </div>
+                                            <div class="panel-content">
+                                                <div class="row">
+                                                    <div>
+                                                        <trendi-file-upload files="uploadedImages" image-size="profilePicSize" image-count="profilePicCount"></trendi-file-upload>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -106,48 +124,7 @@
                                         </div>
                                     </div>
                                     <div class="col-sm-6">
-                                        <div class="form-group">
-                                            <label class="control-label">Select Colours</label>
-                                            <div class="input-group">
-                                                <ul class="icheck-colors">
-                                                    <li class="red " ng-class="{'active': redSelect}" ng-click="redSelect = !redSelect" ng-init="redSelect = false">
-                                                    </li>
-                                                    <li class="green active">
-                                                    </li>
-                                                    <li class="blue active">
-                                                    </li>
-                                                    <li class="aero active">
-                                                    </li>
-                                                    <li class="grey active">
-                                                    </li>
-                                                    <li class="orange active">
-                                                    </li>
-                                                    <li class="pink active">
-                                                    </li>
-                                                    <li class="purple active">
-                                                    </li>
-                                                </ul>
-                                                <ul class="icheck-colors">
-                                                    <li class="red ">
-                                                    </li>
-                                                    <li class="green">
-                                                    </li>
-                                                    <li class="blue">
-                                                    </li>
-                                                    <li class="aero active">
-                                                    </li>
-                                                    <li class="grey">
-                                                    </li>
-                                                    <li class="orange">
-                                                    </li>
-                                                    <li class="pink">
-                                                    </li>
-                                                    <li class="purple">
-                                                    </li>
-                                                </ul>
-                                            </div>
 
-                                        </div>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -217,11 +194,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div>
-                                            <trendi-file-upload files="uploadedImages" image-size="imageSize"  image-count="imageCount"></trendi-file-upload>
-                                    </div>
-                                </div>
+
                                 <div class="text-center  m-t-20">
                                             <div ng-if="addNewItem">
                                                 <button  class="btn btn-primary" ng-disabled="(itemForm.$invalid || uploadedImages.length == 0) || btnPressed" ng-click="save()">

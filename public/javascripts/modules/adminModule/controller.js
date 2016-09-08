@@ -126,7 +126,7 @@
 
             var modalInstance = uiModal.open({
                 animation: true,
-                templateUrl: '/views/adminModule/models/admin.user.model.html',
+                templateUrl: '/views/adminModule/models/admin.product.model.html',
                 controller: 'productModel',
                 size: 'lg',
                 resolve:{
@@ -137,8 +137,8 @@
                 }
             });
 
-            modalInstance.result.then(function () {
-               selectedItem.item = editedItem.item;                
+            modalInstance.result.then(function (editedItem) {
+               selectedItem.item = editedItem;
             }, function () {
                 
             });
@@ -182,13 +182,18 @@
 
 
     mod.controller('adminUsersController', ['$scope', '$rootScope','$state','adminDataService','Data.Toast','MESSAGE_CONFIG','$modal','Confirmation', function ($scope, $rootScope, $state, adminDataService, Data_Toast, MESSAGE_CONFIG, uiModal, Confirmation) {
+        $scope.userList = [];
+        $scope.count = 0;
+        var shopDetails = {};
+        var itemPerPage = 8;
 
-
-        var shopDetails = adminDataService.shopData();
+        shopDetails = adminDataService.shopData();
         $scope.searchObj = {
-            shopId:$scope.shopDetails.shopId, 
-            notInMail : $scope.shopDetails.email, 
-            superAdmin:false
+            shopId:shopDetails.shopId,
+            notInMail : shopDetails.email,
+            superAdmin:false,
+            skip: $scope.userList.length,
+            limit:itemPerPage
         };
 
         $scope.loadData = function(init){
@@ -218,7 +223,30 @@
         };
 
         $scope.loadData(1);
-    
+
+        $scope.open = function (selectedItem) {
+
+            var modalInstance = uiModal.open({
+                animation: true,
+                templateUrl: '/views/adminModule/models/admin.user.model.html',
+                controller: 'userModel',
+                size: 'lg',
+                resolve:{
+                    item : function(){
+                        var editItem = angular.copy(selectedItem);
+                        return editItem;
+                    }
+                }
+            });
+
+            modalInstance.result.then(function (editedItem) {
+                selectedItem.item = editedItem;
+            }, function () {
+
+            });
+        };
+
+
     }]);
 
 

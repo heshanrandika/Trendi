@@ -25,10 +25,10 @@
 
             },
 
-            'main.test': {
-                url: '/test',
-                templateUrl: '/views/adminModule/admin.test.html',
-                controller: 'adminTest'
+            'main.users': {
+                url: '/users',
+                templateUrl: '/views/adminModule/admin.users.html',
+                controller: 'adminUsersController'
             }
             /*         'admin.shops': {
              url: '/shops',
@@ -329,7 +329,7 @@
             },
             {
                 value:'Users',
-                key:'main.test',
+                key:'main.users',
                 authorization: 2016,
                 icon:'icon-user'
             },
@@ -394,7 +394,7 @@
             },
             {
                 value:'Users',
-                key:'main.test',
+                key:'main.users',
                 authorization: 2016,
                 icon:'icon-user'
             },

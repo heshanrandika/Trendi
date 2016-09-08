@@ -2,29 +2,6 @@
  * Created by Heshanr on 7/20/2015.
  */
 (function(mod){
-    mod.factory('Data.Comm', ['$http', '$rootScope',function ($http, $rootScope) {
-
-        var URL = "/";
-
-        var _getPromise = function (p) {
-            return $http.get(URL, (p) ? p : {});
-        };
-
-        var _postPromise = function (p) {
-            var value = CryptoJS.TripleDES.encrypt(JSON.stringify(p), "dsgfbdusiduigdfgndsgyufigyfldg");
-            var encrypt = {enc : ""+value};
-            return $http.post(URL, (encrypt) ? encrypt : {});
-        };
-
-        return {
-            getPromise: _getPromise,
-            postPromise: _postPromise
-        };
-
-    }]);
-
-
-
 
     mod.service('adminDataService',['$window','Data.Comm','adminServiceCalls',function($window, Data_Comm, adminServiceCalls){
         var _adminGetItemList = function(d){

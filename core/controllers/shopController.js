@@ -290,6 +290,9 @@ function adminGetUserList(req,callback){
     var superAdmin = params.superAdmin;
     var email = params.email;
     var notInMail = params.notInMail;
+    var skip   = (params.skip)?params.skip:0;
+    var limit  = (params.limit)?params.limit:16;
+    var sorter = [['date',-1]];
 
     var query = {};
 
@@ -308,16 +311,26 @@ function adminGetUserList(req,callback){
     if(params.notInMail != undefined){
         query['email'] = { $nin: [ notInMail ] } ;
     }
+    var option = {skip:skip, limit:limit, sort:sorter};
 
     console.log("$$$$$$$  GET User List $$$$$$ : ");
-    var data = [];
-    var dbCon = daf.Find(query,CONSTANT.SHOP_USER);
+    var data = {list:[]};
+    var dbCon = daf.FindWithPagination(query,CONSTANT.SHOP_USER,option);
     dbCon.on('data', function(doc){
-        data.push(doc);
+        data.list.push(doc);
     });
 
     dbCon.on('end', function(){
-        callback(null,data);
+        if(skip == 0){
+            daf.Count(query,CONSTANT.SHOP_USER,function(err , count){
+                if(count){
+                    data.count = count;
+                }
+                callback(null,data);
+            })
+        }else{
+            callback(null,data);
+        }
     });
 };
 

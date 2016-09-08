@@ -1,4 +1,67 @@
-<div>
+<div class="header">
+    <h2><strong>Product</strong> Collection</h2>
+    <div class="breadcrumb-wrapper">
+        <ol class="breadcrumb">
+            <li>
+                <a href="#">Make</a>
+            </li>
+            <li>
+                <a href="#">Forms</a>
+            </li>
+            <li class="active">Form Elements</li>
+        </ol>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel">
+            <div class="panel-header">
+                <button class="btn btn-success" ng-click="addNew()">
+                    <i class="icon-plus"></i> Add New
+                </button>
+            </div>
+            <div class="panel-content">
+                <table  class="table table-hover table-dynamic">
+                    <thead>
+                    <tr>
+                        <th>&nbsp;</th>
+                        <th>Branch Id</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>&nbsp;</th>
+                    </tr>
+                    </thead>
+                    <tbody infinite-scroll='paginationFuntion()' infinite-scroll-distance='0.01'>
+                    <tr ng-repeat="item in userList">
+                        <td><span class="pull-left p-r-5">
+                                                <img alt="{{ item.name }}" ng-src="{{item.profilePic}}" class="table-img-icon"/>
+                                                </span></td>
+                        <td>{{ item.branch.branchId }}</td>
+                        <td>{{ item.name }}</td>
+                        <td>{{ item.email }}</td>
+                        <td><div><a class="edit btn btn-sm btn-default" href="javascript:;" ng-click="open(item)"><i class="icon-note" ></i></a>  <a class="delete btn btn-sm btn-danger" href="javascript:;" ng-click="remove(item)"><i class="icons-office-52"></i></a></div></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="footer">
+    <div class="copyright">
+        <p class="pull-left sm-pull-reset">
+            <span>Copyright <span class="copyright">&copy;</span> 2016 </span>
+            <span>Trendi</span>.
+            <span>All rights reserved. </span>
+        </p>
+        <p class="pull-right sm-pull-reset">
+            <span><a href="#" class="m-r-10">Support</a> | <a href="#" class="m-l-10 m-r-10">Terms of use</a> | <a href="#" class="m-l-10">Privacy Policy</a></span>
+        </p>
+    </div>
+</div>
+
+
+<!--<div>
 <md-content class="md-padding">
 <md-tabs md-dynamic-height md-border-bottom md-selected="selectedIndex">
     <md-tab label="Full Item List">
@@ -12,7 +75,7 @@
                             <md-list-item ng-repeat="user in userList" ng-click="EditViewController(user)">
                                 <img alt="{{ user.name }}" ng-src="{{user.profilePic}}" class="md-avatar" />
                                 <p>{{ user.name }}</p>
-                                <!-- <md-svg-icon class="ic_24px" icon="{{person.iconimg}}"></md-svg-icon>-->
+                                &lt;!&ndash; <md-svg-icon class="ic_24px" icon="{{person.iconimg}}"></md-svg-icon>&ndash;&gt;
                                 <md-icon md-svg-icon="communication:ic_settings" ng-click="EditViewController(user)" aria-label="Open Chat" class="md-secondary md-hue-3" ng-class="{'md-primary': user.name}"></md-icon>
                             </md-list-item>
                         </md-list>
@@ -31,7 +94,7 @@
                             <div class="col-md-6">
                                 <h6>User Details</h6>
                                 <md-input-container flex>
-                                    <!-- Use floating label instead of placeholder -->
+                                    &lt;!&ndash; Use floating label instead of placeholder &ndash;&gt;
                                     <label>Name</label>
                                     <input ng-model="regUser.name" name="name" type="text" ng-required="true">
                                     <div ng-messages="itemForm.name.$error">
@@ -41,7 +104,7 @@
                                 </md-input-container>
 
                                 <md-input-container flex>
-                                    <!-- Use floating label instead of placeholder -->
+                                    &lt;!&ndash; Use floating label instead of placeholder &ndash;&gt;
                                     <label>Email</label>
                                     <input ng-disabled="!addNew" ng-model="regUser.email" name="email" type="email" ng-required="true">
                                     <div ng-messages="itemForm.email.$error">
@@ -52,7 +115,7 @@
                                 </md-input-container>
 
                                 <md-input-container flex>
-                                    <!-- Use floating label instead of placeholder -->
+                                    &lt;!&ndash; Use floating label instead of placeholder &ndash;&gt;
                                     <label>Password</label>
                                     <input ng-disabled="!addNew" ng-model="regUser.password" name="password" type="password" ng-required="true">
                                     <div ng-messages="itemForm.password.$error">
@@ -62,7 +125,7 @@
                                 </md-input-container>
 
                                 <md-input-container flex ng-if="addNew">
-                                    <!-- Use floating label instead of placeholder -->
+                                    &lt;!&ndash; Use floating label instead of placeholder &ndash;&gt;
                                     <label>Confirm Password</label>
                                     <input ng-model="regUser.confirm_password" name="confirm_password" type="password" ng-required="true" compare-to="regUser.password">
                                     <div ng-messages="itemForm.confirm_password.$error">
@@ -115,7 +178,7 @@
                                     <img ng-show="tmp.selectedBranch.shop.iconImage != ''" alt="{{ user.name }}" ng-src="{{tmp.selectedBranch.shop.iconImage}}" class="md-avatar" />
 
                                     <md-input-container flex>
-                                        <!-- Use floating label instead of placeholder -->
+                                        &lt;!&ndash; Use floating label instead of placeholder &ndash;&gt;
                                         <label>Branch Name</label>
                                         <input ng-model="tmp.selectedBranch.shop.name" name="branchName" type="text"  ng-disabled="true">
                                         <div ng-messages="itemForm.branchName.$error">
@@ -204,5 +267,5 @@
     </md-tab>
 </md-tabs>
 </md-content>
-</div>
+</div>-->
 
