@@ -75,7 +75,7 @@
     }]);
 
 
-    mod.controller('adminItemController', ['$scope', '$rootScope','$state','adminDataService','Data.Toast','MESSAGE_CONFIG','$modal', function ($scope, $rootScope, $state, adminDataService, Data_Toast, MESSAGE_CONFIG, uiModal) {
+    mod.controller('adminItemController', ['$scope', '$rootScope','$state','adminDataService','Data.Toast','MESSAGE_CONFIG','$modal','Confirmation', function ($scope, $rootScope, $state, adminDataService, Data_Toast, MESSAGE_CONFIG, uiModal, Confirmation) {
         $scope.itemList = [];
         $scope.count = 0;
         var shopDetails = {};
@@ -126,7 +126,7 @@
 
             var modalInstance = uiModal.open({
                 animation: true,
-                templateUrl: '/views/adminModule/models/admin.product.model.html',
+                templateUrl: '/views/adminModule/models/admin.user.model.html',
                 controller: 'productModel',
                 size: 'lg',
                 resolve:{
@@ -137,18 +137,8 @@
                 }
             });
 
-            modalInstance.result.then(function (editedItem) {
-                switch(editedItem.option){
-                    case 1 : $scope.loadData(1);
-                                break;
-
-                    case 2 : selectedItem.item = editedItem.item;
-                                break;
-
-                    case 3 : $scope.loadData(1);
-                                break;
-                }
-                
+            modalInstance.result.then(function () {
+               selectedItem.item = editedItem.item;                
             }, function () {
                 
             });
@@ -168,15 +158,71 @@
                 }
             });
 
-            modalInstance.result.then(function (selectedItem) {
-                $scope.selected = selectedItem;
+            modalInstance.result.then(function () {
+                $scope.loadData(1);
             }, function () {
+            });
+        };
+
+        $scope.remove = function (itemId) {
+            Confirmation.openConfirmation("Confirmation", "Are you sure you want to remove this?").then(function (result) {
+                 if(result == 1){
+                    var itemDetail={'itemId':itemId};
+                    adminDataService.removeItem(itemDetail).then(function(response){
+                        Data_Toast.success(MESSAGE_CONFIG.SUCCESS_REMOVED_SUCCESSFULLY);
+                        $scope.loadData(1);
+                    },function(error){
+                        Data_Toast.error(MESSAGE_CONFIG.ERROR_REMOVE_FAIL,error.data.responData.Error);
+                    });
+                 }
             });
         };
 
     }]);
 
-    mod.controller('adminTest',['$scope','$modal',function($scope, uiModal){
+
+    mod.controller('adminUsersController', ['$scope', '$rootScope','$state','adminDataService','Data.Toast','MESSAGE_CONFIG','$modal','Confirmation', function ($scope, $rootScope, $state, adminDataService, Data_Toast, MESSAGE_CONFIG, uiModal, Confirmation) {
+
+
+        var shopDetails = adminDataService.shopData();
+        $scope.searchObj = {
+            shopId:$scope.shopDetails.shopId, 
+            notInMail : $scope.shopDetails.email, 
+            superAdmin:false
+        };
+
+        $scope.loadData = function(init){
+            if(init){
+                $scope.userList = [];
+                $scope.searchObj.skip =0;
+            }
+            $scope.loading = true;
+            adminDataService.getAdminUserList($scope.searchObj).then(function(response){
+                $scope.userList.push.apply($scope.userList, response.data.responData.data.list);
+                if(response.data.responData.data.count){
+                    $scope.count = response.data.responData.data.count;
+                }
+                $scope.loading = false;
+            },function(){
+                $scope.userList = [];
+            });
+
+        };
+
+        // Register event handler
+        $scope.paginationFuntion = function() {
+            $scope.searchObj.skip = $scope.userList.length;
+            if ($scope.count > $scope.userList.length && !$scope.loading) {
+                $scope.loadData();
+            }
+        };
+
+        $scope.loadData(1);
+    
+    }]);
+
+
+    mod.controller('adminTest',['$scope',function($scope){
         $scope.open = function () {
 
             var modalInstance = uiModal.open({

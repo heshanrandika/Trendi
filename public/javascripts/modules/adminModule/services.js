@@ -262,4 +262,31 @@
             changeSizes:_changeSizes
         }
     }]);
+
+
+
+    mod.service('Confirmation', ['$modal',function (uiModal) {
+        var _openConfirmation = function(header, message){
+           return  uiModal.open({
+                animation: true,
+                templateUrl: '/views/adminModule/models/admin.confirm.model.html',
+                controller: function($scope, $modalInstance){
+                    $scope.header = header;
+                    $scope.message = message;
+                    $scope.ok = function (result) {
+                        $modalInstance.close(1);
+                    };
+                    $scope.close = function (result) {
+                        $modalInstance.dismiss('cancel');
+                    };
+                } ,
+                size: 'sm'
+            }).result;
+        };
+        
+        return {
+            openConfirmation:_openConfirmation
+        }
+
+    }]);
 })(com.TRENDI.ADMIN.modules.mainAdminModule);

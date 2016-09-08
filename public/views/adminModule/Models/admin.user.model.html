@@ -1,6 +1,6 @@
 <div class="modal-header">
     <div class="panel-header">
-        <h3> <strong>Product</strong> Details </h3><span ng-if="itemId">Item #{{itemId}}<span>
+        <h3> <strong>User</strong> Details </h3><span ng-if="itemId">Item #{{itemId}}<span>
     </div>
 </div>
 <div class="modal-body">
@@ -14,28 +14,81 @@
                             <form role="form" class="form-validation" novalidate=""  name="itemForm">
                                 <div class="row">
                                     <div class="col-sm-6">
-                                        <div class="form-group">
-                                            <label class="control-label">Item Name</label>
-                                            <div class="append-icon">
-                                                <input type="text"  class="form-control" placeholder="Ex : Maxi dress.." ng-model="item.name" name="name"  ng-required="true">
-                                                <i class="icons-shopping-13"></i>
-                                                <div ng-messages="itemForm.name.$error">
-                                                    <div ng-message="required">This is required.</div>
+
+                                        <div class="panel bg-aero">
+                                            <div class="panel-header">
+                                                <h3>User <strong>Details</strong></h3>
+                                            </div>
+                                            <div class="panel-content">
+                                                <div class="row">
+                                                    <div class="col-sm-12">
+                                                        <div class="form-group">
+                                                            <label class="control-label">Name</label>
+                                                            <div class="append-icon">
+                                                                <input type="text"  class="form-control" placeholder="Ex : Jhon.." ng-model="regUser.name" name="name"  ng-required="true">
+                                                                <i class="icons-shopping-13"></i>
+                                                                <div ng-messages="itemForm.name.$error">
+                                                                    <div ng-message="required">This is required.</div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="control-label">Email</label>
+                                                            <div class="append-icon">
+                                                                <input class="form-control" ng-model="regUser.email" type="email" ng-required="true" name="email">
+                                                                <i class="fa fa-envelope"></i>
+                                                            </div>
+                                                            <div ng-messages="itemForm.email.$error">
+                                                                <div ng-message="required">This is required.</div>
+                                                                <div ng-message="email">Invalid email address</div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="control-label">Telephone</label>
+                                                            <div class="append-icon">
+                                                                <input class="form-control" ng-model="regUser.hotline" type="number" name="hotline">
+                                                                <i class="fa fa-fax"></i>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="control-label">Mobile</label>
+                                                            <div class="append-icon">
+                                                                <input class="form-control" ng-model="regUser.mobile" type="number" name="mobile">
+                                                                <i class="fa fa-mobile-phone"></i>
+                                                            </div>
+                                                        </div>
+                                                        <div class="panel bg-red">
+                                                            <div class="panel-content">
+                                                               <div class="form-group">
+                                                                    <label class="control-label">Password</label>
+                                                                    <div class="append-icon">
+                                                                        <input class="form-control" ng-model="regUser.password" type="password" name="password" ng-required="true">
+                                                                        <i class="fa fa-lock"></i>
+                                                                        <div ng-messages="itemForm.password.$error">
+                                                                            <div ng-message="required">This is required.</div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label class="control-label">Confirm Password</label>
+                                                                    <div class="append-icon">
+                                                                        <input class="form-control" ng-model="regUser.confirm_password" type="password" name="confirm_password" ng-required="true" compare-to="regUser.password">
+                                                                        <i class="fa fa-unlock"></i>
+                                                                        <div ng-messages="itemForm.confirm_password.$error">
+                                                                            <div ng-message="required">This is required.</div>
+                                                                            <div ng-message="compareTo">Password does not match the confirm password.</div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div>  
                                     </div>
                                     <div class="col-sm-6">
-                                        <div class="form-group">
-                                            <label class="control-label">Price</label>
-                                            <div class="append-icon">
-                                                <input class="form-control" ng-model="item.price" type="number" ng-required="true" name="price">
-                                                <i class="fa fa-money"></i>
-                                            </div>
-                                            <div ng-messages="itemForm.price.$error">
-                                                <div ng-message="required">This is required.</div>
-                                            </div>
-                                        </div>
+                                        
                                     </div>
                                 </div>
                                 <div class="row">

@@ -75,7 +75,7 @@
 			var itemDetail = {mainItem: $scope.item, subItem: $scope.subItem};
             adminDataService.addItem(itemDetail).then(function (response) {
                 Data_Toast.success(MESSAGE_CONFIG.SUCCESS_SAVED_SUCCESSFULLY);
-                uiModalInstance.close({'option' :1, 'item' :$scope.item});
+                uiModalInstance.close();
             },function(error){
                 Data_Toast.error(MESSAGE_CONFIG.ERROR_SAVE_FAIL,error.data.responData.Error);
                 $scope.btnPressed = false;
@@ -88,24 +88,13 @@
 			var itemDetail = {mainItem: $scope.item, subItem: $scope.subItem, itemId:$scope.itemId};
             adminDataService.updateItem(itemDetail).then(function (response) {
                 Data_Toast.success(MESSAGE_CONFIG.SUCCESS_UPDATE_SUCCESSFULLY);
-                uiModalInstance.close({'option' :2, 'item' :$scope.item});
+                uiModalInstance.close();
             },function(error){
                 Data_Toast.error(MESSAGE_CONFIG.ERROR_UPDATE_FAIL,error.data.responData.Error);
                 $scope.btnPressed = false;
             });
 		}
 
-		$scope.remove = function(){
-			$scope.btnPressed = true;
-            var itemDetail={itemId:$scope.itemId};
-            adminDataService.removeItem(itemDetail).then(function(response){
-                Data_Toast.success(MESSAGE_CONFIG.SUCCESS_REMOVED_SUCCESSFULLY);
-                uiModalInstance.close({'option' :3, 'item' :$scope.item});
-            },function(error){
-                Data_Toast.error(MESSAGE_CONFIG.ERROR_REMOVE_FAIL,error.data.responData.Error);
-                $scope.btnPressed = false;
-            });
-		}
 
 		$scope.cancel = function () {
 			uiModalInstance.dismiss('cancel');

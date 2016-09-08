@@ -16,7 +16,7 @@
     <div class="col-md-12">
         <div class="panel">
             <div class="panel-header">
-                <button class="btn btn-primary" ng-click="addNew()">
+                <button class="btn btn-success" ng-click="addNew()">
                     <i class="icon-plus"></i> Add New
                 </button>
             </div>
@@ -39,7 +39,7 @@
                         <td>{{ item.itemId }}</td>
                         <td>{{ item.item.name }}</td>
                         <td>{{ item.item.price }}</td>
-                        <td><div><a class="edit btn btn-sm btn-default" href="javascript:;" ng-click="open(item)"><i class="icon-note" ></i></a>  <a class="delete btn btn-sm btn-danger" href="javascript:;"><i class="icons-office-52"></i></a></div></td>
+                        <td><div><a class="edit btn btn-sm btn-default" href="javascript:;" ng-click="open(item)"><i class="icon-note" ></i></a>  <a class="delete btn btn-sm btn-danger" href="javascript:;" ng-click="remove(item.itemId)"><i class="icons-office-52"></i></a></div></td>
                     </tr>
                     </tbody>
                 </table>
