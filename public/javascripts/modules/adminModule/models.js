@@ -102,24 +102,72 @@
 	}]);
 
 	mod.controller('userModel',['$scope', '$modalInstance','item','adminDataService','Data.Toast','MESSAGE_CONFIG', function ($scope, uiModalInstance, selectedItem, adminDataService, Data_Toast, MESSAGE_CONFIG) {
-		$scope.item = selectedItem? selectedItem : {};
+		$scope.regUser = selectedItem? selectedItem : {};
 		$scope.addNewuser = selectedItem? false:true;
 		$scope.uploadedImages = [];
 		$scope.profilePicSize = {value:100000, text:'100kB'};
 		$scope.profilePicCount = 1;
+		$scope.loadEntitlements = false;
 
 		var shopDetails = adminDataService.shopData();
 
-		if(selectedItem){
-			$scope.uploadedImages.push({image:$scope.item.profilePic});
-		}
 
 		$scope.titles =[
 			{value:0 , key:'User'},
 			{value:1 , key:'Admin'}
 		];
 		$scope.tmp = {};
-		$scope.tmp.selectedTitle = $scope.titles[0];
+		
+
+		var getIndex = function(itemList, item,searchKey, callback){
+            var index = 0;
+            if(!(item == undefined)){
+                _.each(itemList, function(k){
+                    if(k[searchKey] == item[searchKey]){
+                        callback(index);
+                    }
+                    index++;
+                });
+            }else{
+                callback(0);
+            }
+
+        };
+
+
+
+        adminDataService.getUserList({shopId :  shopDetails.shopId, email : shopDetails.email}).then(function(response){
+            $scope.tmp.allEntitlements = response.data.responData.data.list[0].entitlements;
+        });
+
+        adminDataService.getBranchListToAssign({shopId:shopDetails.shopId}).then(function(response){
+            $scope.branchList = response.data.responData.data;
+            $scope.tmp.selectedBranch = $scope.branchList[0];
+        },function(){
+            $scope.branchList = [];
+        });
+
+		//Modal is open for edit exist user
+        if(selectedItem){
+        	$scope.uploadedImages.push({image:$scope.regUser.profilePic});
+
+        	getIndex($scope.branchList,$scope.regUser.branch,'branchId', function(value){
+                $scope.tmp.selectedBranch = $scope.branchList[value];
+            });
+
+            adminDataService.getUserList({shopId :  $scope.shopId, email : $scope.regUser.email}).then(function(response){
+                $scope.tmp.oldEntitlements = response.data.responData.data.list[0].entitlements;
+                $scope.loadEntitlements = true;
+            });
+
+            getIndex($scope.titles,$scope.regUser.title,'value', function(value){
+                    $scope.tmp.selectedTitle = $scope.titles[value];
+            });
+        }
+
+
+
+
 
 		var setData = function(){
 

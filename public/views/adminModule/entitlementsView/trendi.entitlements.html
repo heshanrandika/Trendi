@@ -1,12 +1,17 @@
 <div>
     <md-content>
             <div class="md-3-line" ng-repeat="entitlementObj in entitlementGroups">
-                <div class="">
-                    <i class="pull-right" ng-click="entitlementObj.isCollapsed = !entitlementObj.isCollapsed" ng-class="{'fa fa-angle-up': entitlementObj.isCollapsed, 'fa fa-angle-down': !entitlementObj.isCollapsed}"></i>
+                <div>
                     <div>
-                        <md-checkbox ng-model="entitlementObj.select" ng-change="selectAll(entitlementObj)" aria-label="Entitlements">
-                           Select All Entitlements - {{entitlementObj.category}}
-                        </md-checkbox>
+                       <div class="pull-right">
+                            <i ng-click="entitlementObj.isCollapsed = !entitlementObj.isCollapsed" ng-class="{'fa fa-angle-up': entitlementObj.isCollapsed, 'fa fa-angle-down': !entitlementObj.isCollapsed}"></i>
+                        </div>
+                        <div style="max-width:300px">
+                            <md-checkbox ng-model="entitlementObj.select" ng-change="selectAll(entitlementObj)" aria-label="Entitlements">
+                                Select All Entitlements - {{entitlementObj.category}}
+                            </md-checkbox>
+                        </div>
+                     
                     </div>
                 </div>
                 <div collapse="!entitlementObj.isCollapsed">

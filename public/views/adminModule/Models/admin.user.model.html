@@ -62,7 +62,12 @@
                                                             <select ng-model="tmp.selectedTitle" ng-options="data.key for data in titles"
                                                                     class="form-control form-filter srch-select-opt"></select>
                                                         </div>
-                                                        <div class="panel bg-red">
+                                                        <div class="form-group">
+                                                        <md-checkbox ng-model="regUser.changePwd"  aria-label="Entitlements">
+                                                            Change Password
+                                                        </md-checkbox>
+                                                        </div>
+                                                        <div class="panel bg-red" ng-if="regUser.changePwd">
                                                             <div class="panel-content">
                                                                <div class="form-group">
                                                                     <label class="control-label">Password</label>
@@ -87,14 +92,10 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-
-
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>  
-                                    </div>
-                                    <div class="col-sm-6">
                                         <div class="panel bg-aero">
                                             <div class="panel-header">
                                                 <h3><strong>Profile </strong>Picture</h3>
@@ -107,91 +108,65 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-6">
-                                        <div class="form-group">
-                                            <label class="control-label">Description</label>
-                                            <div class="append-icon">
-                                                <textarea rows="7" class="form-control" placeholder="Write your description... (maximum 200 characters)" maxlength="200" ng-required="true" name="description" ng-model="item.description"></textarea>
-                                                <i class="fa fa-info-circle"></i>
-                                            </div>
-                                            <div ng-messages="itemForm.description.$error">
-                                                <div ng-message="required">This is required.</div>
-                                                <div ng-message="maxlength">The description has to be less than 200 characters long.</div>
-                                            </div>
-                                        </div>
+                                       
                                     </div>
                                     <div class="col-sm-6">
 
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-6">
-                                        <div class="form-group">
-                                            <label ng-click="check()">Item Tagging</label>
-                                            <ui-select multiple ng-model="item.types" theme="bootstrap" sortable="true" title="Choose a Tag">
-                                                <ui-select-match placeholder="Select tags...">{{$item.key}}</ui-select-match>
-                                                <ui-select-choices repeat="type in availableTypes | filter:$select.search">
-                                                    {{type.key}}
-                                                </ui-select-choices>
-                                            </ui-select>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <div class="form-group">
-                                            <label ng-click="check()">Select Sizes</label>
-                                            <ui-select multiple ng-model="item.sizes" theme="bootstrap" sortable="true" title="Choose a Size">
-                                                <ui-select-match placeholder="Select sizes...">{{$item.value}}</ui-select-match>
-                                                <ui-select-choices repeat="size in availableSizes | filter:$select.search">
-                                                    {{size.value}}
-                                                </ui-select-choices>
-                                            </ui-select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-6">
-                                        <div class="form-group">
-                                            <label class="control-label">Discount <input type="checkbox" ng-model="item.onSale" class="icheckbox_square-blue"></label>
-                                            <div class="append-icon">
-                                                <input type="number" name="discount" id="discount" ng-model="item.discount" class="form-control" placeholder="10" ng-disabled="!item.onSale">
-                                                <i class="icon-emoticon-smile"></i>
+                                         <div class="panel bg-aero">
+                                            <div class="panel-header">
+                                                <h3><strong>Change </strong>Entitlements</h3>
                                             </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <div class="form-group">
-                                            <label class="control-label">Select Category</label>
-                                            <div class="input-group">
-                                                <div class="icheck-inline">
-                                                    <label>
-                                                        <input type="checkbox" ng-model="item.group.men" class="icheckbox_square-blue"> Gents
-                                                    </label>
-                                                    <label>
-                                                        <input type="checkbox"  ng-model="item.group.women" class="icheckbox_square-blue"> Ladies
-                                                    </label>
-                                                    <label>
-                                                        <input type="checkbox" ng-model="item.group.kids" class="icheckbox_square-blue"> Kids
-                                                    </label>
+                                            <div class="panel-content">
+                                                <div ng-if="loadEntitlements">
+                                                    <trendi-entitlements input-entitlements="tmp.allEntitlements" output-entitlements="tmp.entitlements" old-entitlements="tmp.oldEntitlements"></trendi-entitlements>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-6">
-                                        <div class="form-group">
-                                            <label class="control-label">Like </label>
-                                            <label class="form-control">{{item.like}}</label>
+
+                                        <div class="panel bg-aero">
+                                            <div class="panel-header">
+                                                <h3><strong>Set </strong>Branch</h3>
+                                            </div>
+                                            <div class="panel-content">
+                                                <div>
+                                                    <select ng-model="tmp.selectedBranch" ng-options="data.shop.name for data in branchList"
+                                                    class="form-control form-filter srch-select-opt"></select>
+                                                </div>
+                                                <div>
+                                                    <div>
+                                                        <div class="panel widget-member2">
+                                                            <div class="row">
+                                                                <div class="col-lg-2 col-xs-3">
+                                                                    <img ng-show="tmp.selectedBranch.shop.iconImage != ''" alt="{{ user.name }}" ng-src="{{tmp.selectedBranch.shop.iconImage}}" class="branch-img-icon" />
+                                                                </div>
+                                                                <div class="col-lg-10 col-xs-9">
+                                                                    <div class="clearfix">
+                                                                        <h3 class="m-t-0 member-name"><strong>{{tmp.selectedBranch.shop.name}}</strong> <span class="member-job">Branch #{{tmp.selectedBranch.branchId}}</span></h3>
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        <div class="col-sm-12">
+                                                                            <p><i class="fa fa-map-marker c-gray-light p-r-10"></i> {{tmp.selectedBranch.shop.address.line1 +" "+ tmp.selectedBranch.shop.address.line2}}, {{tmp.selectedBranch.shop.address.city}}, {{tmp.selectedBranch.shop.address.state}}</p>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        <div class="col-xlg-4 col-lg-6 col-sm-4">
+                                                                            <p><i class="fa fa-skype c-gray-light p-r-10"></i> {{tmp.selectedBranch.shop.hotline}}</p>
+                                                                        </div>
+                                                                        <div class="col-xlg-4 col-lg-6 col-sm-4 align-right">
+                                                                            <p><i class="fa fa-mobile-phone c-gray-light p-r-10"></i> {{tmp.selectedBranch.shop.mobile}}</p>
+                                                                        </div>
+                                                                        <div class="col-xlg-4 col-lg-6 col-sm-4 align-right">
+                                                                            <p><i class="fa fa-info-circle c-gray-light p-r-10"></i> {{tmp.selectedBranch.shop.description}}</p>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <div class="form-group">
-                                            <label class="control-label">Seen</label>
-                                            <label class="form-control">{{item.seen}}</label>
-                                        </div>
+                                        
                                     </div>
                                 </div>
 

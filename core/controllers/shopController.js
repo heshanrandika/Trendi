@@ -3,6 +3,7 @@
  */
 var daf = require('../persistence/MongoPersistence');
 var CONSTANT = require('../utility/Constants');
+var PWD = require('../utility/GeneralFunctions');
 var _ = require('lodash');
 
 function getShopList(req,callback){
@@ -357,25 +358,35 @@ function updateShopUser(req,callback) {
     var params = (req.body.params) ? req.body.params : {};
     var regUser =  (params.regUser)?params.regUser: 0;
     var profileUpdate =  (params.profileUpdate)?params.profileUpdate: false;
-
+    if(regUser.changePwd){
+        var HashPWD = PWD.GetHashedPassword(regUser.password,CONSTANT.HASHING_ALGO);
+    }
+    
     var query = {'email':regUser.email};
+    var changeDoc = {};
+
     if(profileUpdate){
-        var changeDoc = {$set: {
+        changeDoc = {$set: {
             name: regUser.name,
             hotline: regUser.hotline,
             mobile: regUser.mobile,
             profilePic: regUser.profilePic
         }};
     }else{
-        var changeDoc = {$set: {
+        changeDoc = {$set: {
             name: regUser.name,
             branch: regUser.branch,
             title: regUser.title,
             hotline: regUser.hotline,
             mobile: regUser.mobile,
             profilePic: regUser.profilePic,
-            entitlements: regUser.entitlements
+            entitlements: regUser.entitlements,
         }};
+    }
+
+    if(regUser.changePwd && !profileUpdate){
+        var HashPWD = PWD.GetHashedPassword(regUser.password,CONSTANT.HASHING_ALGO);
+        changeDoc.$set['password'] = HashPWD;
     }
 
     daf.Update(query,changeDoc, CONSTANT.SHOP_USER, function (err, success) {
