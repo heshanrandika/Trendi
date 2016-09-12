@@ -386,7 +386,9 @@ function addShopUser(req,callback) {
                     title:regUser.title,
                     entitlements:regUser.entitlements,
                     profilePic:regUser.profilePic,
-                    superAdmin:false
+                    superAdmin:false,
+                    hotline: regUser.hotline,
+                    mobile: regUser.mobile,
                 };
                 daf.Insert(doc, CONSTANT.SHOP_USER, function (err, success) {
                     if(err){

@@ -28,7 +28,19 @@
             'main.users': {
                 url: '/users',
                 templateUrl: '/views/adminModule/admin.users.html',
-                controller: 'adminUsersController'
+                controller: 'adminUsersController',
+                access: {
+                    requiresLogin: true
+                }
+            },
+
+            'main.branches': {
+                url: '/branches',
+                templateUrl: '/views/adminModule/admin.branches.html',
+                controller: 'adminBranchesController',
+                access: {
+                    requiresLogin: true
+                }
             }
             /*         'admin.shops': {
              url: '/shops',

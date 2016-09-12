@@ -39,7 +39,7 @@
                         <td>{{ item.branch.branchId }}</td>
                         <td>{{ item.name }}</td>
                         <td>{{ item.email }}</td>
-                        <td><div><a class="edit btn btn-sm btn-default" href="javascript:;" ng-click="open(item)"><i class="icon-note" ></i></a>  <a class="delete btn btn-sm btn-danger" href="javascript:;" ng-click="remove(item)"><i class="icons-office-52"></i></a></div></td>
+                        <td><div><a class="edit btn btn-sm btn-default" href="javascript:;" ng-click="open(item)" ng-disabled="btnPressed"><i class="icon-note" ></i></a>  <a class="delete btn btn-sm btn-danger" href="javascript:;" ng-click="remove(item)" ng-disabled="btnPressed"><i class="icons-office-52"></i></a></div></td>
                     </tr>
                     </tbody>
                 </table>

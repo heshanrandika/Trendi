@@ -108,6 +108,9 @@
 		$scope.profilePicSize = {value:100000, text:'100kB'};
 		$scope.profilePicCount = 1;
 		$scope.loadEntitlements = false;
+		$scope.loadAllEntitlements = false;
+		$scope.tmp = {};
+		$scope.tmp.oldEntitlements = [];
 
 		var shopDetails = adminDataService.shopData();
 
@@ -116,7 +119,7 @@
 			{value:0 , key:'User'},
 			{value:1 , key:'Admin'}
 		];
-		$scope.tmp = {};
+		
 		
 
 		var getIndex = function(itemList, item,searchKey, callback){
@@ -135,9 +138,11 @@
         };
 
 
+        $scope.tmp.selectedTitle = $scope.titles[0];
 
         adminDataService.getUserList({shopId :  shopDetails.shopId, email : shopDetails.email}).then(function(response){
             $scope.tmp.allEntitlements = response.data.responData.data.list[0].entitlements;
+            $scope.loadAllEntitlements = true;
         });
 
         adminDataService.getBranchListToAssign({shopId:shopDetails.shopId}).then(function(response){
@@ -163,6 +168,8 @@
             getIndex($scope.titles,$scope.regUser.title,'value', function(value){
                     $scope.tmp.selectedTitle = $scope.titles[value];
             });
+        }else{
+        	$scope.loadEntitlements = true;
         }
 
 
@@ -170,33 +177,56 @@
 
 
 		var setData = function(){
+			if(($scope.regUser.name == '' || $scope.regUser.name == undefined) &&
+                    ($scope.regUser.password == '' || $scope.regUser.password == undefined) &&
+                    ($scope.regUser.email == '' || $scope.regUser.email == undefined)){
+                    Data_Toast.warning(MESSAGE_CONFIG.ERROR_REQUIRED_FIELDS);
+                    $scope.btnPressed = false;
+                }else {
+                    $scope.regUser.shopId = shopDetails.shopId;
+                    $scope.regUser.title = $scope.tmp.selectedTitle;
+                    $scope.regUser.branch = $scope.tmp.selectedBranch;
+                    $scope.regUser.profilePic = $scope.uploadedImages[0]?$scope.uploadedImages[0].image:'';
+                    $scope.regUser.entitlements =[];
+                    _.each($scope.tmp.entitlements,function(group){
+                        var valueArray =  _.chain(group.entitlements)
+                            .filter(function(obj) {
+                                return obj.select;
+                            })
+                            .map(function(obj) {
+                                return _.omit(obj,['select', '$$hashKey']);
+                            })
+                            .value();
+                        $scope.regUser.entitlements = $scope.regUser.entitlements.concat(valueArray);
+                    });
 
+                }
 		};
 
 		$scope.save = function(){
 			$scope.btnPressed = true;
 			setData();
-			var itemDetail = {mainItem: $scope.item, subItem: $scope.subItem};
-			adminDataService.addItem(itemDetail).then(function (response) {
-				Data_Toast.success(MESSAGE_CONFIG.SUCCESS_SAVED_SUCCESSFULLY);
-				uiModalInstance.close();
-			},function(error){
-				Data_Toast.error(MESSAGE_CONFIG.ERROR_SAVE_FAIL,error.data.responData.Error);
-				$scope.btnPressed = false;
-			});
+			var userDetails = {regUser:$scope.regUser};
+            adminDataService.addShopUser(userDetails).then(function (response) {
+                Data_Toast.success(MESSAGE_CONFIG.SUCCESS_SAVED_SUCCESSFULLY);
+                uiModalInstance.close();
+            },function (error) {
+                Data_Toast.error(MESSAGE_CONFIG.ERROR_SAVE_FAIL,error.data.responData.Error);
+                $scope.btnPressed = false;
+            });
 		};
 
 		$scope.update = function(){
 			$scope.btnPressed = true;
 			setData();
-			var itemDetail = {mainItem: $scope.item, subItem: $scope.subItem, itemId:$scope.itemId};
-			adminDataService.updateItem(itemDetail).then(function (response) {
-				Data_Toast.success(MESSAGE_CONFIG.SUCCESS_UPDATE_SUCCESSFULLY);
-				uiModalInstance.close($scope.item);
-			},function(error){
-				Data_Toast.error(MESSAGE_CONFIG.ERROR_UPDATE_FAIL,error.data.responData.Error);
-				$scope.btnPressed = false;
-			});
+			var userDetails = {regUser:$scope.regUser, profileUpdate:false};
+            adminDataService.updateShopUser(userDetails).then(function (response) {
+                Data_Toast.success(MESSAGE_CONFIG.SUCCESS_UPDATE_SUCCESSFULLY);
+                uiModalInstance.close($scope.regUser);
+            },function (error) {
+                Data_Toast.error(MESSAGE_CONFIG.ERROR_UPDATE_FAIL,error.data.responData.Error);
+                $scope.btnPressed = false;
+            });
 		};
 
 
@@ -205,5 +235,61 @@
 		};
 	}]);
 
+	mod.controller('branchModel',['$scope', '$modalInstance','item','adminDataService','Data.Toast','MESSAGE_CONFIG', function ($scope, uiModalInstance, selectedItem, adminDataService, Data_Toast, MESSAGE_CONFIG) {
+		$scope.branch = selectedItem? selectedItem : {};
+		$scope.branchId = selectedItem? selectedItem.branchId : undefined;
+		$scope.addNewuser = selectedItem? false:true;
+		
+		$scope.uploadedImages = [];
+		$scope.profilePicSize = {value:100000, text:'100kB'};
+		$scope.profilePicCount = 1;
+		$scope.loadEntitlements = false;
+		$scope.loadAllEntitlements = false;
+		$scope.tmp = {};
+		$scope.tmp.oldEntitlements = [];
 
+		var shopDetails = adminDataService.shopData();
+
+
+
+
+
+
+
+
+		var setData = function(){
+			
+		};
+
+		$scope.save = function(){
+			$scope.btnPressed = true;
+			setData();
+			var userDetails = {regUser:$scope.regUser};
+            adminDataService.addShopUser(userDetails).then(function (response) {
+                Data_Toast.success(MESSAGE_CONFIG.SUCCESS_SAVED_SUCCESSFULLY);
+                uiModalInstance.close();
+            },function (error) {
+                Data_Toast.error(MESSAGE_CONFIG.ERROR_SAVE_FAIL,error.data.responData.Error);
+                $scope.btnPressed = false;
+            });
+		};
+
+		$scope.update = function(){
+			$scope.btnPressed = true;
+			setData();
+			var userDetails = {regUser:$scope.regUser, profileUpdate:false};
+            adminDataService.updateShopUser(userDetails).then(function (response) {
+                Data_Toast.success(MESSAGE_CONFIG.SUCCESS_UPDATE_SUCCESSFULLY);
+                uiModalInstance.close($scope.regUser);
+            },function (error) {
+                Data_Toast.error(MESSAGE_CONFIG.ERROR_UPDATE_FAIL,error.data.responData.Error);
+                $scope.btnPressed = false;
+            });
+		};
+
+
+		$scope.cancel = function () {
+			uiModalInstance.dismiss('cancel');
+		};
+	}]);
 })(com.TRENDI.ADMIN.modules.mainAdminModule);
