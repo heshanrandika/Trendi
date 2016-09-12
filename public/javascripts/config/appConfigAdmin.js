@@ -19,7 +19,8 @@ window.com = {TRENDI:{ADMIN:{modules:{}}}};
             'ngMaterial',
             'authModule',
             'ngStorage',
-            'ui.select'
+            'ui.select',
+            'uiGmapgoogle-maps'
         ]
     };
 })(com.TRENDI.ADMIN);

@@ -311,4 +311,68 @@
         };
     }]);
 
+    mod.directive('trendiMap',[function(){
+
+        var controller = ['$scope','uiGmapIsReady', '$timeout', 'uiGmapLogger', '$http', 'rndAddToLatLon','uiGmapGoogleMapApi',function ($scope, uiGmapIsReady, $timeout, $log, $http, rndAddToLatLon,GoogleMapApi) {
+            $scope.key = 80;
+            $scope.location={
+                latitude : $scope.getPoint[0]?$scope.getPoint[0]:6.933,
+                longitude: $scope.getPoint[1]?$scope.getPoint[1]:80.305
+            };
+
+            $scope.map = {
+                center: {
+                    latitude: 6.933,
+                    longitude: 80.305
+                },
+                zoom: 8,
+                events: {
+                    click: function (mapModel, eventName, originalEventArgs) {
+
+
+                        $scope.getPoint[0] = originalEventArgs[0].latLng.lat();
+                        $scope.getPoint[1] = originalEventArgs[0].latLng.lng();
+                        //scope apply required because this event handler is outside of the angular domain
+                        $scope.$apply();
+                    }
+                },
+                marker: {
+                    options: { draggable: true },
+                    events: {
+                        dragend: function (marker, eventName, args) {
+
+                            $scope.getPoint[0] = marker.getPosition().lat();
+                            $scope.getPoint[1] = marker.getPosition().lng();
+                        }
+                    }
+                }
+
+            };
+            if($scope.getPoint[0] == undefined && $scope.getPoint[1] == undefined){
+                $scope.map.lockLocation = false;
+            }else{
+                $scope.map.lockLocation = true;
+            }
+
+            $scope.map.getCenter = function(){
+                if($scope.map.lockLocation){
+                    return $scope.map.center;
+
+                }else{
+                    return $scope.location;
+                }
+            }
+
+        }];
+
+        return{
+            restrict:'E',
+            templateUrl:'/views/coreModule/googleMap/trendi.google.place.html',
+            scope:{
+                getPoint : '='
+            },
+            controller:controller
+        }
+    }]);
+
 })(com.TRENDI.ADMIN.modules.mainAdminModule);

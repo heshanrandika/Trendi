@@ -235,22 +235,21 @@
 		};
 	}]);
 
-	mod.controller('branchModel',['$scope', '$modalInstance','item','adminDataService','Data.Toast','MESSAGE_CONFIG', function ($scope, uiModalInstance, selectedItem, adminDataService, Data_Toast, MESSAGE_CONFIG) {
-		$scope.branch = selectedItem? selectedItem : {};
+	mod.controller('branchModel',['$scope', '$modalInstance','item','adminDataService','Data.Toast','MESSAGE_CONFIG','$timeout', function ($scope, uiModalInstance, selectedItem, adminDataService, Data_Toast, MESSAGE_CONFIG, $timeout) {
+		$scope.branch = selectedItem? selectedItem.shop : {};
 		$scope.branchId = selectedItem? selectedItem.branchId : undefined;
 		$scope.addNewuser = selectedItem? false:true;
-		
-		$scope.uploadedImages = [];
-		$scope.profilePicSize = {value:100000, text:'100kB'};
-		$scope.profilePicCount = 1;
-		$scope.loadEntitlements = false;
-		$scope.loadAllEntitlements = false;
-		$scope.tmp = {};
-		$scope.tmp.oldEntitlements = [];
+		$scope.initMap = false;
+		$scope.branch.pos = [];
+		$scope.branch.iconImage = '';
+		$scope.iconSize = {value:10000, text:'10kB'};
+		$scope.iconCount = 1;
 
 		var shopDetails = adminDataService.shopData();
 
-
+		$timeout(function () {
+			$scope.initMap = true;
+		}, 100);
 
 
 
