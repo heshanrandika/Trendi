@@ -238,14 +238,30 @@
 	mod.controller('branchModel',['$scope', '$modalInstance','item','adminDataService','Data.Toast','MESSAGE_CONFIG','$timeout', function ($scope, uiModalInstance, selectedItem, adminDataService, Data_Toast, MESSAGE_CONFIG, $timeout) {
 		$scope.branch = selectedItem? selectedItem.shop : {};
 		$scope.branchId = selectedItem? selectedItem.branchId : undefined;
-		$scope.addNewuser = selectedItem? false:true;
+		$scope.addNewBranch = selectedItem? false:true;
+        $scope.tmp = {};
+        $scope.tmp.iconImage = []; 
+
 		$scope.initMap = false;
-		$scope.branch.pos = [];
-		$scope.branch.iconImage = '';
 		$scope.iconSize = {value:10000, text:'10kB'};
 		$scope.iconCount = 1;
 
 		var shopDetails = adminDataService.shopData();
+
+        if(!selectedItem){
+            $scope.branch.pos = [];
+            $scope.branch.iconImage = '';
+        }else{
+           if(!($scope.branch.iconImage == '' || $scope.branch.iconImage == undefined)){
+                $scope.tmp.iconImage.push({image:$scope.branch.iconImage});
+            }
+
+            adminDataService.getUserList({shopId :  shopDetails.shopId, branchId:$scope.branchId}).then(function(response){
+                $scope.userList = response.data.responData.data;
+            });
+        }
+
+
 
 		$timeout(function () {
 			$scope.initMap = true;
@@ -257,7 +273,14 @@
 
 
 		var setData = function(){
-			
+			 if(($scope.branch.name == '' || $scope.branch.name == undefined) ){
+                    Data_Toast.warning(MESSAGE_CONFIG.ERROR_REQUIRED_FIELDS);
+                    $scope.btnPressed = false;
+                }else {
+                    $scope.branch.iconImage = $scope.tmp.iconImage[0]?$scope.tmp.iconImage[0].image:'';
+                    $scope.branch.rate = {rate:0, star:0, hit:0};
+                    var branchDetails = {};
+                }    
 		};
 
 		$scope.save = function(){

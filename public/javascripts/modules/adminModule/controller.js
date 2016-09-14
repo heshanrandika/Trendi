@@ -357,7 +357,43 @@
             });
         };
 
+         $scope.addNew = function () {
+            $scope.btnPressed = true;
+            var modalInstance = uiModal.open({
+                animation: true,
+                templateUrl: '/views/adminModule/models/admin.branch.model.html',
+                controller: 'branchModel',
+                size: 'lg',
+                resolve:{
+                    item : function(){
+                        return undefined;
+                    }
+                }
+            });
 
+            modalInstance.result.then(function () {
+                $scope.loadData(1);
+                $scope.btnPressed = false;
+            }, function () {
+                $scope.btnPressed = false;
+            });
+        };
+
+        $scope.remove = function (user) {
+            $scope.btnPressed = true;
+            Confirmation.openConfirmation("Confirmation", "Are you sure you want to remove this?").then(function (result) {
+                 if(result == 1){
+                    var branchDetails={shopId:$scope.shopDetails.shopId,branchId:$scope.branchId};
+                    adminDataService.removeBranch(branchDetails).then(function(response){
+                    Data_Toast.success(MESSAGE_CONFIG.SUCCESS_REMOVED_SUCCESSFULLY);
+                    $scope.loadData(1);
+                },function (error) {
+                    Data_Toast.error(MESSAGE_CONFIG.ERROR_REMOVE_FAIL,error.data.responData.Error);
+                    $scope.btnPressed = false;
+                });
+                 }
+            });
+        };
 
 
     }]);
