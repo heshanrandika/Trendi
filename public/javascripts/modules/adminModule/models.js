@@ -261,16 +261,9 @@
             });
         }
 
-
-
 		$timeout(function () {
 			$scope.initMap = true;
 		}, 100);
-
-
-
-
-
 
 		var setData = function(){
 			 if(($scope.branch.name == '' || $scope.branch.name == undefined) ){
@@ -278,16 +271,14 @@
                     $scope.btnPressed = false;
                 }else {
                     $scope.branch.iconImage = $scope.tmp.iconImage[0]?$scope.tmp.iconImage[0].image:'';
-                    $scope.branch.rate = {rate:0, star:0, hit:0};
-                    var branchDetails = {};
                 }    
 		};
 
 		$scope.save = function(){
 			$scope.btnPressed = true;
 			setData();
-			var userDetails = {regUser:$scope.regUser};
-            adminDataService.addShopUser(userDetails).then(function (response) {
+			var branchDetails = {shopId:shopDetails.shopId, shop: $scope.branch};
+            adminDataService.addBranch(branchDetails).then(function (response) {
                 Data_Toast.success(MESSAGE_CONFIG.SUCCESS_SAVED_SUCCESSFULLY);
                 uiModalInstance.close();
             },function (error) {
@@ -299,10 +290,10 @@
 		$scope.update = function(){
 			$scope.btnPressed = true;
 			setData();
-			var userDetails = {regUser:$scope.regUser, profileUpdate:false};
-            adminDataService.updateShopUser(userDetails).then(function (response) {
+			var  branchDetails = {shopId:shopDetails.shopId, branchId:$scope.branchId, shop: $scope.branch};
+            adminDataService.updateBranch(branchDetails).then(function (response) {
                 Data_Toast.success(MESSAGE_CONFIG.SUCCESS_UPDATE_SUCCESSFULLY);
-                uiModalInstance.close($scope.regUser);
+                uiModalInstance.close();
             },function (error) {
                 Data_Toast.error(MESSAGE_CONFIG.ERROR_UPDATE_FAIL,error.data.responData.Error);
                 $scope.btnPressed = false;
