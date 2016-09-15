@@ -254,7 +254,7 @@
                         $modalInstance.close(1);
                     };
                     $scope.close = function (result) {
-                        $modalInstance.dismiss('cancel');
+                        $modalInstance.close(0);
                     };
                 } ,
                 size: 'sm'

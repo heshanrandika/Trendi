@@ -171,9 +171,13 @@
                     adminDataService.removeItem(itemDetail).then(function(response){
                         Data_Toast.success(MESSAGE_CONFIG.SUCCESS_REMOVED_SUCCESSFULLY);
                         $scope.loadData(1);
+                        $scope.btnPressed = false;
                     },function(error){
                         Data_Toast.error(MESSAGE_CONFIG.ERROR_REMOVE_FAIL,error.data.responData.Error);
+                        $scope.btnPressed = false;
                     });
+                 }else{
+                    $scope.btnPressed = false;
                  }
             });
         };
@@ -278,10 +282,13 @@
                     adminDataService.removeShopUser(userDetails).then(function(response){
                     Data_Toast.success(MESSAGE_CONFIG.SUCCESS_REMOVED_SUCCESSFULLY);
                     $scope.loadData(1);
+                    $scope.btnPressed = false;
                 },function (error) {
                     Data_Toast.error(MESSAGE_CONFIG.ERROR_REMOVE_FAIL,error.data.responData.Error);
                     $scope.btnPressed = false;
                 });
+                 }else{
+                    $scope.btnPressed = false;
                  }
             });
         };
@@ -379,18 +386,136 @@
             });
         };
 
-        $scope.remove = function (user) {
+        $scope.remove = function (branch) {
             $scope.btnPressed = true;
             Confirmation.openConfirmation("Confirmation", "Are you sure you want to remove this?").then(function (result) {
                  if(result == 1){
-                    var branchDetails={shopId:$scope.shopDetails.shopId,branchId:$scope.branchId};
+                    var branchDetails={shopId:shopDetails.shopId,branchId:branch.branchId};
                     adminDataService.removeBranch(branchDetails).then(function(response){
                     Data_Toast.success(MESSAGE_CONFIG.SUCCESS_REMOVED_SUCCESSFULLY);
                     $scope.loadData(1);
+                    $scope.btnPressed = false;
                 },function (error) {
                     Data_Toast.error(MESSAGE_CONFIG.ERROR_REMOVE_FAIL,error.data.responData.Error);
                     $scope.btnPressed = false;
                 });
+                 }else{
+                    $scope.btnPressed = false;
+                 }
+            });
+        };
+
+
+    }]);
+
+
+    mod.controller('adminPromotionsController', ['$scope', '$rootScope','$state','adminDataService','Data.Toast','MESSAGE_CONFIG','$modal','Confirmation', function ($scope, $rootScope, $state, adminDataService, Data_Toast, MESSAGE_CONFIG, uiModal, Confirmation) { 
+        $scope.promotionList = [];
+        $scope.count = 0;
+        var shopDetails = {};
+        var itemPerPage = 10;
+
+
+        shopDetails = adminDataService.shopData();
+        $scope.searchObj = {
+            skip: $scope.promotionList.length,
+            limit:itemPerPage,
+            searchKey:'',
+            searchValue:'',
+            shopId : shopDetails.branch.shopId
+        };
+
+        $scope.loadData = function(init){
+            if(init){
+                $scope.promotionList = [];
+                $scope.searchObj.skip =0;
+            }
+            $scope.loading = true;
+            adminDataService.getAdminPromotionList($scope.searchObj).then(function(response){
+                $scope.promotionList.push.apply($scope.promotionList, response.data.responData.data.list);
+                if(response.data.responData.data.count){
+                    $scope.count = response.data.responData.data.count;
+                }
+                $scope.loading = false;
+            },function(){
+                $scope.promotionList = [];
+            });
+
+
+        };
+
+        $scope.paginationFuntion = function() {
+            $scope.searchObj.skip = $scope.promotionList.length;
+            if ($scope.count > $scope.promotionList.length  && !$scope.loading) {
+                $scope.loadData();
+            }
+        };
+
+        $scope.loadData(1);
+
+
+
+
+        $scope.open = function (selectedItem) {
+            $scope.btnPressed = true;
+            var modalInstance = uiModal.open({
+                animation: true,
+                templateUrl: '/views/adminModule/models/admin.promotions.model.html',
+                controller: 'promotionModel',
+                size: 'lg',
+                resolve:{
+                    item : function(){
+                        var editItem = angular.copy(selectedItem);
+                        return editItem;
+                    }
+                }
+            });
+
+            modalInstance.result.then(function (editedItem) {
+                $scope.loadData(1);
+                $scope.btnPressed = false;
+            }, function () {
+                $scope.btnPressed = false;
+            });
+        };
+
+         $scope.addNew = function () {
+            $scope.btnPressed = true;
+            var modalInstance = uiModal.open({
+                animation: true,
+                templateUrl: '/views/adminModule/models/admin.promotions.model.html',
+                controller: 'promotionModel',
+                size: 'lg',
+                resolve:{
+                    item : function(){
+                        return undefined;
+                    }
+                }
+            });
+
+            modalInstance.result.then(function () {
+                $scope.loadData(1);
+                $scope.btnPressed = false;
+            }, function () {
+                $scope.btnPressed = false;
+            });
+        };
+
+        $scope.remove = function (branch) {
+            $scope.btnPressed = true;
+            Confirmation.openConfirmation("Confirmation", "Are you sure you want to remove this?").then(function (result) {
+                 if(result == 1){
+                    var branchDetails={shopId:shopDetails.shopId,branchId:branch.branchId};
+                    adminDataService.removeBranch(branchDetails).then(function(response){
+                    Data_Toast.success(MESSAGE_CONFIG.SUCCESS_REMOVED_SUCCESSFULLY);
+                    $scope.loadData(1);
+                    $scope.btnPressed = false;
+                },function (error) {
+                    Data_Toast.error(MESSAGE_CONFIG.ERROR_REMOVE_FAIL,error.data.responData.Error);
+                    $scope.btnPressed = false;
+                });
+                 }else{
+                    $scope.btnPressed = false;
                  }
             });
         };

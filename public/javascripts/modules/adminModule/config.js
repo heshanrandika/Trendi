@@ -41,6 +41,16 @@
                 access: {
                     requiresLogin: true
                 }
+            },
+
+
+            'main.promotions': {
+                url: '/promotions',
+                templateUrl: '/views/adminModule/admin.promotions.html',
+                controller: 'adminPromotionsController',
+                access: {
+                    requiresLogin: true
+                }
             }
             /*         'admin.shops': {
              url: '/shops',
