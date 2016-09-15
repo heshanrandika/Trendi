@@ -313,7 +313,9 @@
         $scope.addNewPromotion = selectedItem? false:true;
         $scope.uploadedImages = [];
         $scope.promotionPicSize = {value:500000, text:'500kB'};
-        $scope.promotionPicCount = 3;
+        $scope.promotionPicCount = 1;
+        $scope.initWindow = true;
+
 
        
         $scope.availableTypes = [];
@@ -325,16 +327,20 @@
         });
 
 
+        if(selectedItem){
+            $scope.uploadedImages.push({image:$scope.promotion.promotionPic});
+            $scope.promotion.expDate = new Date($scope.promotion.expDate);
+        }
+
         var setData = function(){
-            if(($scope.tmp.promotionPic.length <= 0)){
+            if(($scope.uploadedImages.length <= 0)){
                 Data_Toast.warning(MESSAGE_CONFIG.ERROR_REQUIRED_IMAGE);
                 $scope.btnPressed = false;
             }else {
-                $scope.promotion.promotionPic = $scope.tmp.promotionPic[0]?$scope.tmp.promotionPic[0].image:'';
-                $scope.promotion.tags = $scope.slectedTypes;
+                $scope.promotion.promotionPic = $scope.uploadedImages[0]?$scope.uploadedImages[0].image:'';
                 $scope.promotion.rate = {rate:0, star:0, hit:0};
 
-                _.each($scope.item.types, function (k) {
+                _.each($scope.promotion.tags, function (k) {
                     delete k.$$hashKey
                 });
             }
@@ -344,11 +350,15 @@
         $scope.save = function(){
             $scope.btnPressed = true;
             setData();
-            var itemDetail = {mainItem: $scope.item, subItem: $scope.subItem};
-            adminDataService.addItem(itemDetail).then(function (response) {
+            $scope.promotion.shopId = shopDetails.shopId;
+            $scope.promotion.branchId = shopDetails.branch.branchId;
+            var promotionDetails = {promotion:$scope.promotion};
+            adminDataService.addPromotion(promotionDetails).then(function (response) {
                 Data_Toast.success(MESSAGE_CONFIG.SUCCESS_SAVED_SUCCESSFULLY);
                 uiModalInstance.close();
-            },function(error){
+                $scope.btnPressed = false;
+                $scope.initWindow = false;
+            },function (error) {
                 Data_Toast.error(MESSAGE_CONFIG.ERROR_SAVE_FAIL,error.data.responData.Error);
                 $scope.btnPressed = false;
             });
@@ -357,11 +367,13 @@
         $scope.update = function(){
             $scope.btnPressed = true;
             setData();
-            var itemDetail = {mainItem: $scope.item, subItem: $scope.subItem, itemId:$scope.itemId};
-            adminDataService.updateItem(itemDetail).then(function (response) {
+            var promotionDetails = {promotion:$scope.promotion};
+            adminDataService.updatePromotion(promotionDetails).then(function (response) {
                 Data_Toast.success(MESSAGE_CONFIG.SUCCESS_UPDATE_SUCCESSFULLY);
-                uiModalInstance.close($scope.item);
-            },function(error){
+                uiModalInstance.close();
+                $scope.btnPressed = false;
+                $scope.initWindow = false;
+            },function (error) {
                 Data_Toast.error(MESSAGE_CONFIG.ERROR_UPDATE_FAIL,error.data.responData.Error);
                 $scope.btnPressed = false;
             });
@@ -369,6 +381,7 @@
 
 
         $scope.cancel = function () {
+            $scope.initWindow = false;
             uiModalInstance.dismiss('cancel');
         };
     }]);

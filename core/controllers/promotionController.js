@@ -178,7 +178,8 @@ function updatePromotion(req,callback){
             title : promotion.title,
             promotionPic: promotion.promotionPic,
             tags: promotion.tags,
-            description: promotion.description
+            description: promotion.description,
+            expDate:promotion.expDate
         }};
         daf.Update(query, doc, CONSTANT.PROMOTION_COLLECTION, function (err, success) {
             callback(err, success);

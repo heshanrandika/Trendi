@@ -43,20 +43,20 @@
 
         var entitlementList = [];
         var init= function(){
-                $scope.userData = adminDataService.fullUserData();
+            $scope.userData = adminDataService.fullUserData();
             if($scope.userData.superAdmin){
                 $scope.menuList = ADMIN_MOD_CONFIG.SYS_MENU_CONFIG;
             }else{
                 $scope.menuList = ADMIN_MOD_CONFIG.MENU_CONFIG;
             }
 
-            
+
             if($scope.userData.entitlements.length > 0){
                 entitlementList = _.pluck($scope.userData.entitlements, '_id');
             }
         };
         init();
-        
+
 
         $scope.initMenu = function(menu){
             if(menu.subMenu){
@@ -64,7 +64,7 @@
             }else{
                 return _.contains(entitlementList, menu.authorization);
             }
-            
+
         };
 
         $scope.menuClick= function(menu){
@@ -80,7 +80,7 @@
         $scope.count = 0;
         var shopDetails = {};
         var itemPerPage = 8;
-       
+
 
         shopDetails = adminDataService.shopData();
         $scope.searchObj = {
@@ -138,9 +138,9 @@
             });
 
             modalInstance.result.then(function (editedItem) {
-               selectedItem.item = editedItem;
+                selectedItem.item = editedItem;
             }, function () {
-                
+
             });
         };
 
@@ -166,7 +166,7 @@
 
         $scope.remove = function (itemId) {
             Confirmation.openConfirmation("Confirmation", "Are you sure you want to remove this?").then(function (result) {
-                 if(result == 1){
+                if(result == 1){
                     var itemDetail={'itemId':itemId};
                     adminDataService.removeItem(itemDetail).then(function(response){
                         Data_Toast.success(MESSAGE_CONFIG.SUCCESS_REMOVED_SUCCESSFULLY);
@@ -176,9 +176,9 @@
                         Data_Toast.error(MESSAGE_CONFIG.ERROR_REMOVE_FAIL,error.data.responData.Error);
                         $scope.btnPressed = false;
                     });
-                 }else{
+                }else{
                     $scope.btnPressed = false;
-                 }
+                }
             });
         };
 
@@ -277,27 +277,27 @@
         $scope.remove = function (user) {
             $scope.btnPressed = true;
             Confirmation.openConfirmation("Confirmation", "Are you sure you want to remove this?").then(function (result) {
-                 if(result == 1){
+                if(result == 1){
                     var userDetails = {regUser:{email:user.email}};
                     adminDataService.removeShopUser(userDetails).then(function(response){
-                    Data_Toast.success(MESSAGE_CONFIG.SUCCESS_REMOVED_SUCCESSFULLY);
-                    $scope.loadData(1);
+                        Data_Toast.success(MESSAGE_CONFIG.SUCCESS_REMOVED_SUCCESSFULLY);
+                        $scope.loadData(1);
+                        $scope.btnPressed = false;
+                    },function (error) {
+                        Data_Toast.error(MESSAGE_CONFIG.ERROR_REMOVE_FAIL,error.data.responData.Error);
+                        $scope.btnPressed = false;
+                    });
+                }else{
                     $scope.btnPressed = false;
-                },function (error) {
-                    Data_Toast.error(MESSAGE_CONFIG.ERROR_REMOVE_FAIL,error.data.responData.Error);
-                    $scope.btnPressed = false;
-                });
-                 }else{
-                    $scope.btnPressed = false;
-                 }
+                }
             });
         };
 
 
     }]);
 
-    
-    mod.controller('adminBranchesController', ['$scope', '$rootScope','$state','adminDataService','Data.Toast','MESSAGE_CONFIG','$modal','Confirmation', function ($scope, $rootScope, $state, adminDataService, Data_Toast, MESSAGE_CONFIG, uiModal, Confirmation) { 
+
+    mod.controller('adminBranchesController', ['$scope', '$rootScope','$state','adminDataService','Data.Toast','MESSAGE_CONFIG','$modal','Confirmation', function ($scope, $rootScope, $state, adminDataService, Data_Toast, MESSAGE_CONFIG, uiModal, Confirmation) {
         $scope.branchList = [];
         $scope.count = 0;
         var shopDetails = {};
@@ -364,7 +364,7 @@
             });
         };
 
-         $scope.addNew = function () {
+        $scope.addNew = function () {
             $scope.btnPressed = true;
             var modalInstance = uiModal.open({
                 animation: true,
@@ -389,19 +389,19 @@
         $scope.remove = function (branch) {
             $scope.btnPressed = true;
             Confirmation.openConfirmation("Confirmation", "Are you sure you want to remove this?").then(function (result) {
-                 if(result == 1){
+                if(result == 1){
                     var branchDetails={shopId:shopDetails.shopId,branchId:branch.branchId};
                     adminDataService.removeBranch(branchDetails).then(function(response){
-                    Data_Toast.success(MESSAGE_CONFIG.SUCCESS_REMOVED_SUCCESSFULLY);
-                    $scope.loadData(1);
+                        Data_Toast.success(MESSAGE_CONFIG.SUCCESS_REMOVED_SUCCESSFULLY);
+                        $scope.loadData(1);
+                        $scope.btnPressed = false;
+                    },function (error) {
+                        Data_Toast.error(MESSAGE_CONFIG.ERROR_REMOVE_FAIL,error.data.responData.Error);
+                        $scope.btnPressed = false;
+                    });
+                }else{
                     $scope.btnPressed = false;
-                },function (error) {
-                    Data_Toast.error(MESSAGE_CONFIG.ERROR_REMOVE_FAIL,error.data.responData.Error);
-                    $scope.btnPressed = false;
-                });
-                 }else{
-                    $scope.btnPressed = false;
-                 }
+                }
             });
         };
 
@@ -409,7 +409,7 @@
     }]);
 
 
-    mod.controller('adminPromotionsController', ['$scope', '$rootScope','$state','adminDataService','Data.Toast','MESSAGE_CONFIG','$modal','Confirmation', function ($scope, $rootScope, $state, adminDataService, Data_Toast, MESSAGE_CONFIG, uiModal, Confirmation) { 
+    mod.controller('adminPromotionsController', ['$scope', '$rootScope','$state','adminDataService','Data.Toast','MESSAGE_CONFIG','$modal','Confirmation', function ($scope, $rootScope, $state, adminDataService, Data_Toast, MESSAGE_CONFIG, uiModal, Confirmation) {
         $scope.promotionList = [];
         $scope.count = 0;
         var shopDetails = {};
@@ -479,7 +479,7 @@
             });
         };
 
-         $scope.addNew = function () {
+        $scope.addNew = function () {
             $scope.btnPressed = true;
             var modalInstance = uiModal.open({
                 animation: true,
@@ -501,22 +501,22 @@
             });
         };
 
-        $scope.remove = function (branch) {
+        $scope.remove = function (promotion) {
             $scope.btnPressed = true;
             Confirmation.openConfirmation("Confirmation", "Are you sure you want to remove this?").then(function (result) {
-                 if(result == 1){
-                    var branchDetails={shopId:shopDetails.shopId,branchId:branch.branchId};
-                    adminDataService.removeBranch(branchDetails).then(function(response){
-                    Data_Toast.success(MESSAGE_CONFIG.SUCCESS_REMOVED_SUCCESSFULLY);
-                    $scope.loadData(1);
+                if(result == 1){
+                    var promotionDetails = {promotion:promotion};
+                    adminDataService.removePromotion(promotionDetails).then(function(response){
+                        $scope.loadData(1);
+                        $scope.btnPressed = false;
+                        Data_Toast.success(MESSAGE_CONFIG.SUCCESS_REMOVED_SUCCESSFULLY);
+                    },function (error) {
+                        Data_Toast.error(MESSAGE_CONFIG.ERROR_REMOVE_FAIL,error.data.responData.Error);
+                        $scope.btnPressed = false;
+                    });
+                }else{
                     $scope.btnPressed = false;
-                },function (error) {
-                    Data_Toast.error(MESSAGE_CONFIG.ERROR_REMOVE_FAIL,error.data.responData.Error);
-                    $scope.btnPressed = false;
-                });
-                 }else{
-                    $scope.btnPressed = false;
-                 }
+                }
             });
         };
 

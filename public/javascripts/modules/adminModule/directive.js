@@ -108,7 +108,10 @@
 
                 dropbox.addEventListener("dragenter", dragEnterLeave, false);
                 dropbox.addEventListener("dragleave", dragEnterLeave, false);
-                dropbox.addEventListener("dragover", function (evt) {
+                dropbox.addEventListener("dragover",dragOverFunc, false);
+                dropbox.addEventListener("drop",dropFunc, false);
+
+                function dragOverFunc (evt) {
                     evt.stopPropagation();
                     evt.preventDefault();
                     var clazz = 'not-available';
@@ -117,10 +120,10 @@
                         scope.dropText = ok ? 'Drop files here...' : 'Only files are allowed!';
                         scope.dropClass = ok ? 'over' : 'not-available';
                     });
-                }, false);
+                }
 
                 //============== DRAG & DROP =============
-                dropbox.addEventListener("drop", function (evt) {
+                 function dropFunc(evt) {
                     evt.stopPropagation();
                     evt.preventDefault();
                     scope.$apply(function () {
@@ -147,7 +150,7 @@
                             }
                         });
                     }
-                }, false);
+                }
 
 
                 scope.setFiles = function (element) {
@@ -214,7 +217,7 @@
                             type : file.type,
                             image : e.target.result
                         };
-                        scope.$apply(function (scope) {
+                        scope.$apply(function () {
                             if(scope.files.length < scope.imageCount) {
                                 scope.files.push(fileDetail);
                                 if (!scope.clickedDefault) {
@@ -227,9 +230,14 @@
                     };
 
                     r.readAsDataURL(file);
-                }
+                };
 
-
+                scope.$on('$destroy', function(){
+                    dropbox.removeEventListener("dragenter", dragEnterLeave, false);
+                    dropbox.removeEventListener("dragleave", dragEnterLeave, false);
+                    dropbox.removeEventListener("dragover",dragOverFunc, false);
+                    dropbox.removeEventListener("drop",dropFunc, false);
+                });
             }
         };
     }]);
