@@ -309,12 +309,11 @@
 
     mod.controller('promotionModel',['$scope', '$modalInstance','item','adminDataService','Data.Toast','MESSAGE_CONFIG', function ($scope, uiModalInstance, selectedItem, adminDataService, Data_Toast, MESSAGE_CONFIG) {
         $scope.promotion = selectedItem? selectedItem : {};
-        $scope.promotionId = selectedItem? selectedItem.itemId: undefined;
+        $scope.promotionId = selectedItem? selectedItem.promotionId: undefined;
         $scope.addNewPromotion = selectedItem? false:true;
         $scope.uploadedImages = [];
         $scope.promotionPicSize = {value:500000, text:'500kB'};
         $scope.promotionPicCount = 1;
-        $scope.initWindow = true;
 
 
        
@@ -372,9 +371,73 @@
                 Data_Toast.success(MESSAGE_CONFIG.SUCCESS_UPDATE_SUCCESSFULLY);
                 uiModalInstance.close();
                 $scope.btnPressed = false;
-                $scope.initWindow = false;
             },function (error) {
                 Data_Toast.error(MESSAGE_CONFIG.ERROR_UPDATE_FAIL,error.data.responData.Error);
+                $scope.btnPressed = false;
+            });
+        };
+
+
+        $scope.cancel = function () {
+            uiModalInstance.dismiss('cancel');
+        };
+    }]);
+
+    mod.controller('blogModel',['$scope', '$modalInstance','item','adminDataService','Data.Toast','MESSAGE_CONFIG', function ($scope, uiModalInstance, selectedItem, adminDataService, Data_Toast, MESSAGE_CONFIG) {
+        $scope.blog = selectedItem? selectedItem : {};
+        $scope.blogId = selectedItem? selectedItem.blogId: undefined;
+        $scope.addNewBlog = selectedItem? false:true;
+        $scope.uploadedImages = [];
+        $scope.blogImageSize = {value:500000, text:'500kB'};
+        $scope.blogImageCount = 1;
+
+
+        var shopDetails = adminDataService.shopData();
+
+
+        if(selectedItem){
+            $scope.uploadedImages.push({image:$scope.blog.img});
+            $scope.blog.date = new Date($scope.blog.date);
+        }else{
+            $scope.blog.date = new Date();
+        }
+
+        var setData = function(){
+            if(($scope.uploadedImages.length <= 0)){
+                Data_Toast.warning(MESSAGE_CONFIG.ERROR_REQUIRED_IMAGE);
+                $scope.btnPressed = false;
+            }else {
+                $scope.blog.img = $scope.uploadedImages[0]?$scope.uploadedImages[0].image:'';
+                $scope.blog.shop = shopDetails.branch.shop;
+                $scope.blog.rate = {rate:0, star:0, hit:0};
+            }
+
+        };
+
+        $scope.save = function(){
+            $scope.btnPressed = true;
+            setData();
+            var blogDetails = {blog:$scope.blog};
+            adminDataService.insertBlog(blogDetails).then(function (response) {
+                Data_Toast.success(MESSAGE_CONFIG.SUCCESS_SAVED_SUCCESSFULLY);
+                uiModalInstance.close();
+                $scope.btnPressed = false;
+            },function (error) {
+                Data_Toast.error(MESSAGE_CONFIG.ERROR_SAVE_FAIL,error.data.responData.Error);
+                $scope.btnPressed = false;
+            });
+        };
+
+        $scope.update = function(){
+            $scope.btnPressed = true;
+            setData();
+            var blogDetails = {blog:$scope.blog};
+            adminDataService.updateBlog(blogDetails).then(function (response) {
+                Data_Toast.success(MESSAGE_CONFIG.SUCCESS_UPDATE_SUCCESSFULLY);
+                uiModalInstance.close();
+                $scope.btnPressed = false;
+            },function (error) {
+                Data_Toast.error(MESSAGE_CONFIG.ERROR_SAVE_FAIL,error.data.responData.Error);
                 $scope.btnPressed = false;
             });
         };
@@ -386,5 +449,4 @@
         };
     }]);
 
-    
 })(com.TRENDI.ADMIN.modules.mainAdminModule);

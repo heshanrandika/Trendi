@@ -1,6 +1,6 @@
 <div class="modal-header">
     <div class="panel-header">
-        <h3> <strong>Product</strong> Details </h3><span ng-if="itemId">Item #{{itemId}}</span>
+        <h3> <strong>Promotion</strong> Details </h3><span ng-if="promotionId">Promotion Id #{{promotionId}}</span>
     </div>
 </div>
 <div class="modal-body">
@@ -40,7 +40,7 @@
                                 <div class="row">
                                     <div class="col-sm-6">
                                         <div class="form-group">
-                                            <label class="control-label">Seen</label>
+                                            <label class="control-label">Expiry Date</label>
                                             <div class="append-icon">
                                                 <input class="form-control" type="date" ng-model="promotion.expDate" name="expDate" ng-required="true">
                                                 <i class="fa fa-calendar"></i>
@@ -86,7 +86,7 @@
                                 </div>
 
                                 <div class="row">
-                                    <div class="col-sm-12" ng-if="initWindow">
+                                    <div class="col-sm-12">
                                         <trendi-file-upload files="uploadedImages" image-size="promotionPicSize"  image-count="promotionPicCount"></trendi-file-upload>
                                     </div>
                                 </div>

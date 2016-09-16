@@ -20,6 +20,7 @@ window.com = {TRENDI:{ADMIN:{modules:{}}}};
             'authModule',
             'ngStorage',
             'ui.select',
+            'textAngular',
             'uiGmapgoogle-maps'
         ]
     };

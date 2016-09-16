@@ -51,6 +51,24 @@
                 access: {
                     requiresLogin: true
                 }
+            },
+
+            'main.blog': {
+                url: '/blog',
+                templateUrl: '/views/adminModule/admin.blog.html',
+                controller: 'adminBlogController',
+                access: {
+                    requiresLogin: true
+                }
+            },
+
+            'main.messages': {
+                url: '/messages',
+                templateUrl: '/views/adminModule/admin.message.html',
+                controller: 'adminMessageController',
+                access: {
+                    requiresLogin: true
+                }
             }
             /*         'admin.shops': {
              url: '/shops',
@@ -374,8 +392,8 @@
                 icon:'icon-envelope-letter'
             },
             {
-                value:'Blogs',
-                key:'main.blogs',
+                value:'Blog',
+                key:'main.blog',
                 authorization: 3000,
                 icon:'icon-feed'
             },
@@ -439,8 +457,8 @@
                 icon:'icon-envelope-letter'
             },
             {
-                value:'Blogs',
-                key:'main.blogs',
+                value:'Blog',
+                key:'main.blog',
                 authorization: 3000,
                 icon:'icon-feed'
             },
