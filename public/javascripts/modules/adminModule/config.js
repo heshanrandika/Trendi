@@ -69,6 +69,15 @@
                 access: {
                     requiresLogin: true
                 }
+            },
+
+            'main.profile': {
+                url: '/profile',
+                templateUrl: '/views/adminModule/admin.profile.html',
+                controller: 'adminProfileController',
+                access: {
+                    requiresLogin: true
+                }
             }
             /*         'admin.shops': {
              url: '/shops',
@@ -403,13 +412,13 @@
                 subMenu : [
                      {
                         value:'Profile ',
-                        key:'main.extras.profile',
+                        key:'main.profile',
                         view:'profile',
                         authorization: 3000
                     },
                     {
                         value:'Tags ',
-                        key:'main.extras.tags',
+                        key:'main.tags',
                         view:'message',
                         authorization: 3000
                     }
@@ -468,13 +477,13 @@
                 subMenu : [
                      {
                         value:'Profile ',
-                        key:'main.extras.profile',
+                        key:'main.profile',
                         view:'profile',
                         authorization: 3000
                     },
                     {
                         value:'Tags ',
-                        key:'main.extras.tags',
+                        key:'main.tags',
                         view:'message',
                         authorization: 3000
                     }

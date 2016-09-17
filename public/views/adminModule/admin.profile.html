@@ -1,0 +1,308 @@
+<div class="page-app page-profil">
+    <div class="col-lg-10 col-md-9">
+        <div class="row profil-header">
+            <div class="col-lg-9 col-md-12">
+                <div class="row">
+                    <div class="col-xs-4 profil-img">
+                        <img ng-src="{{regUser.profilePic}}">
+                    </div>
+                    <div class="col-xs-8 p-l-0 col-map">
+                        <div class="map" id="profil-map">
+
+                        </div>
+                    </div>
+                </div>
+                <div class="row header-name">
+                    <div class="col-xs-9">
+                        <div class="name">{{regUser.name}} <i class="fa fa-check-circle"></i></div>
+                        <div class="profil-info"><i class="fa fa-mobile"></i>{{regUser.mobile}}</div>
+                        <div class="profil-info"><i class="icon-call-end"></i>{{regUser.hotline}}</div>
+                    </div>
+                    <div class="col-xs-3 moments">
+                        <div class="num-moments c-primary countup" data-from="0" data-to="137" data-delay="2000" data-suffix="+" data-duration="6">{{}}</div>
+                        <div class="profil-info"><i class="fa fa-envelope"></i>{{regUser.email}}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-12 user-friends">
+                <div class="row m-r-0">
+                    <div class="col-sm-4">
+                        <img src="/images/admin/friend1.jpg" class="img-responsive" alt="friend 1">
+                    </div>
+                    <div class="col-sm-4">
+                        <img src="/images/admin/friend2.jpg" class="img-responsive" alt="friend 2">
+                    </div>
+                    <div class="col-sm-4">
+                        <img src="/images/admin/friend3.jpg" class="img-responsive" alt="friend 3">
+                    </div>
+                </div>
+                <div class="row m-r-0">
+                    <div class="col-sm-4">
+                        <img src="/images/admin/friend4.jpg" class="img-responsive" alt="friend 4">
+                    </div>
+                    <div class="col-sm-4">
+                        <img src="/images/admin/friend5.jpg" class="img-responsive" alt="friend 5">
+                    </div>
+                    <div class="col-sm-4">
+                        <img src="/images/admin/friend6.jpg" class="img-responsive" alt="friend 6">
+                    </div>
+                </div>
+                <div class="row m-r-0">
+                    <div class="col-sm-4">
+                        <img src="/images/admin/friend7.jpg" class="img-responsive" alt="friend 7">
+                    </div>
+                    <div class="col-sm-4">
+                        <img src="/images/admin/friend8.jpg" class="img-responsive" alt="friend 8">
+                    </div>
+                    <div class="col-sm-4 bg-primary more-friends">
+                        <span class="num-friends"></span>
+                        <p></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="profil-content">
+            <div class="row">
+                <div class="col-md-7">
+                    <div class="row">
+                        <div class="item hover-effect new-item" style="margin-bottom: 30px; visibility: inherit; opacity: 1;">
+                            <div class="user">
+                                <img src="/images/admin/pensils.png" class="img-responsive hover-img" alt="">
+                                <div class="info">
+                                    <div class="f-24"></div>
+                                    <div>
+                                        <div class="f-24"><i class="icon-pencil"></i> Edit Profile</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="comment">
+                                <div ng-if="!profChange">
+                                    You can design and create, and build the most wonderful place in the world. But it takes people to make the dream a reality.
+                                    <button type="button" class="btn btn-block btn-primary bd-0 no-bd" ng-click="profEdit()"><i class="icon-pencil"></i> Edit Prfile</button>
+                                </div>
+                                <div ng-if="profChange">
+                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                        <form role="form" class="form-validation" novalidate=""  name="itemForm">
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <div class="form-group">
+                                                        <label class="control-label">Name </label>
+                                                        <div class="append-icon">
+                                                            <input type="text"  class="form-control" placeholder="Ex : Jhon.." ng-model="regUser.name" name="name"  ng-required="true">
+                                                            <i class="fa fa-user"></i>
+                                                            <div ng-messages="itemForm.name.$error">
+                                                                <div ng-message="required">This is required.</div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="control-label">Telephone </label>
+                                                        <div class="append-icon">
+                                                            <input class="form-control" ng-model="regUser.hotline" type="number" name="hotline">
+                                                            <i class="fa fa-phone"></i>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="control-label">Mobile </label>
+                                                        <div class="append-icon">
+                                                            <input class="form-control" ng-model="regUser.mobile" type="number" name="mobile">
+                                                            <i class="fa fa-mobile"></i>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div>
+                                                    <trendi-file-upload files="user.profilePic" image-size="profilePicSize" image-count="profilePicCount"></trendi-file-upload>
+                                                </div>
+                                            </div>
+                                            <div class="text-center  m-t-20">
+                                                <div>
+                                                    <button class="btn btn-primary" ng-disabled="(itemForm.$invalid || btnPressed)" ng-click="update()">
+                                                        Update Profile
+                                                    </button>
+                                                    <button ng-click="profEdit()" class="btn btn-white">
+                                                        Close
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="item hover-effect new-item" style="margin-bottom: 30px; visibility: inherit; opacity: 1;">
+                            <div class="user">
+                                <img src="/images/admin/pwd.jpg" class="img-responsive hover-img" alt="">
+                                <div class="info">
+                                    <div class="f-24"></div>
+                                    <div>
+                                        <div class="f-24"><i class="fa fa-envelope"></i> Change Password</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="comment">
+                                <div ng-if="!pwdChange">
+                                    You can design and create, and build the most wonderful place in the world. But it takes people to make the dream a reality.
+                                    <button type="button" class="btn btn-block btn-primary bd-0 no-bd" ng-click="pwdEdit()"><i class="icon-lock"></i> Change Password</button>
+                                </div>
+                                <div ng-if="pwdChange">
+                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                        <form role="form" class="form-validation" novalidate=""  name="itemForm">
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <div class="form-group">
+                                                        <label class="control-label">Old Password</label>
+                                                        <div class="append-icon">
+                                                            <input type="password"  class="form-control"  ng-model="temp.oldPassword" name="old_pwd"  ng-required="true">
+                                                            <i class="fa fa-lock"></i>
+                                                            <div ng-messages="itemForm.old_pwd.$error">
+                                                                <div ng-message="required">This is required.</div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="control-label">New Password</label>
+                                                        <div class="append-icon">
+                                                            <input type="password"  class="form-control" ng-model="temp.newPassword" name="new_password" ng-required="true">
+                                                            <i class="fa fa-lock"></i>
+                                                            <div ng-messages="itemForm.new_password.$error">
+                                                                <div ng-message="required">This is required.</div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="control-label">Confirm Password</label>
+                                                        <div class="append-icon">
+                                                            <input ng-model="temp.confirm_password" class="form-control" name="confirm_password" type="password" ng-required="true" compare-to="temp.newPassword">
+                                                            <i class="fa fa-unlock"></i>
+                                                            <div ng-messages="itemForm.confirm_password.$error">
+                                                                <div ng-message="required">This is required.</div>
+                                                                <div ng-message="compareTo">Password does not match the confirm password.</div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="text-center  m-t-20">
+                                                <div>
+                                                    <button class="btn btn-primary" ng-disabled="(itemForm.$invalid || btnPressed)" ng-click="update()">
+                                                        Change Password
+                                                    </button>
+                                                    <button ng-click="pwdEdit()" class="btn btn-white">
+                                                        Close
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="row">
+                        <div class="col-md-12 col-sm-6 col-xs-12">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="panel widget-member2">
+                                        <div class="panel panel-default">
+                                            <div class="panel-body p-10">
+                                                <div class="text-center col-xs-4">
+                                                    <img  ng-show="branch.shop.iconImage != ''"  ng-src="{{branch.shop.iconImage}}" class="img-responsive" alt="avatar 4">
+                                                </div>
+                                                <div class="clearfix col-xs-8">
+                                                    <h2 class="c-dark w-600"><strong>{{branch.shop.name}}</strong> <span class="member-job">Branch #{{branch.branchId}}</span></h2>
+                                                    <p class="c-gray"><i class="fa fa-map-marker p-r-10"></i> {{branch.shop.address.line1 +" "+ branch.shop.address.line2}}, {{branch.shop.address.city}}, {{branch.shop.address.state}}</p>
+                                                    <p class="c-gray"><i class="fa fa-info-circle p-r-10"></i> {{branch.shop.description}}</p>
+                                                </div>
+                                            </div>
+                                            <div class="panel-footer p-t-0 p-b-0">
+                                                <div class="row">
+                                                    <div class="col-xs-4 bg-blue p-20">
+                                                        <div class="text-center m-b-10">
+                                                            <i class="f-24 icon-call-end"></i>
+                                                        </div>
+                                                        <div class="text-center f-16">
+                                                            {{branch.shop.hotline}}
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xs-4 bg-purple p-20">
+                                                        <div class="text-center m-b-10">
+                                                            <i class="f-24 icon-screen-smartphone"></i>
+                                                        </div>
+                                                        <div class="text-center f-16">
+                                                            {{branch.shop.mobile}}
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xs-4 bg-primary p-20">
+                                                        <div class="text-center m-b-10">
+                                                            <i class="f-24 fa icon-heart"></i>
+                                                        </div>
+                                                        <div class="text-center f-16">
+                                                            254
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-2 col-md-3 hidden-sm hidden-xs profil-right">
+        <div class="profil-sidebar-element">
+            <h3><strong>ABOUT ME</strong></h3>
+            <p>Mussum ipsum cacilds, vidis litro abertis. Consetis adipiscings elitis. Pra lá , depois divoltis pra quem é amistosis quis leo.</p>
+        </div>
+        <div class="profil-sidebar-element m-t-20">
+            <h3><strong>PERSONAL STATS</strong></h3>
+            <p class="c-gray m-t-0"><i>Last connection: 2 days ago</i>
+            </p>
+            <h3><strong>AVERAGE RATING</strong></h3>
+            <div id="stars" class="stars pull-left">
+                <span class="fa fa-star c-primary"></span>
+                <span class="fa fa-star c-primary"></span>
+                <span class="fa fa-star c-primary"></span>
+                <span class="fa fa-star c-primary"></span>
+                <span class="fa fa-star-o c-primary"></span>
+            </div>
+            <div class="sidebar-number pull-right">4/5</div>
+            <div class="clearfix"></div>
+            <h3><strong>MY SHARING</strong></h3>
+            <p class="m-t-0"><span class="c-primary"><strong>15</strong></span> Replies</p>
+            <p class="m-t-0"><span class="c-primary"><strong>8</strong></span> Messages</p>
+            <p class="m-t-0"><span class="c-primary"><strong>24</strong></span> Questions</p>
+        </div>
+        <div class="m-t-20">
+            <p>You and Bryan are not friend yet</p>
+            <button type="button" class="btn btn-block btn-primary bd-0 no-bd"><i class="icon-user"></i> Add to my friends</button>
+        </div>
+        <div class="m-t-60" style="width:100%">
+            <canvas id="profil-chart" height="450"></canvas>
+        </div>
+    </div>
+    <div class="footer">
+        <div class="copyright">
+            <p class="pull-left sm-pull-reset">
+                <span>Copyright <span class="copyright">©</span> 2015 </span>
+                <span>THEMES LAB</span>.
+                <span>All rights reserved. </span>
+            </p>
+            <p class="pull-right sm-pull-reset">
+                <span><a href="#" class="m-r-10">Support</a> | <a href="#" class="m-l-10 m-r-10">Terms of use</a> | <a href="#" class="m-l-10">Privacy Policy</a></span>
+            </p>
+        </div>
+    </div>
+</div>
