@@ -1,4 +1,75 @@
-<div layout="column">
+<div>
+    <div class="header">
+        <h2><strong>Tags</strong> Collection</h2>
+        <div class="breadcrumb-wrapper">
+            <ol class="breadcrumb">
+                <li>
+                    <a href="#">Make</a>
+                </li>
+                <li>
+                    <a href="#">Pages</a>
+                </li>
+                <li class="active">Buttons</li>
+            </ol>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12 portlets">
+            <div class="panel">
+                <div class="panel-header">
+                    <h3><i class="icon-layers"></i> Add your <strong>Tags</strong></h3>
+                </div>
+                <div class="panel-content">
+                     <div class="row">
+                        <div class="col-md-6">
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="form-group">
+                                        <div class="append-icon">
+                                            <input type="text"  class="form-control" placeholder="Type your tag here" ng-model="typed">
+                                            <i class="icon-tag"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <button  class="btn " ng-class="(tracker == 1 || tracker == 2)? 'btn-danger':'btn-primary'"  ng-disabled="tracker == 2 || typed ==''" ng-click="answer()">
+                                        {{(tracker == 1 || tracker == 2)?"Remove":"Add"}}   <i ng-class="(tracker == 1 || tracker == 2)? 'fa fa-remove':'fa fa-plus'"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <h3><strong>Your</strong> Tags</h3>
+                            <ul class="tags">
+                                <li ng-repeat="tag in tags"  ng-if="checkShop(tag)"><a class="tag">{{tag.key}}  <i class="fa fa-times" ng-click="removeTag(tag)"></i></a></li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="row"></div>
+                            <h3><strong>Other</strong> Tags</h3>
+                            <ul class="tags">
+                                <li ng-repeat="tag in tags"  ng-if="!checkShop(tag)"><a class="tag-other">{{tag.key}}</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        <div class="copyright">
+            <p class="pull-left sm-pull-reset">
+                <span>Copyright <span class="copyright">&copy;</span> 2015 </span>
+                <span>Trendi</span>.
+                <span>All rights reserved. </span>
+            </p>
+            <p class="pull-right sm-pull-reset">
+                <span><a href="#" class="m-r-10">Support</a> | <a href="#" class="m-l-10 m-r-10">Terms of use</a> | <a href="#" class="m-l-10">Privacy Policy</a></span>
+            </p>
+        </div>
+    </div>
+</div>
+
+
+<!--<div layout="column">
     <md-content class="md-padding" layout="column">
         <md-input-container md-no-float class="md-block">
             <input ng-model="typed" placeholder="Type your tag here">
@@ -6,9 +77,9 @@
         <md-button class="md-fab md-mini" ng-class="(tracker == 1 || tracker == 2)? '':'md-primary'" aria-label="Profile" ng-disabled="tracker == 2 || typed ==''" ng-click="answer()">
             <md-icon class="vertical-center" ng-class="(tracker == 1 || tracker == 2)? 'fa fa-remove':'fa fa-plus'"></md-icon>
         </md-button>
-        <!--<md-button class="md-fab md-mini md-primary" aria-label="Profile" ng-if="tracker == 3" ng-click="addTag()">
+        &lt;!&ndash;<md-button class="md-fab md-mini md-primary" aria-label="Profile" ng-if="tracker == 3" ng-click="addTag()">
             <md-icon class="fa fa-plus vertical-center"></md-icon>
-        </md-button>-->
+        </md-button>&ndash;&gt;
 
         <md-subheader class="md-primary">Your Tags</md-subheader>
         <md-list>
@@ -19,6 +90,9 @@
             </md-list-item>
         </md-list>
 
+
+
+
         <md-subheader class="md-primary">Other Tags</md-subheader>
         <md-list>
             <md-list-item class="md-2-line" ng-repeat="tag in tags" layout="row" layout-wrap ng-if="!checkShop(tag)">
@@ -28,4 +102,4 @@
             </md-list-item>
         </md-list>
     </md-content>
-</div>
+</div>-->

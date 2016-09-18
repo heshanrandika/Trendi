@@ -1006,7 +1006,17 @@
 
         $scope.checkShop = function(tag){
             return (tag.shopId == $scope.shopDetails.shopId);
-        }
+        };
+
+        $scope.removeTag = function(tag){
+            adminDataService.removeTag({tag:tag}).then(function(response){
+                $scope.typed = '';
+                Data_Toast.success(MESSAGE_CONFIG.SUCCESS_REMOVED_SUCCESSFULLY);
+                initData();
+            },function(error){
+                Data_Toast.error(MESSAGE_CONFIG.ERROR_REMOVE_FAIL,error.data.responData.Error);
+            });
+        };
 
     }]);
 
