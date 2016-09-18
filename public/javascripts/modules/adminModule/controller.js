@@ -870,7 +870,6 @@
 
 
     mod.controller('adminProfileController', ['$scope', '$rootScope','$state','adminDataService','Data.Toast','MESSAGE_CONFIG', function ($scope, $rootScope, $state, adminDataService, Data_Toast, MESSAGE_CONFIG) {
-
         $scope.edit = true;
         $scope.user = {};
         $scope.temp = {};
@@ -898,26 +897,31 @@
         initData();
 
         $scope.resetPwd =function(){
+            $scope.btnPressed = true;
             adminDataService.adminResetPwd($scope.temp).then(function(response){
                 Data_Toast.success(MESSAGE_CONFIG.SUCCESS_SAVED_SUCCESSFULLY);
                 $scope.temp = {};
                 $scope.changePwd = false;
+                $scope.btnPressed = false;
             },function(error){
                 Data_Toast.error(MESSAGE_CONFIG.ERROR_UPDATE_FAIL,error.data.responData.Error);
             });
         };
 
         $scope.updateProfile = function(){
+            $scope.btnPressed = true;
             $scope.regUser.profilePic = $scope.user.profilePic[0]?$scope.user.profilePic[0].image:'';
             adminDataService.adminUpdateUser({regUser:$scope.regUser , profileUpdate:true}).then(function(response){
                 Data_Toast.success(MESSAGE_CONFIG.SUCCESS_SAVED_SUCCESSFULLY);
                 $scope.regUser ={};
                 $scope.edit = true;
                 initData();
+                $scope.profChange = false;
+                $scope.btnPressed = false;
             },function(error){
                 Data_Toast.error(MESSAGE_CONFIG.ERROR_UPDATE_FAIL,error.data.responData.Error);
             });
-        }
+        };
 
         $scope.pwdEdit = function(){
             $scope.pwdChange = !$scope.pwdChange;
@@ -925,9 +929,87 @@
 
         $scope.profEdit = function(){
             $scope.profChange = !$scope.profChange;
+            if($scope.profChange){
+                $scope.dupUser = angular.copy($scope.regUser);
+            }else{
+                $scope.regUser = $scope.dupUser;
+            }
         };
 
     }]);
+
+
+    mod.controller('adminTagsController', ['$scope', '$rootScope','$state','adminDataService','Data.Toast','MESSAGE_CONFIG', function ($scope, $rootScope, $state, adminDataService, Data_Toast, MESSAGE_CONFIG) {
+
+        $scope.typed = '';
+        $scope.tracker = 1;
+        $scope.typed ='';
+        $scope.tags =[];
+
+
+        $scope.$watch('typed', function(current, old){
+            if(current != old){
+                $scope.tracker = 3;
+                _.each($scope.tags, function(tg){
+                    if(current.toLowerCase() == tg.key.toLowerCase()){
+                        if(tg.shopId == $scope.shopDetails.shopId){
+                            $scope.tracker = 1;
+                            return false;
+                        }else{
+                            $scope.tracker = 2;
+                            return false;
+                        }
+                    }
+                });
+            }
+        });
+
+
+        var initData = function(){
+            $scope.shopDetails = adminDataService.shopData();
+            adminDataService.adminGetTagList().then(function(response){
+                $scope.tags = response.data.responData.data;
+            },function(error){
+                $scope.tags =[];
+            });
+        };
+        initData();
+
+
+        $scope.answer = function(){
+            var tag ={key:$scope.typed.toLowerCase(), shopId:$scope.shopDetails.shopId};
+            switch($scope.tracker){
+                case 3:
+                    adminDataService.addTag({tag:tag}).then(function(response){
+                        $scope.typed = '';
+                        Data_Toast.success(MESSAGE_CONFIG.SUCCESS_SAVED_SUCCESSFULLY);
+                        initData();
+                    },function(error){
+                        Data_Toast.error(MESSAGE_CONFIG.ERROR_SAVE_FAIL,error.data.responData.Error);
+                    });
+                    break;
+
+                case 1:
+                    adminDataService.removeTag({tag:tag}).then(function(response){
+                        $scope.typed = '';
+                        Data_Toast.success(MESSAGE_CONFIG.SUCCESS_REMOVED_SUCCESSFULLY);
+                        initData();
+                    },function(error){
+                        Data_Toast.error(MESSAGE_CONFIG.ERROR_REMOVE_FAIL,error.data.responData.Error);
+                    });
+                    break;
+
+                default :
+                    console.log('cannot find tracker value');
+            }
+        };
+
+        $scope.checkShop = function(tag){
+            return (tag.shopId == $scope.shopDetails.shopId);
+        }
+
+    }]);
+
 
     mod.controller('adminTest',['$scope',function($scope){
         $scope.open = function () {

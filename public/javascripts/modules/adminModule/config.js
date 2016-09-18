@@ -78,235 +78,17 @@
                 access: {
                     requiresLogin: true
                 }
+            },
+
+            'main.tags': {
+                url: '/tags',
+                templateUrl: '/views/adminModule/admin.tags.html',
+                controller: 'adminTagsController',
+                access: {
+                    requiresLogin: true
+                }
             }
-            /*         'admin.shops': {
-             url: '/shops',
-             templateUrl: 'views/adminModule/admin.shops.html',
-             controller: 'adminShopsController',
-             access: {
-             requiresLogin: true
-             }
-             },
 
-             'admin.promotions': {
-             url: '/promotions',
-             templateUrl: 'views/adminModule/admin.promotions.html',
-             controller: 'adminPromotionsController',
-             access: {
-             requiresLogin: true
-             }
-             },
-
-             'admin.users': {
-             url: '/users',
-             templateUrl: 'views/adminModule/admin.users.html',
-             controller: 'adminUsersController',
-             access: {
-             requiresLogin: true
-             }
-             },
-
-             'admin.branches': {
-             url: '/branches',
-             templateUrl: 'views/adminModule/admin.branches.html',
-             controller: 'adminBranchesController',
-             access: {
-             requiresLogin: true
-             }
-             },
-
-             'admin.extras': {
-             url: '/extras',
-             templateUrl: 'views/adminModule/admin.extras.html',
-             controller: 'adminExtrasController',
-             access: {
-             requiresLogin: true
-             }
-             },
-
-             'admin.extras.profile': {
-             url: '/profile',
-             data:{
-             'currentTab': 0
-             },
-             views :{
-             'profile':{
-             controller:'adminExtraProfileController',
-             templateUrl: 'views/adminModule/extras/admin.extras.profile.html',
-             access: {
-             requiresLogin: true
-             }
-             }
-             }
-
-             },
-
-             'admin.extras.message': {
-             url: '/message',
-             data:{
-             'currentTab': 1
-             },
-             views :{
-             'message':{
-             controller:'adminExtraMessageController',
-             templateUrl: 'views/adminModule/extras/admin.extras.message.html',
-             access: {
-             requiresLogin: true
-             }
-             }
-             }
-
-             },
-
-             'admin.extras.tags': {
-             url: '/tags',
-             data:{
-             'currentTab': 2
-             },
-             views :{
-             'tag':{
-             controller:'adminExtraTagsController',
-             templateUrl: 'views/adminModule/extras/admin.extras.tags.html',
-             access: {
-             requiresLogin: true
-             }
-             }
-             }
-
-             },
-
-             'admin.extras.blog': {
-             url: '/blog',
-             data:{
-             'currentTab': 3
-             },
-             views :{
-             'blog':{
-             controller:'adminExtraBlogController',
-             templateUrl: 'views/adminModule/extras/admin.extras.blog.html',
-             access: {
-             requiresLogin: true
-             }
-             }
-             }
-
-             },
-
-
-
-
-             'admin.sysitems': {
-             url: '/sysitems',
-             templateUrl: 'views/adminModule/sysAdmin/sys.admin.items.html',
-             controller: 'sysAdminItemController',
-             access: {
-             requiresLogin: true
-             }
-             },
-
-             'admin.sysshops': {
-             url: '/sysshops',
-             templateUrl: 'views/adminModule/sysAdmin/sys.admin.shops.html',
-             controller: 'sysAdminShopsController',
-             access: {
-             requiresLogin: true
-             }
-             },
-
-             'admin.syspromotions': {
-             url: '/syspromotions',
-             templateUrl: 'views/adminModule/sysAdmin/sys.admin.promotions.html',
-             controller: 'sysAdminPromotionsController',
-             access: {
-             requiresLogin: true
-             }
-             },
-
-             'admin.sysusers': {
-             url: '/sysusers',
-             templateUrl: 'views/adminModule/sysAdmin/sys.admin.users.html',
-             controller: 'sysAdminUsersController',
-             access: {
-             requiresLogin: true
-             }
-             },
-
-             'admin.sysextras': {
-             url: '/sysextras',
-             templateUrl: 'views/adminModule/sysAdmin/sys.admin.extras.html',
-             controller: 'sysAdminExtrasController',
-             access: {
-             requiresLogin: true
-             }
-             },
-
-             'admin.sysextras.profile': {
-             url: '/sysprofile',
-             data:{
-             'currentTab': 0
-             },
-             views :{
-             'profile':{
-             controller:'sysAdminExtraProfileController',
-             templateUrl: 'views/adminModule/extras/admin.extras.profile.html',
-             access: {
-             requiresLogin: true
-             }
-             }
-             }
-
-             },
-
-             'admin.sysextras.message': {
-             url: '/sysmessage',
-             data:{
-             'currentTab': 1
-             },
-             views :{
-             'message':{
-             controller:'sysAdminExtraMessageController',
-             templateUrl: 'views/adminModule/extras/admin.extras.message.html',
-             access: {
-             requiresLogin: true
-             }
-             }
-             }
-
-             },
-
-             'admin.sysextras.tags': {
-             url: '/systags',
-             data:{
-             'currentTab': 2
-             },
-             views :{
-             'tag':{
-             controller:'sysAdminExtraTagsController',
-             templateUrl: 'views/adminModule/extras/admin.extras.tags.html',
-             access: {
-             requiresLogin: true
-             }
-             }
-             }
-
-             },
-
-             'admin.sysextras.blog': {
-             url: '/sysblog',
-             data:{
-             'currentTab': 3
-             },
-             views :{
-             'blog':{
-             controller:'sysAdminExtraBlogController',
-             templateUrl: 'views/adminModule/extras/admin.extras.blog.html',
-             access: {
-             requiresLogin: true
-             }
-             }
-             }
-
-             }*/
 
         },
         REQ_CONFIG: {
@@ -380,7 +162,7 @@
                 value:'Users',
                 key:'main.users',
                 authorization: 2016,
-                icon:'icon-user'
+                icon:'icon-users'
             },
             {
                 value:'Branches',
@@ -407,24 +189,20 @@
                 icon:'icon-feed'
             },
             {
-                value:'Extras ',
-                icon:'icon-cup',
-                subMenu : [
-                     {
-                        value:'Profile ',
-                        key:'main.profile',
-                        view:'profile',
-                        authorization: 3000
-                    },
-                    {
-                        value:'Tags ',
-                        key:'main.tags',
-                        view:'message',
-                        authorization: 3000
-                    }
-                ]
-
+                value:'Profile ',
+                key:'main.profile',
+                view:'profile',
+                authorization: 3000,
+                icon:'icon-user'
+            },
+            {
+                value:'Tags ',
+                key:'main.tags',
+                view:'message',
+                authorization: 3000,
+                icon:'icon-tag'
             }
+
 
         ],
 
@@ -445,7 +223,7 @@
                 value:'Users',
                 key:'main.users',
                 authorization: 2016,
-                icon:'icon-user'
+                icon:'icon-users'
             },
             {
                 value:'Branches',
@@ -472,23 +250,18 @@
                 icon:'icon-feed'
             },
             {
-                value:'Extras ',
-                icon:'icon-cup',
-                subMenu : [
-                     {
-                        value:'Profile ',
-                        key:'main.profile',
-                        view:'profile',
-                        authorization: 3000
-                    },
-                    {
-                        value:'Tags ',
-                        key:'main.tags',
-                        view:'message',
-                        authorization: 3000
-                    }
-                ]
-
+                value:'Profile ',
+                key:'main.profile',
+                view:'profile',
+                authorization: 3000,
+                icon:'icon-user'
+            },
+            {
+                value:'Tags ',
+                key:'main.tags',
+                view:'message',
+                authorization: 3000,
+                icon:'icon-tag'
             }
 
         ],
