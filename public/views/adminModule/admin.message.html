@@ -18,9 +18,9 @@
             <div class="panel-content">
                 <div class="raw message-container">
                     <div class="col-md-3 message">
-                        <md-button  class="md-raised md-primary" ng-click="composeMail($event)">
-                            COMPOSE
-                        </md-button>
+                        <button class="btn btn-success" ng-click="composeMail($event)">
+                            <i class="icon-envelope-open"></i> Compose
+                        </button>
                         <ul class="list-group ">
                             <li class="list-group-item" ng-class="selectedTab == 0?'message-select-li':''" ng-click="selectTab(0)">
                                 <a><i class="fa fa-inbox"></i> Inbox <span class="label label-danger pull-right" ng-if="unreadCount > 0">{{unreadCount}}</span></a>

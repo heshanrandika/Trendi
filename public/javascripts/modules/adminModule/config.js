@@ -101,6 +101,7 @@
             FUNC_AdminGetItemList:1000,
             FUNC_GetSizes:        1017,
             FUNC_ChangeSizes:     1018,
+            FUNC_AdminUpdateItem: 1019,
             //++++++shop function list++++++++++++++++
             FUNC_GetShopList:     2008,
             FUNC_RegisterShop:    2009,
@@ -147,8 +148,8 @@
         },
         MENU_CONFIG:[
                {
-                value:'Shops',
-                key:'main.shops',
+                value:'Dashboard',
+                key:'main.dashboard',
                 authorization: 2008,
                 icon:'icon-home'
             },
@@ -207,6 +208,12 @@
         ],
 
         SYS_MENU_CONFIG:[
+            {
+                value:'Dashboard',
+                key:'main.dashboard',
+                authorization: 2008,
+                icon:'icon-home'
+            },
             {
                 value:'Shops',
                 key:'main.shops',

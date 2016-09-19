@@ -33,13 +33,13 @@
                                 </div>
                                 <div class="col-md-4">
                                     <button  class="btn " ng-class="(tracker == 1 || tracker == 2)? 'btn-danger':'btn-primary'"  ng-disabled="tracker == 2 || typed ==''" ng-click="answer()">
-                                        {{(tracker == 1 || tracker == 2)?"Remove":"Add"}}   <i ng-class="(tracker == 1 || tracker == 2)? 'fa fa-remove':'fa fa-plus'"></i>
+                                        {{(tracker == 1 || tracker == 2)?"Remove":"Add"}}   <i ng-class="(tracker == 1 || tracker == 2)? 'icon-close':'icon-plus'"></i>
                                     </button>
                                 </div>
                             </div>
                             <h3><strong>Your</strong> Tags</h3>
                             <ul class="tags">
-                                <li ng-repeat="tag in tags"  ng-if="checkShop(tag)"><a class="tag">{{tag.key}}  <i class="fa fa-times" ng-click="removeTag(tag)"></i></a></li>
+                                <li ng-repeat="tag in tags"  ng-if="checkShop(tag)"><a class="tag">{{tag.key}}  <i class="icon-close" ng-click="removeTag(tag)"></i></a></li>
                             </ul>
                         </div>
                         <div class="col-md-6">
@@ -67,39 +67,3 @@
         </div>
     </div>
 </div>
-
-
-<!--<div layout="column">
-    <md-content class="md-padding" layout="column">
-        <md-input-container md-no-float class="md-block">
-            <input ng-model="typed" placeholder="Type your tag here">
-        </md-input-container>
-        <md-button class="md-fab md-mini" ng-class="(tracker == 1 || tracker == 2)? '':'md-primary'" aria-label="Profile" ng-disabled="tracker == 2 || typed ==''" ng-click="answer()">
-            <md-icon class="vertical-center" ng-class="(tracker == 1 || tracker == 2)? 'fa fa-remove':'fa fa-plus'"></md-icon>
-        </md-button>
-        &lt;!&ndash;<md-button class="md-fab md-mini md-primary" aria-label="Profile" ng-if="tracker == 3" ng-click="addTag()">
-            <md-icon class="fa fa-plus vertical-center"></md-icon>
-        </md-button>&ndash;&gt;
-
-        <md-subheader class="md-primary">Your Tags</md-subheader>
-        <md-list>
-            <md-list-item class="md-2-line" ng-repeat="tag in tags" layout="row" layout-wrap ng-if="checkShop(tag)">
-                <div class="md-item-text md-whiteframe-z1" flex>
-                    <h3>{{tag.key}}</h3>
-                </div>
-            </md-list-item>
-        </md-list>
-
-
-
-
-        <md-subheader class="md-primary">Other Tags</md-subheader>
-        <md-list>
-            <md-list-item class="md-2-line" ng-repeat="tag in tags" layout="row" layout-wrap ng-if="!checkShop(tag)">
-                <div class="md-item-text md-whiteframe-z1" flex>
-                    <h3>{{tag.key}}</h3>
-                </div>
-            </md-list-item>
-        </md-list>
-    </md-content>
-</div>-->

@@ -407,7 +407,7 @@ function editItems(req,callback){
 
 };
 
-function updateItem(req,callback){
+function updateItemOld(req,callback){
     console.log("$$$$$$$  UpdateItem $$$$$$");
     var params = (req.body.params) ? req.body.params : {};
     var mainItem = (params.mainItem)? params.mainItem:{};
@@ -420,7 +420,6 @@ function updateItem(req,callback){
             if(success) {
                 daf.Remove(query, CONSTANT.SUB_ITEM_COLLECTION, function (err, success) {
                     var doc = {itemId: itemId, date:new Date(), item: mainItem};
-                    var doc = {itemId: itemId, date: new Date(), item: mainItem};
                     doc.searchText = "";
                     _.each(mainItem.types,function(val){
                         doc.searchText += (val.value+" ");
@@ -455,6 +454,81 @@ function updateItem(req,callback){
         callback(err);
     }
 };
+
+
+function updateItem(req,callback){
+    console.log("$$$$$$$  UpdateItem $$$$$$");
+    var params = (req.body.params) ? req.body.params : {};
+    var mainItem = (params.mainItem)? params.mainItem:{};
+    var subItem = (params.subItem)? params.subItem:{};
+    var itemId = (params.itemId)? params.itemId:0;
+    var query = {'itemId':itemId};
+    console.log("$$$$$$$  UpdateItem $$$$$$ : ");
+    if(params.mainItem && params.subItem){
+        var query = {itemId: itemId}
+        var searchText = "";
+
+        _.each(mainItem.types,function(val){
+            searchText += (val.value+" ");
+        });
+        searchText += (mainItem.name+" ");
+        var changeDoc = {$set:{date:new Date(), item: mainItem, approved:false, searchText:searchText}};
+
+        daf.Update(query, changeDoc, CONSTANT.MAIN_ITEM_COLLECTION, function(err , dataList){
+            if(!err){
+                changeDoc = {$set:{itemList: subItem}};
+                daf.Update(query, changeDoc, CONSTANT.SUB_ITEM_COLLECTION, function(err , dataList){
+                    callback(err ,dataList);
+                });
+            }else{
+               callback(err ,dataList); 
+            }
+            
+        });
+    }else{
+        var err = "Item details not available";
+        callback(err);
+    }
+};
+
+
+function adminUpdateItem(req,callback){
+    console.log("$$$$$$$  Admin UpdateItem $$$$$$");
+    var params = (req.body.params) ? req.body.params : {};
+    var mainItem = (params.mainItem)? params.mainItem:{};
+    var subItem = (params.subItem)? params.subItem:{};
+    var itemId = (params.itemId)? params.itemId:0;
+    var approved = (params.approved)? params.approved:false;
+    var query = {'itemId':itemId};
+    console.log("$$$$$$$  Admin UpdateItem $$$$$$ : ");
+    if(params.mainItem && params.subItem && (req.user.title.value == 20)){
+        var query = {itemId: itemId}
+        var searchText = "";
+
+        _.each(mainItem.types,function(val){
+            searchText += (val.value+" ");
+        });
+        searchText += (mainItem.name+" ");
+
+        var changeDoc = {$set:{ item: mainItem, approved:approved, searchText:searchText}};
+
+        daf.Update(query, changeDoc, CONSTANT.MAIN_ITEM_COLLECTION, function(err , dataList){
+            if(!err){
+                changeDoc = {$set:{itemList: subItem}};
+                daf.Update(query, changeDoc, CONSTANT.SUB_ITEM_COLLECTION, function(err , dataList){
+                    callback(err ,dataList);
+                });
+            }else{
+               callback(err ,dataList); 
+            }
+            
+        });
+    }else{
+        var err = "Item details not available";
+        callback(err);
+    }
+};
+
 
 function addItems(req,callback) {
     console.log("$$$$$$$  AddItems $$$$$$");
@@ -625,6 +699,7 @@ module.exports.GetSubItem = getSubItem;
 module.exports.GetRelatedItems = getRelatedItems;
 module.exports.EditItems = editItems;
 module.exports.UpdateItem = updateItem;
+module.exports.AdminUpdateItem = adminUpdateItem;
 module.exports.GetCommonItemList = getCommonItemList;
 module.exports.GetMainItemList = getMainItemList;
 module.exports.RemoveItem = removeItem;
