@@ -1,0 +1,74 @@
+
+<div class="modal-body">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel">
+                <div class="panel-content">
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <form role="form" class="form-validation" novalidate=""  name="itemForm">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="email-details">
+                                            <div class="email-subject">
+                                                <h3>{{rplyMail.subject}}</h3>
+                                                <div class="clearfix">
+                                                    <p>from <strong><span class="sender">Sandra Merlin</span></strong> &bull; <span class="date">16 January, 4:04pm</span></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div class="panel">
+                                                <div class="panel-header" ng-click="clickItem(rplyMail)" ng-init="initOpen(!rplyMail.REPLY, rplyMail)" >
+                                                    <span><strong>{{rplyMail.from}}</strong></span>
+                                                    </br><span ng-if="!rplyMail.open">{{rplyMail.message | htmlToPlaintext}}</span>
+                                                    <span ng-if="rplyMail.open"><p>to <span class="sender">{{rplyMail.to}}</span> &bull; <span class="date">{{rplyMail.date | date:'medium'}}</span></p></span>
+
+                                                </div>
+                                                <div class="panel-content" ng-style="!rplyMail.open && {'display':'none'} " >
+                                                    <div>
+                                                        <p ng-bind-html="rplyMail.message"></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="panel" ng-repeat="replyMails in rplyMail.REPLY">
+                                                <div class="panel-header" ng-click="clickItem(replyMails)" ng-init="initOpen(($index == rplyMail.REPLY.length-1),replyMails)" >
+                                                    <span><strong>{{replyMails.from}}</strong></span>
+                                                    </br><span ng-if="!replyMails.open">{{replyMails.message | htmlToPlaintext}}</span>
+                                                    <span ng-if="replyMails.open"><p>to <span class="sender">{{replyMails.to}}</span> &bull; <span class="date">{{replyMails.date | date:'medium'}}</span></p></span>
+
+                                                </div>
+                                                <div class="panel-content" ng-style="!replyMails.open && {'display':'none'} " >
+                                                    <div>
+                                                        <p ng-bind-html="replyMails.message"></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div text-angular="text-angular" name="message" ng-model="replyMail.message" ta-disabled='false'></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="text-center  m-t-20">
+                                    <div>
+                                        <button  class="btn btn-primary" ng-disabled="!replyClicked" ng-click="answer(replyMail)">
+                                            Send
+                                        </button>
+                                        <button ng-click="cancel()" class="btn btn-white">
+                                            Close
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+
+</div>

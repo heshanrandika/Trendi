@@ -1,0 +1,215 @@
+<div class="header">
+    <h2><strong>Branches</strong> Collection</h2>
+    <div class="breadcrumb-wrapper">
+        <ol class="breadcrumb">
+            <li>
+                <a href="#">Make</a>
+            </li>
+            <li>
+                <a href="#">Forms</a>
+            </li>
+            <li class="active">Form Elements</li>
+        </ol>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel">
+            <div class="panel-header">
+                <button class="btn btn-success" ng-click="addNew()">
+                    <i class="icon-plus"></i> Add New
+                </button>
+            </div>
+            <div class="panel-content">
+                <table  class="table table-hover table-dynamic">
+                    <thead>
+                    <tr>
+                        <th>&nbsp;</th>
+                        <th>Branch Id</th>
+                        <th>Branch Name</th>
+                        <th>Hotline</th>
+                        <th>&nbsp;</th>
+                    </tr>
+                    </thead>
+                    <tbody infinite-scroll='paginationFuntion()' infinite-scroll-distance='0.01'>
+                    <tr ng-repeat="item in branchList">
+                        <td><span class="pull-left p-r-5">
+                                                <img alt="{{ item.shop.name }}" ng-src="{{item.shop.iconImage}}" class="table-img-icon"/>
+                                                </span></td>
+                        <td>{{ item.branchId }}</td>
+                        <td>{{ item.shop.name }}</td>
+                        <td>{{ item.shop.hotline }}</td>
+                        <td><div><a class="edit btn btn-sm btn-default" href="javascript:;" ng-click="open(item)" ng-disabled="btnPressed"><i class="icon-note" ></i></a>  <a class="delete btn btn-sm btn-danger" href="javascript:;" ng-click="remove(item)" ng-disabled="btnPressed"><i class="icons-office-52"></i></a></div></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="footer">
+    <div class="copyright">
+        <p class="pull-left sm-pull-reset">
+            <span>Copyright <span class="copyright">&copy;</span> 2016 </span>
+            <span>Trendi</span>.
+            <span>All rights reserved. </span>
+        </p>
+        <p class="pull-right sm-pull-reset">
+            <span><a href="#" class="m-r-10">Support</a> | <a href="#" class="m-l-10 m-r-10">Terms of use</a> | <a href="#" class="m-l-10">Privacy Policy</a></span>
+        </p>
+    </div>
+</div>
+
+
+<!-- <div>
+<md-content class="md-padding">
+    <md-tabs md-dynamic-height md-border-bottom md-selected="selectedIndex">
+        <md-tab label="Branch List">
+            <md-content class="md-padding">
+                <div>
+                    <trendi-search actions="search"></trendi-search>
+                    <div style="padding-top: 150px;">
+                        <md-button class="md-raised md-primary" ng-click="EditViewController('')"><md-icon md-svg-src="add-circle"></md-icon> Add New Branch</md-button>
+                        <div style="padding-top: 20px;">
+                            <md-list infinite-scroll='paginationFuntion()' infinite-scroll-distance='0.01'>
+                                <md-list-item ng-repeat="branch in branchList" ng-click="EditViewController(branch)">
+                                    <img alt="{{ branch.name }}" ng-src="{{branch.shop.iconImage}}" class="md-avatar" />
+                                    <p>{{ branch.shop.name }}</p>
+                                    <md-icon md-svg-icon="communication:ic_settings" ng-click="EditViewController(branch)" aria-label="Open Chat" class="md-secondary md-hue-3" ng-class="{'md-primary': branch.shop.name}"></md-icon>
+                                </md-list-item>
+                            </md-list>
+                        </div>
+                    </div>
+                </div>
+            </md-content>
+        </md-tab>
+        <md-tab label="{{headerText}}" ng-disabled="selectedIndex == 0">
+            <md-content  layout-padding class="md-padding">
+                <h5 class="md-display-2">{{headerText}}</h5>
+                <form novalidate="" name="itemForm">
+                    <div>
+                        <div class="col-md-12">
+                            <div class="raw">
+                                <div class="col-md-6">
+                                    <h6>Branch Details</h6>
+                                    <md-input-container flex>
+                                        <label>Branch Name</label>
+                                        <input ng-model="branch.name" name="branchName" type="text" ng-required="true">
+                                        <div ng-messages="itemForm.branchName.$error">
+                                            <div ng-message="required">This is required.</div>
+                                        </div>
+
+                                    </md-input-container>
+
+                                    <md-input-container flex>
+                                        <label>Address</label>
+                                        <input ng-model="branch.address.line1">
+                                    </md-input-container>
+                                    <md-input-container flex>
+                                        <label>Address 2</label>
+                                        <input ng-model="branch.address.line2">
+                                    </md-input-container>
+                                    <div layout layout-sm="column">
+                                        <md-input-container flex>
+                                            <label>City</label>
+                                            <input ng-model="branch.address.city">
+                                        </md-input-container>
+                                        <md-input-container flex>
+                                            <label>State</label>
+                                            <input ng-model="branch.address.state">
+                                        </md-input-container>
+                                        <md-input-container flex>
+                                            <label>Postal Code</label>
+                                            <input ng-model="branch.address.postalCode">
+                                        </md-input-container>
+                                    </div>
+                                    <div layout layout-sm="column">
+                                        <md-input-container flex>
+                                            <label>Hotline</label>
+                                            <input ng-model="branch.hotline">
+                                        </md-input-container>
+                                        <md-input-container flex>
+                                            <label>Mobile</label>
+                                            <input ng-model="branch.mobile">
+                                        </md-input-container>
+                                    </div>
+                                    <md-input-container flex>
+                                        <label>Description</label>
+                                        <input md-maxlength="100" name="description" ng-model="branch.description">
+                                        <div ng-messages="itemForm.description.$error">
+                                            <div ng-message="md-maxlength">The description has to be less than 100 characters long.</div>
+                                        </div>
+                                    </md-input-container>
+                                </div>
+
+                            </div>
+                            <div class="raw">
+                                <div class="col-md-6">
+                                    <div ng-if="initDirective">
+                                        <trendi-map get-point="branch.pos"></trendi-map>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="raw">
+                                <accordion close-others="true">
+                                    <accordion-group heading="Icon Upload">
+                                            <div ng-if="initDirective">
+                                                <trendi-file-upload files="tmp.iconImage" image-size="iconSize" image-count="1"></trendi-file-upload>
+                                            </div>
+                                    </accordion-group>
+                                    <accordion-group heading="All Users In Branch">
+                                        <div>
+
+                                            <md-list>
+                                                <md-list-item ng-repeat="user in userList" ng-click="ViewController(user)">
+                                                    <img alt="{{ user.name }}" ng-src="{{user.profilePic}}" class="md-avatar" />
+                                                    <p>{{ user.name }}</p>
+                                                    <md-icon md-svg-icon="communication:ic_settings" ng-click="ViewController(user)" aria-label="Open Chat" class="md-secondary md-hue-3" ng-class="{'md-primary': user.name}"></md-icon>
+                                                </md-list-item>
+                                            </md-list>
+
+                                        </div>
+                                    </accordion-group>
+                                </accordion>
+                            </div>
+
+
+                            <div class="raw">
+                                <div class="col-md-8">
+                                    <div class="md-actions" layout="row">
+                                        <div ng-if="addNew">
+                                            <md-button  class="md-raised md-primary" ng-disabled="itemForm.$invalid || btnPressed" ng-click="answer(1)" md-autofocus>
+                                                Save
+                                            </md-button>
+                                            <span flex></span>
+                                        </div>
+                                        <div ng-if="!addNew">
+                                            <md-button class="md-raised md-primary" ng-disabled="itemForm.$invalid || btnPressed" ng-click="answer(2)" md-autofocus>
+                                                Update
+                                            </md-button>
+                                            <span flex></span>
+                                            <md-button class="md-raised md-warn" ng-disabled="btnPressed" ng-click="answer(0)" >
+                                                Remove
+                                            </md-button>
+                                        </div>
+
+                                        <md-button ng-click="close('2')" style="margin-right:20px;" >
+                                            Close
+                                        </md-button>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                </form>
+            </md-content>
+        </md-tab>
+    </md-tabs>
+</md-content>
+</div> -->
+

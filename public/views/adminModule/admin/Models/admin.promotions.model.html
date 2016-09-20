@@ -1,0 +1,121 @@
+<div class="modal-header">
+    <div class="panel-header">
+        <h3> <strong>Promotion</strong> Details </h3><span ng-if="promotionId">Promotion Id #{{promotionId}}</span>
+    </div>
+</div>
+<div class="modal-body">
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel">
+                <div class="panel-content">
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <form role="form" class="form-validation" novalidate=""  name="itemForm">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="control-label">Title</label>
+                                            <div class="append-icon">
+                                                <input type="text"  class="form-control" placeholder="Ex : Maxi dress.." ng-model="promotion.title" name="name"  ng-required="true">
+                                                <i class="icons-shopping-13"></i>
+                                                <div ng-messages="itemForm.name.$error">
+                                                    <div ng-message="required">This is required.</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label ng-click="check()">Item Tagging</label>
+                                            <ui-select multiple ng-model="promotion.tags" theme="bootstrap" sortable="true" title="Choose a Tag">
+                                                <ui-select-match placeholder="Select tags...">{{$item.key}}</ui-select-match>
+                                                <ui-select-choices repeat="type in availableTypes | filter:$select.search">
+                                                    {{type.key}}
+                                                </ui-select-choices>
+                                            </ui-select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="control-label">Expiry Date</label>
+                                            <div class="append-icon">
+                                                <input class="form-control" type="date" ng-model="promotion.expDate" name="expDate" ng-required="true">
+                                                <i class="fa fa-calendar"></i>
+                                                <div ng-messages="itemForm.expDate.$error">
+                                                    <div ng-message="required">This is required.</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="control-label">Like </label>
+                                            <div class="append-icon">
+                                                <label class="form-control">{{promotion.like}}  <i class="fa fa-thumbs-o-up"></i></label>
+                                            </div>
+                                        </div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="control-label">Seen</label>
+                                            <div class="append-icon">
+                                                <label class="form-control">{{promotion.seen}}  <i class="fa fa-eye"></i></label>
+                                            </div>
+                                        </div>
+                                                </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <label class="control-label">Description</label>
+                                            <div class="append-icon">
+                                                <textarea rows="7" class="form-control" placeholder="Write your description... (maximum 200 characters)" maxlength="200" ng-required="true" name="description" ng-model="promotion.description"></textarea>
+                                                <i class="fa fa-info-circle"></i>
+                                            </div>
+                                            <div ng-messages="itemForm.description.$error">
+                                                <div ng-message="required">This is required.</div>
+                                                <div ng-message="maxlength">The description has to be less than 200 characters long.</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <trendi-file-upload files="uploadedImages" image-size="promotionPicSize"  image-count="promotionPicCount"></trendi-file-upload>
+                                    </div>
+                                </div>
+                                <div class="text-center  m-t-20">
+                                    <div ng-if="addNewPromotion">
+                                        <button  class="btn btn-primary" ng-disabled="(itemForm.$invalid || uploadedImages.length == 0) || btnPressed" ng-click="save()">
+                                            Save
+                                        </button>
+                                        <button ng-click="cancel()" class="btn btn-white">
+                                            Close
+                                        </button>
+                                    </div>
+                                    <div ng-if="!addNewPromotion">
+                                        <button class="btn btn-primary" ng-disabled="(itemForm.$invalid || uploadedImages.length == 0) || btnPressed" ng-click="update()">
+                                            Update
+                                        </button>
+                                        <button ng-click="cancel()" class="btn btn-white">
+                                            Close
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+
+</div>

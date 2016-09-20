@@ -1,0 +1,160 @@
+<div class="header">
+    <h2><strong>Promotion</strong> Collection</h2>
+    <div class="breadcrumb-wrapper">
+        <ol class="breadcrumb">
+            <li>
+                <a href="#">Make</a>
+            </li>
+            <li>
+                <a href="#">Forms</a>
+            </li>
+            <li class="active">Form Elements</li>
+        </ol>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel">
+            <div class="panel-header">
+                <button class="btn btn-success" ng-click="addNew()">
+                    <i class="icon-plus"></i> Add New
+                </button>
+            </div>
+            <div class="panel-content">
+                <table  class="table table-hover table-dynamic">
+                    <thead>
+                    <tr>
+                        <th>&nbsp;</th>
+                        <th>Promotion Id</th>
+                        <th>Title</th>
+                        <th>Description</th>
+                        <th>&nbsp;</th>
+                    </tr>
+                    </thead>
+                    <tbody infinite-scroll='paginationFuntion()' infinite-scroll-distance='0.01'>
+                    <tr ng-repeat="item in promotionList">
+                        <td>
+                            <span class="pull-left p-r-5">
+                                <img alt="{{ item.title }}" ng-src="{{item.promotionPic}}" class="table-img-icon"/>
+                            </span>
+                        </td>
+                        <td>{{ item.promotionId }}</td>
+                        <td>{{ item.title }}</td>
+                        <td>{{ item.description | limitTo:15 }}..</td>
+                        <td><div><a class="edit btn btn-sm btn-default" href="javascript:;" ng-click="open(item)" ng-disabled="btnPressed"><i class="icon-note" ></i></a>  <a class="delete btn btn-sm btn-danger" href="javascript:;" ng-click="remove(item)" ng-disabled="btnPressed"><i class="icons-office-52"></i></a></div></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="footer">
+    <div class="copyright">
+        <p class="pull-left sm-pull-reset">
+            <span>Copyright <span class="copyright">&copy;</span> 2016 </span>
+            <span>Trendi</span>.
+            <span>All rights reserved. </span>
+        </p>
+        <p class="pull-right sm-pull-reset">
+            <span><a href="#" class="m-r-10">Support</a> | <a href="#" class="m-l-10 m-r-10">Terms of use</a> | <a href="#" class="m-l-10">Privacy Policy</a></span>
+        </p>
+    </div>
+</div>
+
+
+<!-- <div>
+    <md-content class="md-padding">
+        <md-tabs md-dynamic-height md-border-bottom md-selected="selectedIndex">
+            <md-tab label="Full Item List">
+                <md-content class="md-padding">
+                    <div>
+                        <trendi-search actions="search"></trendi-search>
+                        <div style="padding-top: 150px;">
+                            <md-button class="md-raised md-primary" ng-click="EditViewController('')"><md-icon md-svg-src="add-circle"></md-icon> Add New Promotion</md-button>
+                            <div style="padding-top: 20px;">
+                                <md-list infinite-scroll='paginationFuntion()' infinite-scroll-distance='0.01'>
+                                    <md-list-item ng-repeat="promotion in promotionList" ng-click="EditViewController(promotion)">
+                                        <img alt="{{ promotion.title }}" ng-src="{{promotion.promotionPic}}" class="md-avatar" />
+                                        <p>{{ promotion.title }}</p>
+                                        <md-icon md-svg-icon="communication:ic_settings" ng-click="EditViewController(promotion)" aria-label="Open Chat" class="md-secondary md-hue-3" ng-class="{'md-primary': promotion.title}"></md-icon>
+                                    </md-list-item>
+                                </md-list>
+                            </div>
+                        </div>
+                    </div>
+                </md-content>
+            </md-tab>
+            <md-tab label="{{headerText}}" ng-disabled="selectedIndex == 0">
+                <md-content class="md-padding">
+                    <h5 class="md-display-2">{{headerText}}</h5>
+                    <form novalidate="" name="itemForm">
+                        <div>
+                            <div>
+                                <div>
+                                    <div class="col-md-12">
+                                       
+                                        <md-input-container class="md-icon-float" >
+                                            <label>Title</label>
+                                            <input ng-model="promotion.title" name="title" type="text" ng-required="true">
+                                            <div ng-messages="itemForm.title.$error">
+                                                <div ng-message="required">This is required.</div>
+                                            </div>
+
+                                        </md-input-container>
+
+                                        <div>
+                                            <div ng-if="initDirective">
+                                                <trendi-file-upload files="tmp.promotionPic" image-size="promotionPicSize"  image-count="promotionPicCount"></trendi-file-upload>
+                                            </div>
+                                        </div>
+
+                                        <md-input-container class="md-icon-float" >
+                                            <label>Description</label>
+                                            <input md-maxlength="200"  name="description" ng-model="promotion.description">
+                                            <div ng-messages="itemForm.description.$error">
+                                                <div ng-message="md-maxlength">The description has to be less than 200 characters long.</div>
+                                            </div>
+                                        </md-input-container>
+
+
+                                        <md-input-container md-no-float>
+                                            <md-icon md-svg-src="img/icons/ic_phone_24px.svg"></md-icon>
+                                            <trendi-chips selected-items="slectedTypes" item-list="types" placeholder="Enter Type Tags"></trendi-chips>
+                                        </md-input-container>
+
+
+
+                                        <div class="md-actions" layout="row">
+                                            <div ng-if="addNew">
+                                                <md-button  class="md-raised md-primary" ng-disabled="itemForm.$invalid || mainImage.length == 0" ng-click="answer(1)" md-autofocus>
+                                                    Save
+                                                </md-button>
+                                                <span flex></span>
+                                            </div>
+                                            <div ng-if="!addNew">
+                                                <md-button class="md-raised md-primary" ng-disabled="itemForm.$invalid || mainImage.length == 0" ng-click="answer(2)" md-autofocus>
+                                                    Update
+                                                </md-button>
+                                                <span flex></span>
+                                                <md-button class="md-raised md-warn" ng-click="answer(0)" >
+                                                    Remove
+                                                </md-button>
+                                            </div>
+
+                                            <md-button ng-click="close('2')" style="margin-right:20px;" >
+                                                Close
+                                            </md-button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </form>
+                </md-content>
+            </md-tab>
+        </md-tabs>
+    </md-content>
+</div> -->
+
