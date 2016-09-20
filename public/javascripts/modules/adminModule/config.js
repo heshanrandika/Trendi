@@ -87,6 +87,89 @@
                 access: {
                     requiresLogin: true
                 }
+            },
+            'main.sys_shops': {
+                url: '/sys_shops',
+                templateUrl: '/views/adminModule/sysAdmin/sys.admin.shops.html',
+                controller: 'sysAdminShopsController',
+                access: {
+                    requiresLogin: true
+                }
+
+            },
+
+            'main.sys_products': {
+                url: '/sys_products',
+                templateUrl: '/views/adminModule/sysAdmin/sys.admin.items.html',
+                controller: 'sysAdminItemController',
+                access: {
+                    requiresLogin: true
+                }
+
+            },
+
+            'main.sys_users': {
+                url: '/sys_users',
+                templateUrl: '/views/adminModule/sysAdmin/sys.admin.users.html',
+                controller: 'sysAdminUsersController',
+                access: {
+                    requiresLogin: true
+                }
+            },
+
+            'main.sys_branches': {
+                url: '/sys_branches',
+                templateUrl: '/views/adminModule/sysAdmin/sys.admin.branches.html',
+                controller: 'sysAdminBranchesController',
+                access: {
+                    requiresLogin: true
+                }
+            },
+
+
+            'main.sys_promotions': {
+                url: '/sys_promotions',
+                templateUrl: '/views/adminModule/sysAdmin/sys.admin.promotions.html',
+                controller: 'sysAdminPromotionsController',
+                access: {
+                    requiresLogin: true
+                }
+            },
+
+            'main.sys_blog': {
+                url: '/sys_blog',
+                templateUrl: '/views/adminModule/sysAdmin/sys.admin.blog.html',
+                controller: 'sysAdminBlogController',
+                access: {
+                    requiresLogin: true
+                }
+            },
+
+            'main.sys_messages': {
+                url: '/sys_messages',
+                templateUrl: '/views/adminModule/sysAdmin/sys.admin.message.html',
+                controller: 'sysAdminMessageController',
+                access: {
+                    requiresLogin: true
+                }
+            },
+
+            'main.sys_profile': {
+                url: '/sys_profile',
+                templateUrl: '/views/adminModule/sysAdmin/sys.admin.profile.html',
+                controller: 'sysAdminProfileController',
+                access: {
+                    requiresLogin: true
+                }
+            },
+
+            'main.sys_tags': {
+                url: '/sys_tags',
+                templateUrl: '/views/adminModule/sysAdmin/sys.admin.tags.html',
+                controller: 'sysAdminTagsController',
+                access: {
+                    requiresLogin: true
+                }
             }
 
 
@@ -210,62 +293,62 @@
         SYS_MENU_CONFIG:[
             {
                 value:'Dashboard',
-                key:'main.dashboard',
+                key:'main.sys_dashboard',
                 authorization: 2008,
                 icon:'icon-home'
             },
             {
                 value:'Shops',
-                key:'main.shops',
+                key:'main.sys_shops',
                 authorization: 2008,
                 icon:'icon-home'
             },
             {
                 value:'Products',
-                key:'main.products',
+                key:'main.sys_products',
                 authorization: 1010,
                 icon:'icon-bag'
             },
             {
                 value:'Users',
-                key:'main.users',
+                key:'main.sys_users',
                 authorization: 2016,
                 icon:'icon-users'
             },
             {
                 value:'Branches',
-                key:'main.branches',
+                key:'main.sys_branches',
                 authorization: 2011,
                 icon:'icon-share'
             },
             {
                 value:'Promotions',
-                key:'main.promotions',
+                key:'main.sys_promotions',
                 authorization: 3000,
                 icon:'icon-badge'
             },
             {
                 value:'Messages',
-                key:'main.messages',
+                key:'main.sys_messages',
                 authorization: 3000,
                 icon:'icon-envelope-letter'
             },
             {
                 value:'Blog',
-                key:'main.blog',
+                key:'main.sys_blog',
                 authorization: 3000,
                 icon:'icon-feed'
             },
             {
                 value:'Profile ',
-                key:'main.profile',
+                key:'main.sys_profile',
                 view:'profile',
                 authorization: 3000,
                 icon:'icon-user'
             },
             {
                 value:'Tags ',
-                key:'main.tags',
+                key:'main.sys_tags',
                 view:'message',
                 authorization: 3000,
                 icon:'icon-tag'
