@@ -16,6 +16,10 @@
             return Data_Comm.postPromise(angular.extend({params:d},adminServiceCalls.updateItemDao()));
         };
 
+        var _adminUpdateItem = function(d){
+            return Data_Comm.postPromise(angular.extend({params:d},adminServiceCalls.adminUpdateItemDao()));
+        };
+
         var _getSubItem = function(d){
             return Data_Comm.postPromise(angular.extend({params:d},adminServiceCalls.getSubItemDao()));
         };
@@ -183,8 +187,8 @@
             return adminServiceCalls.isAuthenticatedDao();
         };
 
-        var _getEntitlements = function(){
-            return Data_Comm.postPromise(adminServiceCalls.getEntitlementsDao());
+        var _getEntitlements = function(d){
+            return Data_Comm.postPromise(angular.extend({params:d},adminServiceCalls.getEntitlementsDao()));
         };
 
 
@@ -194,6 +198,7 @@
             adminGetItemList:_adminGetItemList,
             addItem:_addItem,
             updateItem:_updateItem,
+            adminUpdateItem:_adminUpdateItem,
             getSubItem:_getSubItem,
             removeItem:_removeItem,
             shopData:_shopData,

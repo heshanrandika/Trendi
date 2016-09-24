@@ -1,6 +1,6 @@
 <div class="modal-header">
     <div class="panel-header">
-        <h3> <strong>Branch</strong> Details </h3><span ng-if="branchId != undefined">Branch Id #{{branchId}}</span>
+        <h3> <strong>Shop</strong> Details </h3><span ng-if="branchId != undefined">Branch Id #{{branchId}}</span>
     </div>
 </div>
 <div class="modal-body">
@@ -15,11 +15,11 @@
                                 <div class="row">
                                     <div class="col-sm-6">
                                         <div class="form-group">
-                                            <label class="control-label">Branch Name</label>
+                                            <label class="control-label">Shop Name</label>
                                             <div class="append-icon">
-                                                <input type="text"  class="form-control" placeholder="Ex : Trendi.." ng-model="branch.name" name="branchName"  ng-required="true">
+                                                <input type="text"  class="form-control" placeholder="Ex : Trendi.." ng-model="shop.name" name="shopName"  ng-required="true">
                                                 <i class="fa fa-code-fork"></i>
-                                                <div ng-messages="itemForm.branchName.$error">
+                                                <div ng-messages="itemForm.shopName.$error">
                                                     <div ng-message="required">This is required.</div>
                                                 </div>
                                             </div>
@@ -27,21 +27,21 @@
                                         <div class="form-group">
                                             <label class="control-label">Mobile</label>
                                             <div class="append-icon">
-                                                <input type="number"  class="form-control" ng-model="branch.mobile" name="mobile">
+                                                <input type="number"  class="form-control" ng-model="shop.mobile" name="mobile">
                                                 <i class="fa fa-mobile"></i>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label class="control-label">Hotline</label>
                                             <div class="append-icon">
-                                                <input type="number"  class="form-control" ng-model="branch.hotline" name="hotline">
+                                                <input type="number"  class="form-control" ng-model="shop.hotline" name="hotline">
                                                 <i class="fa fa-phone"></i>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label class="control-label">Description</label>
                                             <div class="append-icon">
-                                                <textarea rows="7" class="form-control" placeholder="Write your description... (maximum 200 characters)" maxlength="200" ng-required="true" name="description" ng-model="branch.description"></textarea>
+                                                <textarea rows="7" class="form-control" placeholder="Write your description... (maximum 200 characters)" maxlength="200" ng-required="true" name="description" ng-model="shop.description"></textarea>
                                                 <i class="fa fa-info-circle"></i>
                                             </div>
                                             <div ng-messages="itemForm.description.$error">
@@ -57,7 +57,7 @@
                                                 <div class="form-group">
                                                     <label class="control-label">Street 1 </label>
                                                     <div class="append-icon">
-                                                        <input class="form-control" ng-model="branch.address.line1" type="text" ng-required="true" name="Street">
+                                                        <input class="form-control" ng-model="shop.address.line1" type="text" ng-required="true" name="Street">
                                                         <i class="fa fa-home"></i>
                                                         <div ng-messages="itemForm.Street.$error">
                                                             <div ng-message="required">This is required.</div>
@@ -67,14 +67,14 @@
                                                 <div class="form-group">
                                                     <label class="control-label">Street 2 </label>
                                                     <div class="append-icon">
-                                                        <input class="form-control" ng-model="branch.address.line2" type="text" name="street2">
+                                                        <input class="form-control" ng-model="shop.address.line2" type="text" name="street2">
                                                         <i class="fa fa-road"></i>
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
                                                     <label class="control-label">City </label>
                                                     <div class="append-icon">
-                                                        <input class="form-control" ng-model="branch.address.city" type="text" ng-required="true" name="city">
+                                                        <input class="form-control" ng-model="shop.address.city" type="text" ng-required="true" name="city">
                                                         <i class="fa fa-map-marker"></i>
                                                         <div ng-messages="itemForm.city.$error">
                                                             <div ng-message="required">This is required.</div>
@@ -84,14 +84,184 @@
                                                 <div class="form-group">
                                                     <label class="control-label">State </label>
                                                     <div class="append-icon">
-                                                        <input class="form-control" ng-model="branch.address.state" type="text"  name="state">
+                                                        <input class="form-control" ng-model="shop.address.state" type="text"  name="state">
                                                         <i class="fa fa-university"></i>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-
+                                        <div class="panel">
+                                            <div class="panel-header">
+                                                <h3><strong>Shop</strong> Icon Image</h3>
+                                            </div>
+                                            <div class="panel-content">
+                                                <div>
+                                                    <trendi-file-upload files="tmp.iconImage" image-size="iconSize" image-count="1"></trendi-file-upload>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="panel">
+                                            <div class="panel-header">
+                                                <h3><strong>Shop</strong> Banner Image</h3>
+                                                <a  class="panel-toggle"><i class="fa fa-angle-down" ng-click="openBanner = !openBanner"></i></a>
+                                            </div>
+                                            <div class="panel-content" ng-style="!openBanner && {'display':'none'} ">
+                                                <div ng-if="openBanner">
+                                                    <trendi-file-upload files="tmp.bannerImage" image-size="bannerSize" image-count="1"></trendi-file-upload>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
+                                    <div class="col-sm-6">
+                                        <div class="panel bg-aero">
+                                            <div class="panel-header">
+                                                <h3>User <strong>Details</strong></h3>
+                                            </div>
+                                            <div class="panel-content">
+                                                <div class="row">
+                                                    <div class="col-sm-12">
+                                                        <div class="form-group">
+                                                            <label class="control-label">Name </label>
+                                                            <div class="append-icon">
+                                                                <input type="text"  class="form-control" placeholder="Ex : Jhon.." ng-model="regUser.name" name="name"  ng-required="true">
+                                                                <i class="fa fa-user"></i>
+                                                                <div ng-messages="itemForm.name.$error">
+                                                                    <div ng-message="required">This is required.</div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group" ng-if="addNewShop">
+                                                            <label class="control-label">Email </label>
+                                                            <div class="append-icon">
+                                                                <input class="form-control" ng-model="regUser.email" type="email" ng-required="true" name="email">
+                                                                <i class="fa fa-envelope"></i>
+                                                            </div>
+                                                            <div ng-messages="itemForm.email.$error">
+                                                                <div ng-message="required">This is required.</div>
+                                                                <div ng-message="email">Invalid email address</div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="form-group" ng-if="!addNewShop">
+                                                            <label class="control-label">Email </label>
+                                                            <div class="append-icon">
+                                                                <label class="form-control">{{regUser.email}}  <i class="fa fa-envelope"></i></label>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label class="control-label">Telephone </label>
+                                                            <div class="append-icon">
+                                                                <input class="form-control" ng-model="regUser.hotline" type="number" name="hotline">
+                                                                <i class="fa fa-phone"></i>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="control-label">Mobile </label>
+                                                            <div class="append-icon">
+                                                                <input class="form-control" ng-model="regUser.mobile" type="number" name="mobile">
+                                                                <i class="fa fa-mobile"></i>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <md-checkbox ng-model="regUser.changePwd"  aria-label="Entitlements">
+                                                                Change Password
+                                                            </md-checkbox>
+                                                        </div>
+                                                        <div class="panel bg-red" ng-if="regUser.changePwd">
+                                                            <div class="panel-content">
+                                                                <div class="form-group">
+                                                                    <label class="control-label">Password </label>
+                                                                    <div class="append-icon">
+                                                                        <input class="form-control" ng-model="regUser.password" type="password" name="password" ng-required="true">
+                                                                        <i class="fa fa-lock"></i>
+                                                                        <div ng-messages="itemForm.password.$error">
+                                                                            <div ng-message="required">This is required.</div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label class="control-label">Confirm Password </label>
+                                                                    <div class="append-icon">
+                                                                        <input class="form-control" ng-model="regUser.confirm_password" type="password" name="confirm_password" ng-required="true" compare-to="regUser.password">
+                                                                        <i class="fa fa-unlock"></i>
+                                                                        <div ng-messages="itemForm.confirm_password.$error">
+                                                                            <div ng-message="required">This is required.</div>
+                                                                            <div ng-message="compareTo">Password does not match the confirm password.</div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="panel">
+                                                            <div class="panel-header">
+                                                                <h3><strong>Profile</strong> Picture</h3>
+                                                                <a  class="panel-toggle"><i class="fa fa-angle-down" ng-click="openProfile = !openProfile"></i></a>
+
+                                                            </div>
+                                                            <div class="panel-content"  ng-style="!openProfile && {'display':'none'} ">
+                                                                <div ng-if="openProfile">
+                                                                    <trendi-file-upload files="tmp.profilePic" image-size="profilePicSize" image-count="1"></trendi-file-upload>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="panel bg-aero">
+                                            <div class="panel-header">
+                                                <h3><strong>Change </strong>Entitlements</h3>
+                                            </div>
+                                            <div class="panel-content">
+                                                <div ng-if="loadEntitlements && loadAllEntitlements">
+                                                    <trendi-entitlements input-entitlements="tmp.allEntitlements" output-entitlements="tmp.entitlements" old-entitlements="tmp.oldEntitlements"></trendi-entitlements>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="panel bg-aero">
+                                            <div class="panel-header">
+                                                <h3><strong>Shop </strong>Config</h3>
+                                            </div>
+                                            <div class="panel-content">
+                                                <div class="row">
+                                                    <div class="col-sm-12">
+                                                        <div class="form-group">
+                                                            <label class="control-label">Item Count</label>
+                                                            <div class="append-icon">
+                                                                <input class="form-control" ng-model="shop.itemCount" type="number" name="itemcount">
+                                                                <i class="icon-bag"></i>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="control-label">Blog Count</label>
+                                                            <div class="append-icon">
+                                                                <input class="form-control" ng-model="shop.blogCount" type="number" name="blogCount">
+                                                                <i class="icon-feed"></i>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="control-label">Promotion Count</label>
+                                                            <div class="append-icon">
+                                                                <input class="form-control" ng-model="shop.promoCount" type="number" name="promoCount">
+                                                                <i class="icon-badge"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div ng-if="initMap">
+                                            <trendi-map get-point="shop.pos"></trendi-map>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
                                     <div class="col-sm-6">
                                         <div class="panel">
                                             <div class="panel-header">
@@ -119,28 +289,38 @@
                                                 </div>
                                             </div>
                                         </div>
+                                    </div>
+                                    <div class="col-sm-6">
                                         <div class="panel">
                                             <div class="panel-header">
-                                                <h3><strong>Branch</strong> Icon Image</h3>
+                                                <h3><i class="icon-list"></i> <strong>Branch</strong> List</h3>
+                                                <div class="control-btn">
+                                                    <span class="pull-right badge badge-primary">{{branchList.length}}</span>
+                                                </div>
                                             </div>
-                                            <div class="panel-content">
-                                                <div>
-                                                    <trendi-file-upload files="tmp.iconImage" image-size="iconSize" image-count="1"></trendi-file-upload>
+                                            <div class="panel-content widget-news">
+                                                <div class="withScroll" height="400">
+                                                    <a class="message-item media" ng-repeat="branch in branchList">
+                                                        <div class="media">
+                                                            <div class="media-body">
+                                                                <div class="pull-left p-r-10">
+                                                                    <img alt="{{ branch.shop.name }}" ng-src="{{branch.shop.iconImage}}" class="table-img-icon" />
+                                                                </div>
+                                                                <div>
+                                                                    <small class="pull-right">{{branch.shop.hotline}}</small>
+                                                                    <h4 class="c-dark">{{branch.shop.name}}</h4>
+                                                                    <p><i class="fa fa-map-marker c-gray-light p-r-10"></i> {{branch.shop.address.line1 +" "+ branch.shop.address.line2}}, {{branch.shop.address.city}}, {{branch.shop.address.state}}</p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </a>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-
-                                <div class="row">
-                                    <div class="col-sm-12">
-                                        <div ng-if="initMap">
-                                            <trendi-map get-point="branch.pos"></trendi-map>
-                                        </div>
-                                    </div>
-                                </div>
                                 <div class="text-center  m-t-20">
-                                    <div ng-if="addNewBranch">
+                                    <div ng-if="addNewShop">
                                         <button  class="btn btn-primary" ng-disabled="(itemForm.$invalid ||btnPressed)" ng-click="save()">
                                             Save
                                         </button>
@@ -148,7 +328,7 @@
                                             Close
                                         </button>
                                     </div>
-                                    <div ng-if="!addNewBranch">
+                                    <div ng-if="!addNewShop">
                                         <button class="btn btn-primary" ng-disabled="(itemForm.$invalid || btnPressed)" ng-click="update()">
                                             Update
                                         </button>

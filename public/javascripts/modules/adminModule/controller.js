@@ -44,7 +44,7 @@
         var entitlementList = [];
         var init= function(){
             $scope.userData = adminDataService.fullUserData();
-            if($scope.userData.superAdmin){
+            if($scope.userData.title.value > 19){
                 $scope.menuList = ADMIN_MOD_CONFIG.SYS_MENU_CONFIG;
             }else{
                 $scope.menuList = ADMIN_MOD_CONFIG.MENU_CONFIG;

@@ -166,13 +166,13 @@ function register(req,callback) {
 }
 
 function getEntitlements(req, callback){
-    var email = (req.body.email)? req.body.email : {};
-    var query = {'email':email};
-    daf.FindOne(query,CONSTANT.SHOP_USER,function(err,user){
-        if(user){
-            callback(null, user.entitlements)
+    var type = (req.body.params)? req.body.params.type : {};
+    var query = {'type':type};
+    daf.FindOne(query,CONSTANT.ENTITLEMENTS,function(err,entitlements){
+        if(entitlements){
+            callback(null, entitlements)
         }else{
-            callback(("Shop user not found "+ email),null);
+            callback(("Shop user not found "),null);
         }
     });
 
@@ -193,7 +193,7 @@ function shopRegistration(req,callback) {
     if(userType == CONSTANT.SHOP){
         daf.FindOne(query,CONSTANT.SHOP_USER,function(err, found){
             if(!found){
-                UTIL.UpdateCount(CONSTANT.SHOP, function (err, count) {
+                UTIL.UpdateCount(CONSTANT.SHOP_COLLECTION, function (err, count) {
                     if (count) {
                         console.log("$$$$$$$  Add Shop $$$$$$ Count : " + count);
                         shopId = count;
@@ -219,6 +219,8 @@ function shopRegistration(req,callback) {
                             session:'',
                             branch:branchDoc,
                             userType:userType,
+                            hotline:regUser.hotline,
+                            mobile:regUser.mobile,
                             entitlements:regUser.entitlements,
                             superAdmin:true,
                             title:{value:10 , key:'Super Admin'}
@@ -322,12 +324,15 @@ function adminUpdateShop(req,callback) {
                     name : regUser.name,
                     password:regUser.password,
                     profilePic:regUser.profilePic,
+                    hotline:regUser.hotline,
+                    mobile:regUser.mobile,
                     email:regUser.email,
                     session:'',
                     branch:branchDoc,
                     userType:userType,
                     entitlements:regUser.entitlements,
-                    superAdmin:true
+                    superAdmin:true,
+                    title:regUser.title
                 };
                 daf.Upsert(query,changeDoc,CONSTANT.SHOP_USER,function(err, success){
                     if(err){

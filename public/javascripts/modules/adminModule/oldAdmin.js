@@ -608,6 +608,7 @@
         $scope.shop.iconImage = '';
         $scope.bannerImage = '';
         $scope.regUser.profilePic = '';
+
         $scope.tmp.entitlements = [];
         $scope.tmp.oldEntitlements = [];
         $scope.tmp.allEntitlements = [];
@@ -615,6 +616,7 @@
         $scope.tmp.profilePic = [];
         $scope.tmp.bannerImage = [];
         $scope.regUser.entitlements = [];
+
         $scope.iconSize = {value:10000, text:'10kB'};
         $scope.bannerSize = {value:1000000, text:'1MB'};
         $scope.profilePicSize = {value:100000, text:'100kB'};

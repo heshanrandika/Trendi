@@ -55,7 +55,7 @@
 
             var modalInstance = uiModal.open({
                 animation: true,
-                templateUrl: '/views/adminModule/sysAdmin/sysModels/sys.admin.branch.model.html',
+                templateUrl: '/views/adminModule/sysAdmin/sysModels/sys.admin.shop.model.html',
                 controller: 'sysShopModel',
                 size: 'lg',
                 resolve:{
@@ -77,8 +77,8 @@
 
             var modalInstance = uiModal.open({
                 animation: true,
-                templateUrl: '/views/adminModule/models/admin.product.model.html',
-                controller: 'productModel',
+                templateUrl: '/views/adminModule/sysAdmin/sysModels/sys.admin.shop.model.html',
+                controller: 'sysShopModel',
                 size: 'lg',
                 resolve:{
                     item : function(){
@@ -164,8 +164,8 @@
 
             var modalInstance = uiModal.open({
                 animation: true,
-                templateUrl: '/views/adminModule/models/admin.product.model.html',
-                controller: 'productModel',
+                templateUrl: '/views/adminModule/sysAdmin/sysModels/sys.admin.product.model.html',
+                controller: 'sysProductModel',
                 size: 'lg',
                 resolve:{
                     item : function(){
@@ -175,8 +175,8 @@
                 }
             });
 
-            modalInstance.result.then(function (editedItem) {
-                selectedItem.item = editedItem;
+            modalInstance.result.then(function () {
+                $scope.loadData(1);
             }, function () {
 
             });
@@ -186,8 +186,8 @@
 
             var modalInstance = uiModal.open({
                 animation: true,
-                templateUrl: '/views/adminModule/models/admin.product.model.html',
-                controller: 'productModel',
+                templateUrl: '/views/adminModule/sysAdmin/sysModels/sys.admin.product.model.html',
+                controller: 'sysProductModel',
                 size: 'lg',
                 resolve:{
                     item : function(){
@@ -223,7 +223,7 @@
     }]);
 
 
-    mod.controller('adminUsersController', ['$scope', '$rootScope','$state','adminDataService','Data.Toast','MESSAGE_CONFIG','$modal','Confirmation', function ($scope, $rootScope, $state, adminDataService, Data_Toast, MESSAGE_CONFIG, uiModal, Confirmation) {
+    mod.controller('sysAdminUsersController', ['$scope', '$rootScope','$state','adminDataService','Data.Toast','MESSAGE_CONFIG','$modal','Confirmation', function ($scope, $rootScope, $state, adminDataService, Data_Toast, MESSAGE_CONFIG, uiModal, Confirmation) {
         $scope.userList = [];
         $scope.count = 0;
         var shopDetails = {};
@@ -335,7 +335,7 @@
     }]);
 
 
-    mod.controller('adminBranchesController', ['$scope', '$rootScope','$state','adminDataService','Data.Toast','MESSAGE_CONFIG','$modal','Confirmation', function ($scope, $rootScope, $state, adminDataService, Data_Toast, MESSAGE_CONFIG, uiModal, Confirmation) {
+    mod.controller('sysAdminBranchesController', ['$scope', '$rootScope','$state','adminDataService','Data.Toast','MESSAGE_CONFIG','$modal','Confirmation', function ($scope, $rootScope, $state, adminDataService, Data_Toast, MESSAGE_CONFIG, uiModal, Confirmation) {
         $scope.branchList = [];
         $scope.count = 0;
         var shopDetails = {};
@@ -447,7 +447,7 @@
     }]);
 
 
-    mod.controller('adminPromotionsController', ['$scope', '$rootScope','$state','adminDataService','Data.Toast','MESSAGE_CONFIG','$modal','Confirmation', function ($scope, $rootScope, $state, adminDataService, Data_Toast, MESSAGE_CONFIG, uiModal, Confirmation) {
+    mod.controller('sysAdminPromotionsController', ['$scope', '$rootScope','$state','adminDataService','Data.Toast','MESSAGE_CONFIG','$modal','Confirmation', function ($scope, $rootScope, $state, adminDataService, Data_Toast, MESSAGE_CONFIG, uiModal, Confirmation) {
         $scope.promotionList = [];
         $scope.count = 0;
         var shopDetails = {};
@@ -562,7 +562,7 @@
     }]);
 
 
-    mod.controller('adminBlogController', ['$scope', '$rootScope','$state','adminDataService','Data.Toast','MESSAGE_CONFIG','$modal','Confirmation', function ($scope, $rootScope, $state, adminDataService, Data_Toast, MESSAGE_CONFIG, uiModal, Confirmation) {
+    mod.controller('sysAdminBlogController', ['$scope', '$rootScope','$state','adminDataService','Data.Toast','MESSAGE_CONFIG','$modal','Confirmation', function ($scope, $rootScope, $state, adminDataService, Data_Toast, MESSAGE_CONFIG, uiModal, Confirmation) {
         $scope.blogs = [];
         var shopDetails = {};
         var itemPerPage = 10;
@@ -679,7 +679,7 @@
     }]);
 
 
-    mod.controller('adminMessageController', ['$scope', '$rootScope','$state','adminDataService','Data.Toast','MESSAGE_CONFIG','$modal', function ($scope, $rootScope, $state, adminDataService, Data_Toast, MESSAGE_CONFIG, uiModal) {
+    mod.controller('sysAdminMessageController', ['$scope', '$rootScope','$state','adminDataService','Data.Toast','MESSAGE_CONFIG','$modal', function ($scope, $rootScope, $state, adminDataService, Data_Toast, MESSAGE_CONFIG, uiModal) {
         $scope.unreadCount = 0;
         $scope.draftCount = 0;
         $scope.shopDetails = {};
@@ -907,7 +907,7 @@
     }]);
 
 
-    mod.controller('adminProfileController', ['$scope', '$rootScope','$state','adminDataService','Data.Toast','MESSAGE_CONFIG', function ($scope, $rootScope, $state, adminDataService, Data_Toast, MESSAGE_CONFIG) {
+    mod.controller('sysAdminProfileController', ['$scope', '$rootScope','$state','adminDataService','Data.Toast','MESSAGE_CONFIG', function ($scope, $rootScope, $state, adminDataService, Data_Toast, MESSAGE_CONFIG) {
         $scope.edit = true;
         $scope.user = {};
         $scope.temp = {};
@@ -977,7 +977,7 @@
     }]);
 
 
-    mod.controller('adminTagsController', ['$scope', '$rootScope','$state','adminDataService','Data.Toast','MESSAGE_CONFIG', function ($scope, $rootScope, $state, adminDataService, Data_Toast, MESSAGE_CONFIG) {
+    mod.controller('sysAdminTagsController', ['$scope', '$rootScope','$state','adminDataService','Data.Toast','MESSAGE_CONFIG', function ($scope, $rootScope, $state, adminDataService, Data_Toast, MESSAGE_CONFIG) {
 
         $scope.typed = '';
         $scope.tracker = 1;

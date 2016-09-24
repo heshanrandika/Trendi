@@ -1,6 +1,8 @@
 <div class="modal-header">
     <div class="panel-header">
-        <h3> <strong>Product</strong> Details </h3><span ng-if="itemId">Item #{{itemId}}</span>
+        <h3> <strong>Product</strong> Details <span ng-if="approved == true"  class="label label-success">Approved</span>
+            <span ng-if="approved == false"  class="label label-danger">Rejected</span></h3>
+        <span ng-if="itemId">Item #{{itemId}}</span>
     </div>
 </div>
 <div class="modal-body">
@@ -185,6 +187,12 @@
                                             <div ng-if="!addNewItem">
                                                 <button class="btn btn-primary" ng-disabled="(itemForm.$invalid || uploadedImages.length == 0) || btnPressed" ng-click="update()">
                                                     Update
+                                                </button>
+                                                <button ng-if="!approved || approved == undefined" class="btn btn-warning" ng-disabled="(itemForm.$invalid || uploadedImages.length == 0) || btnPressed" ng-click="approveReject(true)">
+                                                    Approve
+                                                </button>
+                                                <button ng-if="approved || approved == undefined" class="btn btn-danger" ng-disabled="(itemForm.$invalid || uploadedImages.length == 0) || btnPressed" ng-click="approveReject(false)">
+                                                    Reject
                                                 </button>
                                                 <button ng-click="cancel()" class="btn btn-white">
                                                     Close

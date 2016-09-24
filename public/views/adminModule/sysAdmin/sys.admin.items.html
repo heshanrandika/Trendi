@@ -28,6 +28,7 @@
                         <th>Product Id</th>
                         <th>Product Name</th>
                         <th>Price</th>
+                        <th>Status</th>
                         <th>&nbsp;</th>
                     </tr>
                     </thead>
@@ -39,6 +40,9 @@
                         <td>{{ item.itemId }}</td>
                         <td>{{ item.item.name }}</td>
                         <td>{{ item.item.price }}</td>
+                        <td><span ng-if="item.approved == true"  class="label label-success">Approved</span>
+                            <span ng-if="item.approved == false"  class="label label-danger">Rejected</span>
+                            <span ng-if="item.approved == undefined"  class="label label-warning">Pending</span></td>
                         <td><div><a class="edit btn btn-sm btn-default" href="javascript:;" ng-click="open(item)"><i class="icon-note" ></i></a>  <a class="delete btn btn-sm btn-danger" href="javascript:;" ng-click="remove(item.itemId)"><i class="icons-office-52"></i></a></div></td>
                     </tr>
                     </tbody>

@@ -33,6 +33,10 @@
             return angular.extend({functionId: ADMIN_MOD_CONFIG.REQ_CONFIG.FUNC_UpdateItem}, _getCObj());
         };
 
+        serviceCalls.adminUpdateItemDao = function () {
+            return angular.extend({functionId: ADMIN_MOD_CONFIG.REQ_CONFIG.FUNC_AdminUpdateItem}, _getCObj());
+        };
+
         serviceCalls.getSubItemDao = function () {
             return angular.extend({functionId: ADMIN_MOD_CONFIG.REQ_CONFIG.FUNC_GetSubItem}, _getCObj());
         };
