@@ -267,7 +267,7 @@
         $scope.tmp = {};
         $scope.tmp.oldEntitlements = [];
 
-        var shopDetails = adminDataService.shopData();
+        var shopDetails={};
 
 
         $scope.titles =[
@@ -295,20 +295,16 @@
 
         $scope.tmp.selectedTitle = $scope.titles[0];
 
-        adminDataService.getUserList({shopId :  shopDetails.shopId, email : shopDetails.email}).then(function(response){
-            $scope.tmp.allEntitlements = response.data.responData.data.list[0].entitlements;
+        adminDataService.getEntitlements({type:1}).then(function(response){
+            $scope.tmp.allEntitlements = response.data.responData.data.entitlements;
             $scope.loadAllEntitlements = true;
         });
 
-        adminDataService.getBranchListToAssign({shopId:shopDetails.shopId}).then(function(response){
-            $scope.branchList = response.data.responData.data;
-            $scope.tmp.selectedBranch = $scope.branchList[0];
-        },function(){
-            $scope.branchList = [];
-        });
+
 
         //Modal is open for edit exist user
         if(selectedItem){
+            shopDetails.shopId =  $scope.regUser.shopId
             $scope.uploadedImages.push({image:$scope.regUser.profilePic});
 
             getIndex($scope.branchList,$scope.regUser.branch,'branchId', function(value){
@@ -328,7 +324,12 @@
         }
 
 
-
+        adminDataService.getBranchListToAssign({shopId:shopDetails.shopId}).then(function(response){
+            $scope.branchList = response.data.responData.data;
+            $scope.tmp.selectedBranch = $scope.branchList[0];
+        },function(){
+            $scope.branchList = [];
+        });
 
 
         var setData = function(){

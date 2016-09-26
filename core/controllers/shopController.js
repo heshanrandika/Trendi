@@ -306,16 +306,32 @@ function adminGetUserList(req,callback){
     var limit  = (params.limit)?params.limit:16;
     var sorter = [['date',-1]];
 
+
+    var title = req.user.title.value;
     var query = {};
+    switch (title){
+        case 20:
+            query = {};
+            break;
+
+        case 10:
+            if(params.superAdmin != undefined){
+                query['superAdmin'] = superAdmin;
+            }
+            break;
+
+        default :
+            if(params.superAdmin != undefined){
+                query['superAdmin'] = superAdmin;
+            }
+            break;
+    }
 
     if(shopId != undefined) {
         query['shopId'] = shopId;
     }
     if(branchId != undefined){
         query['branch.branchId'] = branchId;
-    }
-    if(params.superAdmin != undefined){
-        query['superAdmin'] = superAdmin;
     }
     if(params.email != undefined){
         query['email'] = email;
