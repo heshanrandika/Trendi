@@ -228,12 +228,23 @@ function adminGetBranchList(req,callback){
     var searchValue  = params.searchValue;
     var sorter = [['date',-1]];
 
-    if(shopId == "" || shopId == undefined){
-        callback("ShopId not Available",null);
-    }else{
 
-        var option = {skip:skip, limit:limit, sort:sorter};
-        var query = {shopId:shopId, delete:0};
+
+    var option = {skip:skip, limit:limit, sort:sorter};
+    var query = {};
+
+    var title = req.user.title.value;
+    var query = {};
+    switch (title){
+        case 20:
+            query = {};
+            break;
+
+        default :
+            query = {shopId:shopId, delete:0};
+            break;
+    }
+
         if(searchKey != '')
             query[searchKey] = searchValue;
 
@@ -257,7 +268,7 @@ function adminGetBranchList(req,callback){
 
         });
 
-    }
+    
 
 };
 

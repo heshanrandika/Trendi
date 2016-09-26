@@ -126,8 +126,8 @@
             limit:itemPerPage,
             searchKey:'',
             searchValue:'',
-            shopId : shopDetails.branch.shopId,
-            branchId : shopDetails.branch.branchId
+            shopId : '',
+            branchId : ''
         };
 
         $scope.loadData = function(init){
@@ -231,7 +231,7 @@
 
         shopDetails = adminDataService.shopData();
         $scope.searchObj = {
-            shopId:shopDetails.shopId,
+            shopId:undefined,
             notInMail : shopDetails.email,
             superAdmin:false,
             skip: $scope.userList.length,
@@ -270,8 +270,8 @@
             $scope.btnPressed = true;
             var modalInstance = uiModal.open({
                 animation: true,
-                templateUrl: '/views/adminModule/models/admin.user.model.html',
-                controller: 'userModel',
+                templateUrl: '/views/adminModule/sysAdmin/sysModels/sys.admin.user.model.html',
+                controller: 'sysUserModel',
                 size: 'lg',
                 resolve:{
                     item : function(){
@@ -294,8 +294,8 @@
             $scope.btnPressed = true;
             var modalInstance = uiModal.open({
                 animation: true,
-                templateUrl: '/views/adminModule/models/admin.user.model.html',
-                controller: 'userModel',
+                templateUrl: '/views/adminModule/sysAdmin/sysModels/sys.admin.user.model.html',
+                controller: 'sysUserModel',
                 size: 'lg',
                 resolve:{
                     item : function(){
@@ -348,7 +348,7 @@
             limit:itemPerPage,
             searchKey:'',
             searchValue:'',
-            shopId : shopDetails.branch.shopId
+            shopId : undefined
         };
 
         $scope.loadData = function(init){
@@ -383,8 +383,8 @@
             $scope.btnPressed = true;
             var modalInstance = uiModal.open({
                 animation: true,
-                templateUrl: '/views/adminModule/models/admin.branch.model.html',
-                controller: 'branchModel',
+                templateUrl: '/views/adminModule/sysAdmin/sysModels/sys.admin.branch.model.html',
+                controller: 'sysBranchModel',
                 size: 'lg',
                 resolve:{
                     item : function(){
@@ -406,8 +406,8 @@
             $scope.btnPressed = true;
             var modalInstance = uiModal.open({
                 animation: true,
-                templateUrl: '/views/adminModule/models/admin.branch.model.html',
-                controller: 'branchModel',
+                templateUrl: '/views/adminModule/sysAdmin/sysModels/sys.admin.branch.model.html',
+                controller: 'sysBranchModel',
                 size: 'lg',
                 resolve:{
                     item : function(){

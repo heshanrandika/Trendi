@@ -10,7 +10,6 @@ function getUserList(req,callback){
 
     var skip   = (params.skip)?params.skip:0;
     var limit  = (params.limit)?params.limit:18;
-    var organize = (params.organize)?params.organize:"1";
     var sorter = [['item.trend',-1]];
 
 
