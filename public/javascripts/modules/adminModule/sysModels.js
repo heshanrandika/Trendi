@@ -304,14 +304,14 @@
 
         //Modal is open for edit exist user
         if(selectedItem){
-            shopDetails.shopId =  $scope.regUser.shopId
+            shopDetails.shopId =  $scope.regUser.shopId;
             $scope.uploadedImages.push({image:$scope.regUser.profilePic});
 
             getIndex($scope.branchList,$scope.regUser.branch,'branchId', function(value){
                 $scope.tmp.selectedBranch = $scope.branchList[value];
             });
 
-            adminDataService.getUserList({shopId :  $scope.shopId, email : $scope.regUser.email}).then(function(response){
+            adminDataService.getUserList({shopId :  $scope.regUser.shopId, email : $scope.regUser.email}).then(function(response){
                 $scope.tmp.oldEntitlements = response.data.responData.data.list[0].entitlements;
                 $scope.loadEntitlements = true;
             });
