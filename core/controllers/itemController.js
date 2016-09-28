@@ -225,7 +225,7 @@ function getSearchItemList(req,callback){
         filter.push(tmp);
     }
     if(!(item == '' || undefined == item || item == "all")){
-        filter.push( {'item.types': { $elemMatch: { value: {$regex : item , $options : 'i'}} } });
+        filter.push( {'item.types': { $elemMatch: { key: {$regex : item , $options : 'i'}} } });
     }
     if(!(shop == '' || undefined == shop || shop == "all")){
         filter.push({'item.shop.shopId': parseInt(shop)});
@@ -422,7 +422,7 @@ function updateItemOld(req,callback){
                     var doc = {itemId: itemId, date:new Date(), item: mainItem};
                     doc.searchText = "";
                     _.each(mainItem.types,function(val){
-                        doc.searchText += (val.value+" ");
+                        doc.searchText += (val.key+" ");
                     });
                     doc.searchText += (mainItem.name+" ");
                     if (success) {
@@ -469,10 +469,10 @@ function updateItem(req,callback){
         var searchText = "";
 
         _.each(mainItem.types,function(val){
-            searchText += (val.value+" ");
+            searchText += (val.key+" ");
         });
         searchText += (mainItem.name+" ");
-        var changeDoc = {$set:{date:new Date(), item: mainItem, approved:false, searchText:searchText}};
+        var changeDoc = {$set:{date:new Date(), item: mainItem, approved:undefined, searchText:searchText}};
 
         daf.Update(query, changeDoc, CONSTANT.MAIN_ITEM_COLLECTION, function(err , dataList){
             if(!err){
@@ -506,7 +506,7 @@ function adminUpdateItem(req,callback){
         var searchText = "";
 
         _.each(mainItem.types,function(val){
-            searchText += (val.value+" ");
+            searchText += (val.key+" ");
         });
         searchText += (mainItem.name+" ");
 
@@ -546,7 +546,7 @@ function addItems(req,callback) {
                 var doc = {itemId: itemId, date: new Date(), item: mainItem};
                 doc.searchText = "";
                 _.each(mainItem.types,function(val){
-                    doc.searchText += (val.value+" ");
+                    doc.searchText += (val.key+" ");
                 });
                 doc.searchText += (mainItem.name+" ");
 
@@ -603,13 +603,13 @@ function getItemCountByTags(req,callback){
     if(params.shop == 'all'){
         query = [
             { $unwind : "$item.types" } ,
-            { $group: { "_id": "$item.types.value" , "count": { $sum: 1 } } }
+            { $group: { "_id": "$item.types.key" , "count": { $sum: 1 } } }
         ];
     }else{
         query = [
             { $match: { 'item.shop.shopId': shopId } },
             { $unwind : "$item.types" } ,
-            { $group: { "_id": "$item.types.value" , "count": { $sum: 1 } } }
+            { $group: { "_id": "$item.types.key" , "count": { $sum: 1 } } }
         ];
     }
 

@@ -190,6 +190,27 @@ function updatePromotion(req,callback){
     }
 };
 
+function adminPromotionApproval(req,callback){
+    console.log("$$$$$$$  Update Promotion $$$$$$");
+    var params = (req.body.params) ? req.body.params : {};
+    var promotion = (params.promotionId)? params.promotionId : {};
+    var approved = (params.approved)? params.approved:false;
+
+    console.log("$$$$$$$  Update Promotion $$$$$$ : ");
+    if(params.promotionId) {
+        var query = {promotionId:promotion.promotionId};
+        var doc = {$set:{
+            approved:approved
+        }};
+        daf.Update(query, doc, CONSTANT.PROMOTION_COLLECTION, function (err, success) {
+            callback(err, success);
+        });
+    }else{
+        var err = "Promotion details not available";
+        callback(err);
+    }
+};
+
 function getPromotion(req,callback){
     console.log("$$$$$$$  Get Promotion $$$$$$");
     var params = (req.body.params) ? req.body.params : {};
@@ -209,5 +230,6 @@ module.exports.GetRatedPromotionList = getRatedPromotionList;
 module.exports.AddPromotion = addPromotion;
 module.exports.RemovePromotion = removePromotion;
 module.exports.UpdatePromotion = updatePromotion;
+module.exports.AdminPromotionApproval = adminPromotionApproval;
 module.exports.GetPromotion = getPromotion;
 

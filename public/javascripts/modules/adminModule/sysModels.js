@@ -403,12 +403,13 @@
         $scope.iconSize = {value:10000, text:'10kB'};
         $scope.iconCount = 1;
 
-        var shopDetails = adminDataService.shopData();
+        var shopDetails ={};
 
         if(!selectedItem){
             $scope.branch.pos = [];
             $scope.branch.iconImage = '';
         }else{
+            shopDetails.shopId =  selectedItem.shopId;
             if(!($scope.branch.iconImage == '' || $scope.branch.iconImage == undefined)){
                 $scope.tmp.iconImage.push({image:$scope.branch.iconImage});
             }
@@ -466,6 +467,7 @@
     mod.controller('sysPromotionModel',['$scope', '$modalInstance','item','adminDataService','Data.Toast','MESSAGE_CONFIG', function ($scope, uiModalInstance, selectedItem, adminDataService, Data_Toast, MESSAGE_CONFIG) {
         $scope.promotion = selectedItem? selectedItem : {};
         $scope.promotionId = selectedItem? selectedItem.promotionId: undefined;
+        $scope.approved = selectedItem? selectedItem.approved : undefined;
         $scope.addNewPromotion = selectedItem? false:true;
         $scope.uploadedImages = [];
         $scope.promotionPicSize = {value:500000, text:'500kB'};
@@ -528,6 +530,19 @@
                 uiModalInstance.close();
                 $scope.btnPressed = false;
             },function (error) {
+                Data_Toast.error(MESSAGE_CONFIG.ERROR_UPDATE_FAIL,error.data.responData.Error);
+                $scope.btnPressed = false;
+            });
+        };
+
+        $scope.approveReject = function(result){
+            $scope.btnPressed = true;
+            setData();
+            var itemDetail = {promotionId: $scope.promotion.promotionId, approved:result};
+            adminDataService.adminUpdateItem(itemDetail).then(function (response) {
+                Data_Toast.success(MESSAGE_CONFIG.SUCCESS_UPDATE_SUCCESSFULLY);
+                uiModalInstance.close($scope.item);
+            },function(error){
                 Data_Toast.error(MESSAGE_CONFIG.ERROR_UPDATE_FAIL,error.data.responData.Error);
                 $scope.btnPressed = false;
             });
