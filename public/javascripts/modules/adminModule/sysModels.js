@@ -477,7 +477,7 @@
 
         $scope.availableTypes = [];
 
-        var shopDetails = adminDataService.shopData();
+        var shopDetails = {};
 
         adminDataService.getTagList({}).then(function(response){
             $scope.availableTypes = response.data.responData.data;
@@ -486,7 +486,12 @@
 
         if(selectedItem){
             $scope.uploadedImages.push({image:$scope.promotion.promotionPic});
-            $scope.promotion.expDate = new Date($scope.promotion.expDate);
+            $scope.promotion.expDate = new Date($scope.promotion.expDate); 
+            shopDetails = adminDataService.shopData();
+        }else{
+            shopDetails.shopId =  selectedItem.shopId;
+            shopDetails.branch = {};
+            shopDetails.branchbranchId =  selectedItem.branchId;
         }
 
         var setData = function(){
@@ -557,20 +562,25 @@
     mod.controller('sysBlogModel',['$scope', '$modalInstance','item','adminDataService','Data.Toast','MESSAGE_CONFIG', function ($scope, uiModalInstance, selectedItem, adminDataService, Data_Toast, MESSAGE_CONFIG) {
         $scope.blog = selectedItem? selectedItem : {};
         $scope.blogId = selectedItem? selectedItem.blogId: undefined;
+        $scope.approved = selectedItem? selectedItem.approved : undefined;
         $scope.addNewBlog = selectedItem? false:true;
         $scope.uploadedImages = [];
         $scope.blogImageSize = {value:500000, text:'500kB'};
         $scope.blogImageCount = 1;
 
 
-        var shopDetails = adminDataService.shopData();
+        var shopDetails = {};
 
 
         if(selectedItem){
             $scope.uploadedImages.push({image:$scope.blog.img});
             $scope.blog.date = new Date($scope.blog.date);
+            shopDetails.branch = {};
+            shopDetails.branch.shop = selectedItem.shop;
+
         }else{
             $scope.blog.date = new Date();
+            shopDetails = adminDataService.shopData();
         }
 
         var setData = function(){
@@ -603,6 +613,20 @@
             $scope.btnPressed = true;
             setData();
             var blogDetails = {blog:$scope.blog};
+            adminDataService.updateBlog(blogDetails).then(function (response) {
+                Data_Toast.success(MESSAGE_CONFIG.SUCCESS_UPDATE_SUCCESSFULLY);
+                uiModalInstance.close();
+                $scope.btnPressed = false;
+            },function (error) {
+                Data_Toast.error(MESSAGE_CONFIG.ERROR_SAVE_FAIL,error.data.responData.Error);
+                $scope.btnPressed = false;
+            });
+        };
+
+        $scope.approveReject = function(result){
+            $scope.btnPressed = true;
+            setData();
+            var blogDetails = {blog:$scope.blog,  approved:result};
             adminDataService.updateBlog(blogDetails).then(function (response) {
                 Data_Toast.success(MESSAGE_CONFIG.SUCCESS_UPDATE_SUCCESSFULLY);
                 uiModalInstance.close();
