@@ -126,6 +126,7 @@
             limit:itemPerPage,
             searchKey:'',
             searchValue:'',
+            searchArray:[],
             shopId : '',
             branchId : ''
         };
@@ -134,6 +135,7 @@
             if(init){
                 $scope.itemList = [];
                 $scope.searchObj.skip =0;
+                $scope.searchObj.searchArray=[];
             }
             $scope.loading = true;
             adminDataService.adminGetItemList($scope.searchObj).then(function(response){
@@ -235,13 +237,21 @@
             notInMail : shopDetails.email,
             superAdmin:false,
             skip: $scope.userList.length,
+            searchArray:[],
             limit:itemPerPage
+
         };
+        //$scope.search={};
+
+        $scope.searchPress = function(){
+            //console.log($scope.search);
+        }
 
         $scope.loadData = function(init){
             if(init){
                 $scope.userList = [];
                 $scope.searchObj.skip =0;
+                $scope.searchObj.searchArray=[];
             }
             $scope.loading = true;
             adminDataService.getAdminUserList($scope.searchObj).then(function(response){
@@ -498,8 +508,8 @@
             $scope.btnPressed = true;
             var modalInstance = uiModal.open({
                 animation: true,
-                templateUrl: '/views/adminModule/models/admin.promotions.model.html',
-                controller: 'promotionModel',
+                templateUrl: '/views/adminModule/sysAdmin/sysModels/sys.admin.promotions.model.html',
+                controller: 'sysPromotionModel',
                 size: 'lg',
                 resolve:{
                     item : function(){
@@ -521,8 +531,8 @@
             $scope.btnPressed = true;
             var modalInstance = uiModal.open({
                 animation: true,
-                templateUrl: '/views/adminModule/models/admin.promotions.model.html',
-                controller: 'promotionModel',
+                templateUrl: '/views/adminModule/sysAdmin/sysModels/sys.admin.promotions.model.html',
+                controller: 'sysPromotionModel',
                 size: 'lg',
                 resolve:{
                     item : function(){
@@ -615,8 +625,8 @@
             $scope.btnPressed = true;
             var modalInstance = uiModal.open({
                 animation: true,
-                templateUrl: '/views/adminModule/models/admin.blog.model.html',
-                controller: 'blogModel',
+                templateUrl: '/views/adminModule/sysAdmin/sysModels/sys.admin.blog.model.html',
+                controller: 'sysBlogModel',
                 size: 'lg',
                 resolve:{
                     item : function(){
@@ -638,8 +648,8 @@
             $scope.btnPressed = true;
             var modalInstance = uiModal.open({
                 animation: true,
-                templateUrl: '/views/adminModule/models/admin.blog.model.html',
-                controller: 'blogModel',
+                templateUrl: '/views/adminModule/sysAdmin/sysModels/sys.admin.blog.model.html',
+                controller: 'sysBlogModel',
                 size: 'lg',
                 resolve:{
                     item : function(){

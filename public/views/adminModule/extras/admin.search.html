@@ -1,0 +1,7 @@
+<thead>
+<tr>
+    <th>&nbsp;</th>
+     <th ng-repeat="searchItem in searchConstruct" class="sorting"  rowspan="1" colspan="1" style="width: 196px;">{{searchItem.name}}<input type="text" onclick="stopPropagation(event);" class="form-control" placeholder="Filter By {{searchItem.name}}" ng-model="search[searchItem.key]"></th>
+    <th>&nbsp;</th>
+</tr>
+</thead>

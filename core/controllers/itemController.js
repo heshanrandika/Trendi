@@ -72,6 +72,7 @@ function adminGetItemList(req,callback){
     var branchId  = params.branchId;
     var searchKey  = params.searchKey;
     var searchValue  = params.searchValue;
+    var searchArray = params.searchArray;
     var sorter = [['date',-1]];
 
     var title = req.user.title.value;
@@ -94,6 +95,10 @@ function adminGetItemList(req,callback){
 
     if(searchKey != '')
         query[searchKey] = searchValue;
+    if(searchArray.length>0)
+    _.each(searchArray,function(obj){
+             query[obj.key] = obj.value;
+    });
 
     var data = {list:[]};
     var dbCon = daf.FindWithPagination(query,CONSTANT.MAIN_ITEM_COLLECTION,option);

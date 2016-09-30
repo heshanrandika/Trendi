@@ -28,6 +28,7 @@
                         <th>Promotion Id</th>
                         <th>Title</th>
                         <th>Description</th>
+                        <th>Shop Id</th>
                         <th>Status</th>
                         <th>&nbsp;</th>
                     </tr>
@@ -42,6 +43,7 @@
                         <td>{{ item.promotionId }}</td>
                         <td>{{ item.title }}</td>
                         <td>{{ item.description | limitTo:15 }}..</td>
+                        <td>{{ item.shopId}}</td>
                         <td><span ng-if="item.approved == true"  class="label label-success">Approved</span>
                             <span ng-if="item.approved == false"  class="label label-danger">Rejected</span>
                             <span ng-if="item.approved == undefined"  class="label label-warning">Pending</span></td>

@@ -22,6 +22,7 @@
                     <thead>
                     <tr>
                         <th>&nbsp;</th>
+                        <th>Shop Id</th>
                         <th>Branch Id</th>
                         <th>Branch Name</th>
                         <th>Hotline</th>
@@ -33,6 +34,7 @@
                         <td><span class="pull-left p-r-5">
                                                 <img alt="{{ item.shop.name }}" ng-src="{{item.shop.iconImage}}" class="table-img-icon"/>
                                                 </span></td>
+                        <td>{{ item.shopId }}</td>
                         <td>{{ item.branchId }}</td>
                         <td>{{ item.shop.name }}</td>
                         <td>{{ item.shop.hotline }}</td>
