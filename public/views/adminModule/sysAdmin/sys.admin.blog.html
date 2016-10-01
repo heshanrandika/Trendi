@@ -25,16 +25,19 @@
                     <thead>
                     <tr>
                         <th>&nbsp;</th>
-                        <th>Promotion Id</th>
-                        <th>Title</th>
-                        <th>Date</th>
-                        <th>Shop Id</th>
-                        <th>Status</th>
+                        <th class="sorting"  rowspan="1" colspan="1"  style="width: 196px;">
+                            Blog Id<input type="text" ng-keypress="searchPress($event)" class="form-control" placeholder="Filter By Blog Id" ng-model="search['blogId']"></th>
+                        <th class="sorting" rowspan="1" colspan="1" style="width: 196px;">
+                            Title<input type="text" ng-keypress="searchPress($event)" class="form-control" placeholder="Filter By Title" ng-model="search['title']"></th>
+                        <th class="sorting"  rowspan="1" colspan="1"  style="width: 196px;">
+                            Shop Id<input type="text" ng-keypress="searchPress($event)" class="form-control" placeholder="Filter By Shop Id" ng-model="search['shop.shopId']"></th>
+                        <th class="sorting" rowspan="1" colspan="1"  style="width: 196px;">
+                            Status<input type="text" ng-keypress="searchPress($event)" class="form-control" placeholder="Filter By Status" ng-model="search['approved']"></th>
                         <th>&nbsp;</th>
                     </tr>
                     </thead>
                     <tbody infinite-scroll='paginationFuntion()' infinite-scroll-distance='0.01'>
-                    <tr ng-repeat="item in blogs">
+                    <tr ng-repeat="item in blogs | searchFilter:search">
                         <td>
                             <span class="pull-left p-r-5">
                                 <img alt="{{ item.title }}" ng-src="{{item.img}}" class="table-img-icon"/>
@@ -42,7 +45,6 @@
                         </td>
                         <td>{{ item.blogId }}</td>
                         <td>{{ item.title }}</td>
-                        <td>{{ item.date | date:'yyyy-MM-dd'}}</td>
                         <td>{{ item.shop.shopId}}</td>
                         <td><span ng-if="item.approved == true"  class="label label-success">Approved</span>
                             <span ng-if="item.approved == false"  class="label label-danger">Rejected</span>

@@ -25,16 +25,26 @@
                     <thead>
                     <tr>
                         <th>&nbsp;</th>
-                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Rendering engine: activate to sort column ascending" style="width: 196px;">Product Id<input type="text" onclick="stopPropagation(event);" class="form-control" placeholder="Filter By Shop Id" ng-model="search.itemId"></th>
-                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Rendering engine: activate to sort column ascending" style="width: 196px;">Product Name<input type="text" onclick="stopPropagation(event);" class="form-control" placeholder="Filter By Branch Id" ng-model="search.item.name"></th>
-                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Rendering engine: activate to sort column ascending" style="width: 196px;">Price<input type="text" onclick="stopPropagation(event);" class="form-control" placeholder="Filter By Name" ng-model="search.item.price"></th>
-                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Rendering engine: activate to sort column ascending" style="width: 196px;">Shop Id<input type="text" onclick="stopPropagation(event);" class="form-control" placeholder="Filter By Email" ng-model="search.item.shop.shopId"></th>
-                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Rendering engine: activate to sort column ascending" style="width: 196px;">Status<input type="text" onclick="stopPropagation(event);" class="form-control" placeholder="Filter By Email" ng-model="search.email"></th>
+                        <th class="sorting"  rowspan="1" colspan="1"  style="width: 196px;">
+                            Product Id<input type="text" ng-keypress="searchPress($event)" class="form-control" placeholder="Filter By Product Id" ng-model="search['itemId']"></th>
+                        <th class="sorting" rowspan="1" colspan="1" style="width: 196px;">
+                            Product Name<input type="text" ng-keypress="searchPress($event)"  class="form-control" placeholder="Filter By Name" ng-model="search['item.name']"></th>
+                        <th class="sorting"  rowspan="1" colspan="1"  style="width: 196px;">
+                            Price<input type="text" ng-keypress="searchPress($event)" class="form-control" placeholder="Filter By Price" ng-model="search['item.price']"></th>
+                        <th class="sorting" rowspan="1" colspan="1"  style="width: 196px;">
+                            Shop Id<input type="text" ng-keypress="searchPress($event)" class="form-control" placeholder="Filter By Shop Id" ng-model="search['item.shop.shopId']"></th>
+                        <th class="sorting" rowspan="1" colspan="1"  style="width: 196px;">
+                            Status <select ng-model="search['approved']" class="form-control form-filter srch-select-opt">
+                            <option value="">---All---</option>
+                            <option value=true>Approved</option>
+                            <option value=undefined>Pending</option>
+                            <option value=false>Rejected</option>
+                        </select></th>
                         <th>&nbsp;</th>
                     </tr>
                     </thead>
                     <tbody infinite-scroll='paginationFuntion()' infinite-scroll-distance='0.01'>
-                    <tr ng-repeat="item in itemList | filter:search:strict">
+                    <tr ng-repeat="item in itemList | searchFilter:search">
                         <td><span class="pull-left p-r-5">
                                                 <img alt="{{ item.item.name }}" ng-src="{{item.item.image}}" class="table-img-icon"/>
                                                 </span></td>

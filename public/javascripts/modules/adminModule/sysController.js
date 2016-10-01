@@ -17,7 +17,30 @@
             skip: $scope.shopList.length,
             limit:itemPerPage,
             searchKey:'',
-            searchValue:''
+            searchValue:'',
+            searchArray:[]
+        };
+
+
+        $scope.search={};
+
+        $scope.searchPress = function(event){
+            if(event.keyCode == 13){
+                var array = [];
+                for(var i in $scope.search) {
+                    if($scope.search[i] != ""){
+                        if(!isNaN(parseFloat($scope.search[i])) && isFinite($scope.search[i])){
+                            array.push({key:i, value:parseInt($scope.search[i])})
+                        }else{
+                            array.push({key:i, value:{'$regex': $scope.search[i]}})
+                        }
+                    }
+
+
+                }
+                $scope.searchObj.searchArray = array;
+                $scope.loadData(1);
+            }
         };
 
         $scope.loadData = function(init){
@@ -131,11 +154,40 @@
             branchId : ''
         };
 
+        $scope.search={};
+
+        $scope.searchPress = function(event){
+            if(event.keyCode == 13){
+                var array = [];
+                for(var i in $scope.search) {
+                    if(i == "approved"){
+                        if($scope.search[i] == "undefined"){
+                            array.push({key:i, value:{$exists: false}})
+                        }else if($scope.search[i] == "true"){
+                            array.push({key:i, value:true})
+                        }else if($scope.search[i] == "false"){
+                            array.push({key:i, value:false})
+                        }
+
+                    }else if($scope.search[i] != ""){
+                        if(!isNaN(parseFloat($scope.search[i])) && isFinite($scope.search[i])){
+                            array.push({key:i, value:parseInt($scope.search[i])})
+                        }else{
+                            array.push({key:i, value:{'$regex': $scope.search[i]}})
+                        }
+                    }
+
+
+                }
+                $scope.searchObj.searchArray = array;
+                $scope.loadData(1);
+            }
+        };
+
         $scope.loadData = function(init){
             if(init){
                 $scope.itemList = [];
                 $scope.searchObj.skip =0;
-                $scope.searchObj.searchArray=[];
             }
             $scope.loading = true;
             adminDataService.adminGetItemList($scope.searchObj).then(function(response){
@@ -241,17 +293,31 @@
             limit:itemPerPage
 
         };
-        //$scope.search={};
+        $scope.search={};
 
-        $scope.searchPress = function(){
-            //console.log($scope.search);
-        }
+        $scope.searchPress = function(event){
+            if(event.keyCode == 13){
+                var array = [];
+                for(var i in $scope.search) {
+                    if($scope.search[i] != ""){
+                        if(!isNaN(parseFloat($scope.search[i])) && isFinite($scope.search[i])){
+                            array.push({key:i, value:parseInt($scope.search[i])})
+                        }else{
+                            array.push({key:i, value:{'$regex': $scope.search[i]}})
+                        }
+                    }
+
+
+                }
+                $scope.searchObj.searchArray = array;
+                $scope.loadData(1);
+            }
+        };
 
         $scope.loadData = function(init){
             if(init){
                 $scope.userList = [];
                 $scope.searchObj.skip =0;
-                $scope.searchObj.searchArray=[];
             }
             $scope.loading = true;
             adminDataService.getAdminUserList($scope.searchObj).then(function(response){
@@ -358,7 +424,30 @@
             limit:itemPerPage,
             searchKey:'',
             searchValue:'',
+            searchArray:[],
             shopId : undefined
+        };
+
+
+        $scope.search={};
+
+        $scope.searchPress = function(event){
+            if(event.keyCode == 13){
+                var array = [];
+                for(var i in $scope.search) {
+                    if($scope.search[i] != ""){
+                        if(!isNaN(parseFloat($scope.search[i])) && isFinite($scope.search[i])){
+                            array.push({key:i, value:parseInt($scope.search[i])})
+                        }else{
+                            array.push({key:i, value:{'$regex': $scope.search[i]}})
+                        }
+                    }
+
+
+                }
+                $scope.searchObj.searchArray = array;
+                $scope.loadData(1);
+            }
         };
 
         $scope.loadData = function(init){
@@ -470,8 +559,39 @@
             limit:itemPerPage,
             searchKey:'',
             searchValue:'',
+            searchArray:[],
             shopId : shopDetails.branch.shopId
         };
+
+
+        $scope.search={};
+
+        $scope.searchPress = function(event){
+            if(event.keyCode == 13){
+                var array = [];
+                for(var i in $scope.search) {
+                    if(i == "approved"){
+                        if($scope.search[i] == "pending"){
+                            array.push({key:i, value:{$exists: false}})
+                        }else{
+                            array.push({key:i, value:$scope.search[i]})
+                        }
+
+                    }else if($scope.search[i] != ""){
+                        if(!isNaN(parseFloat($scope.search[i])) && isFinite($scope.search[i])){
+                            array.push({key:i, value:parseInt($scope.search[i])})
+                        }else{
+                            array.push({key:i, value:{'$regex': $scope.search[i]}})
+                        }
+                    }
+
+
+                }
+                $scope.searchObj.searchArray = array;
+                $scope.loadData(1);
+            }
+        };
+
 
         $scope.loadData = function(init){
             if(init){
@@ -584,7 +704,31 @@
             limit:itemPerPage,
             searchKey:'',
             searchValue:'',
+            searchArray:[],
             shopId : shopDetails.branch.shopId
+        };
+
+
+
+        $scope.search={};
+
+        $scope.searchPress = function(event){
+            if(event.keyCode == 13){
+                var array = [];
+                for(var i in $scope.search) {
+                    if($scope.search[i] != ""){
+                        if(!isNaN(parseFloat($scope.search[i])) && isFinite($scope.search[i])){
+                            array.push({key:i, value:parseInt($scope.search[i])})
+                        }else{
+                            array.push({key:i, value:{'$regex': $scope.search[i]}})
+                        }
+                    }
+
+
+                }
+                $scope.searchObj.searchArray = array;
+                $scope.loadData(1);
+            }
         };
 
         $scope.loadData = function(init){

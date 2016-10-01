@@ -25,14 +25,17 @@
                     <thead>
                     <tr>
                         <th>&nbsp;</th>
-                        <th>Shop Id</th>
-                        <th>Shop Name</th>
-                        <th>Hotline</th>
+                        <th class="sorting"  rowspan="1" colspan="1"  style="width: 196px;">
+                            Shop Id<input type="text" ng-keypress="searchPress($event)" class="form-control" placeholder="Filter By Shop Id" ng-model="search['promotionId']"></th>
+                        <th class="sorting" rowspan="1" colspan="1" style="width: 196px;">
+                            Shop Name<input type="text"  ng-keypress="searchPress($event)" class="form-control" placeholder="Filter By Shop Name" ng-model="search['title']"></th>
+                        <th class="sorting"  rowspan="1" colspan="1"  style="width: 196px;">
+                            Hotline<input type="text"ng-keypress="searchPress($event)"   class="form-control" placeholder="Filter By Hotline" ng-model="search['shopId']"></th>
                         <th>&nbsp;</th>
                     </tr>
                     </thead>
                     <tbody infinite-scroll='paginationFuntion()' infinite-scroll-distance='0.01'>
-                    <tr ng-repeat="shop in shopList">
+                    <tr ng-repeat="shop in shopList | searchFilter:search">
                         <td><span class="pull-left p-r-5">
                                                 <img alt="{{ shop.name }}" ng-src="{{shop.iconImage}}" class="table-img-icon"/>
                                                 </span></td>

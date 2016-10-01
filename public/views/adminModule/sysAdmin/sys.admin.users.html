@@ -1,5 +1,5 @@
 <div class="header">
-    <h2><strong>Product</strong> Collection</h2>
+    <h2><strong>User</strong> Collection</h2>
     <div class="breadcrumb-wrapper">
         <ol class="breadcrumb">
             <li>
@@ -22,15 +22,19 @@
                     <thead>
                     <tr>
                         <th>&nbsp;</th>
-                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Rendering engine: activate to sort column ascending" style="width: 196px;">Shop Id<input type="text" onclick="stopPropagation(event);" class="form-control" placeholder="Filter By Shop Id" ng-model="search.branch.shopId"></th>
-                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Rendering engine: activate to sort column ascending" style="width: 196px;">Branch Id<input type="text" onclick="stopPropagation(event);" class="form-control" placeholder="Filter By Branch Id" ng-model="search.branch.branchId"></th>
-                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Rendering engine: activate to sort column ascending" style="width: 196px;">Name<input type="text" onclick="stopPropagation(event);" class="form-control" placeholder="Filter By Name" ng-model="search.name"></th>
-                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Rendering engine: activate to sort column ascending" style="width: 196px;">Email<input type="text" onclick="stopPropagation(event);" class="form-control" placeholder="Filter By Email" ng-model="search.email"></th> 
+                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Rendering engine: activate to sort column ascending" style="width: 196px;">
+                            Shop Id<input type="text" ng-keypress="searchPress($event)" class="form-control" placeholder="Filter By Shop Id" ng-model="search['branch.shopId']"></th>
+                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Rendering engine: activate to sort column ascending" style="width: 196px;">
+                            Branch Id<input type="text" ng-keypress="searchPress($event)" class="form-control" placeholder="Filter By Branch Id" ng-model="search['branch.branchId']"></th>
+                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Rendering engine: activate to sort column ascending" style="width: 196px;">
+                            Name<input type="text"  ng-keypress="searchPress($event)" class="form-control" placeholder="Filter By Name" ng-model="search.name"></th>
+                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Rendering engine: activate to sort column ascending" style="width: 196px;">
+                            Email<input type="text"  ng-keypress="searchPress($event)" class="form-control" placeholder="Filter By Email" ng-model="search.email"></th>
                         <th>&nbsp;</th>
                     </tr>
                     </thead>
                     <tbody infinite-scroll='paginationFuntion()' infinite-scroll-distance='0.01'>
-                    <tr ng-repeat="item in userList | filter:search:strict">
+                    <tr ng-repeat="item in userList | searchFilter:search">
                         <td><span class="pull-left p-r-5">
                                                 <img alt="{{ item.name }}" ng-src="{{item.profilePic}}" class="table-img-icon"/>
                                                 </span></td>
