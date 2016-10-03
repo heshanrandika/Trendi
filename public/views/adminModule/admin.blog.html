@@ -24,16 +24,29 @@
                 <table  class="table table-hover table-dynamic">
                     <thead>
                     <tr>
-                        <th>&nbsp;</th>
-                        <th>Promotion Id</th>
-                        <th>Title</th>
-                        <th>Date</th>
-                        <th>Status</th>
-                        <th>&nbsp;</th>
+                        <th><button class="btn btn-warning" ng-click="refresh()">
+                            <i class=".icon-plus"></i> Reset Filters
+                            </button>
+                        </th>
+                        <th class="sorting"  rowspan="1" colspan="1"  style="width: 196px;">
+                            Blog Id<input type="text" ng-keypress="searchPress($event)" class="form-control" placeholder="Filter By Blog Id" ng-model="search['blogId']"></th>
+                        <th class="sorting" rowspan="1" colspan="1" style="width: 196px;">
+                            Title<input type="text" ng-keypress="searchPress($event)" class="form-control" placeholder="Filter By Title" ng-model="search['title']"></th>
+                        <th class="sorting" rowspan="1" colspan="1"  style="width: 196px;">
+                            Status <select ng-model="search['approved']" class="form-control form-filter srch-select-opt">
+                            <option value="">---All---</option>
+                            <option value="true">Approved</option>
+                            <option value=undefined>Pending</option>
+                            <option value="false">Rejected</option>
+                                    </select></th>
+                        <th><button class="btn btn-primary" ng-click="searchPress({},true)">
+                                <i class="..icon-magnifier"></i> Search in Advance
+                            </button>
+                        </th>
                     </tr>
                     </thead>
                     <tbody infinite-scroll='paginationFuntion()' infinite-scroll-distance='0.01'>
-                    <tr ng-repeat="item in blogs">
+                    <tr ng-repeat="item in blogs  | searchFilter:search">
                         <td>
                             <span class="pull-left p-r-5">
                                 <img alt="{{ item.title }}" ng-src="{{item.img}}" class="table-img-icon"/>
@@ -41,7 +54,6 @@
                         </td>
                         <td>{{ item.blogId }}</td>
                         <td>{{ item.title }}</td>
-                        <td>{{ item.date | date:'yyyy-MM-dd'}}</td>
                         <td><span ng-if="item.approved == true"  class="label label-success">Approved</span>
                             <span ng-if="item.approved == false"  class="label label-danger">Rejected</span>
                             <span ng-if="item.approved == undefined"  class="label label-warning">Pending</span></td>

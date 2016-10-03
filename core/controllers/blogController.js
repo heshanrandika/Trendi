@@ -4,6 +4,7 @@
 var daf = require('../persistence/MongoPersistence');
 var CONSTANT = require('../utility/Constants');
 var UTIL = require('./utilController');
+var _ = require('lodash');
 
 function insertBlog(req,callback){
     console.log("$$$$$$$  AddBlog $$$$$$");
@@ -66,6 +67,7 @@ function getAdminBlogList(req,callback){
     var branchId  = params.branchId;
     var searchKey  = params.searchKey;
     var searchValue  = params.searchValue;
+    var searchArray = params.searchArray;
     var sorter = [['date',-1]];
 
     var option = {skip:skip, limit:limit, sort:sorter};
@@ -89,6 +91,11 @@ function getAdminBlogList(req,callback){
 
     if(searchKey != '')
         query[searchKey] = searchValue;
+
+    if(searchArray && searchArray.length>0)
+    _.each(searchArray,function(obj){
+             query[obj.key] = obj.value;
+    });
 
     var data = {list:[]};
     var dbCon = daf.FindWithPagination(query,CONSTANT.BLOG_COLLECTION,option);

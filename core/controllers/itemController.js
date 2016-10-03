@@ -95,7 +95,7 @@ function adminGetItemList(req,callback){
 
     if(searchKey != '')
         query[searchKey] = searchValue;
-    if(searchArray.length>0)
+    if(searchArray && searchArray.length>0)
     _.each(searchArray,function(obj){
              query[obj.key] = obj.value;
     });

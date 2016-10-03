@@ -171,8 +171,8 @@
             return Data_Comm.postPromise(angular.extend({params:d},adminServiceCalls.getMessageCountDao()));
         };
 
-        var _getShopList = function(){
-            return Data_Comm.postPromise(adminServiceCalls.getShopListDao());
+        var _getShopList = function(d){
+            return Data_Comm.postPromise(angular.extend({params:d},adminServiceCalls.getShopListDao()));
         };
 
         var _shopData = function(){

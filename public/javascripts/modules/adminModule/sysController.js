@@ -24,8 +24,8 @@
 
         $scope.search={};
 
-        $scope.searchPress = function(event){
-            if(event.keyCode == 13){
+        $scope.searchPress = function(event, search){
+            if(event.keyCode == 13 || search){
                 var array = [];
                 for(var i in $scope.search) {
                     if($scope.search[i] != ""){
@@ -156,8 +156,8 @@
 
         $scope.search={};
 
-        $scope.searchPress = function(event){
-            if(event.keyCode == 13){
+        $scope.searchPress = function(event, search){
+            if(event.keyCode == 13 || search){
                 var array = [];
                 for(var i in $scope.search) {
                     if(i == "approved"){
@@ -295,8 +295,8 @@
         };
         $scope.search={};
 
-        $scope.searchPress = function(event){
-            if(event.keyCode == 13){
+        $scope.searchPress = function(event, search){
+            if(event.keyCode == 13 || search){
                 var array = [];
                 for(var i in $scope.search) {
                     if($scope.search[i] != ""){
@@ -407,7 +407,6 @@
             });
         };
 
-
     }]);
 
 
@@ -431,8 +430,8 @@
 
         $scope.search={};
 
-        $scope.searchPress = function(event){
-            if(event.keyCode == 13){
+        $scope.searchPress = function(event, search){
+            if(event.keyCode == 13 || search){
                 var array = [];
                 for(var i in $scope.search) {
                     if($scope.search[i] != ""){
@@ -542,7 +541,6 @@
             });
         };
 
-
     }]);
 
 
@@ -566,15 +564,17 @@
 
         $scope.search={};
 
-        $scope.searchPress = function(event){
-            if(event.keyCode == 13){
+        $scope.searchPress = function(event, search){
+            if(event.keyCode == 13 || search){
                 var array = [];
                 for(var i in $scope.search) {
                     if(i == "approved"){
-                        if($scope.search[i] == "pending"){
+                        if($scope.search[i] == "undefined"){
                             array.push({key:i, value:{$exists: false}})
-                        }else{
-                            array.push({key:i, value:$scope.search[i]})
+                        }else if($scope.search[i] == "true"){
+                            array.push({key:i, value:true})
+                        }else if($scope.search[i] == "false"){
+                            array.push({key:i, value:false})
                         }
 
                     }else if($scope.search[i] != ""){
@@ -688,7 +688,6 @@
             });
         };
 
-
     }]);
 
 
@@ -712,11 +711,20 @@
 
         $scope.search={};
 
-        $scope.searchPress = function(event){
-            if(event.keyCode == 13){
+        $scope.searchPress = function(event, search){
+            if(event.keyCode == 13 || search){
                 var array = [];
                 for(var i in $scope.search) {
-                    if($scope.search[i] != ""){
+                    if(i == "approved"){
+                        if($scope.search[i] == "undefined"){
+                            array.push({key:i, value:{$exists: false}})
+                        }else if($scope.search[i] == "true"){
+                            array.push({key:i, value:true})
+                        }else if($scope.search[i] == "false"){
+                            array.push({key:i, value:false})
+                        }
+
+                    }else if($scope.search[i] != ""){
                         if(!isNaN(parseFloat($scope.search[i])) && isFinite($scope.search[i])){
                             array.push({key:i, value:parseInt($scope.search[i])})
                         }else{
@@ -828,7 +836,6 @@
                 }
             });
         };
-
 
     }]);
 

@@ -87,7 +87,12 @@
                 .then(function (response) {
                     var completeUser = response.data.responData.data;
                     $scope.$storage.user = completeUser;
-                    $state.go('main.products');
+                    if(completeUser.title.value >= 20){
+                        $state.go('main.sys_products');
+                    }else{
+                        $state.go('main.products');
+                    }
+                    
 
                 }, function (error) {
                     $scope.alerts = [];

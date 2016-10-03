@@ -23,16 +23,25 @@
             <div class="panel-content">
                 <table  class="table table-hover table-dynamic">
                     <thead>
-                    <tr>
-                        <th>&nbsp;</th>
-                        <th>Branch Id</th>
-                        <th>Branch Name</th>
-                        <th>Hotline</th>
-                        <th>&nbsp;</th>
+                     <tr>
+                        <th><button class="btn btn-warning" ng-click="refresh()">
+                            <i class=".icon-plus"></i> Reset Filters
+                            </button>
+                        </th>
+                        <th class="sorting" rowspan="1" colspan="1" style="width: 196px;">
+                            Branch Id<input type="text"  ng-keypress="searchPress($event)" class="form-control" placeholder="Filter By Branch Id" ng-model="search['branchId']"></th>
+                        <th class="sorting"  rowspan="1" colspan="1"  style="width: 196px;">
+                            Branch Name<input type="text"  ng-keypress="searchPress($event)" class="form-control" placeholder="Filter By Branch Name" ng-model="search['shop.name']"></th>
+                        <th class="sorting" rowspan="1" colspan="1"  style="width: 196px;">
+                            Hotline<input type="text"  ng-keypress="searchPress($event)" class="form-control" placeholder="Filter By Hotline" ng-model="search['shop.hotline']"></th>
+                        <th><button class="btn btn-primary" ng-click="searchPress({},true)">
+                                <i class="..icon-magnifier"></i> Search in Advance
+                            </button>
+                        </th>
                     </tr>
                     </thead>
                     <tbody infinite-scroll='paginationFuntion()' infinite-scroll-distance='0.01'>
-                    <tr ng-repeat="item in branchList">
+                    <tr ng-repeat="item in branchList  | searchFilter:search">
                         <td><span class="pull-left p-r-5">
                                                 <img alt="{{ item.shop.name }}" ng-src="{{item.shop.iconImage}}" class="table-img-icon"/>
                                                 </span></td>

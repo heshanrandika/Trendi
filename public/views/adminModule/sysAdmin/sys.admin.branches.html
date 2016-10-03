@@ -21,7 +21,10 @@
                 <table  class="table table-hover table-dynamic">
                     <thead>
                     <tr>
-                        <th>&nbsp;</th>
+                        <th><button class="btn btn-warning" ng-click="refresh()">
+                            <i class=".icon-plus"></i> Reset Filters
+                            </button>
+                        </th>
                         <th class="sorting"  rowspan="1" colspan="1"  style="width: 196px;">
                             Shop Id<input type="text" ng-keypress="searchPress($event)" class="form-control" placeholder="Filter By Shop Id" ng-model="search['shopId']"></th>
                         <th class="sorting" rowspan="1" colspan="1" style="width: 196px;">
@@ -30,7 +33,10 @@
                             Branch Name<input type="text"  ng-keypress="searchPress($event)" class="form-control" placeholder="Filter By Branch Name" ng-model="search['shop.name']"></th>
                         <th class="sorting" rowspan="1" colspan="1"  style="width: 196px;">
                             Hotline<input type="text"  ng-keypress="searchPress($event)" class="form-control" placeholder="Filter By Hotline" ng-model="search['shop.hotline']"></th>
-                        <th>&nbsp;</th>
+                        <th><button class="btn btn-primary" ng-click="searchPress({},true)">
+                                <i class="..icon-magnifier"></i> Search in Advance
+                            </button>
+                        </th>
                     </tr>
                     </thead>
                     <tbody infinite-scroll='paginationFuntion()' infinite-scroll-distance='0.01'>

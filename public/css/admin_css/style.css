@@ -1196,6 +1196,7 @@ a.scrollup:hover {
   text-decoration: none;
 }
 .topbar .header-right .header-menu #user-header .dropdown-menu {
+  margin-top: -4px;
   width: 150px !important;
 }
 .topbar .header-right .header-menu #user-header .dropdown-menu li a {

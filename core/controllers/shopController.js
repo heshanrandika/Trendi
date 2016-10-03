@@ -173,6 +173,7 @@ function adminGetShopList(req,callback){
     var limit  = (params.limit)?params.limit:18;
     var searchKey  = params.searchKey;
     var searchValue  = params.searchValue;
+    var searchArray = params.searchArray;
     var sorter = [['date',-1]];
 
     var option = {skip:skip, limit:limit, sort:sorter};
@@ -181,6 +182,11 @@ function adminGetShopList(req,callback){
 
     if(searchKey != '')
         query[searchKey] = searchValue;
+
+    if(searchArray && searchArray.length>0)
+    _.each(searchArray,function(obj){
+             query[obj.key] = obj.value;
+    });
 
     var data = {list:[]};
     var dbCon = daf.FindWithPagination(query,CONSTANT.SHOP_COLLECTION,option);
@@ -226,6 +232,7 @@ function adminGetBranchList(req,callback){
     var shopId  = params.shopId;
     var searchKey  = params.searchKey;
     var searchValue  = params.searchValue;
+    var searchArray = params.searchArray;
     var sorter = [['date',-1]];
 
 
@@ -245,8 +252,13 @@ function adminGetBranchList(req,callback){
             break;
     }
 
-        if(searchKey != '')
-            query[searchKey] = searchValue;
+    if(searchKey != '')
+        query[searchKey] = searchValue;
+
+    if(searchArray && searchArray.length>0)
+    _.each(searchArray,function(obj){
+             query[obj.key] = obj.value;
+    });
 
         var data = {list:[]};
         var dbCon = daf.FindWithPagination(query,CONSTANT.SHOP_BRANCH,option);
@@ -304,6 +316,7 @@ function adminGetUserList(req,callback){
     var notInMail = params.notInMail;
     var skip   = (params.skip)?params.skip:0;
     var limit  = (params.limit)?params.limit:16;
+    var searchArray = params.searchArray;
     var sorter = [['date',-1]];
 
 
@@ -339,6 +352,12 @@ function adminGetUserList(req,callback){
     if(params.notInMail != undefined){
         query['email'] = { $nin: [ notInMail ] } ;
     }
+
+    if(searchArray && searchArray.length>0)
+    _.each(searchArray,function(obj){
+             query[obj.key] = obj.value;
+    });
+
     var option = {skip:skip, limit:limit, sort:sorter};
 
     console.log("$$$$$$$  GET User List $$$$$$ : ");
