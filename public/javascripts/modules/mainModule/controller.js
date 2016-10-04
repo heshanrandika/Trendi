@@ -153,6 +153,11 @@
         };
         $scope.getCounts();
 
+        $scope.clickMenu = function(path){
+            $state.go(path);
+        }
+
+
 
     }]);
 
@@ -606,6 +611,311 @@
         });
         }
         
+
+
+        $scope.getDirection = function() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function (position) {
+                    $scope.direction = {
+                        start : {
+                            lat:position.coords.latitude,
+                            lon:position.coords.longitude
+                        },
+                        end:{
+                            lat:$scope.selectedItem.item.shop.shop.pos[0],
+                            lon:$scope.selectedItem.item.shop.shop.pos[1],
+                            name:$scope.selectedItem.item.shop.shop.name
+                        }
+                    };
+
+                });
+            }
+        };
+
+
+
+    }]);
+
+    mod.controller('trendiMainDealController', ['$scope', '$rootScope','$state','mainDataService','$timeout','$stateParams','$location','$anchorScroll', function ($scope, $rootScope, $state, mainDataService, $timeout, $stateParams, $location, $anchorScroll) {
+        $scope.selectParams = $stateParams;
+        $scope.mainItemShow = false;
+        $scope.changeView = false;
+        $scope.isoRefresh = true;
+        $scope.mainItems = [];
+        $scope.categoryMenu = {};
+        $scope.count = 0;
+        $scope.uiRef = $location.search().itemId;
+        $scope.catMenu = [];
+        $scope.selectedItem = {};
+        $scope.imageArray = [];
+        $scope.searchOption = {};
+
+
+
+        $scope.changeList = function(val){
+            $scope.isoRefresh = false;
+            if(val == 1){
+                $scope.changeView = true;
+            }else{
+                $scope.changeView = false;
+            }
+            $timeout(function () {
+                $scope.isoRefresh = true;
+            },100);
+        };
+
+
+
+
+        $scope.getCategoryMenuData = function () {
+            mainDataService.getTagList({shop : $scope.selectParams.shop}).then(function(response){
+                $scope.tags = response.data.responData.data;
+            },function(){
+            });
+        };
+        $scope.getCategoryMenuData();
+
+
+
+
+
+
+        $scope.searchObj = {
+            skip: 0,
+            limit:6,
+            item : $scope.selectParams.selected,
+            category : $scope.selectParams.category,
+            shop : $scope.selectParams.shop,
+            searchText:$location.search().searchTxt?$location.search().searchTxt:'',
+            filterMap:{}
+        };
+
+
+
+        $scope.priceChange = function(){
+            if($scope.searchOption.maxPrice){
+                $scope.searchObj.filterMap['minPrice'] = $scope.searchOption.minPrice;
+                $scope.searchObj.filterMap['maxPrice'] = $scope.searchOption.maxPrice;
+                $scope.loadData(1);
+                console.log("change");
+            }
+        };
+        $scope.colorChange = function(){
+            if($scope.searchOption.color) {
+                $scope.searchObj.filterMap['color'] = $scope.searchOption.color;
+                $scope.loadData(1);
+                console.log("change");
+            }
+        };
+        $scope.sizeChange = function(){
+            if($scope.searchOption.size) {
+                $scope.searchObj.filterMap['size'] = $scope.searchOption.size;
+                $scope.loadData(1);
+                console.log("change");
+            }
+        };
+        $scope.$watch(function() { return $scope.searchOption.priceChange; },  $scope.priceChange);
+        $scope.$watch(function() { return $scope.searchOption.color;    },  $scope.colorChange);
+        $scope.$watch(function() { return $scope.searchOption.size;     },  $scope.sizeChange);
+
+        $scope.loadData = function(init){
+            if(init){
+                $scope.mainItems = [];
+                $scope.searchObj.skip =0;
+                $scope.mainItemShow = false;
+            }
+            $scope.loading = true;
+            mainDataService.getSearchList($scope.searchObj).then(function(response){
+                $scope.mainItems.push.apply($scope.mainItems, response.data.responData.data.list);
+                if(response.data.responData.data.count){
+                    $scope.count = response.data.responData.data.count;
+                }
+                $scope.loading = false;
+                if($location.search().itemId){
+                    $scope.mainItemShow = false;
+                }else{
+                    $scope.mainItemShow = true;
+                }
+            },function(){
+            });
+        };
+
+        // Register event handler
+        $scope.paginationFuntion = function() {
+            $scope.searchObj.skip = $scope.searchObj.limit;
+            if ($scope.count > $scope.mainItems.length && !$scope.loading) {
+                $scope.loadData();
+            }
+        };
+
+        $scope.loadData(1);
+
+        $scope.clickMenu = function(val){
+            $location.path('main/products/'+$scope.selectParams.shop+'/'+$scope.selectParams.category+'/'+val.search);
+        };
+
+
+
+        $scope.clickTag = function(val){
+            $location.path('main/deals/'+$scope.selectParams.shop+'/'+$scope.selectParams.category+'/'+val.key);
+        };
+
+
+        /*+++++++++++++++++++++++++++++++++++++PRODUCT VIEW PAGE++++++++++++++++++++++++++++++++++++++++++++++*/
+
+        $scope.loadSubItem = function(id){
+            $scope.subItem = {};
+            mainDataService.getSubItem({itemId : id}).then(function(response){
+                $scope.subItem =  response.data.responData.data;
+                _.each($scope.subItem.itemList, function(sub){
+                    $scope.imageArray.push(sub.image);
+                })
+
+            },function(){
+            });
+        };
+
+
+
+        $scope.isotopPagination = {
+            searchFromServer: function (d) {
+                $scope.paginationFuntion();
+            },
+            goto: function (item) {
+                $scope.selectedItem = item;
+                $scope.itemSelected = true;
+                $scope.imageArray = [];
+                $scope.imageArray.push($scope.selectedItem.item.image);
+                $scope.imageSelect(0);
+                $scope.loadSubItem(item.itemId);
+                $scope.uiRef = item.itemId;
+                $location.search('itemId', item.itemId);
+                $scope.scrollTo('back-btn');
+                $scope.getDirection();
+                $scope.getRelatedItems($scope.selectedItem);
+            }
+
+        };
+
+
+        $rootScope.$on('$locationChangeSuccess', function(event){
+            if(!$location.search().itemId && $scope.itemSelected){
+                $scope.backTo();
+            }
+        });
+
+
+        //get main item when there is no selected item
+        if($location.search().itemId){
+            var id = parseInt($location.search().itemId);
+            $scope.mainItemShow = false;
+            if(!$scope.selectedItem.item){
+                $scope.itemSelected = true;
+                $scope.imageArray = [];
+                mainDataService.getMainItem({itemId : id}).then(function(response){
+                    $scope.selectedItem =  response.data.responData.data;
+                    $scope.imageArray.push($scope.selectedItem.item.image);
+                    $scope.imageSelect(0);
+                    $scope.loadSubItem(id);
+                    $scope.getDirection();
+                    $scope.getRelatedItems($scope.selectedItem);
+                },function(){
+                });
+            }
+        }else{
+            $scope.itemSelected = false;
+        }
+
+        var imageResize = function(url, width, height, callback) {
+            var sourceImage = new Image();
+
+            sourceImage.onload = function() {
+                var canvas = document.createElement("canvas");
+                var ratio= sourceImage.height/sourceImage.width;
+                canvas.width = width;
+                canvas.height = height*ratio;
+                canvas.getContext("2d").drawImage(sourceImage, 0, 0, width, height*ratio);
+                callback(canvas.toDataURL());
+            };
+
+            sourceImage.src = url;
+        };
+
+
+        //select image
+
+        $scope.imageSelect = function(index){
+            $scope.renderd = 0;
+            $scope.selectedImage = {
+                big : $scope.imageArray[index],
+                small : $scope.imageArray[index],
+                tiny : $scope.imageArray[index]
+            };
+
+
+            function setImage(){
+                $scope.renderd += 1;
+                if($scope.renderd == 3){
+                    $scope.$apply(function(){
+                        $scope.renderd = true;
+                    });
+                }
+            }
+            imageResize($scope.imageArray[index], 700, 700, function(data){
+                $scope.selectedImage.big = data;
+                setImage();
+            });
+
+            imageResize($scope.imageArray[index], 400, 400, function(data){
+                $scope.selectedImage.small = data;
+                setImage()
+            });
+
+            imageResize($scope.imageArray[index], 200, 200, function(data){
+                $scope.selectedImage.tiny = data;
+                setImage();
+            });
+
+
+
+        };
+
+
+
+        //back button click
+        $scope.backTo = function(){
+            var tmp = $scope.uiRef;
+            $scope.uiRef = 0;
+            $location.search({});
+            $scope.mainItemShow = true;
+            $scope.scrollTo(tmp+"");
+            $scope.selectedItem = {};
+            $scope.itemSelected = false;
+            $scope.showMap = false;
+        };
+
+        $scope.homeBtn= function(){
+            $location.search({});
+            $location.path('main/home');
+        };
+
+        //set scroll position
+        $scope.scrollTo = function(id) {
+            var old = $location.hash();
+            $location.hash(id);
+            $anchorScroll();
+        };
+
+        //get related items
+        $scope.getRelatedItems = function(item){
+            mainDataService.getLatestItem({skip:0,limit:16, searchText : item.searchText, group:item.group}).then(function(response){
+                $scope.relatedItems = response.data.responData.data;
+                $scope.relatedItemsShow = true;
+            }, function(error){
+                $scope.relatedItemsShow = false;
+            });
+        }
+
 
 
         $scope.getDirection = function() {
@@ -1405,7 +1715,9 @@
 
 
 
-    }]);  mod.controller('trendiMessageController', ['$scope', '$rootScope','$state','mainDataService','$timeout','$stateParams','$mdMedia','$mdDialog', 'Login.Window', function ($scope, $rootScope, $state, mainDataService, $timeout, $stateParams, $mdMedia, $mdDialog, Login_Window) {
+    }]);
+
+    mod.controller('trendiMessageController', ['$scope', '$rootScope','$state','mainDataService','$timeout','$stateParams','$mdMedia','$mdDialog', 'Login.Window', function ($scope, $rootScope, $state, mainDataService, $timeout, $stateParams, $mdMedia, $mdDialog, Login_Window) {
        $scope.unreadCount = 0;
         $scope.draftCount = 0;
         $scope.userDetails = {};

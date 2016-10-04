@@ -37,8 +37,8 @@
             },
             'main.deals': {
                 url: '/deals',
-                templateUrl: 'views/mainModule/main.shop.html',
-                controller: 'trendiDealsController'
+                templateUrl: 'views/mainModule/main.deal.html',
+                controller: 'trendiMainDealController'
 
             },
             'main.bag': {
