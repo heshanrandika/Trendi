@@ -191,7 +191,9 @@
             return Data_Comm.postPromise(angular.extend({params:d},adminServiceCalls.getEntitlementsDao()));
         };
 
-
+        var _logOutService = function(){
+            return adminServiceCalls.logOutDataDao();
+        };
 
 
         return{
@@ -241,7 +243,8 @@
             getUnreadMessageList:_getUnreadMessageList,
             getMessageCount:_getMessageCount,
             getSizes:_getSizes,
-            changeSizes:_changeSizes
+            changeSizes:_changeSizes,
+            logOutService:_logOutService
         }
     }]);
 

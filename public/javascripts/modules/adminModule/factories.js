@@ -5,7 +5,7 @@
 (function (mod) {
     "use strict";
 
-    mod.factory('adminServiceCalls', ['ADMIN_MOD_CONFIG', '$window', '$localStorage', function (ADMIN_MOD_CONFIG, $window, $localStorage) {
+    mod.factory('adminServiceCalls', ['ADMIN_MOD_CONFIG', '$window', '$localStorage','$state', function (ADMIN_MOD_CONFIG, $window, $localStorage, $state) {
 
         var serviceCalls = {};
         var commonCallObj = {};
@@ -15,8 +15,13 @@
 
         var _getCObj = function () {
          var userData = $storage.user;
-            commonCallObj = {email: userData.email , session: userData.session, userType: userData.userType };
-            return commonCallObj;
+             if(userData.session){
+               commonCallObj = {email: userData.email , session: userData.session, userType: userData.userType };
+                return commonCallObj; 
+             }else{
+                $state.go('login');
+             }
+            
         };
 
 
@@ -209,6 +214,11 @@
             return (!!$storage.user);
         };
 
+        serviceCalls.logOutDataDao = function () {
+            $storage.user = null;
+            $state.go('login');
+            return $storage.user;
+        };
 
 
 

@@ -71,6 +71,10 @@
             $state.go(menu.key);
         };
 
+        $scope.logout = function(){
+            adminDataService.logOutService();
+        }
+
 
     }]);
 
