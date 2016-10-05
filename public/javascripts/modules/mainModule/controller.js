@@ -154,10 +154,8 @@
         $scope.getCounts();
 
         $scope.clickMenu = function(path){
-            $state.go(path);
+            $location.path('main/deals/all/all');
         }
-
-
 
     }]);
 
@@ -632,8 +630,6 @@
             }
         };
 
-
-
     }]);
 
     mod.controller('trendiMainDealController', ['$scope', '$rootScope','$state','mainDataService','$timeout','$stateParams','$location','$anchorScroll', function ($scope, $rootScope, $state, mainDataService, $timeout, $stateParams, $location, $anchorScroll) {
@@ -649,6 +645,7 @@
         $scope.selectedItem = {};
         $scope.imageArray = [];
         $scope.searchOption = {};
+        $scope.selectedshop = $scope.selectParams.shop;
 
 
 
@@ -684,7 +681,7 @@
             skip: 0,
             limit:6,
             item : $scope.selectParams.selected,
-            category : $scope.selectParams.category,
+            onSale : true,
             shop : $scope.selectParams.shop,
             searchText:$location.search().searchTxt?$location.search().searchTxt:'',
             filterMap:{}
@@ -714,9 +711,16 @@
                 console.log("change");
             }
         };
+        $scope.shopChange = function(){
+            if($scope.selectedshop) {
+                $scope.searchObj.shop = $scope.selectedshop;
+                $location.path('main/deals/'+$scope.selectedshop+'/'+$scope.selectParams.selected);
+            }
+        };
         $scope.$watch(function() { return $scope.searchOption.priceChange; },  $scope.priceChange);
         $scope.$watch(function() { return $scope.searchOption.color;    },  $scope.colorChange);
-        $scope.$watch(function() { return $scope.searchOption.size;     },  $scope.sizeChange);
+        $scope.$watch(function() { return $scope.searchOption.size;     },  $scope.sizeChange); 
+        $scope.$watch(function() { return $scope.selectedshop;     },  $scope.shopChange);
 
         $scope.loadData = function(init){
             if(init){
@@ -750,14 +754,9 @@
 
         $scope.loadData(1);
 
-        $scope.clickMenu = function(val){
-            $location.path('main/products/'+$scope.selectParams.shop+'/'+$scope.selectParams.category+'/'+val.search);
-        };
-
-
 
         $scope.clickTag = function(val){
-            $location.path('main/deals/'+$scope.selectParams.shop+'/'+$scope.selectParams.category+'/'+val.key);
+            $location.path('main/deals/'+$scope.selectParams.shop+'/'+val.key);
         };
 
 
@@ -936,8 +935,6 @@
                 });
             }
         };
-
-
 
     }]);
 
@@ -1239,8 +1236,6 @@
             }
         };
 
-
-
     }]);
 
     mod.controller('trendiShopProductsController', ['$scope', '$rootScope','$state','mainDataService','$timeout','$stateParams','$location','$anchorScroll', function ($scope, $rootScope, $state, mainDataService, $timeout, $stateParams, $location, $anchorScroll) {
@@ -1487,8 +1482,6 @@
             }
         };
 
-
-
     }]);
 
     mod.controller('trendiBagController', ['$scope', '$rootScope','$state','mainDataService','$timeout','$stateParams','$location','$anchorScroll', function ($scope, $rootScope, $state, mainDataService, $timeout, $stateParams, $location, $anchorScroll) {
@@ -1712,8 +1705,6 @@
                 });
             }
         };
-
-
 
     }]);
 
@@ -1941,7 +1932,6 @@
             };
 
         }
-
 
     }]);
 

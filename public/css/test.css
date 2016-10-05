@@ -584,3 +584,13 @@
     line-height: 18px;
     padding: 0 2px;
 }
+
+.round-img-icon {
+    float: left;
+    margin-right: 6px;
+    width: 18px;
+    height: 18px;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+}

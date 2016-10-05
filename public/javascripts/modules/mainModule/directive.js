@@ -443,5 +443,28 @@
         }
     }]);
 
+    mod.directive('trendiShopList',['mainDataService','Login.Window',function(mainDataService, Login_Window){
+        return{
+            restrict:'E',
+            templateUrl:'/views/mainModule/directiveViews/main.shoplist.html',
+            scope:{
+                selctedShop : "="
+            },
+            link:function(scope, elm, attrs){
+                scope.shopList = [{name:'All', shopId:'all'}];
+                mainDataService.getShopList().then(function(response){
+                    scope.shopList.push.apply(scope.shopList, response.data.responData.data.list);
+                },function(){
+                });
+                
+                scope.clickMenu = function(shop){
+                    scope.selctedShop = shop.shopId;
+                }
+                
+
+            }
+        }
+    }]);
+
 
 })(com.TRENDI.CATEGORY.modules.mainTrendiModule);

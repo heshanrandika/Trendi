@@ -28,7 +28,7 @@ function getShopList(req,callback){
         }
 
     }
-
+    query['shopId'] = {$gt: 0};
     var option = {skip:skip, limit:limit, sort:sorter};
 
     var dbCon = daf.FindWithPagination(query,CONSTANT.SHOP_COLLECTION,option);

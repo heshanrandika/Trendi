@@ -1,0 +1,7 @@
+ <section>
+   	<h3>Shop List</h3>
+        <ul class="simple-list">
+            <li ng-repeat="shop in shopList"><img alt="{{shop.name}}" ng-src="{{shop.iconImage}}" class="round-img-icon"/> <a ng-click="clickMenu(shop)">{{shop.name}} <span class="label label-mega">#{{shop.shopId}}</span></a></li>
+        </ul>
+        <br>                   
+</section>

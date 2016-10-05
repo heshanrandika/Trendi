@@ -36,7 +36,7 @@
 
             },
             'main.deals': {
-                url: '/deals',
+                url: '/deals/:shop/:selected',
                 templateUrl: 'views/mainModule/main.deal.html',
                 controller: 'trendiMainDealController'
 

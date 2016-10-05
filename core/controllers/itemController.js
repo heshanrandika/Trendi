@@ -213,6 +213,7 @@ function getSearchItemList(req,callback){
     var skip = params.skip;
     var limit = params.limit;
     var category = params.category;
+    var onSale = params.onSale;
     var item = params.item;
     var shop = params.shop;
     var searchText = params.searchText;
@@ -227,6 +228,11 @@ function getSearchItemList(req,callback){
     if(!(category == '' || undefined == category)){
         var tmp ={};
         tmp['item.group.'+category.toLowerCase()] = true;
+        filter.push(tmp);
+    }
+    if(!(onSale == '' || undefined == onSale)){
+        var tmp ={};
+        tmp['item.onSale'] = true;
         filter.push(tmp);
     }
     if(!(item == '' || undefined == item || item == "all")){
