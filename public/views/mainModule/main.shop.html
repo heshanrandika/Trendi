@@ -87,9 +87,9 @@
         </section>
         <section ng-show="uiRef" class="container" >
 
-                    <section class="main-slider container">
-                        <div class="posts flexslider">
-                            <trendi-owl-slider navigation-display="true" images="images" items="1" stop-on-hover="true" template="trendi.slider.blog" auto-play="false" item-display="1"></trendi-owl-slider>
+                    <section class="main-slider container" ng-if="bannerShow">
+                        <div class="posts flexslider" >
+                            <trendi-owl-slider navigation-display="true" images="bannerImages" items="1" stop-on-hover="true" template="trendi.slider.blog" auto-play="false" item-display="1"></trendi-owl-slider>
                         </div>
                     </section>
 
@@ -113,9 +113,8 @@
                         </ul>
                     </section>
                     <!-- //end Social widgets -->
-
                     <div class="container">
-                        <!-- Services -->
+                        
                         <section class="services-block hidden-xs">
                             <div class="row">
                                 <div class="col-xs-12 col-sm-4 col-lg-4 divider-right"> <a href="index.html" class="item"> <span class="icon icon-airplane-2"></span> <span class="title">Free shipping</span> <span class="description">on orders over $200</span> </a> </div>
@@ -123,41 +122,101 @@
                                 <div class="col-xs-12 col-sm-4 col-lg-4"> <a href="index.html" class="item"> <span class="icon icon-umbrella "></span> <span class="title">24/7 Support </span> <span class="description">online consultations</span> </a> </div>
                             </div>
                         </section>
-                        <!-- //end Services -->
-                        <!-- // Prodcut Section -->
-                        <section class="content slider-products">
-                            <h3>Today's Featured </h3>
+                    </div>
 
-                            <!-- Products list -->
-                            <div class="row">
-                                <div class="product-carousel">
-                                    <trendi-owl-slider images="latestItems" items="4" stop-on-hover="true"  auto-play="true" navigation-display="true" action="moduleClick"></trendi-owl-slider>
-                                </div>
-                            </div>
-                            <!-- //end Products list -->
-                        </section>
+                    <div class="container">
+                        <div class="row">
+
+                            <!-- Left column -->
+                            <aside class="col-sm-4 col-md-3 col-lg-3 content-aside">
+
+                                <!-- Shop by categories -->
+
+                                <section>
+                                    <h3>SHOP BY</h3>
+                                    <p><strong>Women</strong></p>
+                                    <ul class="simple-list">
+                                        <li ng-repeat="categ in allMenu.womenMenu"><span ng-class="categ.class"></span> <a ng-click="clickMenu(categ, 'Women')">{{categ.value}} <span class="label label-mega">( {{getCount(categ.search)}} )</span></a></li>
+                                    </ul>
+                                    <br>
+                                    <p><strong>Men</strong></p>
+                                    <ul class="simple-list">
+                                        <li ng-repeat="categ in allMenu.menMenu"><span ng-class="categ.class"></span> <a ng-click="clickMenu(categ, 'Men')">{{categ.value}} <span class="label label-mega">( {{getCount(categ.search)}} )</span></a></li>
+                                    </ul>
+                                    <br>
+                                    <p><strong>Kids</strong></p>
+                                    <ul class="simple-list">
+                                        <li ng-repeat="categ in allMenu.kidsMenu"><span ng-class="categ.class"></span> <a ng-click="clickMenu(categ, 'Kids')">{{categ.value}} <span class="label label-mega">( {{getCount(categ.search)}} )</span></a></li>
+                                    </ul>
+                                    <br>
+                                </section>
+                                <!-- //end Shop by -->
+
+                                <div class="section-divider"></div>
+
+                                <!-- Popular tags -->
+                                <section class="cloud-tags">
+                                    <!--   <h3>TAGS</h3>
+                                       <a ng-repeat="tag in tags" ng-click="clickTag(tag)" class="font-xs" >{{tag.key}}</a>-->
+                                    <!-- //end Popular tags -->
+                                </section>
+                                <div class="section-divider"></div>
+
+                                <!-- Price -->
+                                <!--<section>
+                                    <h3>PRICE RANGE</h3>
+                                    <div class="slider-range">
+                                        <div class="control"></div>
+                                        <div class="min">Rs<span class="value">500</span></div>
+                                        <div class="max">Rs<span class="value">5000</span></div>
+                                    </div>
+                                </section> -->
+                                <!-- //end Price -->
+
+                                <div class="section-divider"></div>
+
+                            </aside>
+                            <!-- Product view -->
+                            <section class="col-sm-8 col-md-9 col-lg-9 content-center">
+                                <!-- // Prodcut Section -->
+                                <section class="content slider-products">
+                                    <h3>Today's Featured </h3>
+
+                                    <!-- Products list -->
+                                    <div class="row">
+                                        <div class="product-carousel" ng-if="latestItemShow">
+                                            <trendi-owl-slider images="latestItems" items="4" stop-on-hover="true"  auto-play="true" navigation-display="true" action="moduleClick"></trendi-owl-slider>
+                                        </div>
+                                    </div>
+                                    <!-- //end Products list -->
+                                </section>
+
+                                    <div ng-if="productItemShow">
+                                        <trendi-isotop items="mainItems" action="moduleClick"></trendi-isotop>
+                                    </div>
+
+
+                                    <div class="container">
+                                        <section class="content">
+                                            <h3>BRANDS</h3>
+                                            <div class="brands carouFredSel row">
+                                                <div class="carouFredSel-controls">
+                                                    <div class="carouFredSel-buttons"><a id="brands-carousel-prev" class="prev" href="#"></a><a id="brands-carousel-next" class="next"></a></div>
+                                                </div>
+                                                <div class="brands-carousel">
+                                                    <trendi-owl-slider images="brands" items="4" stop-on-hover="true" template="trendi.slider.brand" auto-play="true" navigation-display="true"></trendi-owl-slider>
+                                                </div>
+                                            </div>
+                                        </section>
+                                    </div>
+                            </section>
+                        </div>
+                        
 
                         <!-- //end Featured Products -->
                     </div>
 
-                    <div ng-if="mainItemShow">
-                        <trendi-isotop items="mainItems" action="moduleClick"></trendi-isotop>
-                    </div>
-
-
-                    <div class="container">
-                        <section class="content">
-                            <h3>BRANDS</h3>
-                            <div class="brands carouFredSel row">
-                                <div class="carouFredSel-controls">
-                                    <div class="carouFredSel-buttons"><a id="brands-carousel-prev" class="prev" href="#"></a><a id="brands-carousel-next" class="next"></a></div>
-                                </div>
-                                <div class="brands-carousel">
-                                    <trendi-owl-slider images="brands" items="4" stop-on-hover="true" template="trendi.slider.brand" auto-play="true" navigation-display="true"></trendi-owl-slider>
-                                </div>
-                            </div>
-                        </section>
-                    </div>
+                   
 
         </section>
     </div>
