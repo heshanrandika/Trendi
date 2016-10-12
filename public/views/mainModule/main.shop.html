@@ -87,11 +87,20 @@
         </section>
         <section ng-show="uiRef" class="container" >
 
-                    <section class="main-slider container" ng-if="bannerShow">
-                        <div class="posts flexslider" >
-                            <trendi-owl-slider navigation-display="true" images="bannerImages" items="1" stop-on-hover="true" template="trendi.slider.blog" auto-play="false" item-display="1"></trendi-owl-slider>
-                        </div>
-                    </section>
+            <div class="posts flexslider" ng-if="bannerShow">
+                <trendi-owl-slider navigation-display="true" images="bannerImages" items="1" stop-on-hover="true" template="trendi.slider.blog" auto-play="false" item-display="1"></trendi-owl-slider>
+            </div>
+
+           <!-- <section class="main-slider container">
+                <div class="owl-slider-outer">
+                    <div class="owl-slider">
+                        <div class="item"><img src="images/home_boxed_slider1.jpg" alt=""> <a href="index.html" class="title-slide-01"> <span class="big">Sale</span> <span class="middle">up to 40% OFF</span> </a></div>
+                        <div class="item"><img src="images/home_boxed_slider2.jpg" alt=""> <a href="index.html" class="title-slide-02"> <span class="big">New</span> <span class="small">collection</span> <span class="middle">AUTUMN 2016</span> </a> </div>
+                        <div class="item"><img src="images/home_boxed_slider3.jpg" alt=""> <a href="index.html" class="title-slide-03"> <span class="big">Special offer</span> <span class="middle">Save money with Lingerie SALE</span><span class="small">UP TO 50% OFF</span></a></div>
+                    </div>
+                </div>
+            </section>-->
+
 
                     <!-- //end Slider -->
 
@@ -119,7 +128,7 @@
                             <div class="row">
                                 <div class="col-xs-12 col-sm-4 col-lg-4 divider-right"> <a href="index.html" class="item"> <span class="icon icon-airplane-2"></span> <span class="title">Free shipping</span> <span class="description">on orders over $200</span> </a> </div>
                                 <div class="col-xs-12 col-sm-4 col-lg-4 divider-right"> <a href="index.html" class="item"> <span class="icon icon-clock"></span> <span class="title">30-day returns</span> <span class="description">moneyback guarantee</span> </a> </div>
-                                <div class="col-xs-12 col-sm-4 col-lg-4"> <a href="index.html" class="item"> <span class="icon icon-umbrella "></span> <span class="title">24/7 Support </span> <span class="description">online consultations</span> </a> </div>
+                                <div class="col-xs-12 col-sm-4 col-lg-4"> <a ng-click="bannerShow = true" class="item"> <span class="icon icon-umbrella "></span> <span class="title">24/7 Support </span> <span class="description">online consultations</span> </a> </div>
                             </div>
                         </section>
                     </div>

@@ -1263,7 +1263,14 @@
                 var id = parseInt($scope.uiRef);
                 $scope.getShopData(id);
             }else{
-                ($scope.shopList.length>0)?$scope.mainItemShow = true:$scope.mainItemShow = false;
+                if($scope.shopList.length>0){
+                    $scope.mainItemShow = true;
+
+                            $scope.changeList(0);
+
+
+                }
+
             }
 
         };
@@ -1397,6 +1404,16 @@
             $scope.productItemShow = false;
             $scope.bannerShow = false;
 
+
+
+            mainDataService.getBannerImages({shopId:$scope.selectedItem.shopId}).then(function(response){
+                $scope.bannerImages.push(response.data.responData.data);
+                $scope.bannerShow = true;
+            }, function(error){
+                $scope.bannerShow = false;
+            });
+
+
             mainDataService.getLatestItem({skip:0,limit:16, shopId:$scope.selectedItem.shopId}).then(function(response){
                 $scope.latestItems.push.apply($scope.latestItems, response.data.responData.data);
                 $scope.latestItemShow = true;
@@ -1411,27 +1428,9 @@
                 $scope.productItemShow = false;
             });
 
-            mainDataService.getBannerImages({shopId:$scope.selectedItem.shopId}).then(function(response){
-                //$scope.bannerImages.push.apply($scope.bannerImages, response.data.responData.data);
-                $scope.bannerShow = true;
-            }, function(error){
-                $scope.bannerShow = true;
-            });
+
         }
 
-
-        $scope.bannerImages=[
-            {name:'a', number:'1', date:'1360413309421', image:'../../images/products/product-01.jpg' , class:'purple'}
-            ,{name:'b', number:'5', date:'1360213309423', image:'../../images/products/product-02.jpg', class:'orange'}
-            ,{name:'c', number:'10', date:'1360113309421', image:'../../images/products/product-03.jpg', class:'purple'}
-            ,{name:'d', number:'2', date:'1360113309422', image:'../../images/products/product-04.jpg', class:'green'}
-            ,{name:'e', number:'6', date:'1360413309421', image:'../../images/products/product-05.jpg', class:'purple'}
-            ,{name:'f', number:'21', date:'1360113309422', image:'../../images/products/product-03.jpg', class:'green'}
-            ,{name:'f', number:'21', date:'1360113309422', image:'../../images/products/product-03.jpg', class:'green'}
-            ,{name:'g', number:'3', date:'1360213309423', image:'../../images/products/product-02.jpg', class:'orange'}
-            ,{name:'h', number:'7', date:'1360113309422', image:'../../images/products/product-01.jpg', class:'blue'}
-            ,{name:'i', number:'22', date:'1360413309421', image:'../../images/products/product-04.jpg', class:'blue'}
-        ];
 
         $rootScope.$on('$locationChangeSuccess', function(event){
             if(!$location.search().shopId && $scope.itemSelected){
