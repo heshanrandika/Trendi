@@ -422,6 +422,25 @@
         };
     }]);
 
+    mod.directive('trendiAnimateSlider',[function() {
+        return {
+            restrict: 'E',
+            replace: true,
+            scope: {
+                images: '='
+            },
+            templateUrl:'/views/coreModule/owlSlider/trendi.slider.banner.html',
+            link: function(scope, elm, attrs) {
+                scope.$on('repeated', function(ngRepeatFinishedEvent) {
+                    elm.ready(function () {
+                        var slider = elm.mainOwlSlider();
+                    });
+
+
+                });
+            }
+        };
+    }]);
 
     mod.directive('trendiMenuBar',['$location',function($location) {
         return {
