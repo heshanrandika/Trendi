@@ -18,13 +18,11 @@
         $scope.tmp.allEntitlements = [];
         $scope.tmp.iconImage = [];
         $scope.tmp.profilePic = [];
-        $scope.tmp.bannerImage = [];
+
 
         $scope.iconSize = {value:10000, text:'10kB'};
-        $scope.bannerSize = {value:1000000, text:'1MB'};
         $scope.profilePicSize = {value:100000, text:'100kB'};
         $scope.iconCount = 1;
-        $scope.bannerCount = 1;
         $scope.profilePicCount = 1;
 
         $scope.userList = [];
@@ -59,13 +57,6 @@
                 $scope.branchList = response.data.responData.data.list;
             });
 
-            adminDataService.getBannerImage({shopId :  $scope.shop.shopId}).then(function(response){
-                if(!(response.data.responData.data == '' || response.data.responData.data == undefined)){
-                    delete response.data.responData.data._id;
-                    $scope.tmp.bannerImage.push(response.data.responData.data);
-                }
-
-            });
 
             adminDataService.getUserList({shopId :  $scope.shop.shopId, superAdmin : true}).then(function(response){
                 var adminUser = response.data.responData.data.list[0];
@@ -92,7 +83,6 @@
             }else {
 
                 $scope.shop.iconImage = $scope.tmp.iconImage[0] ? $scope.tmp.iconImage[0].image : '';
-                $scope.bannerImage = $scope.tmp.bannerImage[0] ? $scope.tmp.bannerImage[0].image : '';
                 $scope.regUser.profilePic = $scope.tmp.profilePic[0] ? $scope.tmp.profilePic[0].image : '';
 
                 var shopDetails = {};
@@ -115,7 +105,7 @@
         $scope.save = function(){
             $scope.btnPressed = true;
             setData();
-            var shopDetails = {shop: $scope.shop, regUser: $scope.regUser, bannerImage:$scope.bannerImage};
+            var shopDetails = {shop: $scope.shop, regUser: $scope.regUser};
             adminDataService.registerShop(shopDetails).then(function (response) {
                 Data_Toast.success(MESSAGE_CONFIG.SUCCESS_SAVED_SUCCESSFULLY);
                 uiModalInstance.close();
@@ -129,7 +119,7 @@
         $scope.update = function(){
             $scope.btnPressed = true;
             setData();
-            var shopDetails = {shop: $scope.shop, regUser: $scope.regUser, bannerImage:$scope.bannerImage};
+            var shopDetails = {shop: $scope.shop, regUser: $scope.regUser};
             adminDataService.adminUpdateShop(shopDetails).then(function (response) {
                 Data_Toast.success(MESSAGE_CONFIG.SUCCESS_UPDATE_SUCCESSFULLY);
                 uiModalInstance.close();

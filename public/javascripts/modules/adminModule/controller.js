@@ -1087,6 +1087,83 @@
     }]);
 
 
+     mod.controller('adminShopProfileController', ['$scope', '$rootScope','$state','adminDataService','Data.Toast','MESSAGE_CONFIG', function ($scope, $rootScope, $state, adminDataService, Data_Toast, MESSAGE_CONFIG) {
+        $scope.edit = true;
+        $scope.user = {};
+        $scope.temp = {};
+        $scope.changePwd = false;
+        $scope.user.profilePic =[];
+        $scope.profilePicSize = {value:500000, text:'500kB'};
+        $scope.profilePicCount = 1;
+
+        $scope.pwdChange = false;
+        $scope.profChange = false;
+
+
+        $scope.banners = [
+            {image:'../../images/banner1.jpg', class:'title-slide-01', text:[{class:'middle', word:'Save'},{class:'small', word:'Your'},{class:'big', word:'Time'}]},
+            {image:'../../images/banner2.jpg', class:'title-slide-02', text:[{class:'big', word:'Offers'},{class:'small', word:'Come'},{class:'middle', word:'here'}]}
+        ]
+        
+
+        var initData = function(){
+            $scope.user.profilePic =[];
+            $scope.shopDetails = adminDataService.shopData();
+            adminDataService.adminGetUser({shopId:$scope.shopDetails.shopId, email:$scope.shopDetails.email}).then(function(response){
+                $scope.regUser = response.data.responData.data[0];
+                $scope.branch = $scope.regUser.branch;
+                if($scope.regUser.profilePic != ''){
+                    $scope.user.profilePic.push({image:$scope.regUser.profilePic});
+                }
+            },function(error){
+                $scope.regUser = {};
+            });
+        };
+        initData();
+
+        $scope.resetPwd =function(){
+            $scope.btnPressed = true;
+            adminDataService.adminResetPwd($scope.temp).then(function(response){
+                Data_Toast.success(MESSAGE_CONFIG.SUCCESS_SAVED_SUCCESSFULLY);
+                $scope.temp = {};
+                $scope.changePwd = false;
+                $scope.btnPressed = false;
+            },function(error){
+                Data_Toast.error(MESSAGE_CONFIG.ERROR_UPDATE_FAIL,error.data.responData.Error);
+            });
+        };
+
+        $scope.updateProfile = function(){
+            $scope.btnPressed = true;
+            $scope.regUser.profilePic = $scope.user.profilePic[0]?$scope.user.profilePic[0].image:'';
+            adminDataService.adminUpdateUser({regUser:$scope.regUser , profileUpdate:true}).then(function(response){
+                Data_Toast.success(MESSAGE_CONFIG.SUCCESS_SAVED_SUCCESSFULLY);
+                $scope.regUser ={};
+                $scope.edit = true;
+                initData();
+                $scope.profChange = false;
+                $scope.btnPressed = false;
+            },function(error){
+                Data_Toast.error(MESSAGE_CONFIG.ERROR_UPDATE_FAIL,error.data.responData.Error);
+            });
+        };
+
+        $scope.pwdEdit = function(){
+            $scope.pwdChange = !$scope.pwdChange;
+        };
+
+        $scope.profEdit = function(){
+            $scope.profChange = !$scope.profChange;
+            if($scope.profChange){
+                $scope.dupUser = angular.copy($scope.regUser);
+            }else{
+                $scope.regUser = $scope.dupUser;
+            }
+        };
+
+    }]);
+
+
     mod.controller('adminTagsController', ['$scope', '$rootScope','$state','adminDataService','Data.Toast','MESSAGE_CONFIG', function ($scope, $rootScope, $state, adminDataService, Data_Toast, MESSAGE_CONFIG) {
 
         $scope.typed = '';

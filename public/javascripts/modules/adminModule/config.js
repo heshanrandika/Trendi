@@ -80,6 +80,17 @@
                 }
             },
 
+
+            'main.shop': {
+                url: '/shop',
+                templateUrl: '/views/adminModule/admin.shop.html',
+                controller: 'adminShopProfileController',
+                access: {
+                    requiresLogin: true
+                }
+            },
+
+
             'main.tags': {
                 url: '/tags',
                 templateUrl: '/views/adminModule/admin.tags.html',
@@ -233,6 +244,12 @@
                {
                 value:'Dashboard',
                 key:'main.dashboard',
+                authorization: 2008,
+                icon:'icon-home'
+            },
+            {
+                value:'Shop',
+                key:'main.shop',
                 authorization: 2008,
                 icon:'icon-home'
             },

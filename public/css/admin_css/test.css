@@ -715,3 +715,260 @@ body {
 .tag-other:hover::after {
     border-left-color: #9a9ca6;
 }
+
+
+.main-slider a {
+    display: block;
+    margin: 0;
+    padding: 0;
+    text-shadow: 2px 1px rgba(0, 0, 0, .2)
+}
+.main-slider a:hover {
+    text-decoration: none
+}
+.main-slider span {
+    display: block
+}
+.main-slider .rw-slider-preload {
+    font: 10.9em/0.9em Mavenpro-black, Arial, Helvetica, sans-serif!important;
+    background: #e8e1d7!important;
+    padding: 0!important
+}
+.main-slider .rw-slider-preload:before {
+    display: block;
+    content: " ";
+    height: 40%
+}
+.main-slider .title-slide-01 {
+    position: absolute;
+    top: 36%;
+    left: 0;
+    width: 100%;
+    text-align: center
+}
+.main-slider .title-slide-01 .big {
+    font: 15.9em/0.9em Mavenpro-black, Arial, Helvetica, sans-serif;
+    color: #fff;
+    opacity: .9;
+    text-transform: uppercase;
+    letter-spacing: -.06em
+}
+.main-slider .title-slide-01 .middle {
+    font: 5.5em/0.9em Mavenpro-medium, Arial, Helvetica, sans-serif;
+    color: #fff;
+    opacity: .9;
+    letter-spacing: -.08em
+}
+
+.main-slider .title-slide-01 .small {
+    font: 3.7em/0.9em Mavenpro-medium, Arial, Helvetica, sans-serif;
+    color: #fff;
+    opacity: .9;
+    text-transform: uppercase;
+    letter-spacing: -.08em
+}
+
+.main-slider .title-slide-02 {
+    position: absolute;
+    top: 44%;
+    left: 8%;
+    width: 86%
+}
+.main-slider .title-slide-02 .big {
+    margin-left: -.06em;
+    font: 10.8em/0.7em Mavenpro-black, Arial, Helvetica, sans-serif;
+    color: #fff;
+    opacity: .9;
+    text-transform: uppercase;
+    letter-spacing: -.06em
+}
+.main-slider .title-slide-02 .middle {
+    font: 4.6em/0.9em Mavenpro-black, Arial, Helvetica, sans-serif;
+    color: #fff;
+    opacity: .9;
+    text-transform: uppercase;
+    letter-spacing: -.08em
+}
+.main-slider .title-slide-02 .small {
+    font: 3.7em/0.9em Mavenpro-medium, Arial, Helvetica, sans-serif;
+    color: #fff;
+    opacity: .9;
+    text-transform: uppercase;
+    letter-spacing: -.08em
+}
+.main-slider .title-slide-03 {
+    position: absolute;
+    top: 21%;
+    left: 50%;
+    width: 44%
+}
+.main-slider .title-slide-03 .big {
+    margin-left: -.06em;
+    font: 10.2em/0.75em Mavenpro-black, Arial, Helvetica, sans-serif;
+    color: #fff;
+    opacity: .9;
+    text-transform: uppercase;
+    letter-spacing: -.06em
+}
+.main-slider .title-slide-03 .middle {
+    padding: .3em 0 .5em;
+    font: 5.5em/0.9em Mavenpro-medium, Arial, Helvetica, sans-serif;
+    color: #fff;
+    opacity: .9;
+    letter-spacing: -.08em
+}
+.main-slider .title-slide-03 .small {
+    font: 2.3em/0.9em Mavenpro-black, Arial, Helvetica, sans-serif;
+    color: #fff;
+    opacity: .9;
+    text-transform: uppercase;
+    letter-spacing: -.08em
+}
+.main-slider .scroll-down {
+    position: absolute;
+    display: block;
+    margin-bottom: 0;
+    z-index: 100;
+    color: #fff;
+    left: 39%;
+    bottom: 3%;
+    width: 22%;
+    text-align: center;
+    text-shadow: 1px 1px rgba(0, 0, 0, .5);
+    font: 2em/1em Mavenpro-medium, Arial, Helvetica, sans-serif
+}
+.main-slider .scroll-down:hover {
+    text-decoration: none
+}
+.main-slider .scroll-down .icon {
+    display: block;
+    font-size: 2.6em
+}
+.main-slider .control.next {
+    right: 5%
+}
+.title-slide-01, .title-slide-02, .title-slide-03 {
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, .27)
+}
+.fullwidthbanner .title-slide-01, .main-slider .owl-slider .title-slide-01, .main-slider .ss-slides .title-slide-01 {
+    position: absolute;
+    top: 22%;
+    right: 15%;
+    width: 90%;
+    text-align: right
+}
+.fullwidthbanner .title-slide-01 .big, .main-slider .owl-slider .title-slide-01 .big, .main-slider .ss-slides .title-slide-01 .big {
+    font: 10.5em/0.9em Mavenpro-black, Arial, Helvetica, sans-serif;
+    color: #fff;
+    opacity: .9;
+    text-transform: uppercase;
+    letter-spacing: -.06em;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, .2)
+}
+.fullwidthbanner .title-slide-01 .middle, .main-slider .owl-slider .title-slide-01 .middle, .main-slider .ss-slides .title-slide-01 .middle {
+    font: 3.6em/0.9em Mavenpro-medium, Arial, Helvetica, sans-serif;
+    color: #fff;
+    opacity: .9;
+    letter-spacing: -.08em
+}
+.fullwidthbanner .title-slide-02, .main-slider .owl-slider .title-slide-02, .main-slider .ss-slides .title-slide-02 {
+    position: absolute;
+    top: 25%;
+    left: 10%;
+    width: 40%
+}
+.fullwidthbanner .title-slide-02 .big, .main-slider .owl-slider .title-slide-02 .big, .main-slider .ss-slides .title-slide-02 .big {
+    margin-left: -.06em;
+    font: 9em/0.7em Mavenpro-black, Arial, Helvetica, sans-serif;
+    color: #fff;
+    opacity: .9;
+    text-transform: uppercase;
+    letter-spacing: -.06em
+}
+.fullwidthbanner .title-slide-02 .middle, .main-slider .owl-slider .title-slide-02 .middle, .main-slider .ss-slides .title-slide-02 .middle {
+    font: 3.8em/0.9em Mavenpro-black, Arial, Helvetica, sans-serif;
+    color: #fff;
+    opacity: .9;
+    text-transform: uppercase;
+    letter-spacing: -.08em
+}
+.fullwidthbanner .title-slide-02 .small, .main-slider .owl-slider .title-slide-02 .small, .main-slider .ss-slides .title-slide-02 .small {
+    font: 3.1em/0.9em Mavenpro-medium, Arial, Helvetica, sans-serif;
+    color: #fff;
+    opacity: .9;
+    text-transform: uppercase;
+    letter-spacing: -.08em
+}
+.fullwidthbanner .title-slide-03, .main-slider .owl-slider .title-slide-03, .main-slider .ss-slide .title-slide-03 {
+    position: absolute;
+    top: 5%;
+    left: 55%;
+    width: 25%
+}
+.fullwidthbanner .title-slide-03 .big, .main-slider .owl-slider .title-slide-03 .big, .main-slider .ss-slide .title-slide-03 .big {
+    margin-left: -.06em;
+    font: 6.2em/0.75em Mavenpro-black, Arial, Helvetica, sans-serif;
+    color: #fff;
+    opacity: .9;
+    text-transform: uppercase;
+    letter-spacing: -.06em
+}
+.fullwidthbanner .title-slide-03 .middle, .main-slider .owl-slider .title-slide-03 .middle, .main-slider .ss-slide .title-slide-03 .middle {
+    padding: .3em 0 .5em;
+    font: 3.4em/0.9em Mavenpro-medium, Arial, Helvetica, sans-serif;
+    color: #fff;
+    opacity: .9;
+    letter-spacing: -.08em
+}
+.fullwidthbanner .title-slide-03 .small, .main-slider .owl-slider .title-slide-03 .small, .main-slider .ss-slide .title-slide-03 .small {
+    font: 1.4em/0.9em Mavenpro-black, Arial, Helvetica, sans-serif;
+    color: #fff;
+    opacity: .9;
+    text-transform: uppercase;
+    letter-spacing: -.08em
+}
+.filters-panel {
+    padding: 1.3em 0 2.3em
+}
+.filters-panel a {
+    text-decoration: none
+}
+.filters-panel .divider {
+    height: 25px
+}
+.filters-panel .divider:after {
+    content: " ";
+    display: block;
+    height: 10px;
+    border-bottom: 1px solid #e9e9e9
+}
+.filters-panel .sort-select .dropdown-menu {
+    min-width: 98px
+}
+.filters-panel .sort-select .value {
+    min-width: 60px
+}
+.filters-panel .sort-select-arrow.up .down {
+    display: none
+}
+.filters-panel .sort-select-arrow.down .down, .filters-panel .sort-select-arrow.up .up {
+    display: inline
+}
+.filters-panel .sort-select-arrow.down .up {
+    display: none
+}
+.filters-panel .perpage-select .dropdown-menu {
+    min-width: 53px
+}
+.filters-panel .perpage-select .value {
+    min-width: 15px
+}
+.filters-panel .view-mode {
+    text-align: center
+}
+.filters-panel .view-mode a {
+    font-size: 1.6em;
+    line-height: .5em;
+    position: relative;
+    bottom: -5px
+}

@@ -185,7 +185,6 @@ function shopRegistration(req,callback) {
     var userType = (req.body.userType)?req.body.userType: 0;
     var regUser =  (params.regUser)?params.regUser: 0;
     var shop =  (params.shop)?params.shop: {};
-    var bannerImage =  (params.bannerImage)?params.bannerImage: '';
     var shopId = 0;
 
     var query = {'email':regUser.email};
@@ -236,11 +235,6 @@ function shopRegistration(req,callback) {
                                 tag : 'INBOX'
                         };
 
-                        var bannerDoc = {
-                            shopId: shopId,
-                            image : bannerImage
-                        };
-
                         daf.Insert(userDoc, CONSTANT.SHOP_USER, function (err, success) {
                             if(err){
                                 callback(("Shop User Registration Failed :"+err),null);
@@ -258,14 +252,7 @@ function shopRegistration(req,callback) {
                                                     if(err){
                                                         callback(("Message Adding Failed :"+err),null);
                                                     }else{
-                                                        daf.Insert(bannerDoc, CONSTANT.BANNER_IMAGE, function (err, success) {
-                                                            if(err){
-                                                                callback(err,("Banner Image Adding Failed :"+success));
-                                                            }else{
-                                                                callback(err,("Successfully Registered :"+success));
-                                                            }
-                                                        });
-
+                                                        callback(err,("Successfully Registered :"+success));
                                                     }
 
                                                 })

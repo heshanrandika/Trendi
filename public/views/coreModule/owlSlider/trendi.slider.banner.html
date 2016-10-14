@@ -4,7 +4,7 @@
             <div class="item" ng-repeat="slide in slides" on-finish-render="repeated">
                 <img ng-src="{{slide.image}}" alt="">
                 <a ng-class="slide.class">
-                    <span ng-repeat="txt in slide.text" ng-class="txt.class">{{txt.letters}}</span>
+                    <span ng-repeat="txt in slide.text" ng-class="txt.class">{{txt.word}}</span>
                 </a>
             </div>
         </div>

@@ -500,7 +500,7 @@ function updateShopUsers(shopDetails){
 
 }
 
-function getBannerImage(req,callback){
+function getBanners(req,callback){
     console.log("$$$$$$$  Get Banner Image $$$$$$");
     var params = (req.body.params) ? req.body.params : {};
     var shopId = params.shopId;
@@ -508,6 +508,26 @@ function getBannerImage(req,callback){
 
     daf.FindOne(query,CONSTANT.BANNER_IMAGE,function(err,success){
         callback(err , success);
+    });
+}
+
+function setBanners(req,callback){
+    console.log("$$$$$$$  Get Banner Image $$$$$$");
+    var params = (req.body.params) ? req.body.params : {};
+    var shopId = params.shopId;
+    var bannerList = params.bannerList;
+
+    var bannerDoc = {
+        shopId: shopId,
+        banners : bannerList
+    };
+
+    daf.Insert(bannerDoc, CONSTANT.BANNER_IMAGE, function (err, success) {
+        if(err){
+            callback(err,("Banners Adding Failed :"+success));
+        }else{
+            callback(err,("Successfully Banners Added :"+success));
+        }
     });
 }
 
@@ -526,7 +546,8 @@ module.exports.AdminGetUserList = adminGetUserList;
 module.exports.AdminGetBranchList = adminGetBranchList;
 module.exports.GetBranchListToAssign = getBranchListToAssign;
 module.exports.UpdateBranches = updateBranches;
-module.exports.GetBannerImage = getBannerImage;
+module.exports.GetBanners = getBanners;
+module.exports.SetBanners = setBanners;
 module.exports.AdminGetUser = adminGetUser;
 module.exports.UpdateShopUser = updateShopUser;
 module.exports.RemoveShopUser = removeShopUser;

@@ -321,7 +321,7 @@ var normalRequestRoute = function(req,res){
 
         case 2014:
 
-            SHOP.GetBannerImage(req, function (err, data) {
+            SHOP.GetBanners(req, function (err, data) {
                 if (err) {
                     resObject.resStatus = 0;
                     resObject.responData.Error = err.toString();
