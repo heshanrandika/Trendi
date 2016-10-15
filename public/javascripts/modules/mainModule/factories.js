@@ -76,8 +76,8 @@
             return angular.extend({functionId: MAIN_MOD_CONFIG.REQ_CONFIG.FUNC_GetShopList}, _getCObj());
         }; 
 
-        serviceCalls.getBannerImagesDao = function () {
-            return angular.extend({functionId: MAIN_MOD_CONFIG.REQ_CONFIG.FUNC_GetShopBannerImages}, _getCObj());
+        serviceCalls.getBannerDao = function () {
+            return angular.extend({functionId: MAIN_MOD_CONFIG.REQ_CONFIG.FUNC_GetShopBanner}, _getCObj());
         };
 
         serviceCalls.getSearchListDao = function () {

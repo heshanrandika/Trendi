@@ -1,7 +1,7 @@
 <div id="outer">
     <div id="outer-canvas">
 
-        <section class="container">
+        <section class="container" ng-hide="uiRef">
             <nav class="breadcrumbs"> Shop <span class="icon-arrow-right-3"></span> {{selectParams.term}} </nav>
         </section>
         <section ng-hide="uiRef" class="container">
@@ -86,12 +86,7 @@
             </div>
         </section>
         <section ng-show="uiRef" class="container" >
-
-           <!-- <div class="posts flexslider" ng-if="bannerShow">
-                <trendi-owl-slider navigation-display="true" images="bannerImages" items="1" stop-on-hover="true" template="trendi.slider.blog" auto-play="false" item-display="1"></trendi-owl-slider>
-            </div>-->
-
-            <trendi-animate-slider></trendi-animate-slider>
+            <trendi-animate-slider slides="banners"></trendi-animate-slider>
 
 
                     <!-- //end Slider -->

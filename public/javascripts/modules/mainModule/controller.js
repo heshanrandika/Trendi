@@ -1372,7 +1372,10 @@
             return result?result.count:0;
         };
 
-
+        $scope.banners = [
+            {image:'../../images/home_boxed_slider1.jpg', class:'title-slide-01', text:[{class:'middle', word:'Save'},{class:'small', word:'Your'},{class:'big', word:'Time'}]},
+            {image:'../../images/home_boxed_slider2.jpg', class:'title-slide-02', text:[{class:'big', word:'Offers'},{class:'small', word:'Come'},{class:'middle', word:'here'}]}
+        ];
 
         $scope.createCategoryMenu = function(){
             mainDataService.getItemMenu().then(function(response){
@@ -1406,7 +1409,7 @@
 
 
 
-            mainDataService.getBannerImages({shopId:$scope.selectedItem.shopId}).then(function(response){
+            mainDataService.getBanner({shopId:$scope.selectedItem.shopId}).then(function(response){
                 $scope.bannerImages.push(response.data.responData.data);
                 $scope.bannerShow = true;
             }, function(error){

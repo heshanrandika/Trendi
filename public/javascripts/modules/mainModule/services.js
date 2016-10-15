@@ -31,8 +31,8 @@
             return Data_Comm.postPromise(angular.extend({params:d},mainServiceCalls.getShopDao()));
         };
 
-        var _getBannerImages = function(d){
-            return Data_Comm.postPromise(angular.extend({params:d},mainServiceCalls.getBannerImagesDao()));
+        var _getBanner = function(d){
+            return Data_Comm.postPromise(angular.extend({params:d},mainServiceCalls.getBannerDao()));
         };
 
         var _getOnSaleList = function(d){ //TODO
@@ -139,7 +139,7 @@
             getNewProductList:_getNewProductList,
             getMostSeen:_getMostSeen,
             getShopList:_getShopList,
-            getBannerImages:_getBannerImages,
+            getBanner:_getBanner,
             getSearchList:_getSearchList,
             getItemCount:_getItemCount,
             getSubItem:_getSubItem,

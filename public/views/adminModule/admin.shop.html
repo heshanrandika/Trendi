@@ -1,14 +1,20 @@
 <div class="page-app page-profil">
     <div class="col-lg-10 col-md-9">
+
         <div class="row profil-header">
-            <div class="col-lg-9 col-md-12">
+            <div class="col-lg-12 col-md-12">
                 <div class="row">
-                    <div class="col-xs-4 profil-img">
+                    <div class="col-xs-2 profil-img">
                         <img ng-src="{{regUser.profilePic}}">
                     </div>
-                    <div class="col-xs-8 p-l-0 col-map">
-                        <div class="map">
-                            <trendi-animate-slider slides="banners"></trendi-animate-slider>
+                    <div class="col-xs-10 p-l-0 col-map">
+                        <div class="map" ng-if="bannerShow">
+
+
+                            <trendi-animate-slider slides="bannerObject.banner"></trendi-animate-slider>
+                            <div class="banner-edit">
+                                <button type="button" class="btn btn-sm btn-icon btn-rounded btn-primary" ng-click="bannerEdit()"><i class="fa fa-pencil-square"></i></button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -24,42 +30,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-3 col-md-12 user-friends">
-                <div class="row m-r-0">
-                    <div class="col-sm-4">
-                        <img src="/images/admin/friend1.jpg" class="img-responsive" alt="friend 1">
-                    </div>
-                    <div class="col-sm-4">
-                        <img src="/images/admin/friend2.jpg" class="img-responsive" alt="friend 2">
-                    </div>
-                    <div class="col-sm-4">
-                        <img src="/images/admin/friend3.jpg" class="img-responsive" alt="friend 3">
-                    </div>
-                </div>
-                <div class="row m-r-0">
-                    <div class="col-sm-4">
-                        <img src="/images/admin/friend4.jpg" class="img-responsive" alt="friend 4">
-                    </div>
-                    <div class="col-sm-4">
-                        <img src="/images/admin/friend5.jpg" class="img-responsive" alt="friend 5">
-                    </div>
-                    <div class="col-sm-4">
-                        <img src="/images/admin/friend6.jpg" class="img-responsive" alt="friend 6">
-                    </div>
-                </div>
-                <div class="row m-r-0">
-                    <div class="col-sm-4">
-                        <img src="/images/admin/friend7.jpg" class="img-responsive" alt="friend 7">
-                    </div>
-                    <div class="col-sm-4">
-                        <img src="/images/admin/friend8.jpg" class="img-responsive" alt="friend 8">
-                    </div>
-                    <div class="col-sm-4 bg-primary more-friends">
-                        <span class="num-friends"></span>
-                        <p></p>
-                    </div>
-                </div>
-            </div>
+
         </div>
         <div class="profil-content">
             <div class="row">

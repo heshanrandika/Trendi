@@ -510,7 +510,7 @@
         };
 
 
-         $scope.search={};
+        $scope.search={};
 
         $scope.searchPress = function(event, search){
             if(event.keyCode == 13 || search){
@@ -1001,11 +1001,11 @@
             };
 
             $scope.initOpen = function(condition,item){
-               if(condition){
-                   item.open = true;
-               }else{
-                   item.open = false;
-               }
+                if(condition){
+                    item.open = true;
+                }else{
+                    item.open = false;
+                }
             };
 
             $scope.cancel = function () {
@@ -1087,7 +1087,7 @@
     }]);
 
 
-     mod.controller('adminShopProfileController', ['$scope', '$rootScope','$state','adminDataService','Data.Toast','MESSAGE_CONFIG', function ($scope, $rootScope, $state, adminDataService, Data_Toast, MESSAGE_CONFIG) {
+    mod.controller('adminShopProfileController', ['$scope', '$rootScope','$state','adminDataService','Data.Toast','MESSAGE_CONFIG','$modal', function ($scope, $rootScope, $state, adminDataService, Data_Toast, MESSAGE_CONFIG, uiModal) {
         $scope.edit = true;
         $scope.user = {};
         $scope.temp = {};
@@ -1096,15 +1096,28 @@
         $scope.profilePicSize = {value:500000, text:'500kB'};
         $scope.profilePicCount = 1;
 
-        $scope.pwdChange = false;
+        $scope.bannerShow = false;
         $scope.profChange = false;
+        $scope.bannerObject = {};
 
 
-        $scope.banners = [
-            {image:'../../images/banner1.jpg', class:'title-slide-01', text:[{class:'middle', word:'Save'},{class:'small', word:'Your'},{class:'big', word:'Time'}]},
-            {image:'../../images/banner2.jpg', class:'title-slide-02', text:[{class:'big', word:'Offers'},{class:'small', word:'Come'},{class:'middle', word:'here'}]}
-        ]
-        
+        var getBanners = function(){
+            $scope.bannerShow = false;
+            adminDataService.getBanner({shopId:$scope.shopDetails.shopId}).then(function(response){
+                $scope.bannerObject = response.data.responData.data;
+                $scope.bannerShow =true;
+            },function(error){
+                $scope.bannerObject =  {
+                    shopId : $scope.shopDetails.shopId,
+                    banner : [
+                        {image:'../../images/home_boxed_slider1.jpg', class:'title-slide-01', text:[{class:'small', word:'Well come'},{class:'middle', word:'to'},{class:'big', word:'Shop'}]},
+                        {image:'../../images/home_boxed_slider2.jpg', class:'title-slide-02', text:[{class:'small', word:'Well come'},{class:'middle', word:'to'},{class:'big', word:'Shop'}]},
+                        {image:'../../images/home_boxed_slider3.jpg', class:'title-slide-03', text:[{class:'small', word:'Well come'},{class:'middle', word:'to'},{class:'big', word:'Shop'}]}
+                    ]
+                };
+                $scope.bannerShow =true;
+            });
+        };
 
         var initData = function(){
             $scope.user.profilePic =[];
@@ -1118,20 +1131,12 @@
             },function(error){
                 $scope.regUser = {};
             });
+            getBanners();
         };
         initData();
 
-        $scope.resetPwd =function(){
-            $scope.btnPressed = true;
-            adminDataService.adminResetPwd($scope.temp).then(function(response){
-                Data_Toast.success(MESSAGE_CONFIG.SUCCESS_SAVED_SUCCESSFULLY);
-                $scope.temp = {};
-                $scope.changePwd = false;
-                $scope.btnPressed = false;
-            },function(error){
-                Data_Toast.error(MESSAGE_CONFIG.ERROR_UPDATE_FAIL,error.data.responData.Error);
-            });
-        };
+
+
 
         $scope.updateProfile = function(){
             $scope.btnPressed = true;
@@ -1148,9 +1153,7 @@
             });
         };
 
-        $scope.pwdEdit = function(){
-            $scope.pwdChange = !$scope.pwdChange;
-        };
+
 
         $scope.profEdit = function(){
             $scope.profChange = !$scope.profChange;
@@ -1159,6 +1162,30 @@
             }else{
                 $scope.regUser = $scope.dupUser;
             }
+        };
+
+
+        $scope.bannerEdit = function () {
+            $scope.btnPressed = true;
+            var modalInstance = uiModal.open({
+                animation: true,
+                templateUrl: '/views/adminModule/models/admin.banner.model.html',
+                controller: 'bannerModel',
+                size: 'lg',
+                resolve:{
+                    item : function(){
+                        var editItem = angular.copy($scope.bannerObject);
+                        return editItem;
+                    }
+                }
+            });
+
+            modalInstance.result.then(function (editedItem) {
+                getBanners();
+                $scope.btnPressed = false;
+            }, function () {
+                $scope.btnPressed = false;
+            });
         };
 
     }]);

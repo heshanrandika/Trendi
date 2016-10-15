@@ -760,14 +760,6 @@ body {
     letter-spacing: -.08em
 }
 
-.main-slider .title-slide-01 .small {
-    font: 3.7em/0.9em Mavenpro-medium, Arial, Helvetica, sans-serif;
-    color: #fff;
-    opacity: .9;
-    text-transform: uppercase;
-    letter-spacing: -.08em
-}
-
 .main-slider .title-slide-02 {
     position: absolute;
     top: 44%;
@@ -857,6 +849,15 @@ body {
     width: 90%;
     text-align: right
 }
+
+.fullwidthbanner .title-slide-01 .small, .main-slider .owl-slider .title-slide-01 .small, .main-slider .ss-slides .title-slide-01 .small {
+    font: 3.1em/0.9em Mavenpro-medium, Arial, Helvetica, sans-serif;
+    color: #fff;
+    opacity: .9;
+    text-transform: uppercase;
+    letter-spacing: -.08em
+}
+
 .fullwidthbanner .title-slide-01 .big, .main-slider .owl-slider .title-slide-01 .big, .main-slider .ss-slides .title-slide-01 .big {
     font: 10.5em/0.9em Mavenpro-black, Arial, Helvetica, sans-serif;
     color: #fff;
@@ -971,4 +972,33 @@ body {
     line-height: .5em;
     position: relative;
     bottom: -5px
+}
+
+.owl-slider-outer {
+    width: 100%;
+    overflow: hidden;
+    float: left;
+    position: relative;
+    border-radius: 0;
+    margin-bottom: 10px;
+    background: #fff
+}
+.owl-slider {
+    width: 100%
+}
+.owl-slider .owl-item .item {
+    width: 100%!important
+}
+.owl-slider .owl-item .item img {
+    width: auto
+}
+.main-slider .owl-slider-outer {
+    margin-top: 0
+}
+
+.banner-edit{
+    position: absolute;
+    z-index: 100;
+    margin-top: -100px;
+    margin-left: 20px;
 }

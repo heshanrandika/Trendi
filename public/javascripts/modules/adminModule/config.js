@@ -203,8 +203,9 @@
             FUNC_GetBranchList:   2011,
             FUNC_GetUserList:     2012,
             FUNC_AdminUpdateShop: 2013,
-            FUNC_GetBannerImage:  2014,
+            FUNC_GetBanner:       2014,
             FUNC__GetBranchListToAssign:  2019,
+            FUNC_SetBanner:       2020,
             //++++++++branch function list++++++++++++
             FUNC_AddBranch:       2003,
             FUNC_UpdateBranch:    2006,

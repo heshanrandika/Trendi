@@ -56,8 +56,12 @@
             return Data_Comm.postPromise(angular.extend({params:d},adminServiceCalls.getBranchListToAssignDao()));
         };
 
-        var _getBannerImage = function(d){
-            return Data_Comm.postPromise(angular.extend({params:d},adminServiceCalls.getBannerImageDao()));
+        var _getBanner = function(d){
+            return Data_Comm.postPromise(angular.extend({params:d},adminServiceCalls.getBannerDao()));
+        };
+
+        var _setBanner = function(d){
+            return Data_Comm.postPromise(angular.extend({params:d},adminServiceCalls.setBannerDao()));
         };
 
         var _addBranch = function(d){
@@ -213,7 +217,8 @@
             isAuthenticated: _isAuthenticated,
             fullUserData:_fullUserData,
             getEntitlements:_getEntitlements,
-            getBannerImage:_getBannerImage,
+            getBanner:_getBanner,
+            setBanner:_setBanner,
             addBranch:_addBranch,
             updateBranch:_updateBranch,
             removeBranch:_removeBranch,

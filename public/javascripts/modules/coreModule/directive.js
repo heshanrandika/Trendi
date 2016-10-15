@@ -427,7 +427,7 @@
             restrict: 'E',
             replace: true,
             scope: {
-                images: '='
+                slides: '='
             },
             templateUrl:'/views/coreModule/owlSlider/trendi.slider.banner.html',
             link: function(scope, elm, attrs) {

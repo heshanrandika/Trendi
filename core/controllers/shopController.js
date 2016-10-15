@@ -515,19 +515,13 @@ function setBanners(req,callback){
     console.log("$$$$$$$  Get Banner Image $$$$$$");
     var params = (req.body.params) ? req.body.params : {};
     var shopId = params.shopId;
-    var bannerList = params.bannerList;
+    var bannerList = params.banner;
 
-    var bannerDoc = {
-        shopId: shopId,
-        banners : bannerList
-    };
+    var query = {shopId:shopId};
+    var changeDoc = {$set:{banner: bannerList}};
 
-    daf.Insert(bannerDoc, CONSTANT.BANNER_IMAGE, function (err, success) {
-        if(err){
-            callback(err,("Banners Adding Failed :"+success));
-        }else{
-            callback(err,("Successfully Banners Added :"+success));
-        }
+    daf.Upsert(query,changeDoc,CONSTANT.BANNER_IMAGE,function(err,success){
+        callback(err,success)
     });
 }
 

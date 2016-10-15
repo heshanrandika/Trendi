@@ -1996,6 +1996,14 @@ header.variant4 .navbar-compact .navbar-search {
 .title-slide-01, .title-slide-02, .title-slide-03 {
 	text-shadow: 1px 1px 2px rgba(0, 0, 0, .27)
 }
+.fullwidthbanner .title-slide-01 .small, .main-slider .owl-slider .title-slide-01 .small, .main-slider .ss-slides .title-slide-01 .small {
+	font: 3.1em/0.9em Mavenpro-medium, Arial, Helvetica, sans-serif;
+	color: #fff;
+	opacity: .9;
+	text-transform: uppercase;
+	letter-spacing: -.08em
+}
+
 .fullwidthbanner .title-slide-01, .main-slider .owl-slider .title-slide-01, .main-slider .ss-slides .title-slide-01 {
 	position: absolute;
 	top: 22%;

@@ -82,8 +82,12 @@
             return angular.extend({functionId: ADMIN_MOD_CONFIG.REQ_CONFIG.FUNC__GetBranchListToAssign}, _getCObj());
         };
 
-        serviceCalls.getBannerImageDao = function () {
-            return angular.extend({functionId: ADMIN_MOD_CONFIG.REQ_CONFIG.FUNC_GetBannerImage}, _getCObj());
+        serviceCalls.getBannerDao = function () {
+            return angular.extend({functionId: ADMIN_MOD_CONFIG.REQ_CONFIG.FUNC_GetBanner}, _getCObj());
+        };
+
+        serviceCalls.setBannerDao = function () {
+            return angular.extend({functionId: ADMIN_MOD_CONFIG.REQ_CONFIG.FUNC_SetBanner}, _getCObj());
         };
 
         serviceCalls.addBranchDao = function () {

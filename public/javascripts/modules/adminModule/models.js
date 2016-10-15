@@ -449,4 +449,54 @@
         };
     }]);
 
+    mod.controller('bannerModel',['$scope', '$modalInstance','item','adminDataService','Data.Toast','MESSAGE_CONFIG', function ($scope, uiModalInstance, selectedItem, adminDataService, Data_Toast, MESSAGE_CONFIG) {
+        $scope.bannerObject = selectedItem? selectedItem : {};
+        $scope.banner = $scope.bannerObject.banner;
+
+        $scope.uploadedImages = [];
+        $scope.bannerImageSize = {value:1000000, text:'1Mb'};
+        $scope.bannerImageCount = 3;
+
+
+        if(selectedItem){
+            _.each($scope.banner,function(k){
+                $scope.uploadedImages.push({image: k.image});
+            });
+        }
+
+
+        var setData = function(){
+            if(($scope.uploadedImages.length <= 0)){
+                Data_Toast.warning(MESSAGE_CONFIG.ERROR_REQUIRED_IMAGE);
+                $scope.btnPressed = false;
+            }else {
+                for(var index in $scope.uploadedImages){
+                    $scope.banner[index].image = $scope.uploadedImages[index].image;
+                }
+            }
+
+        };
+
+        $scope.save = function(){
+            $scope.btnPressed = true;
+            setData();
+            $scope.bannerObject.banner = $scope.banner;
+            adminDataService.setBanner($scope.bannerObject).then(function (response) {
+                Data_Toast.success(MESSAGE_CONFIG.SUCCESS_SAVED_SUCCESSFULLY);
+                uiModalInstance.close();
+                $scope.btnPressed = false;
+            },function (error) {
+                Data_Toast.error(MESSAGE_CONFIG.ERROR_SAVE_FAIL,error.data.responData.Error);
+                $scope.btnPressed = false;
+            });
+        };
+
+
+
+        $scope.cancel = function () {
+            $scope.initWindow = false;
+            uiModalInstance.dismiss('cancel');
+        };
+    }]);
+
 })(com.TRENDI.ADMIN.modules.mainAdminModule);
