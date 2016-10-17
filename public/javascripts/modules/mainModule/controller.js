@@ -1265,10 +1265,7 @@
             }else{
                 if($scope.shopList.length>0){
                     $scope.mainItemShow = true;
-
-                            $scope.changeList(0);
-
-
+                    $scope.changeList(0);
                 }
 
             }
@@ -1403,6 +1400,7 @@
             $scope.latestItems = [];
             $scope.mainItems = [];
             $scope.bannerImages = [];
+            $scope.bannerObject = {};
             $scope.latestItemShow = false;
             $scope.productItemShow = false;
             $scope.bannerShow = false;
@@ -1431,7 +1429,21 @@
                 $scope.productItemShow = false;
             });
 
-
+            mainDataService.getBanner({shopId:$scope.selectedItem.shopId}).then(function(response){
+                $scope.bannerObject = response.data.responData.data;
+                $scope.bannerShow =true;
+            },function(error){
+                $scope.bannerObject =  {
+                    shopId : $scope.selectedItem.shopId,
+                    banner : [
+                        {image:'../../images/home_boxed_slider1.jpg', class:'title-slide-01', text:[{class:'small', word:'Well come'},{class:'middle', word:'to'},{class:'big', word:'Shop'}]},
+                        {image:'../../images/home_boxed_slider2.jpg', class:'title-slide-02', text:[{class:'small', word:'Well come'},{class:'middle', word:'to'},{class:'big', word:'Shop'}]},
+                        {image:'../../images/home_boxed_slider3.jpg', class:'title-slide-03', text:[{class:'small', word:'Well come'},{class:'middle', word:'to'},{class:'big', word:'Shop'}]}
+                    ]
+                };
+                $scope.bannerShow =true;
+            });
+        
         }
 
 
