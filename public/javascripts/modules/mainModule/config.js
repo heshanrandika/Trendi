@@ -107,7 +107,7 @@
         _.each(defs.URL_CONFIG, function (e, k) {
             $stateProvider.state(k, e);
         });
-        $urlRouterProvider.otherwise('/err');
+        $urlRouterProvider.otherwise('/main/home');
     }]);
 
 })(com.TRENDI.CATEGORY.modules.mainTrendiModule);
