@@ -1,0 +1,209 @@
+<div class="modal-header">
+    <div class="panel-header">
+        <h3> <strong>User</strong> Details </h3>
+    </div>
+</div>
+<div class="modal-body">
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel">
+                <div class="panel-content">
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <form role="form" class="form-validation" novalidate=""  name="itemForm">
+                                <div class="row">
+                                    <div class="col-sm-6">
+
+                                        <div class="panel bg-aero">
+                                            <div class="panel-header">
+                                                <h3>Basic <strong>Details</strong></h3>
+                                            </div>
+                                            <div class="panel-content">
+                                                <div class="row">
+                                                    <div class="col-sm-12">
+                                                        <div class="form-group">
+                                                            <label class="control-label">Name </label>
+                                                            <div class="append-icon">
+                                                                <input type="text"  class="form-control" placeholder="Ex : Jhon.." ng-model="regUser.name" name="name"  ng-required="true">
+                                                                <i class="fa fa-user"></i>
+                                                                <div ng-messages="itemForm.name.$error">
+                                                                    <div ng-message="required">This is required.</div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group" ng-if="addNewuser">
+                                                            <label class="control-label">Email </label>
+                                                            <div class="append-icon">
+                                                                <input class="form-control" ng-model="regUser.email" type="email" ng-required="true" name="email">
+                                                                <i class="fa fa-envelope"></i>
+                                                            </div>
+                                                            <div ng-messages="itemForm.email.$error">
+                                                                <div ng-message="required">This is required.</div>
+                                                                <div ng-message="email">Invalid email address</div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="form-group" ng-if="!addNewuser">
+                                                            <label class="control-label">Email </label>
+                                                            <div class="append-icon">
+                                                                <label class="form-control">{{regUser.email}}  <i class="fa fa-envelope"></i></label>
+                                                            </div>
+                                                        </div>
+                                  
+                                                        <div class="form-group">
+                                                            <label class="control-label">Telephone </label>
+                                                            <div class="append-icon">
+                                                                <input class="form-control" ng-model="regUser.hotline" type="number" name="hotline">
+                                                                <i class="fa fa-phone"></i>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="control-label">Mobile </label>
+                                                            <div class="append-icon">
+                                                                <input class="form-control" ng-model="regUser.mobile" type="number" name="mobile">
+                                                                <i class="fa fa-mobile"></i>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="control-label">Select Title </label>
+                                                            <select ng-model="tmp.selectedTitle" ng-options="data.key for data in titles"
+                                                                    class="form-control form-filter srch-select-opt"></select>
+                                                        </div>
+                                                        <div class="form-group">
+                                                        <md-checkbox ng-model="regUser.changePwd"  aria-label="Entitlements">
+                                                            Change Password
+                                                        </md-checkbox>
+                                                        </div>
+                                                        <div class="panel bg-red" ng-if="regUser.changePwd">
+                                                            <div class="panel-content">
+                                                               <div class="form-group">
+                                                                    <label class="control-label">Password </label>
+                                                                    <div class="append-icon">
+                                                                        <input class="form-control" ng-model="regUser.password" type="password" name="password" ng-required="true">
+                                                                        <i class="fa fa-lock"></i>
+                                                                        <div ng-messages="itemForm.password.$error">
+                                                                            <div ng-message="required">This is required.</div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label class="control-label">Confirm Password </label>
+                                                                    <div class="append-icon">
+                                                                        <input class="form-control" ng-model="regUser.confirm_password" type="password" name="confirm_password" ng-required="true" compare-to="regUser.password">
+                                                                        <i class="fa fa-unlock"></i>
+                                                                        <div ng-messages="itemForm.confirm_password.$error">
+                                                                            <div ng-message="required">This is required.</div>
+                                                                            <div ng-message="compareTo">Password does not match the confirm password.</div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>  
+                                        <div class="panel bg-aero">
+                                            <div class="panel-header">
+                                                <h3><strong>Profile </strong>Picture</h3>
+                                            </div>
+                                            <div class="panel-content">
+                                                <div class="row">
+                                                    <div>
+                                                        <trendi-file-upload files="uploadedImages" image-size="profilePicSize" image-count="profilePicCount"></trendi-file-upload>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                       
+                                    </div>
+                                    <div class="col-sm-6">
+
+                                         <div class="panel bg-aero">
+                                            <div class="panel-header">
+                                                <h3><strong>Change </strong>Entitlements</h3>
+                                            </div>
+                                            <div class="panel-content">
+                                                <div ng-if="loadEntitlements && loadAllEntitlements">
+                                                    <trendi-entitlements input-entitlements="tmp.allEntitlements" output-entitlements="tmp.entitlements" old-entitlements="tmp.oldEntitlements"></trendi-entitlements>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="panel bg-aero">
+                                            <div class="panel-header">
+                                                <h3><strong>Set </strong>Branch</h3>
+                                            </div>
+                                            <div class="panel-content">
+                                                <div>
+                                                    <select ng-model="tmp.selectedBranch" ng-options="data.shop.name for data in branchList"
+                                                    class="form-control form-filter srch-select-opt"></select>
+                                                </div>
+                                                <div>
+                                                    <div>
+                                                        <div class="panel widget-member2">
+                                                            <div class="row">
+                                                                <div class="col-lg-2 col-xs-3">
+                                                                    <img ng-show="tmp.selectedBranch.shop.iconImage != ''" alt="{{ user.name }}" ng-src="{{tmp.selectedBranch.shop.iconImage}}" class="branch-img-icon" />
+                                                                </div>
+                                                                <div class="col-lg-10 col-xs-9">
+                                                                    <div class="clearfix">
+                                                                        <h3 class="m-t-0 member-name"><strong>{{tmp.selectedBranch.shop.name}}</strong> <span class="member-job">Branch #{{tmp.selectedBranch.branchId}}</span></h3>
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        <div class="col-sm-12">
+                                                                            <p><i class="fa fa-map-marker c-gray-light p-r-10"></i> {{tmp.selectedBranch.shop.address.line1 +" "+ tmp.selectedBranch.shop.address.line2}}, {{tmp.selectedBranch.shop.address.city}}, {{tmp.selectedBranch.shop.address.state}}</p>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        <div class="col-xlg-4 col-lg-6 col-sm-4">
+                                                                            <p><i class="fa fa-skype c-gray-light p-r-10"></i> {{tmp.selectedBranch.shop.hotline}}</p>
+                                                                        </div>
+                                                                        <div class="col-xlg-4 col-lg-6 col-sm-4 align-right">
+                                                                            <p><i class="fa fa-mobile-phone c-gray-light p-r-10"></i> {{tmp.selectedBranch.shop.mobile}}</p>
+                                                                        </div>
+                                                                        <div class="col-xlg-4 col-lg-6 col-sm-4 align-right">
+                                                                            <p><i class="fa fa-info-circle c-gray-light p-r-10"></i> {{tmp.selectedBranch.shop.description}}</p>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+
+                                <div class="text-center  m-t-20">
+                                            <div ng-if="addNewuser">
+                                                <button  class="btn btn-primary" ng-disabled="(itemForm.$invalid || uploadedImages.length == 0) || btnPressed" ng-click="save()">
+                                                    Save
+                                                </button>
+                                                <button ng-click="cancel()" class="btn btn-white">
+                                                    Close
+                                                </button>
+                                            </div>
+                                            <div ng-if="!addNewuser">
+                                                <button class="btn btn-primary" ng-disabled="(itemForm.$invalid || uploadedImages.length == 0) || btnPressed" ng-click="update()">
+                                                    Update
+                                                </button>
+                                                <button ng-click="cancel()" class="btn btn-white">
+                                                    Close
+                                                </button>
+                                            </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+
+</div>
