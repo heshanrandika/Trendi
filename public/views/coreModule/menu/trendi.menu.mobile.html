@@ -14,8 +14,6 @@
         <div class="tab-content">
             <ul class="menu-list">
                 <li><a href="#">Account</a></li>
-                <li><a href="#">Wishlist</a></li>
-                <li><a href="#">Checkout</a></li>
                 <li><a href="login.html">Log In</a></li>
                 <li><a href="login.html">Sign Up</a></li>
             </ul>
@@ -32,29 +30,8 @@
             <!-- //end Search -->
         </div>
     </div>
-    <trendi-bag></trendi-bag>
-    <!-- <div class="nav-item item-04"><a><span class="icon-xcart-white">3</span></a>
-        <div class="tab-content">
-            <div class="shoppingcart-box">
-                <div class="title">Recently added item(s)</div>
-                <ul class="list">
-                    <li class="item">
-                        <div class="icon-product-edit"><a class="icon icon-edit" href="#"></a></div>
-                        <div class="icon-product-delete"><a class="icon icon-trash-2" href="#"></a></div>
-                        <a href="product_default.html" class="preview-image"><img class="preview" src="images/products/product-02-small.jpg" alt=""></a>
-                        <div class="description"> <a href="#">Silk Saree</a> <strong class="price">1 x Rs 2000</strong> </div>
-                    </li>
-                    <li class="item">
-                        <div class="icon-product-edit"><a class="icon icon-edit" href="#"></a></div>
-                        <div class="icon-product-delete"><a class="icon icon-trash-2" href="#"></a></div>
-                        <a href="product_default.html" class="preview-image"><img class="preview" src="images/products/product-03-small.jpg" alt=""></a>
-                        <div class="description"> <a href="#">Frock ladies vest</a> <strong class="price">2 x Rs 750</strong> </div>
-                    </li>
-                </ul>
-                <div class="total">Total: <strong>Rs 3500</strong></div>
-                <a href="#" class="btn btn-mega">Visit Store</a>
-                <div class="view-link"><a href="shopping_cart.html">View Bag </a></div>
-            </div>
-        </div>
-    </div> -->
+    <div class="nav-item item-04"><a><span class="icon-xcart-white">{{bagItemCount}}</span></a>
+        <trendi-bag template="main.bag.mobile" list-size="bagItemCount"></trendi-bag>
+    </div>
+
 </div>

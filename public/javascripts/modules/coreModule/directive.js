@@ -507,6 +507,8 @@
             },
             templateUrl:'/views/coreModule/menu/trendi.menu.mobile.html',
             link: function(scope, elm, attrs) {
+                scope.bagItemCount = 0;
+
                 elm.ready(function () {
                     var menu = elm.trendiMenu({
                         minWidth:	12,	 // minimum width of submenus in em units

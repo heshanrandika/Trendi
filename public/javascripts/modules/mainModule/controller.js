@@ -191,13 +191,13 @@
 
             gotoMessage : function () {
                 $location.search({});
-                $scope.getCounts();
+                $scope.menuFunc.getCounts();
                 $location.path('main/message');
             },
 
             searchType : function (event) {
                 if(event.keyCode == 13){
-                    $scope.searchTerm();
+                    $scope.menuFunc.searchTerm();
                 }
             },
 

@@ -18,9 +18,7 @@
         var $mobileNavItems = $(".mobile-nav .nav-item"),
             $mobileNavItemsLink = $(".mobile-nav .nav-item > a");
         $mobileNavItemsLink.each(function () {
-            var $this =
-                    $(this),
-                timer;
+            var $this = $(this),timer;
             $this.on("click", function (e) {
                 e.preventDefault();
                 if (!$this.parent().hasClass("active")) {

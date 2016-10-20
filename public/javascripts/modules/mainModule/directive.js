@@ -232,8 +232,12 @@
     mod.directive('trendiBag',['mainDataService','Login.Window','$location',function(mainDataService, Login_Window, $location){
         return{
             restrict:'E',
-            templateUrl:'/views/mainModule/directiveViews/main.bag.small.html',
             scope:{
+                listSize:'='
+            },
+            templateUrl: function(elem,attrs) {
+                var url = '/views/mainModule/directiveViews/'+(attrs.template? attrs.template : 'main.bag.small')+'.html';
+                return url;
             },
             link:function(scope, elm, attrs){
                 scope.user = Login_Window.checkUser();
