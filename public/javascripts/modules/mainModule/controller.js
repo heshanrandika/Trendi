@@ -46,9 +46,7 @@
 
             });
 
-        $scope.homeClick = function(val){
-            var encrypt = CryptoJS.TripleDES.encrypt("message", "dsgfbdusiduigdfgndsgyufigyfldg");
-            var decrypted = CryptoJS.TripleDES.decrypt(encrypt, "dsgfbdusiduigdfgndsgyufigyfldg");
+/*        $scope.homeClick = function(val){
             if($location.path().split("/")[1] == "main" && undefined == $location.path().split("/")[2]){
                 $state.go('main.home');
             }else if(val == 0){
@@ -56,9 +54,8 @@
             }
 
         };
-        $scope.homeClick();
-
-        $scope.getShopList = function () {
+        
+          $scope.getShopList = function () {
             mainDataService.getShopList(
                 {
                     skip: 0,
@@ -69,7 +66,7 @@
                 },function(){
                 });
         };
-        $scope.getShopList();
+        
 
         $scope.gotoShop = function () {
             $location.search({});
@@ -151,12 +148,127 @@
 
 
         };
-        $scope.getCounts();
+        
 
         $scope.clickMenu = function(path){
             $location.path('main/deals/all/all');
         }
+*/
 
+        $scope.menuFunc = {
+            homeClick : function(val){
+                if($location.path().split("/")[1] == "main" && undefined == $location.path().split("/")[2]){
+                    $state.go('main.home');
+                }else if(val == 0){
+                    $state.go('main.home');
+                }
+
+            },
+
+            getShopList : function () {
+                mainDataService.getShopList(
+                    {
+                        skip: 0,
+                        limit:6
+                    }
+                ).then(function(response){
+                        $scope.shopList = response.data.responData.data.list;
+                    },function(){
+                    });
+            },
+
+
+            gotoShop : function () {
+                $location.search({});
+                $location.path('main/shop');
+            },
+
+
+            searchTerm : function () {
+                $location.search({});
+                $location.path('main/search/'+($scope.searchKey == ''?'all':$scope.searchKey));
+            },
+
+            gotoMessage : function () {
+                $location.search({});
+                $scope.getCounts();
+                $location.path('main/message');
+            },
+
+            searchType : function (event) {
+                if(event.keyCode == 13){
+                    $scope.searchTerm();
+                }
+            },
+
+            loginOpen : function () {
+                if($scope.user){
+                    Login_Window.logoutUser();
+                }else{
+                    Login_Window.showLogin();
+                }
+
+            },
+
+            checkLogin : function () {
+                $scope.user =  Login_Window.checkUser();
+                return $scope.user
+            },
+
+
+            womenMenu : [
+                {category:'Women', search:'Dress', value:'Dresses'},
+                {category:'Women', search:'Jean', value:'Jeans'},
+                {category:'Women', search:'Pant', value:'Pants'},
+                {category:'Women', search:'Denim', value:'Denim'},
+                {category:'Women', search:'Skirt', value:'Skirts'},
+                {category:'Women', search:'Office_Wear', value:'Office Wear'},
+                {category:'Women', search:'Casual_Top', value:'Casual Tops'},
+                {category:'Women', search:'Accessory', value:'Accessories'},
+                {category:'Women', search:'Bottom', value:'Bottoms'},
+                {category:'Women', search:'Foot_Wear', value:'Foot Wear'}
+            ],
+
+            menMenu : [
+                {category:'Men', search:'T_Shirt', value:'T-Shirts'},
+                {category:'Men', search:'Shirt', value:'Shirts'},
+                {category:'Men', search:'Trouser', value:'Trousers'},
+                {category:'Men', search:'Short', value:'Shorts'},
+                {category:'Men', search:'Denim', value:'Denim'},
+                {category:'Men', search:'Office_Wear', value:'Office Wear'}
+            ],
+
+            kidsMenu : [
+                {category:'Kids', search:'Shirt', value:'Shirts'},
+                {category:'Kids', search:'Napkin', value:'Napkins'},
+                {category:'Kids', search:'Short', value:'Shorts'},
+                {category:'Kids', search:'Frock', value:'Frock'},
+                {category:'Kids', search:'Denim', value:'Denim'},
+                {category:'Kids', search:'Skirt', value:'Skirts'}
+
+            ],
+
+
+            getCounts : function(){
+                mainDataService.getMessageCount({type:'INBOX', read:true}).then(function(response){
+                    $scope.unreadCount = response.data.responData.data.count;
+                    $scope.messageList.push.apply($scope.messageList, response.data.responData.data.list);
+                },function(){
+                    $scope.unreadCount = 0;
+                });
+
+
+            },
+
+
+            clickMenu : function(path){
+                $location.path('main/deals/all/all');
+            }
+        };
+
+        $scope.menuFunc.homeClick();
+        $scope.menuFunc.getShopList();
+        $scope.menuFunc.getCounts();
     }]);
 
     mod.controller('trendiMainHomeController', ['$scope', '$rootScope','$state','mainDataService','$location', function ($scope, $rootScope, $state, mainDataService, $location) {

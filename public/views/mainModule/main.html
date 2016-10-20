@@ -11,7 +11,7 @@
                     <div class="background">
                         <div class="container">
                             <!-- Logo -->
-                            <div class="navbar-logo pull-left"> <a href="index.html"><img src="images/header-logo.png" alt="Trendi"></a></div>
+                            <div class="navbar-logo pull-left"> <a><img src="images/header-logo.png" alt="Trendi"></a></div>
                             <div class="navbar-welcome pull-left compact-hidden hidden-xs"><div><img ng-if="user.image" ng-src="{{user.image}}" class="md-avatar" height="42" width="42"></div> {{user.name?'Welcome '+user.name:''}} </div>
                             <div class="clearfix visible-sm"></div>
                             <!-- //end Logo -->
@@ -20,10 +20,10 @@
                                 <div class="btn-group compact-hidden"> <a  class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown"> <span class="icon icon-vcard"></span> Account </a>
                                 </div>
 
-                                <div class="btn-group compact-hidden"> <a class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown" id="myselector" ng-click="gotoMessage()"> <span class="icon icon-envelop"></span> Message <span class="label label-info pull-right" ng-if="unreadCount > 0">{{unreadCount}}</span></a>
+                                <div class="btn-group compact-hidden"> <a class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown" id="myselector" ng-click="menuFunc.gotoMessage()"> <span class="icon icon-envelop"></span> Message <span class="label label-info pull-right" ng-if="unreadCount > 0">{{unreadCount}}</span></a>
                                 </div>
 
-                                <div class="btn-group compact-hidden"> <a class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown" ng-click="loginOpen()"> <span class="icon icon-user"></span> {{checkLogin()?'Logout':'Login'}} </a>
+                                <div class="btn-group compact-hidden"> <a class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown" ng-click="menuFunc.loginOpen()"> <span class="icon icon-user"></span> {{menuFunc.checkLogin()?'Logout':'Login'}} </a>
                                 </div>
 
                                 <trendi-bag></trendi-bag>
@@ -34,61 +34,41 @@
                             <!-- Search -->
                             <form class="navbar-search form-inline hidden-xs pull-right" role="form">
                                 <div class="form-group">
-                                    <button type="submit" ng-click="searchTerm()" class="button"><span class="icon-search-2"></span></button>
-                                    <input type="text" class="form-control" placeholder="Search" ng-keyup="searchType($event)" ng-model="searchKey">
+                                    <button type="submit" ng-click="menuFunc.searchTerm()" class="button"><span class="icon-search-2"></span></button>
+                                    <input type="text" class="form-control" placeholder="Search" ng-keyup="menuFunc.searchType($event)" ng-model="searchKey">
                                 </div>
-                                <!--<div class="dropdown-search">
-                                    <ul>
-                                        <li><a href="#"><span class="amount">12</span>search auto</a></li>
-                                        <li><a href="#"><span class="amount">22</span>search auto</a></li>
-                                        <li><a href="#"><span class="amount">2</span>search auto</a></li>
-                                        <li><a href="#"><span class="amount">45</span>search auto</a></li>
-                                        <li><a href="#"><span class="amount">11</span>search auto</a></li>
-                                        <li><a href="#"><span class="amount">4</span>search auto</a></li>
-                                    </ul>
-                                </div>-->
                             </form>
                             <!-- //end Search --> <!-- Main menu -->
                             <dl class="navbar-main-menu hidden-xs">
                                 <dt class="item">
                                 <ul class="sf-menu">
-                                    <li><a ng-click="homeClick(0)" class="btn-main"><span class="icon icon-home"></span></a></li>
+                                    <li><a ng-click="menuFunc.homeClick(0)" class="btn-main"><span class="icon icon-home"></span></a></li>
                                 </ul>
                                 </dt>
                                 <dd></dd>
                                 <dt class="item">
-                                    <trendi-menu-bar menu-type="womenMenu"></trendi-menu-bar>
+                                    <trendi-menu-bar menu-type="menuFunc.womenMenu"></trendi-menu-bar>
                                 </dt>
                                 <dd></dd>
                                 <dt class="item">
-                                    <trendi-menu-bar menu-type="menMenu"></trendi-menu-bar>
+                                    <trendi-menu-bar menu-type="menuFunc.menMenu"></trendi-menu-bar>
                                 </dt>
                                 <dd></dd>
                                 <dt class="item">
-                                    <trendi-menu-bar menu-type="kidsMenu"></trendi-menu-bar>
+                                    <trendi-menu-bar menu-type="menuFunc.kidsMenu"></trendi-menu-bar>
                                 </dt>
                                 <dd></dd>
                                 <dt class="item">
                                 <ul class="sf-menu">
-                                    <li> <a ng-click="clickMenu('main.deals')"> Today's deals </a>
+                                    <li> <a ng-click="menuFunc.clickMenu('main.deals')"> Today's deals </a>
 
                                     </li>
                                 </ul>
                                 </dt>
                                 <dd></dd>
-                                <dt class="item">
-                                <ul class="sf-menu">
-                                    <li> <a href="gallery_3d.html"> Offers </a>
-
-                                    </li>
-                                </ul>
-                                </dt>
-                                <dd></dd>
-                                <dt class="item compact-hidden"> <a href="#" class="btn-main line">Promotions</a> </dt>
-                                <trendi-wide-menu-bar></trendi-wide-menu-bar>
-                                <dt class="item compact-hidden"> <a ng-click="gotoShop()" class="btn-main line">SHOPS</a> </dt>
+                                <dt class="item compact-hidden"> <a ng-click="menuFunc.gotoShop()" class="btn-main line">SHOPS</a> </dt>
                                 <trendi-wide-menu-bar shoplist="shopList"></trendi-wide-menu-bar>
-                                <dt class="item"> <a href="contacts.html" class="btn-main line">Contacts</a> </dt>
+                                <dt class="item"> <a class="btn-main line">Contacts</a> </dt>
                                 <dd></dd>
                             </dl>
                             <!-- //end Main menu -->
@@ -97,7 +77,7 @@
                     </div>
                     <!-- Mobile menu -->
                     <div class="container visible-xs">
-                        <trendi-mobile-menu></trendi-mobile-menu>
+                        <trendi-mobile-menu menu-func="menuFunc"></trendi-mobile-menu>
 
                     </div>
 

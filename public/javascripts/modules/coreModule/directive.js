@@ -502,14 +502,11 @@
         return {
             restrict: 'E',
             replace: true,
-            scope: {},
+            scope: {
+                menuFunc : '='
+            },
             templateUrl:'/views/coreModule/menu/trendi.menu.mobile.html',
             link: function(scope, elm, attrs) {
-                scope.slides = [];
-                scope.clickMenu = function(val){
-                    delete $location.$$search.itemId;
-                    $location.path('main/products/all/'+val.category+'/'+val.value);
-                };
                 elm.ready(function () {
                     var menu = elm.trendiMenu({
                         minWidth:	12,	 // minimum width of submenus in em units
