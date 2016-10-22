@@ -4,11 +4,11 @@
         <section class="container">
             <nav class="breadcrumbs"> <a ng-click="homeBtn()"> Home </a> <span class="icon-arrow-right-3"></span> <a ng-click="selectedItem.itemId && backTo()"> #{{selectParams.shop}} </a> <span class="icon-arrow-right-3"></span>{{selectParams.selected}}</nav>
         </section>
-        <section ng-hide="uiRef" class="container">
+        <section ng-hide="uiRef" class="container" >
             <div class="row">
 
                 <!-- Left column -->
-                <aside class="col-sm-4 col-md-3 col-lg-3 content-aside">
+                <aside class="col-sm-4 col-md-3 col-lg-3 content-aside" id="content-aside-id">
 
                     <trendi-shop-list selcted-shop="selectedshop"></trendi-shop-list>
 
@@ -47,7 +47,7 @@
                 <!-- //end Left column -->
 
                 <!-- Right column -->
-                <section class="col-sm-8 col-md-9 col-lg-9 content-center">
+                <section class="col-sm-8 col-md-9 col-lg-9 content-center" id="content-center-id">
 
                     <!-- Filters -->
                     <div class="filters-panel">

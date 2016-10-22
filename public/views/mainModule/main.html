@@ -1,5 +1,9 @@
 <div class="responsive">
-    <div id="outer">
+    <nav id="off-canvas-menu" >
+        <div id="off-canvas-menu-title">MENU<span class="icon icon-cancel-3" id="off-canvas-menu-close"></span></div>
+        <trendi-expand-menu menu-func="menuFunc"></trendi-expand-menu>
+    </nav>
+    <div id="outer" swaper>
         <div id="outer-canvas"> <!-- Navbar -->
             <header>
 
@@ -67,7 +71,7 @@
                                 </dt>
                                 <dd></dd>
                                 <dt class="item compact-hidden"> <a ng-click="menuFunc.gotoShop()" class="btn-main line">SHOPS</a> </dt>
-                                <trendi-wide-menu-bar shoplist="shopList"></trendi-wide-menu-bar>
+                                <trendi-wide-menu-bar shoplist="menuFunc.shopList"></trendi-wide-menu-bar>
                                 <dt class="item"> <a class="btn-main line">Contacts</a> </dt>
                                 <dd></dd>
                             </dl>

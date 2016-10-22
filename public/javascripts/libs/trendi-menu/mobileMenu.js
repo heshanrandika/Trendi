@@ -4,7 +4,7 @@
 ;(function($){
     $.fn.trendiMenu = function(options) {
         $("#off-canvas-menu-toggle").bind("click", function (e) {
-            $("body").toggleClass("off-canvas-menu-open");
+            $("body").toggleClass("responsive notouch off-canvas-menu-open");
             $("header .navbar").removeClass("navbar-compact");
             $("html, body").animate({
                 scrollTop: 0
@@ -12,7 +12,7 @@
             e.preventDefault()
         });
         $("#off-canvas-menu-close").bind("click", function (e) {
-            $("body").removeClass("off-canvas-menu-open");
+            $("body").removeClass("responsive notouch off-canvas-menu-open");
             $mobileNavItems.removeClass("active")
         });
         var $mobileNavItems = $(".mobile-nav .nav-item"),

@@ -524,19 +524,33 @@
         };
     }]);
 
+    mod.directive('swaper',[function() {
+        return {
+            restrict: 'A',
+            link: function(scope, elm, attrs) {
+                elm.ready(function () {
+                    var menu = elm.mainContainer();
+                });
+            }
+        };
+    }]);
+
     mod.directive('trendiExpandMenu',['$location',function($location) {
         return {
             restrict: 'E',
             replace: true,
             scope: {
-                shop:'='
+                menuFunc:'='
             },
             templateUrl:'/views/coreModule/menu/trendi.menu.expand.html',
             link: function(scope, elm, attrs) {
-                scope.slides = [];
                 scope.clickMenu = function(val){
                     delete $location.$$search.itemId;
-                    $location.path('main/products/all/'+val.category+'/'+val.value);
+                    $location.path('main/products/all/'+val.category+'/'+val.search);
+                };
+                scope.clickParentMenu = function(val){
+                    delete $location.$$search.itemId;
+                    $location.path('main/products/all/'+val.category+'/all');
                 };
                 elm.ready(function () {
                     var menu = elm.trendiExpander({

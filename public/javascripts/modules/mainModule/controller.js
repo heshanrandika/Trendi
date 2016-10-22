@@ -172,7 +172,7 @@
                         limit:6
                     }
                 ).then(function(response){
-                        $scope.shopList = response.data.responData.data.list;
+                        $scope.menuFunc.shopList = response.data.responData.data.list;
                     },function(){
                     });
             },
