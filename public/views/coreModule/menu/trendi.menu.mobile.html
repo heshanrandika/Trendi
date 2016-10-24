@@ -4,9 +4,9 @@
     <div class="nav-item item-02"><a><span class="icon icon-vcard"></span></a>
         <div class="tab-content">
             <ul class="menu-list">
-                <li><a href="#">Account</a></li>
-                <li><a href="login.html">Log In</a></li>
-                <li><a href="login.html">Sign Up</a></li>
+                <li><a >Account</a></li>
+                <li><a ng-click="menuFunc.gotoMessage()">Message</a></li>
+                <li><a ng-click="menuFunc.loginOpen()">{{menuFunc.checkLogin()?'Log Out':'Log In'}}</a></li>
             </ul>
         </div>
     </div>
@@ -14,8 +14,8 @@
         <div class="tab-content"> <!-- Search -->
             <form class="navbar-search form-inline" role="form">
                 <div class="form-group">
-                    <button type="submit" class="button"><span class="icon-search-2"></span></button>
-                    <input type="text" class="form-control" value="Search" onblur="if (this.value == '') {this.value = 'Search';}" onfocus="if(this.value == 'Search') {this.value = '';}">
+                    <button type="submit"  ng-click="menuFunc.searchTerm()" class="button"><span class="icon-search-2"></span></button>
+                    <input type="text" class="form-control" placeholder="Search" ng-keyup="menuFunc.searchType($event)" ng-model="menuFunc.searchKey">
                 </div>
             </form>
             <!-- //end Search -->

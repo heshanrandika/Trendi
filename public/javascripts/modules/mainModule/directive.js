@@ -263,7 +263,6 @@
                     }else{
                         scope.listSize = 0;
                     }
-
                 };
 
                 scope.closeBag = function(){

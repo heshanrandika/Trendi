@@ -24,10 +24,10 @@
                                 <div class="btn-group compact-hidden"> <a  class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown"> <span class="icon icon-vcard"></span> Account </a>
                                 </div>
 
-                                <div class="btn-group compact-hidden"> <a class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown" id="myselector" ng-click="menuFunc.gotoMessage()"> <span class="icon icon-envelop"></span> Message <span class="label label-info pull-right" ng-if="unreadCount > 0">{{unreadCount}}</span></a>
+                                <div class="btn-group compact-hidden"> <a class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown" id="myselector" ng-click="menuFunc.gotoMessage()"> <span class="icon icon-envelop"></span> Message <span class="label label-info pull-right" ng-if="menuFunc.unreadCount > 0">{{menuFunc.unreadCount}}</span></a>
                                 </div>
 
-                                <div class="btn-group compact-hidden"> <a class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown" ng-click="menuFunc.loginOpen()"> <span class="icon icon-user"></span> {{menuFunc.checkLogin()?'Logout':'Login'}} </a>
+                                <div class="btn-group compact-hidden"> <a class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown" ng-click="menuFunc.loginOpen()"> <span class="icon icon-user"></span> {{menuFunc.checkLogin()?'Log Out':'Log In'}} </a>
                                 </div>
 
                                 <trendi-bag list-size="bagItemCount"></trendi-bag>
@@ -39,7 +39,7 @@
                             <form class="navbar-search form-inline hidden-xs pull-right" role="form">
                                 <div class="form-group">
                                     <button type="submit" ng-click="menuFunc.searchTerm()" class="button"><span class="icon-search-2"></span></button>
-                                    <input type="text" class="form-control" placeholder="Search" ng-keyup="menuFunc.searchType($event)" ng-model="searchKey">
+                                    <input type="text" class="form-control" placeholder="Search" ng-keyup="menuFunc.searchType($event)" ng-model="menuFunc.searchKey">
                                 </div>
                             </form>
                             <!-- //end Search --> <!-- Main menu -->

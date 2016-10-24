@@ -5,7 +5,7 @@
     "use strict";
 
     mod.controller('trendiMainController', ['$scope', '$rootScope','$state','mainDataService','$location','Login.Window','socket','webNotification','$timeout', function ($scope, $rootScope, $state, mainDataService, $location, Login_Window, socket, webNotification, $timeout) {
-        $scope.searchKey =  '';
+
         $scope.messageList = [];
         $scope.unreadCount = 0;
         var notifyCount = 1;
@@ -186,7 +186,7 @@
 
             searchTerm : function () {
                 $location.search({});
-                $location.path('main/search/'+($scope.searchKey == ''?'all':$scope.searchKey));
+                $location.path('main/search/'+($scope.menuFunc.searchKey == ''?'all':$scope.menuFunc.searchKey));
             },
 
             gotoMessage : function () {
@@ -251,10 +251,10 @@
 
             getCounts : function(){
                 mainDataService.getMessageCount({type:'INBOX', read:true}).then(function(response){
-                    $scope.unreadCount = response.data.responData.data.count;
+                    $scope.menuFunc.unreadCount = response.data.responData.data.count;
                     $scope.messageList.push.apply($scope.messageList, response.data.responData.data.list);
                 },function(){
-                    $scope.unreadCount = 0;
+                    $scope.menuFunc.unreadCount = 0;
                 });
 
 
@@ -269,6 +269,7 @@
         $scope.menuFunc.homeClick();
         $scope.menuFunc.getShopList();
         $scope.menuFunc.getCounts();
+        $scope.menuFunc.searchKey =  '';
     }]);
 
     mod.controller('trendiMainHomeController', ['$scope', '$rootScope','$state','mainDataService','$location', function ($scope, $rootScope, $state, mainDataService, $location) {

@@ -508,6 +508,7 @@
             templateUrl:'/views/coreModule/menu/trendi.menu.mobile.html',
             link: function(scope, elm, attrs) {
                 scope.bagItemCount = 0;
+                scope.bagOpen = false;
 
                 elm.ready(function () {
                     var menu = elm.trendiMenu({

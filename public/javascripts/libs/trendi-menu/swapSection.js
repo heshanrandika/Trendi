@@ -3,8 +3,15 @@
  */
 ;(function($){
     $.fn.mainContainer = function() {
-        $("#content-aside-id").click(function (e) {
-            console.log("ffffffff");
+        $(window).on('hashchange', function(e){
+            setTimeout(function(){
+                console.log("eeeeeeeeeeeeeeeeee")
+                var $contentcenter = $("#content-center-id"),
+                    $contentaside = $("#content-aside-id");
+                if ($(".visible-xs").is(":visible")) $contentcenter.insertBefore($contentaside);
+                else $contentaside.insertBefore($contentcenter)
+            }, 100);
+
         });
         $(window).resize(function () {
             var $contentcenter = $("#content-center-id"),
