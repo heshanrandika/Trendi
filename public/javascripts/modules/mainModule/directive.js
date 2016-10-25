@@ -199,7 +199,7 @@
                 itemId: '='
             },
             template: '<div>'+
-            '<button class="btn btn-mega btn-lg" type="submit" ng-click="addToWatchList()"><span class="icon-xcart-animate"><span class="box">B</span><span class="handle"></span></span>  Add to Bag</button>'+
+            '<button class="btn btn-mega btn-lg" type="submit" ng-click="addToWatchList()"> Add to Bag</button>'+
             '</div>',
 
             link: function(scope, elm, attrs) {

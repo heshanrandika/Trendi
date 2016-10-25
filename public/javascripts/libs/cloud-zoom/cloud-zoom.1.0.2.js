@@ -170,7 +170,7 @@
 		We need the dummy background image as IE does not trap mouse events on
 		transparent parts of a div.
 		*/
-            $mouseTrap = jWin.parent().append(format("<div class='mousetrap' style='background-image:url(\".\");z-index:999;position:absolute;width:%0px;height:%1px;left:%2px;top:%3px;\'></div>", sImg.outerWidth(), sImg.outerHeight(), 0, 0)).find(':last');
+            $mouseTrap = jWin.parent().append(format("<div class='mousetrap' style='background-image:url(\".\");z-index:9900;position:absolute;width:%0px;height:%1px;left:%2px;top:%3px;\'></div>", sImg.outerWidth(), sImg.outerHeight(), 0, 0)).find(':last');
 
             //////////////////////////////////////////////////////////////////////			
             /* Do as little as possible in mousemove event to prevent slowdown. */
@@ -347,7 +347,7 @@
                 // Wrap an outer div around the link so we can attach things without them becoming part of the link.
                 // But not if wrap already exists.
                 if ($(this).parent().attr('id') != 'wrap') {
-                    $(this).wrap('<div id="wrap" style="top:0px;z-index:9999;position:relative;"></div>');
+                    $(this).wrap('<div id="wrap" style="top:0px;z-index:9900;position:relative;"></div>');
                 }
                 opts = $.extend({}, $.fn.CloudZoom.defaults, options);
                 opts = $.extend({}, opts, relOpts);

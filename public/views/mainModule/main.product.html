@@ -159,6 +159,9 @@
                             </div>
 
                         <!--<div class="large-image vertical hidden-xs"> <img alt="#" class = "cloudzoom" src = "images/products/product-02-01-593x722.jpg" data-cloudzoom = "zoomImage: 'images/products/product-02-01-888x1080.jpg', autoInside : 991" /> </div>-->
+
+                    </div>
+                    <div class="large-image vertical hidden-xs">
                         <div ng-if="renderd" zoom2 big="selectedImage.big" tiny="selectedImage.tiny" small="selectedImage.small" alt="" title="{{selectedItem.item.name}}"></div>
                     </div>
                 </div>
@@ -198,8 +201,17 @@
                                     <span class="input-group-addon">+</span> </div>
                             </div>-->
                             <div class="clearfix visible-xs"></div>
-                            <trendi-watch-list-add item-id="selectedItem.itemId"></trendi-watch-list-add>
-                            <trendi-message-small></trendi-message-small>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <trendi-watch-list-add item-id="selectedItem.itemId"></trendi-watch-list-add>
+                                </div>
+                                <div class="col-lg-6">
+                                    <trendi-message-small></trendi-message-small>
+                                </div>
+                            </div>
+
+
+
                         </form>
                         <div class="panel-group accordion-simple" id="product-accordion">
                             <div class="panel">
