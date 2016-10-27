@@ -152,14 +152,11 @@
             <div class="product-view row">
                 <div class="col-sm-6 col-md-6 col-lg-6">
                     <div class="hidden-xs flexslider-thumb-vertical-outer">
-                            <div class="flexslider flexslider-thumb-vertical vertical min">
-                                <ul class="previews-list slides" id="back-btn">
-                                    <li ng-repeat="img in imageArray track by $index " ng-click="imageSelect($index)"><img class = 'cloudzoom-gallery' alt="#"  ng-src = "{{img}}"  ></li>
-                                </ul>
-                            </div>
-
-                        <!--<div class="large-image vertical hidden-xs"> <img alt="#" class = "cloudzoom" src = "images/products/product-02-01-593x722.jpg" data-cloudzoom = "zoomImage: 'images/products/product-02-01-888x1080.jpg', autoInside : 991" /> </div>-->
-
+                        <div class="flexslider flexslider-thumb-vertical vertical min">
+                            <ul class="previews-list slides" id="back-btn">
+                                <li ng-repeat="img in imageArray track by $index " ng-click="imageSelect($index)"><img class = 'cloudzoom-gallery' alt="#"  ng-src = "{{img}}"  ></li>
+                            </ul>
+                        </div>
                     </div>
                     <div class="large-image vertical hidden-xs">
                         <div ng-if="renderd" zoom2 big="selectedImage.big" tiny="selectedImage.tiny" small="selectedImage.small" alt="" title="{{selectedItem.item.name}}"></div>
@@ -276,7 +273,7 @@
                 <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 divider-right"> <a class="item"><span class="icon icon-users-2"></span>
                     <div class="text"> <span class="title">Join With Us</span></div>
                 </a> </div>
-                <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 divider-right"><a class="item"> <span class="fa fa-map-marker"></span>
+                <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 divider-right"><a class="item"> <span class="icon icon-pushpin"></span>
                     <div class="text"><span class="title" ng-click="showMap = !showMap">Map View</span> </div>
                 </a> </div>
             </section>
@@ -290,7 +287,7 @@
 
                     <div class="row">
                         <div class="product-carousel">
-                            <trendi-owl-slider images="relatedItems" items="4" stop-on-hover="true"  auto-play="true" navigation-display="true"></trendi-owl-slider>
+                            <trendi-owl-slider images="relatedItems" items="4" stop-on-hover="true"  auto-play="true" navigation-display="true" action="moduleClick"></trendi-owl-slider>
                         </div>
                     </div>
 
