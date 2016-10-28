@@ -134,7 +134,7 @@ function register(req,callback) {
 
                     };
                     daf.Insert(query, CONSTANT.USER_COLLECTION, function (err, success) {
-                        console.log("^^^^^^^  Shop Added ^^^^^^^ : ");
+                        console.log("^^^^^^^  user registration ^^^^^^^ : ");
                         if (err) {
                             callback(("Registration Failed :" + err), null);
                         } else {
@@ -155,6 +155,16 @@ function register(req,callback) {
                         }
                     });
                 })
+            }else if(regUser.from == 'f' || regUser.from == 'g'){
+                var query = { 'email': regUser.email };
+                var changeDoc = {$set:{'image': regUser.image ? regUser.image : '', 'name': regUser.name ? regUser.name : 'unknown'}};
+                daf.Upsert(query,changeDoc,CONSTANT.USER_COLLECTION,function(err,success){
+                    if(success){
+                        callback(("Already Registered : Value : "+ regUser.email),null);
+                    }else{
+                        callback(err,success)
+                    }
+                });
             }else{
                 callback(("Already Registered : Value : "+ regUser.email),null);
             }

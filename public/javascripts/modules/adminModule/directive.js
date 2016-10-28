@@ -322,6 +322,14 @@
     mod.directive('trendiMap',[function(){
 
         var controller = ['$scope','uiGmapIsReady', '$timeout', 'uiGmapLogger', '$http', 'rndAddToLatLon','uiGmapGoogleMapApi',function ($scope, uiGmapIsReady, $timeout, $log, $http, rndAddToLatLon,GoogleMapApi) {
+            var direction = $scope.getPoint;
+
+            GoogleMapApi.then(function(maps) {
+                $scope.googleVersion = maps.version;
+                maps.visualRefresh = true;
+
+            });
+
             $scope.key = 80;
             $scope.location={
                 latitude : $scope.getPoint[0]?$scope.getPoint[0]:6.933,
@@ -340,6 +348,8 @@
 
                         $scope.getPoint[0] = originalEventArgs[0].latLng.lat();
                         $scope.getPoint[1] = originalEventArgs[0].latLng.lng();
+                        $scope.location['latitude']= $scope.getPoint[0];
+                        $scope.location['longitude']= $scope.getPoint[1];
                         //scope apply required because this event handler is outside of the angular domain
                         $scope.$apply();
                     }
@@ -353,9 +363,32 @@
                             $scope.getPoint[1] = marker.getPosition().lng();
                         }
                     }
-                }
+                },
+                control : {}
 
             };
+
+
+            var events = {
+                places_changed: function (searchBox) {
+                    var place = searchBox.getPlaces();
+                    if (!place || place == 'undefined' || place.length == 0) {
+                        console.log('no place data :(');
+                        return;
+                    }
+
+                    $scope.map["center"] = {
+                        "latitude": place[0].geometry.location.lat(),
+                        "longitude": place[0].geometry.location.lng()
+                    };
+                    $scope.map["zoom"] = 18;
+
+                }
+            };
+            $scope.map.searchbox = { template: 'searchbox.tpl.html', events: events, parentdiv:'searchBoxParent'};
+
+
+
             if($scope.getPoint[0] == undefined && $scope.getPoint[1] == undefined){
                 $scope.map.lockLocation = false;
             }else{
@@ -372,6 +405,7 @@
             }
 
         }];
+
 
         return{
             restrict:'E',

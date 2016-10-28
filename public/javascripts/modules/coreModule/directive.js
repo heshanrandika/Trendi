@@ -1216,6 +1216,24 @@
                 control : {}
             };
 
+            var events = {
+                places_changed: function (searchBox) {
+                    var place = searchBox.getPlaces();
+                    if (!place || place == 'undefined' || place.length == 0) {
+                        console.log('no place data :(');
+                        return;
+                    }
+
+                    $scope.map = {
+                        "center": {
+                            "latitude": place[0].geometry.location.lat(),
+                            "longitude": place[0].geometry.location.lng()
+                        },
+                        "zoom": 18
+                    };
+                }
+            };
+            $scope.map.searchbox = { template: 'searchbox.tpl.html', events: events, parentdiv:'searchBoxParent'};
 
             $scope.map.markers =  [
                 {
@@ -1227,9 +1245,17 @@
                     options: {
                         labelContent: 'Your location',
                         labelAnchor: "26 0",
-                        labelClass: "marker-labels"
+                        labelClass: "marker-labels",
+                        draggable: true,
+                    },
+                    events: {
+                        dragend: function (marker, eventName, args) {
 
+                            direction.start.lat = marker.getPosition().lat();
+                            direction.start.lon = marker.getPosition().lng();
+                        }
                     }
+
                 },
                 {
                     id: 3,
@@ -1243,6 +1269,7 @@
                         name: $scope.direction.end.name
                     }
                 }
+
             ];
 
 

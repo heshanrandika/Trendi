@@ -31,7 +31,7 @@
 
     ns.mainAdminModule.config(['uiGmapGoogleMapApiProvider', function (GoogleMapApi) {
             GoogleMapApi.configure({
-                libraries: 'weather,geometry,visualization'
+                libraries: 'weather,geometry,visualization,places'
             });
     }]);
 

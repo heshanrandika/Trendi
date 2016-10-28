@@ -1,9 +1,15 @@
 <div>
     <button type="submit" class="button" ng-click="getDirection()"><span class="fa fa-car">Get Direction</span></button>
 </div>
+<div id="searchBoxParent"></div>
+<script type="text/ng-template" id="searchbox.tpl.html">
+    <input type="text" placeholder="Search Box" style="width: 200px;
+    border-radius: 9px;">
+</script>
 <div class="container">
     <ui-gmap-google-map center="map.center" zoom="map.zoom" control="map.control">
-        <ui-gmap-marker ng-repeat="m in map.markers" coords="m" icon="m.icon" click="onMarkerClicked(m)" idKey="m.id" options="m.options">
+        <ui-gmap-search-box template="map.searchbox.template" events="map.searchbox.events" parentdiv="map.searchbox.parentdiv"></ui-gmap-search-box>
+        <ui-gmap-marker ng-repeat="m in map.markers" coords="m" icon="m.icon" click="onMarkerClicked(m)" idKey="m.id" options="m.options" events="m.events">
             <ui-gmap-window ng-cloak  coords="map.infoWindowWithCustomClass.coords" isIconVisibleOnClick="false" options="map.infoWindowWithCustomClass.options">
                 <p>{{m.options.name?'Your Destination,':'Your Location'}} <strong>{{ m.options.name}}</strong> ({{ m.latitude | number:3 }}, {{ m.longitude | number:3 }})</p>
                 <p class="muted"></p>
