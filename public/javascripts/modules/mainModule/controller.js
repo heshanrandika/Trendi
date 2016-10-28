@@ -171,6 +171,7 @@
         $scope.latestItemShow = false;
         $scope.mainItemShow = false;
         $scope.trendItemsShow = false;
+        $scope.blogShow = false;
 
         $scope.initWindow = function(){
 
@@ -205,9 +206,16 @@
             }, function(error){
             });
 
-            mainDataService.getMostSeen({skip:0,tlimit:18, type:3}).then(function(response){
+            mainDataService.getMostSeen({skip:0,limit:18, type:3}).then(function(response){
                 $scope.mostSeenList = response.data.responData.data;
             }, function(error){
+            });
+
+            mainDataService.getBlogList({skip:0,limit:10}).then(function(response){
+                $scope.blogList = response.data.responData.data;
+                $scope.blogShow = true;
+            }, function(error){
+                $scope.blogShow = false;
             });
 
         };

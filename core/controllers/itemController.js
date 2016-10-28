@@ -696,7 +696,17 @@ function setRating(req,callback){
             query = {
                  "itemId": id
             };
-            table = CONSTANT.MAIN_ITEM_COLLECTION;
+            table = CONSTANT.SHOP_COLLECTION;
+
+        case 'blog':
+         changeDoc = {
+                 $inc: { "rate.star": rate, "rate.hit": 1 } 
+            };
+
+            query = {
+                 "blogId": id
+            };
+            table = CONSTANT.BLOG_COLLECTION;
     }
 
     console.log("$$$$$$$  Item Menu $$$$$$ : ");

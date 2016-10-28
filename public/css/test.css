@@ -594,3 +594,18 @@
     -moz-border-radius: 50%;
     border-radius: 50%;
 }
+
+.blog-text-color {
+    color:white !important;
+    background-color: transparent !important;
+}
+
+.blog-text-color > p {
+    color:white !important;
+    background-color: transparent !important;
+}
+
+.blog-text-color > p > span {
+    color:white !important;
+    background-color: transparent !important;
+}

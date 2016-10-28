@@ -401,7 +401,7 @@ var normalRequestRoute = function(req,res){
             });
             break;
 
-        case 6000:
+        case 6004:
 
             BLOG.GetBlogList(req, function (err, data) {
                 if (err) {

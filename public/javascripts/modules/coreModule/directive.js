@@ -488,7 +488,7 @@
             link: function(scope, elm, attrs) {
                 scope.$on('repeated', function(ngRepeatFinishedEvent) {
                     elm.ready(function () {
-                        var menu = elm.trendiHideMenu();
+                        //var menu = elm.trendiHideMenu(); if there occur any bug on shop wide menu please change this
                     });
                 });
 
@@ -635,21 +635,18 @@
         };
     }]);
 
-    mod.directive('trendiHideMenu',[function() {
+    mod.directive('trendiHideMenu',['$timeout',function($timeout) {
         return {
             restrict: 'E',
             replace: true,
             scope: {},
             template:' <div class="navbar-switcher"> <span class="i-inactive"><img src="images/icon-small.png" width="35" height="35" alt="samll icon fashion.lk"></span> <span class="i-active icon-cancel-3"></span> </div>',
             link: function(scope, elm, attrs) {
-                scope.slides = [];
-                elm.ready(function () {
-                    var menu = elm.trendiHideMenu({
+                $timeout(function () {
+                    elm.ready(function () {
+                           var menu = elm.trendiHideMenu({});
                     });
-
-
-                });
-
+                },100);
             }
         };
     }]);
