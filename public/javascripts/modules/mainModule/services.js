@@ -35,6 +35,10 @@
             return Data_Comm.postPromise(angular.extend({params:d},mainServiceCalls.getBannerDao()));
         };
 
+        var _getMapMarker = function(d){
+            return Data_Comm.postPromise(angular.extend({params:d},mainServiceCalls.getMapMarkerDao()));
+        };
+
         var _getOnSaleList = function(d){ //TODO
             return Data_Comm.postPromise(angular.extend({params:d},mainServiceCalls.getOnSaleListDao()));
         };
@@ -140,6 +144,7 @@
             getMostSeen:_getMostSeen,
             getShopList:_getShopList,
             getBanner:_getBanner,
+            getMapMarker:_getMapMarker,
             getSearchList:_getSearchList,
             getItemCount:_getItemCount,
             getSubItem:_getSubItem,

@@ -80,6 +80,10 @@
             return angular.extend({functionId: MAIN_MOD_CONFIG.REQ_CONFIG.FUNC_GetShopBanner}, _getCObj());
         };
 
+        serviceCalls.getMapMarkerDao = function () {
+            return angular.extend({functionId: MAIN_MOD_CONFIG.REQ_CONFIG.FUNC_GetMapMarker}, _getCObj());
+        };
+
         serviceCalls.getSearchListDao = function () {
             return angular.extend({functionId: MAIN_MOD_CONFIG.REQ_CONFIG.FUNC_GetSearchList}, _getCObj());
         };

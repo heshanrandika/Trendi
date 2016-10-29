@@ -1569,6 +1569,11 @@
         });
 
 
+        mainDataService.getMapMarker().then(function(response){
+            $scope.mapMarkers = response.data.responData.data;
+        }, function(error){
+        });
+
         $scope.getDirection = function() {
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(function (position) {

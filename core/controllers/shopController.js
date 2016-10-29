@@ -525,6 +525,19 @@ function setBanners(req,callback){
     });
 }
 
+function getMapMarkers(req,callback){
+    var shops = [];
+    var query = {};
+    var dbCon = daf.Find(query,CONSTANT.SHOP_BRANCH);
+    dbCon.on('data', function(doc){
+        shops.push({shopId:doc.shopId, branchId: doc.branchId, pos:doc.shop.pos, name:doc.shop.name});
+    });
+
+    dbCon.on('end', function(){
+        callback(null,shops);
+    });
+}
+
 
 
 
@@ -546,3 +559,4 @@ module.exports.AdminGetUser = adminGetUser;
 module.exports.UpdateShopUser = updateShopUser;
 module.exports.RemoveShopUser = removeShopUser;
 module.exports.UpdateShopUsers = updateShopUsers;
+module.exports.GetMapMarkers = getMapMarkers;

@@ -10,76 +10,79 @@
 
                 <!-- Right column -->
                 <section class="col-sm-12 col-md-12 col-lg-12 content-center" >
-                    <md-button  class="md-raised " ng-class="searchOpen?'md-primary':'md-warn'"  ng-click="searchSelect()" md-autofocus>
-                        {{searchOpen? 'Search':'Search Option >'}}
-                    </md-button>
-                    <md-button  class="md-raised " ng-class="searchOpen?'md-primary':'md-warn'"  ng-click="searchOpen = false" md-autofocus ng-show="searchOpen">
-                        Cancel
-                    </md-button>
-                    <div class="row" ng-if="searchOpen">
-                        <div class="col-sm-6 col-md-4 col-lg-4"> Select Range
-                            <div class="btn-group btn-select sort-select" ng-class="openRange?'open':''"> <a class="btn btn-default btn-xs dropdown-toggle" ng-click="openRange = !openRange"> <span class="value">{{range.txt? range.txt :'' }}</span> <span class="caret min"></span> </a>
-                                <ul class="dropdown-menu" ng-show="openRange">
-                                    <li ng-click="openRange = false"><a ng-click="rangeSelect({txt : 'All', value:'0'})" data-value="all">All</a></li>
-                                    <li ng-click="openRange = false"><a ng-click="rangeSelect({txt : '1 km', value:'1'})" data-value="1">Around 1 km</a></li>
-                                    <li ng-click="openRange = false"><a ng-click="rangeSelect({txt : '5 km', value:'5'})" data-value="2">Around 5 km</a></li>
-                                    <li ng-click="openRange = false"><a ng-click="rangeSelect({txt : '10 km', value:'10'})" data-value="5">Around 10 km</a></li>
-                                    <li ng-click="openRange = false"><a ng-click="rangeSelect({txt : '20 km', value:'20'})" data-value="10">Around 20 km</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <trendi-map get-point="user.pos"></trendi-map>
-
-                    </div>
-                    <!-- Filters -->
-                    <div class="filters-panel">
-                        <div class="row">
-                            <div class="col-sm-6 col-md-4 col-lg-4"> Sort by
-                                <div class="btn-group btn-select sort-select"> <a  class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown"> <span class="value">Position</span> <span class="caret min"></span> </a>
-                                    <ul class="dropdown-menu">
-                                        <li><a  data-value="position">Position</a></li>
-                                        <li><a  data-value="rating">Rating</a></li>
-                                        <li><a  data-value="price">Price</a></li>
-                                        <li><a  data-value="dateAdded">Date added</a></li>
+                    <div class="row">
+                        <md-button  class="md-raised " ng-class="searchOpen?'md-primary':'md-warn'"  ng-click="searchSelect()" md-autofocus>
+                            {{searchOpen? 'Search':'Search Option >'}}
+                        </md-button>
+                        <md-button  class="md-raised " ng-class="searchOpen?'md-primary':'md-warn'"  ng-click="searchOpen = false" md-autofocus ng-show="searchOpen">
+                            Cancel
+                        </md-button>
+                        <div class="row" ng-if="searchOpen">
+                            <div class="col-sm-6 col-md-4 col-lg-4"> Select Range
+                                <div class="btn-group btn-select sort-select" ng-class="openRange?'open':''"> <a class="btn btn-default btn-xs dropdown-toggle" ng-click="openRange = !openRange"> <span class="value">{{range.txt? range.txt :'' }}</span> <span class="caret min"></span> </a>
+                                    <ul class="dropdown-menu" ng-show="openRange">
+                                        <li ng-click="openRange = false"><a ng-click="rangeSelect({txt : 'All', value:'0'})" data-value="all">All</a></li>
+                                        <li ng-click="openRange = false"><a ng-click="rangeSelect({txt : '1 km', value:'1'})" data-value="1">Around 1 km</a></li>
+                                        <li ng-click="openRange = false"><a ng-click="rangeSelect({txt : '5 km', value:'5'})" data-value="2">Around 5 km</a></li>
+                                        <li ng-click="openRange = false"><a ng-click="rangeSelect({txt : '10 km', value:'10'})" data-value="5">Around 10 km</a></li>
+                                        <li ng-click="openRange = false"><a ng-click="rangeSelect({txt : '20 km', value:'20'})" data-value="10">Around 20 km</a></li>
                                     </ul>
                                 </div>
-                                <a class="sort-select-arrow up"><span class="up icon-arrow-up-3"></span><span class="down icon-arrow-down-3"></span></a> </div>
-                            <div class="col-md-4 col-lg-4 hidden-sm hidden-xs">
-                                <div class="view-mode"> View as:&nbsp; <a ng-click="changeList(0)" class="view-grid"><span class="icon-th"></span></a> <a ng-click="changeList(1)" class="view-list"><span class="icon-th-list"></span></a> </div>
                             </div>
+                            <trendi-map get-point="user.pos" map-markers="mapMarkers"></trendi-map>
+
                         </div>
-                        <div class="divider"></div>
-                        <div class="pull-left hidden-xs">Items 1 to {{mainItems.length}} of {{count}} total</div>
-                        <div class="clearfix"></div>
                     </div>
-
-                    <div ng-if="mainItemShow && isoRefresh">
-                        <trendi-isotop-product items="shopList" views="changeView" action="isotopPagination" template="trendi.shop.isotop"></trendi-isotop-product>
-                    </div>
-                    <!-- //end Listing products -->
-
                     <!-- Filters -->
-                    <div class="filters-panel hidden-xs">
-                        <div class="row">
-                            <div class="col-sm-6 col-md-4 col-lg-4"> Sort by
-                                <div class="btn-group btn-select sort-select"> <a  class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown"> <span class="value">Position</span> <span class="caret min"></span> </a>
-                                    <ul class="dropdown-menu">
-                                        <li><a  data-value="rating">Rating</a></li>
-                                        <li><a  data-value="price">Price</a></li>
-                                        <li><a  data-value="dateAdded">Date added</a></li>
-                                    </ul>
+                    <div class="row">
+                        <div class="filters-panel">
+                            <div class="row">
+                                <div class="col-sm-6 col-md-4 col-lg-4"> Sort by
+                                    <div class="btn-group btn-select sort-select"> <a  class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown"> <span class="value">Position</span> <span class="caret min"></span> </a>
+                                        <ul class="dropdown-menu">
+                                            <li><a  data-value="position">Position</a></li>
+                                            <li><a  data-value="rating">Rating</a></li>
+                                            <li><a  data-value="price">Price</a></li>
+                                            <li><a  data-value="dateAdded">Date added</a></li>
+                                        </ul>
+                                    </div>
+                                    <a class="sort-select-arrow up"><span class="up icon-arrow-up-3"></span><span class="down icon-arrow-down-3"></span></a> </div>
+                                <div class="col-md-4 col-lg-4 hidden-sm hidden-xs">
+                                    <div class="view-mode"> View as:&nbsp; <a ng-click="changeList(0)" class="view-grid"><span class="icon-th"></span></a> <a ng-click="changeList(1)" class="view-list"><span class="icon-th-list"></span></a> </div>
                                 </div>
-                                <a  class="sort-select-arrow up"><span class="up icon-arrow-up-3"></span><span class="down icon-arrow-down-3"></span></a> </div>
-                            <div class="col-md-4 col-lg-4 hidden-sm hidden-xs">
-                                <div class="view-mode"> View as:&nbsp; <a ng-click="changeList(0)" class="view-grid"><span class="icon-th"></span></a> <a ng-click="changeList(1)" class="view-list"><span class="icon-th-list"></span></a> </div>
                             </div>
+                            <div class="divider"></div>
+                            <div class="pull-left hidden-xs">Items 1 to {{mainItems.length}} of {{count}} total</div>
+                            <div class="clearfix"></div>
                         </div>
-                        <div class="divider" id="yyy"></div>
-                        <div class="pull-left hidden-xs">Items 1 to {{mainItems.length}} of {{count}} total</div>
-                        <div class="clearfix"></div>
-                    </div>
-                    <!-- //end Filters -->
 
+                        <div ng-if="mainItemShow && isoRefresh">
+                            <trendi-isotop-product items="shopList" views="changeView" action="isotopPagination" template="trendi.shop.isotop"></trendi-isotop-product>
+                        </div>
+                        <!-- //end Listing products -->
+
+                        <!-- Filters -->
+                        <div class="filters-panel hidden-xs">
+                            <div class="row">
+                                <div class="col-sm-6 col-md-4 col-lg-4"> Sort by
+                                    <div class="btn-group btn-select sort-select"> <a  class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown"> <span class="value">Position</span> <span class="caret min"></span> </a>
+                                        <ul class="dropdown-menu">
+                                            <li><a  data-value="rating">Rating</a></li>
+                                            <li><a  data-value="price">Price</a></li>
+                                            <li><a  data-value="dateAdded">Date added</a></li>
+                                        </ul>
+                                    </div>
+                                    <a  class="sort-select-arrow up"><span class="up icon-arrow-up-3"></span><span class="down icon-arrow-down-3"></span></a> </div>
+                                <div class="col-md-4 col-lg-4 hidden-sm hidden-xs">
+                                    <div class="view-mode"> View as:&nbsp; <a ng-click="changeList(0)" class="view-grid"><span class="icon-th"></span></a> <a ng-click="changeList(1)" class="view-list"><span class="icon-th-list"></span></a> </div>
+                                </div>
+                            </div>
+                            <div class="divider" id="yyy"></div>
+                            <div class="pull-left hidden-xs">Items 1 to {{mainItems.length}} of {{count}} total</div>
+                            <div class="clearfix"></div>
+                        </div>
+                        <!-- //end Filters -->
+                    </div>
                 </section>
                 <!-- //end Right column -->
 
@@ -90,130 +93,130 @@
             <trendi-animate-slider slides="bannerObject.banner" ng-if="bannerShow"></trendi-animate-slider>
 
 
-                    <!-- //end Slider -->
+            <!-- //end Slider -->
 
-                    <!-- Social widgets -->
-                    <section class="social-widgets hidden-xs">
-                        <ul class="items">
-                            <li class="item item-01 facebook"> <a  class="tab-icon"><span class="icon-facebook-3"></span></a>
-                                <div class="tab-content">
-                                    <div class="title">FACEBOOK</div>
-                                    <div class="loading"><img src="images/ajax-loader.gif" class="ajaxloader" alt="loader"></div>
-                                </div>
-                            </li>
-                            <li class="item item-02 twitter"> <a  class="tab-icon"><span class="icon-twitter-3"></span></a>
-                                <div class="tab-content">
-                                    <div class="title">TWITTER FEEDS</div>
-                                    <div class="loading"><img src="images/ajax-loader.gif" class="ajaxloader" alt="loader"></div>
-                                </div>
-                            </li>
-                        </ul>
-                    </section>
-                    <!-- //end Social widgets -->
-                    <div class="container">
-                        
-                        <section class="services-block hidden-xs">
-                            <div class="row">
-                                <div class="col-xs-12 col-sm-4 col-lg-4 divider-right"> <a  class="item"> <span class="icon icon-airplane-2"></span> <span class="title">Free shipping</span> <span class="description">on orders over $200</span> </a> </div>
-                                <div class="col-xs-12 col-sm-4 col-lg-4 divider-right"> <a  class="item"> <span class="icon icon-clock"></span> <span class="title">30-day returns</span> <span class="description">moneyback guarantee</span> </a> </div>
-                                <div class="col-xs-12 col-sm-4 col-lg-4"> <a ng-click="bannerShow = true" class="item"> <span class="icon icon-umbrella "></span> <span class="title">24/7 Support </span> <span class="description">online consultations</span> </a> </div>
-                            </div>
-                        </section>
+            <!-- Social widgets -->
+            <section class="social-widgets hidden-xs">
+                <ul class="items">
+                    <li class="item item-01 facebook"> <a  class="tab-icon"><span class="icon-facebook-3"></span></a>
+                        <div class="tab-content">
+                            <div class="title">FACEBOOK</div>
+                            <div class="loading"><img src="images/ajax-loader.gif" class="ajaxloader" alt="loader"></div>
+                        </div>
+                    </li>
+                    <li class="item item-02 twitter"> <a  class="tab-icon"><span class="icon-twitter-3"></span></a>
+                        <div class="tab-content">
+                            <div class="title">TWITTER FEEDS</div>
+                            <div class="loading"><img src="images/ajax-loader.gif" class="ajaxloader" alt="loader"></div>
+                        </div>
+                    </li>
+                </ul>
+            </section>
+            <!-- //end Social widgets -->
+            <div class="container">
+
+                <section class="services-block hidden-xs">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-4 col-lg-4 divider-right"> <a  class="item"> <span class="icon icon-airplane-2"></span> <span class="title">Free shipping</span> <span class="description">on orders over $200</span> </a> </div>
+                        <div class="col-xs-12 col-sm-4 col-lg-4 divider-right"> <a  class="item"> <span class="icon icon-clock"></span> <span class="title">30-day returns</span> <span class="description">moneyback guarantee</span> </a> </div>
+                        <div class="col-xs-12 col-sm-4 col-lg-4"> <a ng-click="bannerShow = true" class="item"> <span class="icon icon-umbrella "></span> <span class="title">24/7 Support </span> <span class="description">online consultations</span> </a> </div>
                     </div>
+                </section>
+            </div>
 
-                    <div class="container">
-                        <div class="row">
+            <div class="container">
+                <div class="row">
 
-                            <!-- Left column -->
-                            <aside class="col-sm-4 col-md-3 col-lg-3 content-aside" id="content-aside-id">
+                    <!-- Left column -->
+                    <aside class="col-sm-4 col-md-3 col-lg-3 content-aside" id="content-aside-id">
 
-                                <!-- Shop by categories -->
+                        <!-- Shop by categories -->
 
-                                <section>
-                                    <h3>SHOP BY</h3>
-                                    <p><strong>Women</strong></p>
-                                    <ul class="simple-list">
-                                        <li ng-repeat="categ in allMenu.womenMenu"><span ng-class="categ.class"></span> <a ng-click="clickMenu(categ, 'Women')">{{categ.value}} <span class="label label-mega">( {{getCount(categ.search)}} )</span></a></li>
-                                    </ul>
-                                    <br>
-                                    <p><strong>Men</strong></p>
-                                    <ul class="simple-list">
-                                        <li ng-repeat="categ in allMenu.menMenu"><span ng-class="categ.class"></span> <a ng-click="clickMenu(categ, 'Men')">{{categ.value}} <span class="label label-mega">( {{getCount(categ.search)}} )</span></a></li>
-                                    </ul>
-                                    <br>
-                                    <p><strong>Kids</strong></p>
-                                    <ul class="simple-list">
-                                        <li ng-repeat="categ in allMenu.kidsMenu"><span ng-class="categ.class"></span> <a ng-click="clickMenu(categ, 'Kids')">{{categ.value}} <span class="label label-mega">( {{getCount(categ.search)}} )</span></a></li>
-                                    </ul>
-                                    <br>
-                                </section>
-                                <!-- //end Shop by -->
+                        <section>
+                            <h3>SHOP BY</h3>
+                            <p><strong>Women</strong></p>
+                            <ul class="simple-list">
+                                <li ng-repeat="categ in allMenu.womenMenu"><span ng-class="categ.class"></span> <a ng-click="clickMenu(categ, 'Women')">{{categ.value}} <span class="label label-mega">( {{getCount(categ.search)}} )</span></a></li>
+                            </ul>
+                            <br>
+                            <p><strong>Men</strong></p>
+                            <ul class="simple-list">
+                                <li ng-repeat="categ in allMenu.menMenu"><span ng-class="categ.class"></span> <a ng-click="clickMenu(categ, 'Men')">{{categ.value}} <span class="label label-mega">( {{getCount(categ.search)}} )</span></a></li>
+                            </ul>
+                            <br>
+                            <p><strong>Kids</strong></p>
+                            <ul class="simple-list">
+                                <li ng-repeat="categ in allMenu.kidsMenu"><span ng-class="categ.class"></span> <a ng-click="clickMenu(categ, 'Kids')">{{categ.value}} <span class="label label-mega">( {{getCount(categ.search)}} )</span></a></li>
+                            </ul>
+                            <br>
+                        </section>
+                        <!-- //end Shop by -->
 
-                                <div class="section-divider"></div>
+                        <div class="section-divider"></div>
 
-                                <!-- Popular tags -->
-                                <section class="cloud-tags">
-                                    <!--   <h3>TAGS</h3>
-                                       <a ng-repeat="tag in tags" ng-click="clickTag(tag)" class="font-xs" >{{tag.key}}</a>-->
-                                    <!-- //end Popular tags -->
-                                </section>
-                                <div class="section-divider"></div>
+                        <!-- Popular tags -->
+                        <section class="cloud-tags">
+                            <!--   <h3>TAGS</h3>
+                               <a ng-repeat="tag in tags" ng-click="clickTag(tag)" class="font-xs" >{{tag.key}}</a>-->
+                            <!-- //end Popular tags -->
+                        </section>
+                        <div class="section-divider"></div>
 
-                                <!-- Price -->
-                                <!--<section>
-                                    <h3>PRICE RANGE</h3>
-                                    <div class="slider-range">
-                                        <div class="control"></div>
-                                        <div class="min">Rs<span class="value">500</span></div>
-                                        <div class="max">Rs<span class="value">5000</span></div>
+                        <!-- Price -->
+                        <!--<section>
+                            <h3>PRICE RANGE</h3>
+                            <div class="slider-range">
+                                <div class="control"></div>
+                                <div class="min">Rs<span class="value">500</span></div>
+                                <div class="max">Rs<span class="value">5000</span></div>
+                            </div>
+                        </section> -->
+                        <!-- //end Price -->
+
+                        <div class="section-divider"></div>
+
+                    </aside>
+                    <!-- Product view -->
+                    <section class="col-sm-8 col-md-9 col-lg-9 content-center" id="content-center-id">
+                        <!-- // Prodcut Section -->
+                        <section class="content slider-products">
+                            <h3>Today's Featured </h3>
+
+                            <!-- Products list -->
+                            <div class="row">
+                                <div class="product-carousel" ng-if="latestItemShow">
+                                    <trendi-owl-slider images="latestItems" items="4" stop-on-hover="true"  auto-play="true" navigation-display="true" action="moduleClick"></trendi-owl-slider>
+                                </div>
+                            </div>
+                            <!-- //end Products list -->
+                        </section>
+
+                        <div ng-if="productItemShow">
+                            <trendi-isotop items="mainItems" action="moduleClick"></trendi-isotop>
+                        </div>
+
+
+                        <div class="container">
+                            <section class="content">
+                                <h3>BRANDS</h3>
+                                <div class="brands carouFredSel row">
+                                    <div class="carouFredSel-controls">
+                                        <div class="carouFredSel-buttons"><a id="brands-carousel-prev" class="prev"></a><a id="brands-carousel-next" class="next"></a></div>
                                     </div>
-                                </section> -->
-                                <!-- //end Price -->
-
-                                <div class="section-divider"></div>
-
-                            </aside>
-                            <!-- Product view -->
-                            <section class="col-sm-8 col-md-9 col-lg-9 content-center" id="content-center-id">
-                                <!-- // Prodcut Section -->
-                                <section class="content slider-products">
-                                    <h3>Today's Featured </h3>
-
-                                    <!-- Products list -->
-                                    <div class="row">
-                                        <div class="product-carousel" ng-if="latestItemShow">
-                                            <trendi-owl-slider images="latestItems" items="4" stop-on-hover="true"  auto-play="true" navigation-display="true" action="moduleClick"></trendi-owl-slider>
-                                        </div>
+                                    <div class="brands-carousel">
+                                        <trendi-owl-slider images="brands" items="4" stop-on-hover="true" template="trendi.slider.brand" auto-play="true" navigation-display="true"></trendi-owl-slider>
                                     </div>
-                                    <!-- //end Products list -->
-                                </section>
-
-                                    <div ng-if="productItemShow">
-                                        <trendi-isotop items="mainItems" action="moduleClick"></trendi-isotop>
-                                    </div>
-
-
-                                    <div class="container">
-                                        <section class="content">
-                                            <h3>BRANDS</h3>
-                                            <div class="brands carouFredSel row">
-                                                <div class="carouFredSel-controls">
-                                                    <div class="carouFredSel-buttons"><a id="brands-carousel-prev" class="prev"></a><a id="brands-carousel-next" class="next"></a></div>
-                                                </div>
-                                                <div class="brands-carousel">
-                                                    <trendi-owl-slider images="brands" items="4" stop-on-hover="true" template="trendi.slider.brand" auto-play="true" navigation-display="true"></trendi-owl-slider>
-                                                </div>
-                                            </div>
-                                        </section>
-                                    </div>
+                                </div>
                             </section>
                         </div>
-                        
+                    </section>
+                </div>
 
-                        <!-- //end Featured Products -->
-                    </div>
 
-                   
+                <!-- //end Featured Products -->
+            </div>
+
+
 
         </section>
     </div>

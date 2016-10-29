@@ -1224,13 +1224,11 @@
                         return;
                     }
 
-                    $scope.map = {
-                        "center": {
-                            "latitude": place[0].geometry.location.lat(),
-                            "longitude": place[0].geometry.location.lng()
-                        },
-                        "zoom": 18
+                    $scope.map["center"] = {
+                        "latitude": place[0].geometry.location.lat(),
+                        "longitude": place[0].geometry.location.lng()
                     };
+                    $scope.map["zoom"] = 18;
                 }
             };
             $scope.map.searchbox = { template: 'searchbox.tpl.html', events: events, parentdiv:'searchBoxParent'};
@@ -1238,7 +1236,6 @@
             $scope.map.markers =  [
                 {
                     id: 1,
-                    icon: '../../images/drag_marker.png',
                     latitude: direction.start.lat,
                     longitude: direction.start.lon,
                     showWindow: false,
@@ -1246,7 +1243,8 @@
                         labelContent: 'Your location',
                         labelAnchor: "26 0",
                         labelClass: "marker-labels",
-                        draggable: true,
+                        icon: '../../images/my_location.png',
+                        draggable: true
                     },
                     events: {
                         dragend: function (marker, eventName, args) {
@@ -1259,13 +1257,13 @@
                 },
                 {
                     id: 3,
-                    icon: '../../images/drag_marker.png',
                     latitude: direction.end.lat,
                     longitude: direction.end.lon,
                     showWindow: true,
                     title: 'Plane',
                     options: {
                         animation: 1,
+                        icon: '../../images/drag_marker.png',
                         name: $scope.direction.end.name
                     }
                 }
@@ -1332,12 +1330,18 @@
 
                         $scope.getPoint[0] = originalEventArgs[0].latLng.lat();
                         $scope.getPoint[1] = originalEventArgs[0].latLng.lng();
+                        $scope.location['latitude']= $scope.getPoint[0];
+                        $scope.location['longitude']= $scope.getPoint[1];
                         //scope apply required because this event handler is outside of the angular domain
                         $scope.$apply();
                     }
                 },
                 marker: {
-                    options: { draggable: true },
+                    options: {
+                        draggable: true,
+                        icon: '../../images/my_location.png',
+
+                    },
                     events: {
                         dragend: function (marker, eventName, args) {
 
@@ -1345,9 +1349,44 @@
                             $scope.getPoint[1] = marker.getPosition().lng();
                         }
                     }
-                }
+                },
+                markers:[]
 
             };
+
+            _.each($scope.mapMarkers,function(k){
+                $scope.map.markers.push({
+                    id: k.branchId,
+
+                    latitude: k.pos[0],
+                    longitude: k.pos[1],
+                    showWindow: true,
+                    title: 'Plane',
+                    options: {
+                        animation: 2,
+                        icon: '../../images/drag_marker.png',
+                        name: k.name
+                    }
+                })
+            });
+
+
+            var events = {
+                places_changed: function (searchBox) {
+                    var place = searchBox.getPlaces();
+                    if (!place || place == 'undefined' || place.length == 0) {
+                        console.log('no place data :(');
+                        return;
+                    }
+
+                    $scope.map["center"] = {
+                        "latitude": place[0].geometry.location.lat(),
+                        "longitude": place[0].geometry.location.lng()
+                    };
+                    $scope.map["zoom"] = 18;
+                }
+            };
+            $scope.map.searchbox = { template: 'searchbox.tpl.html', events: events, parentdiv:'searchBoxParent'};
             if($scope.getPoint[0] == undefined && $scope.getPoint[1] == undefined){
                 $scope.map.lockLocation = false;
             }else{
@@ -1369,7 +1408,8 @@
             restrict:'E',
             templateUrl:'/views/coreModule/googleMap/trendi.google.place.html',
             scope:{
-                getPoint : '='
+                getPoint : '=',
+                mapMarkers:'='
             },
             controller:controller
         }

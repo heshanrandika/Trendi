@@ -1,29 +1,4 @@
-<!--
-<div class="raw">
-    <div layout layout-sm="column">
-        <md-checkbox  ng-model="map.lockLocation">Lock Location</md-checkbox>
-        <md-input-container flex>
-            <label>Latitude</label>
-            <input ng-model="location.latitude">
-        </md-input-container>
-        <md-input-container flex>
-            <label>Longitude</label>
-            <input ng-model="location.longitude">
-        </md-input-container>
-    </div>
-</div>
-<div id="searchBoxParent"></div>
-<script type="text/ng-template" id="searchbox.tpl.html">
-    <input type="text" placeholder="Search Box" style="width: 200px;
-    border-radius: 9px;">
-</script>
-<div class="angular-google-map-container">
-    <ui-gmap-google-map center="map.getCenter()" events="map.events" zoom="map.zoom" control="map.control">
-        <ui-gmap-search-box template="map.searchbox.template" events="map.searchbox.events" parentdiv="map.searchbox.parentdiv"></ui-gmap-search-box>
-        <ui-gmap-marker coords="location" options="map.marker.options" events="map.marker.events" idkey="key">
-        </ui-gmap-marker>
-    </ui-gmap-google-map>
-</div>-->
+
 <div id="searchBoxParent"></div>
 <script type="text/ng-template" id="searchbox.tpl.html">
     <input type="text" placeholder="Search Box" style="width: 200px;
@@ -33,6 +8,12 @@
     <ui-gmap-google-map center="map.center" zoom="map.zoom" control="map.control" events="map.events">
         <ui-gmap-search-box template="map.searchbox.template" events="map.searchbox.events" parentdiv="map.searchbox.parentdiv"></ui-gmap-search-box>
         <ui-gmap-marker coords="location" options="map.marker.options" events="map.marker.events" idkey="key">
+        </ui-gmap-marker>
+        <ui-gmap-marker ng-repeat="m in map.markers" coords="m" icon="m.icon" click="onMarkerClicked(m)" idKey="m.id" options="m.options" events="m.events">
+            <ui-gmap-window ng-cloak  coords="map.infoWindowWithCustomClass.coords" isIconVisibleOnClick="false" options="map.infoWindowWithCustomClass.options">
+                <p>{{m.options.name?'Your Destination,':'Your Location'}} <strong>{{ m.options.name}}</strong> ({{ m.latitude | number:3 }}, {{ m.longitude | number:3 }})</p>
+                <p class="muted"></p>
+            </ui-gmap-window>
         </ui-gmap-marker>
     </ui-gmap-google-map>
 </div>

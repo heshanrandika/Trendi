@@ -409,7 +409,7 @@
 
         return{
             restrict:'E',
-            templateUrl:'/views/coreModule/googleMap/trendi.google.place.html',
+            templateUrl:'/views/adminModule/extras/trendi.google.place.html',
             scope:{
                 getPoint : '='
             },
