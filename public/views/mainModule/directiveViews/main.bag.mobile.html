@@ -2,11 +2,10 @@
     <div class="shoppingcart-box">
         <div class="title">Recently added item(s)</div>
         <ul class="list" ng-if="itemList">
-            <li class="item" ng-repeat="itm in itemList" ng-click="itemClicked(itm)">
-                <div class="icon-product-edit"><a class="icon icon-edit"></a></div>
-                <div class="icon-product-delete"><a class="icon icon-trash-2"></a></div>
-                <a class="preview-image"><img class="preview" ng-src="{{itm.item.image}}" alt=""></a>
-                <div class="description"> <a>#{{itm.itemId}} {{itm.item.name}}</a> <strong class="price">Rs {{itm.item.price}}</strong> </div>
+            <li class="item" ng-repeat="itm in itemList" >
+                <div class="icon-product-delete"><a class="icon icon-trash-2" ng-click="itemRemove(itm)"></a></div>
+                <a class="preview-image"><img class="preview" ng-src="{{itm.item.image}}" alt="" ng-click="itemClicked(itm)"></a>
+                <div class="description" ng-click="itemClicked(itm)"> <a>#{{itm.itemId}} {{itm.item.name}}</a> <strong class="price">Rs {{itm.item.price}}</strong> </div>
             </li>
         </ul>
         <a class="btn btn-mega" ng-click="viewBag()">View Bag</a>

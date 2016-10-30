@@ -66,6 +66,7 @@
             FUNC_GetMainItem:           1014, 
             FUNC_GetItemMenu:           1015,
             FUNC_SetRate:               1016,
+            FUNC_GetSizes:              1017,
             FUNC_GetShopList:           2000,
             FUNC_GetRatedShopList:      2001,
             FUNC_GetNearestShopList:    2002,

@@ -45,8 +45,9 @@
                     <!-- Popular tags -->
                     <section class="cloud-tags">
                         <h3>TAGS</h3>
-                        <a ng-repeat="tag in tags" ng-click="clickTag(tag)" class="font-xs" >{{tag.key}}</a>
-                                          <!-- //end Popular tags -->
+                        <ul class="tags">
+                            <li ng-repeat="tag in tags"  ng-click="clickTag(tag)"><a class="tag">{{tag.key}}</a></li>
+                        </ul>
 
                     <div class="section-divider"></div>
 

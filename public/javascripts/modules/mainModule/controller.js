@@ -154,6 +154,7 @@
 
 
             clickMenu : function(path){
+                delete $location.$$search.itemId;
                 $location.path('main/deals/all/all');
             }
         };
@@ -223,19 +224,6 @@
         $scope.initWindow();
 
 
-        $scope.images=[
-            {name:'a', number:'1', date:'1360413309421', image:'../../images/products/product-01.jpg' , class:'purple'}
-            ,{name:'b', number:'5', date:'1360213309423', image:'../../images/products/product-02.jpg', class:'orange'}
-            ,{name:'c', number:'10', date:'1360113309421', image:'../../images/products/product-03.jpg', class:'purple'}
-            ,{name:'d', number:'2', date:'1360113309422', image:'../../images/products/product-04.jpg', class:'green'}
-            ,{name:'e', number:'6', date:'1360413309421', image:'../../images/products/product-05.jpg', class:'purple'}
-            ,{name:'f', number:'21', date:'1360113309422', image:'../../images/products/product-03.jpg', class:'green'}
-            ,{name:'f', number:'21', date:'1360113309422', image:'../../images/products/product-03.jpg', class:'green'}
-            ,{name:'g', number:'3', date:'1360213309423', image:'../../images/products/product-02.jpg', class:'orange'}
-            ,{name:'h', number:'7', date:'1360113309422', image:'../../images/products/product-01.jpg', class:'blue'}
-            ,{name:'i', number:'22', date:'1360413309421', image:'../../images/products/product-04.jpg', class:'blue'}
-        ];
-
         $scope.brands=[
             {name:'a', number:'1', date:'1360413309421', src:'../../images/icon-payment-01.png' , class:'purple'}
             ,{name:'b', number:'5', date:'1360213309423', src:'../../images/icon-payment-02.png', class:'orange'}
@@ -244,14 +232,6 @@
             ,{name:'e', number:'6', date:'1360413309421', src:'../../images/icon-payment-05.png', class:'purple'}
         ];
 
-
-        $scope.onSale=[
-            {name:'f', number:'21', date:'1360113309422', src:'../../images/products/product-03.jpg', class:'green'}
-            ,{name:'f', number:'21', date:'1360113309422', src:'../../images/products/product-03.jpg', class:'green'}
-            ,{name:'g', number:'3', date:'1360213309423', src:'../../images/products/product-02.jpg', class:'orange'}
-            ,{name:'h', number:'7', date:'1360113309422', src:'../../images/products/product-01.jpg', class:'blue'}
-            ,{name:'i', number:'22', date:'1360413309421', src:'../../images/products/product-04.jpg', class:'blue'}
-        ];
         $scope.clickTab = function (tab) {
             if(tab == 1)
                 $state.go('ladies');
@@ -315,8 +295,7 @@
 
 
 
-
-        var getCount = function(val){
+        $scope.getCount = function(val){
             var result = _.find( $scope.categoryMenu, function(obj){ return obj._id == val; });
             return result?result.count:0;
         };
@@ -324,47 +303,21 @@
 
 
         $scope.createCategoryMenu = function(){
-            switch($scope.selectParams.category){
-                case 'Women': $scope.catMenu = [
-                    {'class':'m-icon m-icon-dress', 'value':'Dresses', search:'Dress', 'count':getCount('Dress')},
-                    {'class':'m-icon m-icon-jeans', 'value':'Jeans', search:'Jean', 'count':getCount('Jean')},
-                    {'class':'m-icon m-icon-skirts', 'value':'Skirts', search:'Skirt','count':getCount('Skirt')},
-                    {'class':'m-icon m-icon-lingerie', 'value':'Lingerie',search:'Lingerie', 'count':getCount('Lingerie')},
-                    {'class':'m-icon m-icon-tops', 'value':'Tops', search:'Top', 'count':getCount('Top')}
-                ];
-                    break;
+            mainDataService.getItemMenu().then(function(response){
+                $scope.allMenu  = response.data.responData.data;
+                switch($scope.selectParams.category){
+                    case 'Women': $scope.catMenu = $scope.allMenu.womenMenu;
+                        break;
 
-                case 'Men'  :$scope.catMenu = [
-                    {'class':'m-icon m-icon-shirts', 'value':'Shirts', search:'Shirt', 'count':getCount('Shirt')},
-                    {'class':'m-icon m-icon-coats', 'value':'Coats', search:'Coat', 'count':getCount('Coat')},
-                    {'class':'m-icon m-icon-jackets', 'value':'Jackets', search:'Jacket',  'count':getCount('Jacket')},
-                    {'class':'m-icon m-icon-shorts', 'value':'Shorts', search:'Short', 'count':getCount('Short')}
-                ];
-                    break;
+                    case 'Men'  :$scope.catMenu = $scope.allMenu.menMenu;
+                        break;
 
-                case 'Kids' :$scope.catMenu = [
-                    {'class':'m-icon m-icon-dress', 'value':'Dresses', search:'Dress', 'count':getCount('Dress')},
-                    {'class':'m-icon m-icon-shirts', 'value':'Shirts', search:'Shirt', 'count':getCount('Shirt')},
-                    {'class':'m-icon m-icon-shorts', 'value':'Shorts', search:'Short', 'count':getCount('Short')},
-                    {'class':'m-icon m-icon-jeans', 'value':'Jeans', search:'Jean', 'count':getCount('Jean')},
-                    {'class':'m-icon m-icon-skirts', 'value':'Skirts', search:'Skirt', 'count':getCount('Skirt')},
-                    {'class':'m-icon m-icon-tops', 'value':'Tops', search:'Top', 'count':getCount('Top')}
-                ];
-                    break;
+                    case 'Kids' :$scope.catMenu = $scope.allMenu.kidsMenu;
+                        break;
 
-                case 'Other':$scope.catMenu = [
-                    {'class':'m-icon m-icon-dress', 'value':'Dresses', search:'Dress', 'count':getCount('Dress')},
-                    {'class':'m-icon m-icon-shirts', 'value':'Shirts', search:'Shirt', 'count':getCount('Shirt')},
-                    {'class':'m-icon m-icon-coats', 'value':'Coats', search:'Coat', 'count':getCount('Coat')},
-                    {'class':'m-icon m-icon-jackets', 'value':'Jackets', search:'Jacket', 'count':getCount('Jacket')},
-                    {'class':'m-icon m-icon-shorts', 'value':'Shorts', search:'Short', 'count':getCount('Short')},
-                    {'class':'m-icon m-icon-jeans', 'value':'Jeans', search:'Jean', 'count':getCount('Jean')},
-                    {'class':'m-icon m-icon-skirts', 'value':'Skirts', search:'Skirt', 'count':getCount('Skirt')},
-                    {'class':'m-icon m-icon-lingerie', 'value':'Lingerie', search:'Lingerie', 'count':getCount('Lingerie')},
-                    {'class':'m-icon m-icon-tops', 'value':'Tops', search:'Top', 'count':getCount('Top')}
-                ];
-                    break;
-            }
+                }
+            },function(){
+            });
         };
 
         $scope.getCategoryMenuData = function () {
@@ -675,6 +628,7 @@
         $scope.imageArray = [];
         $scope.searchOption = {};
         $scope.selectedshop = $scope.selectParams.shop;
+        $scope.selectedShopName ='all';
 
 
 
@@ -1631,8 +1585,9 @@
 
         $scope.loadData = function(){
             $scope.mainItemShow = false;
+            $scope.mainItems = [];
             mainDataService.getWatchList({all:true}).then(function(response){
-                $scope.mainItems = response.data.responData.data;
+                $scope.mainItems.push.apply($scope.mainItems, response.data.responData.data);
                 if($location.search().itemId){
                     $scope.mainItemShow = false;
                 }else{
@@ -1838,6 +1793,12 @@
                 $location.path('main/products/'+shopId+'/'+category+'/'+'all');
                 $location.search('itemId', selected.itemId);
             }
+        };
+
+        $scope.itemRemove = function (selected) {
+            $rootScope.$broadcast('event:trendi-bag-item-remove', selected);
+            $scope.backTo();
+            $scope.loadData();
         };
 
     }]);

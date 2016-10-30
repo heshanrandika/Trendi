@@ -48,7 +48,7 @@
         };
     }]);
 
-    mod.directive('trendiSearchOption',['$location',function($location) {
+    mod.directive('trendiSearchOption',['mainDataService',function(mainDataService) {
         return {
             restrict: 'E',
             replace: true,
@@ -73,25 +73,14 @@
                         {'class':'icon-color icon-color-white', 'txt':'White', 'value':'#FFFFFF'}
                     ]
                 };
-
                 scope.sizeMenu = {
-                    sizes:[
-                        {'txt':'3XL', 'value':'3XL'},
-                        {'txt':'XS', 'value':'XS'},
-                        {'txt':'S', 'value':'S'},
-                        {'txt':'M', 'value':'M'},
-                        {'txt':'L', 'value':'L'},
-                        {'txt':'XL', 'value':'XL'},
-                        {'txt':'2XL', 'value':'2XL'},
-                        {'txt':'2', 'value':'2'},
-                        {'txt':'4', 'value':'4'},
-                        {'txt':'6', 'value':'6'},
-                        {'txt':'8', 'value':'8'},
-                        {'txt':'10', 'value':'10'},
-                        {'txt':'12', 'value':'12'},
-                        {'txt':'14', 'value':'14'}
-                    ]
+                    sizes:[]
                 };
+
+                mainDataService.getSizes({}).then(function(response){
+                    scope.sizeMenu.sizes = response.data.responData.data[0].sizes;
+                });
+
 
 
                 scope.clickExpand = function(item){
@@ -191,7 +180,7 @@
         }
     ]);
 
-    mod.directive('trendiWatchListAdd',['mainDataService','Login.Window',function(mainDataService, Login_Window){
+    mod.directive('trendiWatchListAdd',['mainDataService','Login.Window','$rootScope',function(mainDataService, Login_Window, $rootScope){
         return {
             restrict: 'E',
             replace: true,
@@ -209,6 +198,7 @@
                         mainDataService.addToWatchList({itemId: scope.itemId}).then(function(response){
                             if (user.watchList.indexOf(scope.itemId) == -1) {
                                 user.watchList.push(scope.itemId);
+                                $rootScope.$broadcast('event:trendi-add-to-bag');
                             }
 
                         },function(){
@@ -219,6 +209,7 @@
                             mainDataService.addToWatchList({itemId: scope.itemId}).then(function(response){
                                 if (user.watchList.indexOf(scope.itemId) == -1) {
                                     user.watchList.push(scope.itemId);
+                                    $rootScope.$broadcast('event:trendi-add-to-bag');
                                 }
                             },function(){
                             });
@@ -276,10 +267,22 @@
                 };
 
                 scope.itemClicked = function (selected) {
-                $location.path('main/bag');
-                $location.search('itemId', selected.itemId);
-                scope.openBag = false;
-            }
+                    $location.path('main/bag');
+                    $location.search('itemId', selected.itemId);
+                    scope.openBag = false;
+                };
+
+
+                scope.itemRemove = function (selected) {
+                    mainDataService.removeFromWatchList({itemId:selected.itemId}).then(function(response){
+                        scope.loadItem();
+                        scope.user.watchList =  _.filter(scope.user.watchList, function(n) {
+                               return n != selected.itemId;
+                        });
+                        scope.listSize = scope.user.watchList.length;
+                    },function(){
+                    });
+                };
 
                 scope.$on('event:trendi-signin-success', function (event,authResult) {
 
@@ -290,6 +293,21 @@
                         scope.itemList = [];
                         scope.listSize = 0;
                     }
+                });
+
+                scope.$on('event:trendi-add-to-bag', function (event,authResult) {
+
+                    scope.user = Login_Window.checkUser();
+                    if(scope.user){
+                        scope.loadItem();
+                    }else{
+                        scope.itemList = [];
+                        scope.listSize = 0;
+                    }
+                });
+
+                scope.$on('event:trendi-bag-item-remove', function (event,item) {
+                    scope.itemRemove(item);
                 });
             }
         }
@@ -427,19 +445,19 @@
             link:function(scope, elm, attrs){
                 scope.user = Login_Window.checkUser();
                 scope.share = function () {
-                ngFB.api({
-                    method: 'POST',
-                    path: '/me/feed',
-                    params: {
-                        message: "I'll be attending: by"
-                    }
-                }).then(
-                    function () {
-                        alert('The session was shared on Facebook');
-                    },
-                    function () {
-                        alert('An error occurred while sharing this session on Facebook');
-                    });
+                    ngFB.api({
+                        method: 'POST',
+                        path: '/me/feed',
+                        params: {
+                            message: "I'll be attending: by"
+                        }
+                    }).then(
+                        function () {
+                            alert('The session was shared on Facebook');
+                        },
+                        function () {
+                            alert('An error occurred while sharing this session on Facebook');
+                        });
                 };
 
             }
@@ -451,19 +469,29 @@
             restrict:'E',
             templateUrl:'/views/mainModule/directiveViews/main.shoplist.html',
             scope:{
-                selctedShop : "="
+                selctedShop : "=",
+                selectedShopName : "="
             },
             link:function(scope, elm, attrs){
                 scope.shopList = [{name:'All', shopId:'all'}];
                 mainDataService.getShopList().then(function(response){
                     scope.shopList.push.apply(scope.shopList, response.data.responData.data.list);
+                    scope.getShopName();
                 },function(){
                 });
-                
+
                 scope.clickMenu = function(shop){
                     scope.selctedShop = shop.shopId;
+                    scope.getShopName();
                 }
-                
+
+                scope.getShopName = function(){
+                    _.each( scope.shopList, function(k){
+                        if(k.shopId == scope.selctedShop){
+                            scope.selectedShopName = k.name;
+                        }
+                    })
+                }
 
             }
         }

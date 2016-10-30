@@ -83,6 +83,10 @@
             return Data_Comm.postPromise(angular.extend({params:d},mainServiceCalls.getTagListDao()));
         };
 
+        var _getSizes = function(d){
+            return Data_Comm.postPromise(angular.extend({params:d},mainServiceCalls.getSizesDao()));
+        };
+
         var _getCommentList = function(d){
             return Data_Comm.postPromise(angular.extend({params:d},mainServiceCalls.getCommentListDao()));
         };
@@ -152,6 +156,7 @@
             getItemMenu:_getItemMenu,
             setRate:_setRate,
             getTagList:_getTagList,
+            getSizes:_getSizes,
             getCommentList:_getCommentList,
             addComment:_addComment,
             removeComment:_removeComment,

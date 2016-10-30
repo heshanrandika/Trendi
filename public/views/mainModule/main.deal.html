@@ -2,7 +2,7 @@
     <div id="outer-canvas">
 
         <section class="container">
-            <nav class="breadcrumbs"> <a ng-click="homeBtn()"> Home </a> <span class="icon-arrow-right-3"></span> <a ng-click="selectedItem.itemId && backTo()"> #{{selectParams.shop}} </a> <span class="icon-arrow-right-3"></span>{{selectParams.selected}}</nav>
+            <nav class="breadcrumbs"> <a ng-click="homeBtn()"> Home </a> <span class="icon-arrow-right-3"></span> <a ng-click="selectedItem.itemId && backTo()"> {{selectedShopName}} </a> </nav>
         </section>
         <section ng-hide="uiRef" class="container">
             <div class="row">
@@ -10,7 +10,7 @@
                 <!-- Left column -->
                 <aside class="col-sm-4 col-md-3 col-lg-3 content-aside" id="content-aside-id">
 
-                    <trendi-shop-list selcted-shop="selectedshop"></trendi-shop-list>
+                    <trendi-shop-list selcted-shop="selectedshop" selected-shop-name="selectedShopName"></trendi-shop-list>
 
                     <!-- Shop by -->
                     <section>
@@ -24,7 +24,9 @@
                     <!-- Popular tags -->
                     <section class="cloud-tags">
                         <h3>TAGS</h3>
-                        <a ng-repeat="tag in tags" ng-click="clickTag(tag)" class="font-xs" >{{tag.key}}</a>
+                        <ul class="tags">
+                            <li ng-repeat="tag in tags"  ng-click="clickTag(tag)"><a class="tag">{{tag.key}}</a></li>
+                        </ul>
                     </section>
                     <!-- //end Popular tags -->
 
@@ -61,6 +63,7 @@
                                         <li><a data-value="dateAdded">Date added</a></li>
                                     </ul>
                                 </div>
+
                                 <a  class="sort-select-arrow up"><span class="up icon-arrow-up-3"></span><span class="down icon-arrow-down-3"></span></a> </div>
                             <div class="col-md-4 col-lg-4 hidden-sm hidden-xs">
                                 <div class="view-mode"> View as:&nbsp; <a ng-click="changeList(0)" class="view-grid"><span class="icon-th"></span></a> <a ng-click="changeList(1)" class="view-list"><span class="icon-th-list"></span></a> </div>
