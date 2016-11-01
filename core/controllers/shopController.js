@@ -129,12 +129,30 @@ function updateBranch(req,callback){
         console.log("$$$$$$$  Update Branch $$$$$$ : ");
         daf.Update(query,changeDoc, CONSTANT.SHOP_BRANCH, function (err, success) {
             callback(err, success);
+            if(success){
+                updateAll(shop, query.shopId, query.branchId);
+            }
         });
     }else{
         var err = "Shop details not available";
         callback(err);
     }
 };
+
+function updateAll(shop, shopId, branchId){
+    var query = {'item.shop.shopId':shopId, 'item.shop.branchId':branchId};
+    var changeDoc = {$set:{'item.shop.shop': shop}};
+    daf.Update(query,changeDoc, CONSTANT.MAIN_ITEM_COLLECTION, function (err, success) {
+            console.log("$$$$$$$  Successfully Updated Branches in Items $$$$$$ : ");
+    });
+
+    query = {'shop.shopId':shopId};
+    changeDoc = {$set:{'shop': shop}};
+    daf.Update(query,changeDoc, CONSTANT.BLOG_COLLECTION, function (err, success) {
+            console.log("$$$$$$$  Successfully Updated Branches in Blog $$$$$$ : ");
+    });
+
+}
 
 function getShop(req,callback){
     console.log("$$$$$$$  GetShop $$$$$$");
