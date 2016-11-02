@@ -497,5 +497,27 @@
         }
     }]);
 
+    mod.directive('trendiTopBar',['mainDataService','$stateParams',function(mainDataService, $stateParams){
+        return{
+            restrict:'E',
+            templateUrl:'/views/mainModule/directiveViews/main.top.bar.html',
+            scope:{},
+            link:function(scope, elm, attrs){
+                if($stateParams.shop != 'all'){
+                    var shopId = parseInt($stateParams.shop);
+                    mainDataService.getShop({shopId : shopId}).then(function(response){
+                        scope.shop =  response.data.responData.data;
+                    },function(){
+                    });
+                }
+                
+
+                scope.category = $stateParams.category;
+                scope.selected = $stateParams.selected;
+
+            }
+        }
+    }]);
+
 
 })(com.TRENDI.CATEGORY.modules.mainTrendiModule);

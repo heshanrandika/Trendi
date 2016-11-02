@@ -107,38 +107,22 @@
                 return $scope.user
             },
 
+            
+            womenMenu : [],
 
-            womenMenu : [
-                {category:'Women', search:'Dress', value:'Dresses'},
-                {category:'Women', search:'Jean', value:'Jeans'},
-                {category:'Women', search:'Pant', value:'Pants'},
-                {category:'Women', search:'Denim', value:'Denim'},
-                {category:'Women', search:'Skirt', value:'Skirts'},
-                {category:'Women', search:'Office_Wear', value:'Office Wear'},
-                {category:'Women', search:'Casual_Top', value:'Casual Tops'},
-                {category:'Women', search:'Accessory', value:'Accessories'},
-                {category:'Women', search:'Bottom', value:'Bottoms'},
-                {category:'Women', search:'Foot_Wear', value:'Foot Wear'}
-            ],
+            menMenu : [],
 
-            menMenu : [
-                {category:'Men', search:'T_Shirt', value:'T-Shirts'},
-                {category:'Men', search:'Shirt', value:'Shirts'},
-                {category:'Men', search:'Trouser', value:'Trousers'},
-                {category:'Men', search:'Short', value:'Shorts'},
-                {category:'Men', search:'Denim', value:'Denim'},
-                {category:'Men', search:'Office_Wear', value:'Office Wear'}
-            ],
+            kidsMenu : [],
 
-            kidsMenu : [
-                {category:'Kids', search:'Shirt', value:'Shirts'},
-                {category:'Kids', search:'Napkin', value:'Napkins'},
-                {category:'Kids', search:'Short', value:'Shorts'},
-                {category:'Kids', search:'Frock', value:'Frock'},
-                {category:'Kids', search:'Denim', value:'Denim'},
-                {category:'Kids', search:'Skirt', value:'Skirts'}
-
-            ],
+            loadMenu: function () {
+                mainDataService.getItemMenu().then(function(response){
+                    var allMenu  = response.data.responData.data;
+                    $scope.menuFunc.womenMenu = allMenu.womenMenu;
+                    $scope.menuFunc.menMenu = allMenu.menMenu;
+                    $scope.menuFunc.kidsMenu = allMenu.kidsMenu;
+                },function(){
+                });
+            },
 
 
             getCounts : function(){
@@ -162,6 +146,7 @@
         $scope.menuFunc.homeClick();
         $scope.menuFunc.getShopList();
         $scope.menuFunc.getCounts();
+        $scope.menuFunc.loadMenu();
         $scope.menuFunc.searchKey =  '';
     }]);
 
@@ -1568,8 +1553,6 @@
                 $location.search('itemId', selected.itemId);
             }
         };
-
-
 
     }]);
 
