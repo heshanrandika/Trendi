@@ -1256,22 +1256,26 @@
 
 
         $scope.selectParams = $stateParams;
-        $scope.uiRef = $location.search().shopId;
         $scope.shopChange = function(){
-            $scope.uiRef = $location.search().shopId;
-            if($scope.uiRef){
-                var id = parseInt($scope.uiRef);
+            if($stateParams.shopId != 'all'){
+                var id = parseInt($stateParams.shopId);
                 $scope.getShopData(id);
             }else{
                 if($scope.shopList.length>0){
                     $scope.mainItemShow = true;
                     $scope.changeList(0);
                 }
-
             }
 
         };
-        $scope.$watch(function() { return $location.search().shopId; },  $scope.shopChange);
+
+        $scope.uiRef = $location.search().itemId;
+        $scope.itemChange = function(){
+            $scope.uiRef = $location.search().itemId;
+        };
+
+        $scope.$watch(function() { return $location.search().itemId; },  $scope.itemChange);
+        $scope.$watch(function() { return $stateParams.shopId; },  $scope.shopChange);
 
         
 
@@ -1353,9 +1357,7 @@
             goto: function (shop) {
                 $scope.selectedItem = shop;
                 $scope.itemSelected = true;
-                // $scope.loadSubItem(shop.shopId);
                 $location.search('shopId',shop.shopId);
-                $scope.scrollTo('back-btn');
                 $scope.getDirection();
             }
 
