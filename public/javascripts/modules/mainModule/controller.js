@@ -14,7 +14,7 @@
         $scope.callback = function(response){
             console.log(response);
             alert('share callback');
-        }
+        };
 
 
         socket.on('ticket', function(message){
@@ -1255,29 +1255,23 @@
 
 
 
-        $scope.selectParams = $stateParams;
         $scope.shopChange = function(){
-            if($stateParams.shopId != 'all'){
-                var id = parseInt($stateParams.shopId);
+            $scope.uiRef = $location.search().shopId;
+            if($scope.uiRef){
+                var id = parseInt($scope.uiRef);
                 $scope.getShopData(id);
             }else{
                 if($scope.shopList.length>0){
                     $scope.mainItemShow = true;
                     $scope.changeList(0);
                 }
+
             }
 
         };
+        $scope.$watch(function() { return $location.search().shopId; },  $scope.shopChange);
 
-        $scope.uiRef = $location.search().itemId;
-        $scope.itemChange = function(){
-            $scope.uiRef = $location.search().itemId;
-        };
 
-        $scope.$watch(function() { return $location.search().itemId; },  $scope.itemChange);
-        $scope.$watch(function() { return $stateParams.shopId; },  $scope.shopChange);
-
-        
 
 
         $scope.changeList = function(val){
@@ -1334,7 +1328,7 @@
                 }else{
                     $scope.mainItemShow = true;
                 }
-                
+
             },function(){
             });
         };
@@ -1356,7 +1350,7 @@
             },
             goto: function (shop) {
                 $scope.selectedItem = shop;
-                $scope.itemSelected = true;
+                $scope.shopSelected = true;
                 $location.search('shopId',shop.shopId);
                 $scope.getDirection();
             }
@@ -1445,13 +1439,13 @@
                 };
                 $scope.bannerShow =true;
             });
-        
+
         }
 
 
         $rootScope.$on('$locationChangeSuccess', function(event){
-            if(!$location.search().shopId && $scope.itemSelected){
-                $scope.backTo();
+            if(!$location.search().shopId && $scope.shopSelected){
+              //  $scope.backTo();
             }
         });
 
@@ -1461,11 +1455,11 @@
             $scope.mainItemShow = false;
             var id = parseInt($location.search().shopId);
             if(!$scope.selectedItem){
-                $scope.itemSelected = true;
+                $scope.shopSelected = true;
                 $scope.getShopData(id);
             }
         }else{
-            $scope.itemSelected = false;
+            $scope.shopSelected = false;
         }
 
         $scope.getShopData = function(id){
@@ -1488,10 +1482,10 @@
             $location.search({});
             $scope.scrollTo($scope.selectedItem.shopId+"");
             $scope.selectedItem = {};
-            $scope.itemSelected = false;
+            $scope.shopSelected = false;
             $scope.showMap = false;
             $scope.mainItemShow = true;
-            
+
         };
 
         //set scroll position
@@ -1555,6 +1549,8 @@
                 $location.search('itemId', selected.itemId);
             }
         };
+
+
 
     }]);
 

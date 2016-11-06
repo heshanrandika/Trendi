@@ -30,7 +30,7 @@
 
             },
             'main.shops': {
-                url: '/shop/:shopId',
+                url: '/shop',
                 templateUrl: 'views/mainModule/main.shop.html',
                 controller: 'trendiShopProductsController'
 
