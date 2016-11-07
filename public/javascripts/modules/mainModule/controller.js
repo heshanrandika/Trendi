@@ -530,7 +530,7 @@
         $scope.backTo = function(){
             var tmp = $scope.uiRef;
             $scope.uiRef = 0;
-            $location.search({});
+            //$location.search({}); //this remove to fix bug in shopProducts window
             $scope.mainItemShow = true;
             $scope.scrollTo(tmp+"");
             $scope.selectedItem = {};
@@ -1553,6 +1553,7 @@
 
 
     }]);
+
 
     mod.controller('trendiBagController', ['$scope', '$rootScope','$state','mainDataService','$timeout','$stateParams','$location','$anchorScroll', function ($scope, $rootScope, $state, mainDataService, $timeout, $stateParams, $location, $anchorScroll) {
         $scope.selectParams = $stateParams;
