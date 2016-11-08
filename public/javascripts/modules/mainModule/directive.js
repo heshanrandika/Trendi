@@ -464,7 +464,7 @@
         }
     }]);
 
-    mod.directive('trendiShopList',['mainDataService','Login.Window',function(mainDataService, Login_Window){
+    mod.directive('trendiShopList',['mainDataService',function(mainDataService){
         return{
             restrict:'E',
             templateUrl:'/views/mainModule/directiveViews/main.shoplist.html',
@@ -488,7 +488,7 @@
                 scope.getShopName = function(){
                     _.each( scope.shopList, function(k){
                         if(k.shopId == scope.selctedShop){
-                            scope.selectedShopName = k.name;
+                            scope.selectedShopName = k.shop.name;
                         }
                     })
                 }

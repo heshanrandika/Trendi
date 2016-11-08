@@ -1306,7 +1306,8 @@
             skip: $scope.shopList.length-1,
             limit:6,
             pos : {},
-            range:''
+            range:'',
+            branch:true
         };
 
 
@@ -1378,7 +1379,7 @@
         };
 
         $scope.getCategoryMenuData = function () {
-            mainDataService.getItemCount({category : 'all', shop : $scope.selectedItem.shopId}).then(function(response){
+            mainDataService.getItemCount({category : 'all', shop : $scope.selectedItem.shopId, branch : $scope.selectedItem.branchId}).then(function(response){
                 $scope.categoryMenu = response.data.responData.data;
                 $scope.createCategoryMenu();
                 $scope.getDirection();
@@ -1403,7 +1404,7 @@
 
 
 
-            mainDataService.getBanner({shopId:$scope.selectedItem.shopId}).then(function(response){
+            mainDataService.getBanner({shopId:$scope.selectedItem.shopId, branch : $scope.selectedItem.branchId}).then(function(response){
                 $scope.bannerImages.push(response.data.responData.data);
                 $scope.bannerShow = true;
             }, function(error){
@@ -1411,21 +1412,21 @@
             });
 
 
-            mainDataService.getLatestItem({skip:0,limit:16, shopId:$scope.selectedItem.shopId}).then(function(response){
+            mainDataService.getLatestItem({skip:0,limit:16, shopId:$scope.selectedItem.shopId, branch : $scope.selectedItem.branchId}).then(function(response){
                 $scope.latestItems.push.apply($scope.latestItems, response.data.responData.data);
                 $scope.latestItemShow = true;
             }, function(error){
                 $scope.latestItemShow = false;
             });
 
-            mainDataService.getMainItemList({skip:0,limit:10, shopId:$scope.selectedItem.shopId}).then(function(response){
+            mainDataService.getMainItemList({skip:0,limit:10, shopId:$scope.selectedItem.shopId, branch : $scope.selectedItem.branchId}).then(function(response){
                 $scope.mainItems.push.apply($scope.mainItems, response.data.responData.data);
                 $scope.productItemShow = true;
             }, function(error){
                 $scope.productItemShow = false;
             });
 
-            mainDataService.getBanner({shopId:$scope.selectedItem.shopId}).then(function(response){
+            mainDataService.getBanner({shopId:$scope.selectedItem.shopId, branch : $scope.selectedItem.branchId}).then(function(response){
                 $scope.bannerObject = response.data.responData.data;
                 $scope.bannerShow =true;
             },function(error){
@@ -1445,7 +1446,7 @@
 
         $rootScope.$on('$locationChangeSuccess', function(event){
             if(!$location.search().shopId && $scope.shopSelected){
-              //  $scope.backTo();
+                $scope.backTo();
             }
         });
 
@@ -1512,16 +1513,16 @@
         $scope.getDirection = function() {
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(function (position) {
-                    if($scope.selectedItem.pos){
+                    if($scope.selectedItem.shop.pos){
                         $scope.direction = {
                             start : {
                                 lat:position.coords.latitude,
                                 lon:position.coords.longitude
                             },
                             end:{
-                                lat:$scope.selectedItem.pos[0],
-                                lon:$scope.selectedItem.pos[1],
-                                name:$scope.selectedItem.name
+                                lat:$scope.selectedItem.shop.pos[0],
+                                lon:$scope.selectedItem.shop.pos[1],
+                                name:$scope.selectedItem.shop.name
                             }
                         };
                     }else{

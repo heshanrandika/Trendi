@@ -12,6 +12,7 @@ function getShopList(req,callback){
 
     var skip =(params.skip)?params.skip:0;
     var limit  = (params.limit)?params.limit:18;
+    var branch  = (params.branch)?params.branch:false;
     var distance = parseInt(params.range);
     var sorter = [['shop.point',-1]];
     var query = {delete:0};
@@ -20,25 +21,27 @@ function getShopList(req,callback){
     if(undefined != params.pos){
         if(undefined != params.pos[0] && undefined != params.pos[1]){
             if(distance){
-                query = {$and:[{"pos" : {$near: params.pos, $maxDistance:(distance/111.12)}},{delete:0}]};
+                query = {$and:[{"shop.pos" : {$near: params.pos, $maxDistance:(distance/111.12)}},{delete:0}]};
             }else{
-                query = {$and:[{"pos" : {$near: params.pos}},{delete:0}]};
+                query = {$and:[{"shop.pos" : {$near: params.pos}},{delete:0}]};
             }
             
         }
 
     }
     query['shopId'] = {$gt: 0};
+    if(!branch)
+        query['branchId'] = 0;
     var option = {skip:skip, limit:limit, sort:sorter};
 
-    var dbCon = daf.FindWithPagination(query,CONSTANT.SHOP_COLLECTION,option);
+    var dbCon = daf.FindWithPagination(query,CONSTANT.SHOP_BRANCH,option);
     dbCon.on('data', function(doc){
         data.list.push(doc);
     });
 
     dbCon.on('end', function(){
         if(skip == 0){
-            daf.Count(query,CONSTANT.SHOP_COLLECTION,function(err , count){
+            daf.Count(query,CONSTANT.SHOP_BRANCH,function(err , count){
                 if(count){
                     data.count = count;
                 }
