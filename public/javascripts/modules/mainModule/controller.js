@@ -75,6 +75,10 @@
                 $location.path('main/shop');
             },
 
+            gotoContact : function () {
+                $location.search({});
+                $location.path('main/contact');
+            },
 
             searchTerm : function () {
                 $location.search({});
@@ -2013,5 +2017,10 @@
 
     }]);
 
+
+    mod.controller('trendiContactController', ['$scope', '$rootScope','mainDataService', function ($scope, $rootScope, mainDataService) {
+      
+
+    }]);
 
 })(com.TRENDI.CATEGORY.modules.mainTrendiModule);

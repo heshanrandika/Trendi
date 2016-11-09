@@ -128,6 +128,14 @@
             }
         };
 
+        $scope.refresh = function(){
+            $scope.searchObj.searchKey = '';
+            $scope.searchObj.searchValue = '';
+            $scope.searchObj.searchArray = [];
+            $scope.search = {};
+            $scope.searchPress({},true);
+        }
+
         $scope.loadData = function(init){
             if(init){
                 $scope.itemList = [];
@@ -258,6 +266,14 @@
                 $scope.loadData(1);
             }
         };
+
+        $scope.refresh = function(){
+            $scope.searchObj.searchKey = '';
+            $scope.searchObj.searchValue = '';
+            $scope.searchObj.searchArray = [];
+            $scope.search = {};
+            $scope.searchPress({},true);
+        }
 
         $scope.loadData = function(init){
             if(init){
@@ -395,6 +411,13 @@
             }
         };
 
+        $scope.refresh = function(){
+            $scope.searchObj.searchKey = '';
+            $scope.searchObj.searchValue = '';
+            $scope.searchObj.searchArray = [];
+            $scope.search = {};
+            $scope.searchPress({},true);
+        };
 
         $scope.loadData = function(init){
             if(init){
@@ -540,6 +563,13 @@
             }
         };
 
+        $scope.refresh = function(){
+            $scope.searchObj.searchKey = '';
+            $scope.searchObj.searchValue = '';
+            $scope.searchObj.searchArray = [];
+            $scope.search = {};
+            $scope.searchPress({},true);
+        };
 
         $scope.loadData = function(init){
             if(init){
@@ -685,6 +715,14 @@
                 $scope.searchObj.searchArray = array;
                 $scope.loadData(1);
             }
+        };
+
+        $scope.refresh = function(){
+            $scope.searchObj.searchKey = '';
+            $scope.searchObj.searchValue = '';
+            $scope.searchObj.searchArray = [];
+            $scope.search = {};
+            $scope.searchPress({},true);
         };
 
         $scope.loadData = function(init){

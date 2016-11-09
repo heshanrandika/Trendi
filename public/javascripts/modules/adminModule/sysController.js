@@ -43,6 +43,14 @@
             }
         };
 
+        $scope.refresh = function(){
+            $scope.searchObj.searchKey = '';
+            $scope.searchObj.searchValue = '';
+            $scope.searchObj.searchArray = [];
+            $scope.search = {};
+            $scope.searchPress({},true);
+        };
+
         $scope.loadData = function(init){
             if(init){
                 $scope.shopList = [];
@@ -184,6 +192,14 @@
             }
         };
 
+        $scope.refresh = function(){
+            $scope.searchObj.searchKey = '';
+            $scope.searchObj.searchValue = '';
+            $scope.searchObj.searchArray = [];
+            $scope.search = {};
+            $scope.searchPress({},true);
+        };
+
         $scope.loadData = function(init){
             if(init){
                 $scope.itemList = [];
@@ -312,6 +328,14 @@
                 $scope.searchObj.searchArray = array;
                 $scope.loadData(1);
             }
+        };
+
+        $scope.refresh = function(){
+            $scope.searchObj.searchKey = '';
+            $scope.searchObj.searchValue = '';
+            $scope.searchObj.searchArray = [];
+            $scope.search = {};
+            $scope.searchPress({},true);
         };
 
         $scope.loadData = function(init){
@@ -447,6 +471,14 @@
                 $scope.searchObj.searchArray = array;
                 $scope.loadData(1);
             }
+        };
+
+        $scope.refresh = function(){
+            $scope.searchObj.searchKey = '';
+            $scope.searchObj.searchValue = '';
+            $scope.searchObj.searchArray = [];
+            $scope.search = {};
+            $scope.searchPress({},true);
         };
 
         $scope.loadData = function(init){
@@ -590,6 +622,14 @@
                 $scope.searchObj.searchArray = array;
                 $scope.loadData(1);
             }
+        };
+
+        $scope.refresh = function(){
+            $scope.searchObj.searchKey = '';
+            $scope.searchObj.searchValue = '';
+            $scope.searchObj.searchArray = [];
+            $scope.search = {};
+            $scope.searchPress({},true);
         };
 
 
@@ -737,6 +777,14 @@
                 $scope.searchObj.searchArray = array;
                 $scope.loadData(1);
             }
+        };
+
+        $scope.refresh = function(){
+            $scope.searchObj.searchKey = '';
+            $scope.searchObj.searchValue = '';
+            $scope.searchObj.searchArray = [];
+            $scope.search = {};
+            $scope.searchPress({},true);
         };
 
         $scope.loadData = function(init){

@@ -52,6 +52,12 @@
                 templateUrl: 'views/mainModule/main.message.html',
                 controller: 'trendiMessageController'
 
+            },
+            'main.contact': {
+                url: '/contact',
+                templateUrl: 'views/mainModule/main.contact.html',
+                controller: 'trendiContactController'
+
             }
 
         },REQ_CONFIG: {
