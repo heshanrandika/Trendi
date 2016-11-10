@@ -1186,7 +1186,7 @@
     }]);
 
 
-    mod.controller('sysAdminTagsController', ['$scope', '$rootScope','$state','adminDataService','Data.Toast','MESSAGE_CONFIG', function ($scope, $rootScope, $state, adminDataService, Data_Toast, MESSAGE_CONFIG) {
+    mod.controller('sysAdminTagBrandController', ['$scope', '$rootScope','$state','adminDataService','Data.Toast','MESSAGE_CONFIG','$modal','Confirmation', function ($scope, $rootScope, $state, adminDataService, Data_Toast, MESSAGE_CONFIG, uiModal, Confirmation) {
 
         $scope.typed = '';
         $scope.tracker = 1;
@@ -1264,6 +1264,148 @@
                 Data_Toast.error(MESSAGE_CONFIG.ERROR_REMOVE_FAIL,error.data.responData.Error);
             });
         };
+
+
+
+
+        /*+++++++++++++++++++++++ Brand Functions +++++++++++++++++++++++++*/
+
+        $scope.brandList = [];
+        var shopDetails = {};
+        var itemPerPage = 10;
+
+
+        shopDetails = adminDataService.shopData();
+        $scope.searchObj = {
+            skip: $scope.brandList.length,
+            limit:itemPerPage,
+            searchArray:[]
+        };
+
+
+
+        $scope.search={};
+
+        $scope.searchPress = function(event, search){
+            if(event.keyCode == 13 || search){
+                var array = [];
+                for(var i in $scope.search) {
+                   if($scope.search[i] != ""){
+                        if(!isNaN(parseFloat($scope.search[i])) && isFinite($scope.search[i])){
+                            array.push({key:i, value:parseInt($scope.search[i])})
+                        }else{
+                            array.push({key:i, value:{'$regex': $scope.search[i]}})
+                        }
+                    }
+
+                }
+                $scope.searchObj.searchArray = array;
+                $scope.loadData(1);
+            }
+        };
+
+        $scope.refresh = function(){
+            $scope.searchObj.searchArray = [];
+            $scope.search = {};
+            $scope.searchPress({},true);
+        };
+
+        $scope.loadData = function(init){
+            if(init){
+                $scope.brandList = [];
+                $scope.searchObj.skip =0;
+            }
+            $scope.loading = true;
+            adminDataService.adminGetBlogList($scope.searchObj).then(function(response){
+                $scope.brandList.push.apply($scope.brandList, response.data.responData.data.list);
+                if(response.data.responData.data.count){
+                    $scope.count = response.data.responData.data.count;
+                }
+                $scope.loading = false;
+            },function(){
+                $scope.brandList = [];
+            });
+
+
+        };
+
+        $scope.paginationFuntion = function() {
+            $scope.searchObj.skip = $scope.brandList.length;
+            if ($scope.count > $scope.brandList.length  && !$scope.loading) {
+                $scope.loadData();
+            }
+        };
+
+        $scope.loadData(1);
+
+
+
+
+        $scope.open = function (selectedItem) {
+            $scope.btnPressed = true;
+            var modalInstance = uiModal.open({
+                animation: true,
+                templateUrl: '/views/adminModule/sysAdmin/sysModels/sys.admin.brand.model.html',
+                controller: 'sysBrandModel',
+                size: 'md',
+                resolve:{
+                    item : function(){
+                        var editItem = angular.copy(selectedItem);
+                        return editItem;
+                    }
+                }
+            });
+
+            modalInstance.result.then(function (editedItem) {
+                $scope.loadData(1);
+                $scope.btnPressed = false;
+            }, function () {
+                $scope.btnPressed = false;
+            });
+        };
+
+        $scope.addNew = function () {
+            $scope.btnPressed = true;
+            var modalInstance = uiModal.open({
+                animation: true,
+                templateUrl: '/views/adminModule/sysAdmin/sysModels/sys.admin.brand.model.html',
+                controller: 'sysBrandModel',
+                size: 'md',
+                resolve:{
+                    item : function(){
+                        return undefined;
+                    }
+                }
+            });
+
+            modalInstance.result.then(function () {
+                $scope.loadData(1);
+                $scope.btnPressed = false;
+            }, function () {
+                $scope.btnPressed = false;
+            });
+        };
+
+        $scope.remove = function (blog) {
+            $scope.btnPressed = true;
+            Confirmation.openConfirmation("Confirmation", "Are you sure you want to remove this?").then(function (result) {
+                if(result == 1){
+                    var blogDetails = {blog:blog};
+                    adminDataService.removeBlog(blogDetails).then(function (response) {
+                        $scope.loadData(1);
+                        $scope.btnPressed = false;
+                        Data_Toast.success(MESSAGE_CONFIG.SUCCESS_REMOVED_SUCCESSFULLY);
+                    },function (error) {
+                        Data_Toast.error(MESSAGE_CONFIG.ERROR_REMOVE_FAIL,error.data.responData.Error);
+                        $scope.btnPressed = false;
+                    });
+                }else{
+                    $scope.btnPressed = false;
+                }
+            });
+        };
+
+
 
     }]);
 

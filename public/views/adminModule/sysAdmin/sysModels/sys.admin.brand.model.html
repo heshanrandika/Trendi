@@ -1,0 +1,77 @@
+<div class="modal-header">
+    <div class="panel-header">
+        <h3> <strong>Brand</strong> Details </h3>
+    </div>
+</div>
+<div class="modal-body">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel">
+                <div class="panel-content">
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <form role="form" class="form-validation" novalidate=""  name="itemForm">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="control-label">Name</label>
+                                            <div class="append-icon">
+                                                <input type="text"  class="form-control" placeholder="Ex : Maxi dress.." ng-model="brand.name" name="name"  ng-required="true">
+                                                <i class="icons-shopping-13"></i>
+                                                <div ng-messages="itemForm.name.$error">
+                                                    <div ng-message="required">This is required.</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <label class="control-label">Description</label>
+                                            <div class="append-icon">
+                                                <textarea rows="7" class="form-control" placeholder="Write your description... (maximum 200 characters)" maxlength="200" ng-required="true" name="description" ng-model="brand.description"></textarea>
+                                                <i class="fa fa-info-circle"></i>
+                                            </div>
+                                            <div ng-messages="itemForm.description.$error">
+                                                <div ng-message="required">This is required.</div>
+                                                <div ng-message="maxlength">The description has to be less than 200 characters long.</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <trendi-file-upload files="uploadedImages" image-size="brandImageSize"  image-count="brandImageCount"></trendi-file-upload>
+                                    </div>
+                                </div>
+                                <div class="text-center  m-t-20">
+                                    <div ng-if="addNewBrand">
+                                        <button  class="btn btn-primary" ng-disabled="(itemForm.$invalid || uploadedImages.length == 0) || btnPressed" ng-click="save()">
+                                            Save
+                                        </button>
+                                        <button ng-click="cancel()" class="btn btn-white">
+                                            Close
+                                        </button>
+                                    </div>
+                                    <div ng-if="!addNewBrand">
+                                        <button class="btn btn-primary" ng-disabled="(itemForm.$invalid || uploadedImages.length == 0) || btnPressed" ng-click="update()">
+                                            Update
+                                        </button>
+                                        <button ng-click="cancel()" class="btn btn-white">
+                                            Close
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+
+</div>

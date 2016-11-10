@@ -174,10 +174,10 @@
                 }
             },
 
-            'main.sys_tags': {
-                url: '/sys_tags',
+            'main.sys_tag_brand': {
+                url: '/sys_tag_brand',
                 templateUrl: '/views/adminModule/sysAdmin/sys.admin.tags.html',
-                controller: 'sysAdminTagsController',
+                controller: 'sysAdminTagBrandController',
                 access: {
                     requiresLogin: true
                 }
@@ -365,8 +365,8 @@
                 icon:'icon-user'
             },
             {
-                value:'Tags ',
-                key:'main.sys_tags',
+                value:'Tag & Brand ',
+                key:'main.sys_tag_brand',
                 view:'message',
                 authorization: 3000,
                 icon:'icon-tag'
