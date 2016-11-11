@@ -151,6 +151,19 @@
             return Data_Comm.postPromise(angular.extend({params:d},adminServiceCalls.removeTagDao()));
         };
 
+
+        var _getBrandList = function(d){
+            return Data_Comm.postPromise(angular.extend({params:d},adminServiceCalls.getBrandListDao()));
+        };
+
+        var _addBrand = function(d){
+            return Data_Comm.postPromise(angular.extend({params:d},adminServiceCalls.addBrandDao()));
+        };
+
+        var _removeBrand = function(d){
+            return Data_Comm.postPromise(angular.extend({params:d},adminServiceCalls.removeBrandDao()));
+        };
+
         var _getMessageList = function(d){
             return Data_Comm.postPromise(angular.extend({params:d},adminServiceCalls.getMessageListDao()));
         };
@@ -241,6 +254,9 @@
             getTagList:_getTagList,
             addTag:_addTag,
             removeTag:_removeTag,
+            getBrandList:_getBrandList,
+            addBrand:_addBrand,
+            removeBrand:_removeBrand,
             getMessageList:_getMessageList,
             sendMessage:_sendMessage,
             replyMessage:_replyMessage,

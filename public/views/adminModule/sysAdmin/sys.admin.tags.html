@@ -80,7 +80,7 @@
                         <tbody infinite-scroll='paginationFuntion()' infinite-scroll-distance='0.01'>
                         <tr ng-repeat="brand in brandList | searchFilter:search">
                             <td><span class="pull-left p-r-5">
-                                                <img alt="{{ brand.name }}" ng-src="{{brand.iconImage}}" class="table-img-icon"/>
+                                                <img alt="{{ brand.name }}" ng-src="{{brand.img}}" class="table-img-icon"/>
                                                 </span></td>
                             <td>{{ brand.name }}</td>
                             <td>

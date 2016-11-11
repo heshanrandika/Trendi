@@ -8,6 +8,7 @@ var PASSWORD = require("../controllers/passwordController");
 var MESSAGE = require("../controllers/messageController");
 var BLOG = require("../controllers/blogController");
 var TAG = require("../controllers/tagController");
+var BRAND = require("../controllers/brandController");
 var COMMENT = require("../controllers/commentController");
 var AuthCtrl = require('../controllers/authController');
 var USER = require('../controllers/userController');
@@ -1374,6 +1375,67 @@ var requestRoute = function(req,res){
 
             });
             break;
+
+        case 7010:
+
+            BRAND.GetBrandList(req, function (err, data) {
+                if (err) {
+                    resObject.resStatus = 0;
+                    resObject.responData.Error = err.toString();
+                    res.status(500);
+                    res.send(resObject);
+
+                } else if (data) {
+
+                    resObject.resStatus = 1;
+                    resObject.responData.data = data;
+                    res.send(resObject);
+
+                }
+
+            });
+            break;
+
+        case 7011:
+
+            BRAND.AddBrand(req, function (err, data) {
+                if (err) {
+                    resObject.resStatus = 0;
+                    resObject.responData.Error = err.toString();
+                    res.status(500);
+                    res.send(resObject);
+
+                } else if (data) {
+
+                    resObject.resStatus = 1;
+                    resObject.responData.data = data;
+                    res.send(resObject);
+
+                }
+
+            });
+            break;
+
+        case 7012:
+
+            BRAND.RemoveBrand(req, function (err, data) {
+                if (err) {
+                    resObject.resStatus = 0;
+                    resObject.responData.Error = err.toString();
+                    res.status(500);
+                    res.send(resObject);
+
+                } else if (data) {
+
+                    resObject.resStatus = 1;
+                    resObject.responData.data = data;
+                    res.send(resObject);
+
+                }
+
+            });
+            break;
+
 
         case 8000:
 

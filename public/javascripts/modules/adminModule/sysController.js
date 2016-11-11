@@ -1316,7 +1316,7 @@
                 $scope.searchObj.skip =0;
             }
             $scope.loading = true;
-            adminDataService.adminGetBlogList($scope.searchObj).then(function(response){
+            adminDataService.getBrandList($scope.searchObj).then(function(response){
                 $scope.brandList.push.apply($scope.brandList, response.data.responData.data.list);
                 if(response.data.responData.data.count){
                     $scope.count = response.data.responData.data.count;
@@ -1386,12 +1386,12 @@
             });
         };
 
-        $scope.remove = function (blog) {
+        $scope.remove = function (brand) {
             $scope.btnPressed = true;
             Confirmation.openConfirmation("Confirmation", "Are you sure you want to remove this?").then(function (result) {
                 if(result == 1){
-                    var blogDetails = {blog:blog};
-                    adminDataService.removeBlog(blogDetails).then(function (response) {
+                    var brandDetails = {brand:brand};
+                    adminDataService.removeBrand(brandDetails).then(function (response) {
                         $scope.loadData(1);
                         $scope.btnPressed = false;
                         Data_Toast.success(MESSAGE_CONFIG.SUCCESS_REMOVED_SUCCESSFULLY);

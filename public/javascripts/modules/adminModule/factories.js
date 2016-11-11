@@ -182,6 +182,18 @@
             return angular.extend({functionId: ADMIN_MOD_CONFIG.REQ_CONFIG.FUNC_RemoveTag}, _getCObj());
         };
 
+        serviceCalls.getBrandListDao = function () {
+            return angular.extend({functionId: ADMIN_MOD_CONFIG.REQ_CONFIG.FUNC_GetBrandList}, _getCObj());
+        };
+
+        serviceCalls.addBrandDao = function () {
+            return angular.extend({functionId: ADMIN_MOD_CONFIG.REQ_CONFIG.FUNC_AddBrand}, _getCObj());
+        };
+
+        serviceCalls.removeBrandDao = function () {
+            return angular.extend({functionId: ADMIN_MOD_CONFIG.REQ_CONFIG.FUNC_RemoveBrand}, _getCObj());
+        };
+
         serviceCalls.getMessageListDao = function () {
             return angular.extend({functionId: ADMIN_MOD_CONFIG.REQ_CONFIG.FUNC_GetMessageList}, _getCObj());
         };

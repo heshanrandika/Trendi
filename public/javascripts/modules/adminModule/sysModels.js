@@ -663,7 +663,7 @@
             $scope.btnPressed = true;
             setData();
             var brandDetails = {brand:$scope.brand};
-            adminDataService.insertBrand(brandDetails).then(function (response) {
+            adminDataService.addBrand(brandDetails).then(function (response) {
                 Data_Toast.success(MESSAGE_CONFIG.SUCCESS_SAVED_SUCCESSFULLY);
                 uiModalInstance.close();
                 $scope.btnPressed = false;
@@ -677,7 +677,7 @@
             $scope.btnPressed = true;
             setData();
             var brandDetails = {brand:$scope.brand};
-            adminDataService.updateBrand(brandDetails).then(function (response) {
+            adminDataService.addBrand(brandDetails).then(function (response) {
                 Data_Toast.success(MESSAGE_CONFIG.SUCCESS_UPDATE_SUCCESSFULLY);
                 uiModalInstance.close();
                 $scope.btnPressed = false;
