@@ -162,6 +162,8 @@
         $scope.mainItemShow = false;
         $scope.trendItemsShow = false;
         $scope.blogShow = false;
+        $scope.brandsShow = false;
+        $scope.brands = [];
 
         $scope.initWindow = function(){
 
@@ -208,18 +210,26 @@
                 $scope.blogShow = false;
             });
 
+            mainDataService.getBrandList({skip:0,limit:10}).then(function(response){
+                $scope.brands = response.data.responData.data.list;
+                $scope.brandsShow = true;
+            }, function(error){
+                $scope.brandsShow = false;
+            });
         };
 
         $scope.initWindow();
 
 
-        $scope.brands=[
+
+
+  /*      $scope.brands=[
             {name:'a', number:'1', date:'1360413309421', src:'../../images/icon-payment-01.png' , class:'purple'}
             ,{name:'b', number:'5', date:'1360213309423', src:'../../images/icon-payment-02.png', class:'orange'}
             ,{name:'c', number:'10', date:'1360113309421', src:'../../images/icon-payment-03.png', class:'purple'}
             ,{name:'d', number:'2', date:'1360113309422', src:'../../images/icon-payment-04.png', class:'green'}
             ,{name:'e', number:'6', date:'1360413309421', src:'../../images/icon-payment-05.png', class:'purple'}
-        ];
+        ];*/
 
         $scope.clickTab = function (tab) {
             if(tab == 1)
@@ -233,7 +243,7 @@
 
             if(tab == 4)
                 $state.go('shop');
-        }
+        };
 
 
          $scope.moduleClick = {
@@ -1401,10 +1411,12 @@
             $scope.latestItems = [];
             $scope.mainItems = [];
             $scope.bannerImages = [];
+            $scope.brands = [];
             $scope.bannerObject = {};
             $scope.latestItemShow = false;
             $scope.productItemShow = false;
             $scope.bannerShow = false;
+            $scope.brandsShow = false;
 
 
 
@@ -1445,7 +1457,14 @@
                 $scope.bannerShow =true;
             });
 
-        }
+            mainDataService.getBrandList({skip:0,limit:10}).then(function(response){
+                $scope.brands = response.data.responData.data.list;
+                $scope.brandsShow = true;
+            }, function(error){
+                $scope.brandsShow = false;
+            });
+
+        };
 
 
         $rootScope.$on('$locationChangeSuccess', function(event){

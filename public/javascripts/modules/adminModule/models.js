@@ -13,6 +13,7 @@
 		$scope.imageCount = 5;
 		$scope.availableSizes = [];
 		$scope.availableTypes = [];
+        $scope.brands = [];
 		$scope.subItem = [];
 		var shopDetails = adminDataService.shopData();
 
@@ -37,6 +38,10 @@
 		adminDataService.getTagList({}).then(function(response){
 			$scope.availableTypes = response.data.responData.data;
 		});
+
+        adminDataService.getBrandList({}).then(function(response){
+            $scope.brands = response.data.responData.data.list;
+        });
 
 
 		var setData = function(){
@@ -65,6 +70,9 @@
                     _.each($scope.item.sizes, function (k) {
                         delete k.$$hashKey
                     });
+
+                    if($scope.item.brand)
+                        delete $scope.item.brand.$$hashKey;
                 }
 
 		};

@@ -112,6 +112,10 @@
             return angular.extend({functionId: MAIN_MOD_CONFIG.REQ_CONFIG.FUNC_GetTagList}, _getCObj());
         };
 
+        serviceCalls.getBrandListDao = function () {
+            return angular.extend({functionId: MAIN_MOD_CONFIG.REQ_CONFIG.FUNC_GetBrandList}, _getCObj());
+        };
+
         serviceCalls.getSizesDao = function () {
             return angular.extend({functionId: MAIN_MOD_CONFIG.REQ_CONFIG.FUNC_GetSizes}, _getCObj());
         };

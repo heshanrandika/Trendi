@@ -23,7 +23,7 @@ function getBrandList(req,callback){
     console.log("$$$$$$$  Get Brand List $$$$$$");
     var params = (req.body.params) ? req.body.params : {};
     var skip =(params.skip)?params.skip:0;
-    var limit  = (params.limit)?params.limit:10;
+    var limit  = (params.limit)?params.limit:500;
     var searchArray = params.searchArray;
     var option = {skip:skip, limit:limit};
     var query ={};

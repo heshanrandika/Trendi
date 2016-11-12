@@ -490,6 +490,9 @@ function updateItem(req,callback){
         _.each(mainItem.types,function(val){
             searchText += (val.key+" ");
         });
+        if(mainItem.brand){
+            searchText += (mainItem.brand.name+" ");
+        }
         searchText += (mainItem.name+" ");
         var changeDoc = {$set:{date:new Date(), item: mainItem, approved:undefined, searchText:searchText}};
 
@@ -527,6 +530,9 @@ function adminUpdateItem(req,callback){
         _.each(mainItem.types,function(val){
             searchText += (val.key+" ");
         });
+        if(mainItem.brand){
+            searchText += (mainItem.brand.name+" ");
+        }
         searchText += (mainItem.name+" ");
 
         var changeDoc = {$set:{ item: mainItem, approved:approved, searchText:searchText}};
@@ -567,6 +573,9 @@ function addItems(req,callback) {
                 _.each(mainItem.types,function(val){
                     doc.searchText += (val.key+" ");
                 });
+                if(mainItem.brand){
+                    doc.searchText += (mainItem.brand.name+" ");
+                }
                 doc.searchText += (mainItem.name+" ");
 
                 daf.Insert(doc, CONSTANT.MAIN_ITEM_COLLECTION, function (err, success) {

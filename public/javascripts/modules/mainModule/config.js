@@ -84,6 +84,7 @@
             FUNC_GetPromotion:          3005,   
             FUNC_GetBlogList:           6004,
             FUNC_GetTagList:            7001,
+            FUNC_GetBrandList :         7010,
             FUNC_AddComment:            8000,
             FUNC_RemoveComment:         8001,
             FUNC_GetCommentList:        8002,

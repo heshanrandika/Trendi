@@ -169,6 +169,23 @@
                                     </div>
                                 </div>
                                 <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label>Select Brand</label>
+                                            <ui-select ng-model="item.brand" theme="bootstrap">
+                                                <ui-select-match placeholder="Select or search a person in the list...">{{$select.selected.name}}</ui-select-match>
+                                                <ui-select-choices repeat="brand in brands | filter: $select.search">
+                                                    <img alt="{{ brand.name }}" ng-src="{{brand.img}}" class="table-img-icon"/>
+                                                    <div ng-bind-html="brand.name | highlight: $select.search"></div>
+                                                </ui-select-choices>
+                                            </ui-select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+
+                                    </div>
+                                </div>
+                                <div class="row">
                                     <div>
                                             <trendi-file-upload files="uploadedImages" image-size="imageSize"  image-count="imageCount"></trendi-file-upload>
                                     </div>

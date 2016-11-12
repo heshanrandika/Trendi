@@ -83,6 +83,10 @@
             return Data_Comm.postPromise(angular.extend({params:d},mainServiceCalls.getTagListDao()));
         };
 
+        var _getBrandList = function(d){
+            return Data_Comm.postPromise(angular.extend({params:d},mainServiceCalls.getBrandListDao()));
+        };
+
         var _getSizes = function(d){
             return Data_Comm.postPromise(angular.extend({params:d},mainServiceCalls.getSizesDao()));
         };
@@ -156,6 +160,7 @@
             getItemMenu:_getItemMenu,
             setRate:_setRate,
             getTagList:_getTagList,
+            getBrandList:_getBrandList,
             getSizes:_getSizes,
             getCommentList:_getCommentList,
             addComment:_addComment,
