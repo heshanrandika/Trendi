@@ -164,6 +164,18 @@
             return Data_Comm.postPromise(angular.extend({params:d},adminServiceCalls.removeBrandDao()));
         };
 
+        var _getBankList = function(d){
+            return Data_Comm.postPromise(angular.extend({params:d},adminServiceCalls.getBankListDao()));
+        };
+
+        var _addBank = function(d){
+            return Data_Comm.postPromise(angular.extend({params:d},adminServiceCalls.addBankDao()));
+        };
+
+        var _removeBank = function(d){
+            return Data_Comm.postPromise(angular.extend({params:d},adminServiceCalls.removeBankDao()));
+        };
+
         var _getMessageList = function(d){
             return Data_Comm.postPromise(angular.extend({params:d},adminServiceCalls.getMessageListDao()));
         };
@@ -257,6 +269,9 @@
             getBrandList:_getBrandList,
             addBrand:_addBrand,
             removeBrand:_removeBrand,
+            getBankList:_getBankList,
+            addBank:_addBank,
+            removeBank:_removeBank,
             getMessageList:_getMessageList,
             sendMessage:_sendMessage,
             replyMessage:_replyMessage,

@@ -703,4 +703,65 @@
         };
     }]);
 
+    mod.controller('sysBankModel',['$scope', '$modalInstance','item','adminDataService','Data.Toast','MESSAGE_CONFIG', function ($scope, uiModalInstance, selectedItem, adminDataService, Data_Toast, MESSAGE_CONFIG) {
+        $scope.bank = selectedItem? selectedItem : {};
+        $scope.approved = selectedItem? selectedItem.approved : undefined;
+        $scope.addNewBank = selectedItem? false:true;
+        $scope.uploadedImages = [];
+        $scope.bankImageSize = {value:500000, text:'500kB'};
+        $scope.bankImageCount = 1;
+
+
+
+        if(selectedItem){
+            $scope.uploadedImages.push({image:$scope.bank.img});
+        }
+
+        var setData = function(){
+            if(($scope.uploadedImages.length <= 0)){
+                Data_Toast.warning(MESSAGE_CONFIG.ERROR_REQUIRED_IMAGE);
+                $scope.btnPressed = false;
+            }else {
+                $scope.bank.img = $scope.uploadedImages[0]?$scope.uploadedImages[0].image:'';
+                $scope.bank.rate = {rate:0, star:0, hit:0};
+            }
+
+        };
+
+        $scope.save = function(){
+            $scope.btnPressed = true;
+            setData();
+            var bankDetails = {bank:$scope.bank};
+            adminDataService.addBank(bankDetails).then(function (response) {
+                Data_Toast.success(MESSAGE_CONFIG.SUCCESS_SAVED_SUCCESSFULLY);
+                uiModalInstance.close();
+                $scope.btnPressed = false;
+            },function (error) {
+                Data_Toast.error(MESSAGE_CONFIG.ERROR_SAVE_FAIL,error.data.responData.Error);
+                $scope.btnPressed = false;
+            });
+        };
+
+        $scope.update = function(){
+            $scope.btnPressed = true;
+            setData();
+            var bankDetails = {bank:$scope.bank};
+            adminDataService.addBank(bankDetails).then(function (response) {
+                Data_Toast.success(MESSAGE_CONFIG.SUCCESS_UPDATE_SUCCESSFULLY);
+                uiModalInstance.close();
+                $scope.btnPressed = false;
+            },function (error) {
+                Data_Toast.error(MESSAGE_CONFIG.ERROR_SAVE_FAIL,error.data.responData.Error);
+                $scope.btnPressed = false;
+            });
+        };
+
+
+
+        $scope.cancel = function () {
+            $scope.initWindow = false;
+            uiModalInstance.dismiss('cancel');
+        };
+    }]);
+
 })(com.TRENDI.ADMIN.modules.mainAdminModule);

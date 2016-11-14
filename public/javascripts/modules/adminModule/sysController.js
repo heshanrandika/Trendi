@@ -1186,7 +1186,7 @@
     }]);
 
 
-    mod.controller('sysAdminTagBrandController', ['$scope', '$rootScope','$state','adminDataService','Data.Toast','MESSAGE_CONFIG','$modal','Confirmation', function ($scope, $rootScope, $state, adminDataService, Data_Toast, MESSAGE_CONFIG, uiModal, Confirmation) {
+    mod.controller('sysAdminConfigController', ['$scope', '$rootScope','$state','adminDataService','Data.Toast','MESSAGE_CONFIG','$modal','Confirmation', function ($scope, $rootScope, $state, adminDataService, Data_Toast, MESSAGE_CONFIG, uiModal, Confirmation) {
 
         $scope.typed = '';
         $scope.tracker = 1;
@@ -1271,11 +1271,9 @@
         /*+++++++++++++++++++++++ Brand Functions +++++++++++++++++++++++++*/
 
         $scope.brandList = [];
-        var shopDetails = {};
         var itemPerPage = 10;
 
 
-        shopDetails = adminDataService.shopData();
         $scope.searchObj = {
             skip: $scope.brandList.length,
             limit:itemPerPage,
@@ -1401,6 +1399,143 @@
                     });
                 }else{
                     $scope.btnPressed = false;
+                }
+            });
+        };
+
+
+
+        /*+++++++++++++++++++++++ Bank Functions +++++++++++++++++++++++++*/
+
+        $scope.bankList = [];
+        var itemPerPage = 10;
+
+
+        $scope.searchObjBank = {
+            skip: $scope.bankList.length,
+            limit:itemPerPage,
+            searchArray:[]
+        };
+
+
+
+        $scope.searchBank={};
+
+        $scope.searchBankPress = function(event, search){
+            if(event.keyCode == 13 || search){
+                var array = [];
+                for(var i in $scope.searchBank) {
+                    if($scope.searchBank[i] != ""){
+                        if(!isNaN(parseFloat($scope.searchBank[i])) && isFinite($scope.searchBank[i])){
+                            array.push({key:i, value:parseInt($scope.searchBank[i])})
+                        }else{
+                            array.push({key:i, value:{'$regex': $scope.searchBank[i]}})
+                        }
+                    }
+
+                }
+                $scope.searchObjBank.searchArray = array;
+                $scope.loadBankData(1);
+            }
+        };
+
+        $scope.refreshBank = function(){
+            $scope.searchObjBank.searchArray = [];
+            $scope.searchBank = {};
+            $scope.searchBankPress({},true);
+        };
+
+        $scope.loadBankData = function(init){
+            if(init){
+                $scope.bankList = [];
+                $scope.searchObjBank.skip =0;
+            }
+            $scope.bankLoading = true;
+            adminDataService.getBankList($scope.searchObjBank).then(function(response){
+                $scope.bankList.push.apply($scope.bankList, response.data.responData.data.list);
+                if(response.data.responData.data.count){
+                    $scope.bankCount = response.data.responData.data.count;
+                }
+                $scope.bankLoading = false;
+            },function(){
+                $scope.bankList = [];
+            });
+
+
+        };
+
+        $scope.bankPaginationFuntion = function() {
+            $scope.searchObjBank.skip = $scope.bankList.length;
+            if ($scope.bankCount > $scope.bankList.length  && !$scope.bankLoading) {
+                $scope.loadBankData();
+            }
+        };
+
+        $scope.loadBankData(1);
+
+
+
+
+        $scope.bankOpen = function (selectedItem) {
+            $scope.bankBtnPressed = true;
+            var modalInstance = uiModal.open({
+                animation: true,
+                templateUrl: '/views/adminModule/sysAdmin/sysModels/sys.admin.bank.model.html',
+                controller: 'sysBankModel',
+                size: 'md',
+                resolve:{
+                    item : function(){
+                        var editItem = angular.copy(selectedItem);
+                        return editItem;
+                    }
+                }
+            });
+
+            modalInstance.result.then(function (editedItem) {
+                $scope.loadBankData(1);
+                $scope.bankBtnPressed = false;
+            }, function () {
+                $scope.bankBtnPressed = false;
+            });
+        };
+
+        $scope.addNewBank = function () {
+            $scope.bankBtnPressed = true;
+            var modalInstance = uiModal.open({
+                animation: true,
+                templateUrl: '/views/adminModule/sysAdmin/sysModels/sys.admin.bank.model.html',
+                controller: 'sysBankModel',
+                size: 'md',
+                resolve:{
+                    item : function(){
+                        return undefined;
+                    }
+                }
+            });
+
+            modalInstance.result.then(function () {
+                $scope.loadBankData(1);
+                $scope.bankBtnPressed = false;
+            }, function () {
+                $scope.bankBtnPressed = false;
+            });
+        };
+
+        $scope.removeBank = function (bank) {
+            $scope.bankBtnPressed = true;
+            Confirmation.openConfirmation("Confirmation", "Are you sure you want to remove this?").then(function (result) {
+                if(result == 1){
+                    var bankDetails = {bank:bank};
+                    adminDataService.removeBank(bankDetails).then(function (response) {
+                        $scope.loadBankData(1);
+                        $scope.bankBtnPressed = false;
+                        Data_Toast.success(MESSAGE_CONFIG.SUCCESS_REMOVED_SUCCESSFULLY);
+                    },function (error) {
+                        Data_Toast.error(MESSAGE_CONFIG.ERROR_REMOVE_FAIL,error.data.responData.Error);
+                        $scope.bankBtnPressed = false;
+                    });
+                }else{
+                    $scope.bankBtnPressed = false;
                 }
             });
         };

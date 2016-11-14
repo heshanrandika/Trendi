@@ -1,0 +1,174 @@
+<div>
+    <div class="header">
+        <h2><strong>Config </strong> Collection</h2>
+        <div class="breadcrumb-wrapper">
+            <ol class="breadcrumb">
+                <li>
+                    <a href="#">Make</a>
+                </li>
+                <li>
+                    <a href="#">Pages</a>
+                </li>
+                <li class="active">Buttons</li>
+            </ol>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel">
+                <div class="panel-content">
+                    <tabset class="tab-fade-in tab_left" vertical="true">
+                        <!--TODO: add nav-red to ul-->
+                        <tab>
+                            <tab-heading>
+                                <i class="icon-tag"></i> TAGS
+                            </tab-heading>
+                            <div class="panel">
+                                <div class="panel-header">
+                                    <h3><i class="icon-layers"></i> Add your <strong>Tags</strong></h3>
+                                </div>
+                                <div class="panel-content">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="row">
+                                                <div class="col-md-8">
+                                                    <div class="form-group">
+                                                        <div class="append-icon">
+                                                            <input type="text"  class="form-control" placeholder="Type your tag here" ng-model="typed">
+                                                            <i class="icon-tag"></i>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <button  class="btn " ng-class="(tracker == 1 || tracker == 2)? 'btn-danger':'btn-primary'"  ng-disabled="tracker == 2 || typed ==''" ng-click="answer()">
+                                                        {{(tracker == 1 || tracker == 2)?"Remove":"Add"}}   <i ng-class="(tracker == 1 || tracker == 2)? 'icon-close':'icon-plus'"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <h3><strong>Your</strong> Tags</h3>
+                                            <ul class="tags">
+                                                <li ng-repeat="tag in tags"  ng-if="checkShop(tag)"><a class="tag">{{tag.key}}  <i class="icon-close" ng-click="removeTag(tag)"></i></a></li>
+                                            </ul>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="row"></div>
+                                            <h3><strong>Other</strong> Tags</h3>
+                                            <ul class="tags">
+                                                <li ng-repeat="tag in tags"  ng-if="!checkShop(tag)"><a class="tag-other">{{tag.key}}</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </tab>
+                        <tab>
+                            <tab-heading>
+                                <i class="icon-briefcase"></i> BRANDS
+                            </tab-heading>
+                            <div class="panel">
+                                <div class="panel-header">
+                                    <h3><i class="icon-layers"></i> Brand <strong>Collection</strong></h3>
+                                    <button class="btn btn-success" ng-click="addNew()">
+                                        <i class="icon-plus"></i> Add New
+                                    </button>
+                                </div>
+                                <div class="panel-content">
+                                    <table  class="table table-hover table-dynamic">
+                                        <thead>
+                                        <tr>
+                                            <th><button class="btn btn-warning" ng-click="refresh()">
+                                                <i class=".icon-plus"></i> Reset Filters
+                                            </button>
+                                            </th>
+                                            <th class="sorting"  rowspan="1" colspan="1"  style="width: 196px;">
+                                                Name<input type="text" ng-keypress="searchPress($event)" class="form-control" placeholder="Filter By Name" ng-model="search['name']"></th>
+                                            <th><button class="btn btn-primary" ng-click="searchPress({},true)">
+                                                <i class="..icon-magnifier"></i> Search in Advance
+                                            </button>
+                                            </th>
+                                        </tr>
+                                        </thead>
+                                        <tbody infinite-scroll='paginationFuntion()' infinite-scroll-distance='0.01'>
+                                        <tr ng-repeat="brand in brandList | searchFilter:search">
+                                            <td><span class="pull-left p-r-5">
+                                                <img alt="{{ brand.name }}" ng-src="{{brand.img}}" class="table-img-icon"/>
+                                                </span></td>
+                                            <td>{{ brand.name }}</td>
+                                            <td>
+                                                <div>
+                                                    <a class="edit btn btn-sm btn-default" href="javascript:;" ng-click="open(brand)" ng-disabled="btnPressed"><i class="icon-note" ></i></a>
+                                                    <a class="delete btn btn-sm btn-danger" href="javascript:;" ng-click="remove(brand)" ng-disabled="btnPressed"><i class="icons-office-52"></i></a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            </tab>
+                        <tab>
+                            <tab-heading>
+                                <i class="icon-credit-card"></i> BANKS
+                            </tab-heading>
+                            <div class="panel">
+                                <div class="panel-header">
+                                    <h3><i class="icon-layers"></i> Bank <strong>Collection</strong></h3>
+                                    <button class="btn btn-success" ng-click="addNewBank()">
+                                        <i class="icon-plus"></i> Add New Bank
+                                    </button>
+                                </div>
+                                <div class="panel-content">
+                                    <table  class="table table-hover table-dynamic">
+                                        <thead>
+                                        <tr>
+                                            <th><button class="btn btn-warning" ng-click="refreshBank()">
+                                                <i class=".icon-plus"></i> Reset Filters
+                                            </button>
+                                            </th>
+                                            <th class="sorting"  rowspan="1" colspan="1"  style="width: 196px;">
+                                                Name<input type="text" ng-keypress="searchBankPress($event)" class="form-control" placeholder="Filter By Name" ng-model="searchBank['name']"></th>
+                                            <th><button class="btn btn-primary" ng-click="searchBankPress({},true)">
+                                                <i class="..icon-magnifier"></i> Search in Advance
+                                            </button>
+                                            </th>
+                                        </tr>
+                                        </thead>
+                                        <tbody infinite-scroll='bankPaginationFuntion()' infinite-scroll-distance='0.01'>
+                                        <tr ng-repeat="bank in bankList | searchFilter:searchBank">
+                                            <td><span class="pull-left p-r-5">
+                                                <img alt="{{ bank.name }}" ng-src="{{bank.img}}" class="table-img-icon"/>
+                                                </span></td>
+                                            <td>{{ bank.name }}</td>
+                                            <td>
+                                                <div>
+                                                    <a class="edit btn btn-sm btn-default" href="javascript:;" ng-click="bankOpen(bank)" ng-disabled="bankBtnPressed"><i class="icon-note" ></i></a>
+                                                    <a class="delete btn btn-sm btn-danger" href="javascript:;" ng-click="removeBank(bank)" ng-disabled="bankBtnPressed"><i class="icons-office-52"></i></a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </tab>
+                    </tabset>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+    <div class="footer">
+        <div class="copyright">
+            <p class="pull-left sm-pull-reset">
+                <span>Copyright <span class="copyright">&copy;</span> 2015 </span>
+                <span>Trendi</span>.
+                <span>All rights reserved. </span>
+            </p>
+            <p class="pull-right sm-pull-reset">
+                <span><a href="#" class="m-r-10">Support</a> | <a href="#" class="m-l-10 m-r-10">Terms of use</a> | <a href="#" class="m-l-10">Privacy Policy</a></span>
+            </p>
+        </div>
+    </div>
+</div>

@@ -53,6 +53,12 @@
                 controller: 'trendiMessageController'
 
             },
+            'main.offers': {
+                url: '/offers',
+                templateUrl: 'views/mainModule/main.offers.html',
+                controller: 'trendiMainOffersController'
+
+            },
             'main.contact': {
                 url: '/contact',
                 templateUrl: 'views/mainModule/main.contact.html',

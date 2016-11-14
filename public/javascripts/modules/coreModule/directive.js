@@ -488,7 +488,7 @@
             link: function(scope, elm, attrs) {
                 scope.$on('repeated', function(ngRepeatFinishedEvent) {
                     elm.ready(function () {
-                        //var menu = elm.trendiHideMenu(); if there occur any bug on shop wide menu please change this
+                        var menu = elm.trendiHideMenu(); //if there occur any bug on shop wide menu please change this
                     });
                 });
 
@@ -644,7 +644,7 @@
             link: function(scope, elm, attrs) {
                 $timeout(function () {
                     elm.ready(function () {
-                           var menu = elm.trendiHideMenu({});
+                         //  var menu = elm.trendiHideMenu({});
                     });
                 },100);
             }

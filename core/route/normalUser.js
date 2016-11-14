@@ -8,6 +8,7 @@ var PROMOTION = require("../controllers/promotionController");
 var BLOG = require("../controllers/blogController");
 var TAG = require("../controllers/tagController");
 var BRAND = require("../controllers/brandController");
+var BANK = require("../controllers/bankController");
 var COMMENT = require("../controllers/commentController");
 
 var normalRequestRoute = function(req,res){
@@ -465,6 +466,26 @@ var normalRequestRoute = function(req,res){
         case 7010:
 
             BRAND.GetBrandList(req, function (err, data) {
+                if (err) {
+                    resObject.resStatus = 0;
+                    resObject.responData.Error = err.toString();
+                    res.status(500);
+                    res.send(resObject);
+
+                } else if (data) {
+
+                    resObject.resStatus = 1;
+                    resObject.responData.data = data;
+                    res.send(resObject);
+
+                }
+
+            });
+            break;
+
+        case 7020:
+
+            BANK.GetBankList(req, function (err, data) {
                 if (err) {
                     resObject.resStatus = 0;
                     resObject.responData.Error = err.toString();

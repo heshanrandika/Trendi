@@ -71,7 +71,9 @@
                                 </dt>
                                 <dd></dd>
                                 <dt class="item compact-hidden"> <a ng-click="menuFunc.gotoShop()" class="btn-main line">SHOPS</a> </dt>
-                                <trendi-wide-menu-bar shoplist="menuFunc.shopList"></trendi-wide-menu-bar>
+                                <trendi-wide-menu-bar shoplist="menuFunc.shopList" ng-if="menuFunc.shopList"></trendi-wide-menu-bar>
+                                <dt class="item compact-hidden"> <a ng-click="menuFunc.gotoShop()" class="btn-main line">OFFERS</a> </dt>
+                                <trendi-wide-menu-bar shoplist="menuFunc.shopList" ng-if="menuFunc.shopList"></trendi-wide-menu-bar>
                                 <dt class="item"> <a ng-click="menuFunc.gotoContact()" class="btn-main line">Contacts</a> </dt>
                                 <dd></dd>
                             </dl>

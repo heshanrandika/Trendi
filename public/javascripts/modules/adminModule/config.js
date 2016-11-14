@@ -174,10 +174,10 @@
                 }
             },
 
-            'main.sys_tag_brand': {
-                url: '/sys_tag_brand',
-                templateUrl: '/views/adminModule/sysAdmin/sys.admin.tags.html',
-                controller: 'sysAdminTagBrandController',
+            'main.sys_config': {
+                url: '/sys_config',
+                templateUrl: '/views/adminModule/sysAdmin/sys.admin.config.html',
+                controller: 'sysAdminConfigController',
                 access: {
                     requiresLogin: true
                 }
@@ -227,14 +227,17 @@
             FUNC_insertBlog :     6002,
             FUNC_RemoveBlog :     6003,
             FUNC_UpdateBlog :     6005,
-            FUNC_AdminGetTagList :      7000,
+            FUNC_AdminGetTagList: 7000,
             FUNC_GetTagList :     7001,
             FUNC_AddTag     :     7002,
             FUNC_RemoveTag  :     7003,
             FUNC_GetBrandList :   7010,
             FUNC_AddBrand     :   7011,
             FUNC_RemoveBrand  :   7012,
-            FUNC_GetMessageList  :      5000,
+            FUNC_GetBankList :    7020,
+            FUNC_AddBank     :    7021,
+            FUNC_RemoveBank  :    7022,
+            FUNC_GetMessageList : 5000,
             FUNC_SendMessage:     5001,
             FUNC_ReplyMessage  :  5002,
             FUNC_UpdateMessage  : 5003,
@@ -368,11 +371,11 @@
                 icon:'icon-user'
             },
             {
-                value:'Tag & Brand ',
-                key:'main.sys_tag_brand',
-                view:'message',
+                value:'Configs ',
+                key:'main.sys_config',
+                view:'config',
                 authorization: 3000,
-                icon:'icon-tag'
+                icon:'icon-settings'
             }
 
         ],
