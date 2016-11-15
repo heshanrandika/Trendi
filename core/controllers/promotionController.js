@@ -185,6 +185,8 @@ function updatePromotion(req,callback){
             title : promotion.title,
             promotionPic: promotion.promotionPic,
             tags: promotion.tags,
+            banks: promotion.banks,
+            proType:promotion.proType,
             description: promotion.description,
             expDate:promotion.expDate
         }};

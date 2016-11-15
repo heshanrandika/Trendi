@@ -474,6 +474,7 @@
 
 
         $scope.availableTypes = [];
+        $scope.bankList = [];
 
         var shopDetails = {};
 
@@ -481,6 +482,9 @@
             $scope.availableTypes = response.data.responData.data;
         });
 
+        adminDataService.getBankList({}).then(function(response){
+            $scope.bankList = response.data.responData.data.list;
+        });
 
         if(selectedItem){
             $scope.uploadedImages.push({image:$scope.promotion.promotionPic});
@@ -501,6 +505,10 @@
                 $scope.promotion.rate = {rate:0, star:0, hit:0};
 
                 _.each($scope.promotion.tags, function (k) {
+                    delete k.$$hashKey
+                });
+
+                _.each($scope.promotion.banks, function (k) {
                     delete k.$$hashKey
                 });
             }

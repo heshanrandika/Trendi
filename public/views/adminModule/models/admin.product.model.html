@@ -100,7 +100,7 @@
                                 <div class="row">
                                     <div class="col-sm-6">
                                         <div class="form-group">
-                                            <label ng-click="check()">Item Tagging</label>
+                                            <label>Item Tagging</label>
                                             <ui-select multiple ng-model="item.types" theme="bootstrap" sortable="true" title="Choose a Tag">
                                                 <ui-select-match placeholder="Select tags...">{{$item.key}}</ui-select-match>
                                                 <ui-select-choices repeat="type in availableTypes | filter:$select.search">
@@ -111,7 +111,7 @@
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="form-group">
-                                            <label ng-click="check()">Select Sizes</label>
+                                            <label>Select Sizes</label>
                                             <ui-select multiple ng-model="item.sizes" theme="bootstrap" sortable="true" title="Choose a Size">
                                                 <ui-select-match placeholder="Select sizes...">{{$item.value}}</ui-select-match>
                                                 <ui-select-choices repeat="size in availableSizes | filter:$select.search">
@@ -172,7 +172,7 @@
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label>Select Brand</label>
-                                            <ui-select ng-model="item.brand" theme="bootstrap">
+                                            <ui-select ng-model="item.brand" theme="selectize">
                                                 <ui-select-match placeholder="Select or search a person in the list...">{{$select.selected.name}}</ui-select-match>
                                                 <ui-select-choices repeat="brand in brands | filter: $select.search">
                                                     <img alt="{{ brand.name }}" ng-src="{{brand.img}}" class="table-img-icon"/>
