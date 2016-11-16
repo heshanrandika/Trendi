@@ -15,12 +15,6 @@
 
                     <trendi-shop-list selcted-shop="selectedshop" selected-shop-name="selectedShopName"></trendi-shop-list>
 
-                    <!-- Shop by -->
-                    <section>
-                        <br>
-                        <trendi-search-option shopoption="searchOption"></trendi-search-option>
-                    </section>
-                    <!-- //end Shop by -->
 
                     <div class="section-divider"></div>
 
@@ -55,7 +49,7 @@
                     </div>
 
                     <div ng-if="mainItemShow && isoRefresh">
-                        <trendi-isotop-product items="mainItems" views="changeView" action="isotopPagination" template="trendi.deals.isotop"></trendi-isotop-product>
+                        <trendi-isotop-product items="mainItems" views="changeView" action="isotopPagination" template="trendi.offers.isotop"></trendi-isotop-product>
                     </div>
                     <!-- //end Listing products -->
 
