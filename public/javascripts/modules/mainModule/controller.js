@@ -75,6 +75,24 @@
                 $location.path('main/shop');
             },
 
+            getBankList : function () {
+                mainDataService.getBankList(
+                    {
+                        skip: 0,
+                        limit:6
+                    }
+                ).then(function(response){
+                        $scope.menuFunc.bankList = response.data.responData.data.list;
+                    },function(){
+                    });
+            },
+
+
+            gotoBank : function () {
+                $location.search({});
+                $location.path('main/offers');
+            },
+
             gotoContact : function () {
                 $location.search({});
                 $location.path('main/contact');
@@ -149,6 +167,7 @@
 
         $scope.menuFunc.homeClick();
         $scope.menuFunc.getShopList();
+        $scope.menuFunc.getBankList();
         $scope.menuFunc.getCounts();
         $scope.menuFunc.loadMenu();
         $scope.menuFunc.searchKey =  '';
@@ -219,17 +238,6 @@
         };
 
         $scope.initWindow();
-
-
-
-
-  /*      $scope.brands=[
-            {name:'a', number:'1', date:'1360413309421', src:'../../images/icon-payment-01.png' , class:'purple'}
-            ,{name:'b', number:'5', date:'1360213309423', src:'../../images/icon-payment-02.png', class:'orange'}
-            ,{name:'c', number:'10', date:'1360113309421', src:'../../images/icon-payment-03.png', class:'purple'}
-            ,{name:'d', number:'2', date:'1360113309422', src:'../../images/icon-payment-04.png', class:'green'}
-            ,{name:'e', number:'6', date:'1360413309421', src:'../../images/icon-payment-05.png', class:'purple'}
-        ];*/
 
         $scope.clickTab = function (tab) {
             if(tab == 1)
@@ -2081,10 +2089,6 @@
         $scope.getCategoryMenuData();
 
 
-
-
-
-
         $scope.searchObj = {
             skip: 0,
             limit:6,
@@ -2097,37 +2101,13 @@
 
 
 
-        $scope.priceChange = function(){
-            if($scope.searchOption.maxPrice){
-                $scope.searchObj.filterMap['minPrice'] = $scope.searchOption.minPrice;
-                $scope.searchObj.filterMap['maxPrice'] = $scope.searchOption.maxPrice;
-                $scope.loadData(1);
-                console.log("change");
-            }
-        };
-        $scope.colorChange = function(){
-            if($scope.searchOption.color) {
-                $scope.searchObj.filterMap['color'] = $scope.searchOption.color;
-                $scope.loadData(1);
-                console.log("change");
-            }
-        };
-        $scope.sizeChange = function(){
-            if($scope.searchOption.size) {
-                $scope.searchObj.filterMap['size'] = $scope.searchOption.size;
-                $scope.loadData(1);
-                console.log("change");
-            }
-        };
         $scope.shopChange = function(){
             if($scope.selectedshop) {
                 $scope.searchObj.shop = $scope.selectedshop;
                 $location.path('main/deals/'+$scope.selectedshop+'/'+$scope.selectParams.selected);
             }
         };
-        $scope.$watch(function() { return $scope.searchOption.priceChange; },  $scope.priceChange);
-        $scope.$watch(function() { return $scope.searchOption.color;    },  $scope.colorChange);
-        $scope.$watch(function() { return $scope.searchOption.size;     },  $scope.sizeChange);
+
         $scope.$watch(function() { return $scope.selectedshop;     },  $scope.shopChange);
 
         $scope.loadData = function(init){
@@ -2163,27 +2143,6 @@
         $scope.loadData(1);
 
 
-        $scope.clickTag = function(val){
-            $location.path('main/deals/'+$scope.selectParams.shop+'/'+val.key);
-        };
-
-
-        /*+++++++++++++++++++++++++++++++++++++PRODUCT VIEW PAGE++++++++++++++++++++++++++++++++++++++++++++++*/
-
-        $scope.loadSubItem = function(id){
-            $scope.subItem = {};
-            mainDataService.getSubItem({itemId : id}).then(function(response){
-                $scope.subItem =  response.data.responData.data;
-                _.each($scope.subItem.itemList, function(sub){
-                    $scope.imageArray.push(sub.image);
-                })
-
-            },function(){
-            });
-        };
-
-
-
         $scope.isotopPagination = {
             searchFromServer: function (d) {
                 $scope.paginationFuntion();
@@ -2203,6 +2162,11 @@
             }
 
         };
+
+        /*+++++++++++++++++++++++++++++++++++++PRODUCT VIEW PAGE++++++++++++++++++++++++++++++++++++++++++++++*/
+
+
+
 
 
         $rootScope.$on('$locationChangeSuccess', function(event){
@@ -2247,46 +2211,6 @@
 
             sourceImage.src = url;
         };
-
-
-        //select image
-
-        $scope.imageSelect = function(index){
-            $scope.renderd = 0;
-            $scope.selectedImage = {
-                big : $scope.imageArray[index],
-                small : $scope.imageArray[index],
-                tiny : $scope.imageArray[index]
-            };
-
-
-            function setImage(){
-                $scope.renderd += 1;
-                if($scope.renderd == 3){
-                    $scope.$apply(function(){
-                        $scope.renderd = true;
-                    });
-                }
-            }
-            imageResize($scope.imageArray[index], 700, 700, function(data){
-                $scope.selectedImage.big = data;
-                setImage();
-            });
-
-            imageResize($scope.imageArray[index], 400, 400, function(data){
-                $scope.selectedImage.small = data;
-                setImage()
-            });
-
-            imageResize($scope.imageArray[index], 200, 200, function(data){
-                $scope.selectedImage.tiny = data;
-                setImage();
-            });
-
-
-
-        };
-
 
 
         //back button click
@@ -2341,22 +2265,6 @@
                     };
 
                 });
-            }
-        };
-
-        $scope.moduleClick = {
-            itemClicked: function (selected) {
-                var shopId = selected.item.shop.shopId;
-                var category = "Women";
-                if(selected.item.group.women){
-                    category = "Women";
-                }else if(selected.item.group.men){
-                    category = "Men";
-                }else if(selected.item.group.kids){
-                    category = "Kids";
-                }
-                $location.path('main/products/'+shopId+'/'+category+'/'+'all');
-                $location.search('itemId', selected.itemId);
             }
         };
 

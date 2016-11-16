@@ -10,6 +10,9 @@
                 <!-- Left column -->
                 <aside class="col-sm-4 col-md-3 col-lg-3 content-aside" id="content-aside-id">
 
+                    <trendi-bank-list selcted-bank="selectedshop"></trendi-bank-list>
+                     <div class="section-divider"></div>
+
                     <trendi-shop-list selcted-shop="selectedshop" selected-shop-name="selectedShopName"></trendi-shop-list>
 
                     <!-- Shop by -->
@@ -18,19 +21,6 @@
                         <trendi-search-option shopoption="searchOption"></trendi-search-option>
                     </section>
                     <!-- //end Shop by -->
-
-                    <div class="section-divider"></div>
-
-                    <!-- Popular tags -->
-                    <section class="cloud-tags">
-                        <h3>TAGS</h3>
-                        <ul class="tags">
-                            <li ng-repeat="tag in tags"  ng-click="clickTag(tag)"><a class="tag">{{tag.key}}</a></li>
-                        </ul>
-                    </section>
-                    <!-- //end Popular tags -->
-
-                    <div class="section-divider"></div>
 
                     <div class="section-divider"></div>
 
@@ -57,6 +47,7 @@
                             <div class="col-md-4 col-lg-4 hidden-sm hidden-xs">
                                 <div class="view-mode"> View as:&nbsp; <a ng-click="changeList(0)" class="view-grid"><span class="icon-th"></span></a> <a ng-click="changeList(1)" class="view-list"><span class="icon-th-list"></span></a> </div>
                             </div>
+                  
                         </div>
                         <div class="divider"></div>
                         <div class="pull-left hidden-xs">Items 1 to {{mainItems.length}} of {{count}} total</div>
@@ -84,10 +75,13 @@
                             <div class="col-md-4 col-lg-4 hidden-sm hidden-xs">
                                 <div class="view-mode"> View as:&nbsp; <a ng-click="changeList(0)" class="view-grid"><span class="icon-th"></span></a> <a ng-click="changeList(1)" class="view-list"><span class="icon-th-list"></span></a> </div>
                             </div>
+
                         </div>
                         <div class="divider" id="yyy"></div>
                         <div class="pull-left hidden-xs">Items 1 to {{mainItems.length}} of {{count}} total</div>
-
+                        <!-- <div class="pull-right hidden-xs" >
+                             <div class="pagination"> <a>1</a> <a>2</a> <a class="icon"><span class="icon-arrow-right-3 "></span></a> </div>
+                         </div>-->
                         <div class="clearfix"></div>
                     </div>
                     <!-- //end Filters -->
@@ -143,7 +137,6 @@
                                 </div>
                             </div>
                             <br>
-
                             <div class="clearfix visible-xs"></div>
                             <trendi-watch-list-add item-id="selectedItem.itemId"></trendi-watch-list-add>
                             <trendi-message-small></trendi-message-small>
@@ -167,6 +160,7 @@
                                     </div>
                                 </div>
                             </div>
+                            
                             <trendi-comment ng-if="selectedItem.itemId" id="selectedItem.itemId" category="item"></trendi-comment>
                         </div>
                     </div>

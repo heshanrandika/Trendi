@@ -479,7 +479,8 @@
             restrict: 'E',
             replace: true,
             scope: {
-                shoplist:'='
+                objectlist:'=',
+                sequence:'='
             },
             templateUrl: function(elem,attrs) {
                 var url = '/views/coreModule/menu/'+(attrs.template? attrs.template : 'trendi.shop.menu')+'.html';
@@ -487,9 +488,12 @@
             },
             link: function(scope, elm, attrs) {
                 scope.$on('repeated', function(ngRepeatFinishedEvent) {
-                    elm.ready(function () {
-                        var menu = elm.trendiHideMenu(); //if there occur any bug on shop wide menu please change this
+                    if(scope.sequence == "1"){// this condition to avoid trendiHideMenu() initialization more than one time
+                        elm.ready(function () {
+                        var menu = elm.trendiHideMenu();
                     });
+                    }
+                    
                 });
 
 

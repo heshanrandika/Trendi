@@ -76,6 +76,10 @@
             return angular.extend({functionId: MAIN_MOD_CONFIG.REQ_CONFIG.FUNC_GetShopList}, _getCObj());
         }; 
 
+        serviceCalls.getBankListDao = function () {
+            return angular.extend({functionId: MAIN_MOD_CONFIG.REQ_CONFIG.FUNC_GetBankList}, _getCObj());
+        }; 
+
         serviceCalls.getBannerDao = function () {
             return angular.extend({functionId: MAIN_MOD_CONFIG.REQ_CONFIG.FUNC_GetShopBanner}, _getCObj());
         };

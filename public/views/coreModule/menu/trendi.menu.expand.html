@@ -24,5 +24,10 @@
             <li ng-repeat="shop in menuFunc.shopList"> <span class="name"><a ng-href="#/main/shop?shopId={{shop.shopId}}">{{shop.name}}</a></span></li>
         </ul>
     </li>
+    <li> <span class="name"><span class="expander">-</span> <a ng-click="menuFunc.gotoBank()">Offers</a></span>
+        <ul>
+            <li ng-repeat="bank in menuFunc.bankList"> <span class="name"><a ng-href="#/main/offers?bank={{bank.name}}">{{bank.name}}</a></span></li>
+        </ul>
+    </li>
     <li><span class="name"><a ng-click="menuFunc.gotoContact()">Contacts</a></span></li>
 </ul>

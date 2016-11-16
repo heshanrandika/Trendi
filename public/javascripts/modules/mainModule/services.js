@@ -55,6 +55,10 @@
             return Data_Comm.postPromise(angular.extend({params:d},mainServiceCalls.getShopListDao()));
         };
 
+        var _getBankList = function(d){
+            return Data_Comm.postPromise(angular.extend({params:d},mainServiceCalls.getBankListDao()));
+        };
+
         var _getSearchList = function(d){
             return Data_Comm.postPromise(angular.extend({params:d},mainServiceCalls.getSearchListDao()));
         };
@@ -151,6 +155,7 @@
             getNewProductList:_getNewProductList,
             getMostSeen:_getMostSeen,
             getShopList:_getShopList,
+            getBankList:_getBankList,
             getBanner:_getBanner,
             getMapMarker:_getMapMarker,
             getSearchList:_getSearchList,

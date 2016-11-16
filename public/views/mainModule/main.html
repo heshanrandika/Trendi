@@ -64,16 +64,16 @@
                                 <dd></dd>
                                 <dt class="item">
                                 <ul class="sf-menu">
-                                    <li> <a ng-click="menuFunc.clickMenu('main.deals')"> Today's deals </a>
-
-                                    </li>
+                                    <li> <a ng-click="menuFunc.clickMenu('main.deals')"> Today's deals </a></li>
                                 </ul>
                                 </dt>
                                 <dd></dd>
+
                                 <dt class="item compact-hidden"> <a ng-click="menuFunc.gotoShop()" class="btn-main line">SHOPS</a> </dt>
-                                <trendi-wide-menu-bar shoplist="menuFunc.shopList" ng-if="menuFunc.shopList"></trendi-wide-menu-bar>
-                                <dt class="item compact-hidden"> <a ng-click="menuFunc.gotoShop()" class="btn-main line">OFFERS</a> </dt>
-                                <trendi-wide-menu-bar shoplist="menuFunc.shopList" ng-if="menuFunc.shopList"></trendi-wide-menu-bar>
+                                <trendi-wide-menu-bar objectlist="menuFunc.shopList" ng-if="menuFunc.shopList" sequence="0"></trendi-wide-menu-bar>
+
+                                <dt class="item compact-hidden"> <a ng-click="menuFunc.gotoBank()" class="btn-main line">OFFERS</a> </dt>
+                                <trendi-wide-menu-bar objectlist="menuFunc.bankList" ng-if="menuFunc.bankList" template="trendi.offer.menu" sequence="1"></trendi-wide-menu-bar>
                                 <dt class="item"> <a ng-click="menuFunc.gotoContact()" class="btn-main line">Contacts</a> </dt>
                                 <dd></dd>
                             </dl>

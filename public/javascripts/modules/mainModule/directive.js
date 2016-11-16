@@ -497,6 +497,39 @@
         }
     }]);
 
+
+ mod.directive('trendiBankList',['mainDataService',function(mainDataService){
+        return{
+            restrict:'E',
+            templateUrl:'/views/mainModule/directiveViews/main.banklist.html',
+            scope:{
+                selctedBank : "="
+            },
+            link:function(scope, elm, attrs){
+                scope.bankList = [{name:'All', shopId:'all'}];
+                mainDataService.getBankList().then(function(response){
+                    scope.bankList.push.apply(scope.bankList, response.data.responData.data.list);
+                    scope.getShopName();
+                },function(){
+                });
+
+                scope.clickMenu = function(shop){
+                    scope.selctedShop = shop.shopId;
+                    scope.getShopName();
+                }
+
+                scope.getShopName = function(){
+                    _.each( scope.shopList, function(k){
+                        if(k.shopId == scope.selctedShop){
+                            scope.selectedShopName = k.shop.name;
+                        }
+                    })
+                }
+
+            }
+        }
+    }]);
+
     mod.directive('trendiTopBar',['mainDataService','$stateParams',function(mainDataService, $stateParams){
         return{
             restrict:'E',
