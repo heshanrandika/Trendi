@@ -54,7 +54,7 @@
 
             },
             'main.offers': {
-                url: '/offers',
+                url: '/offers/:bank/:shop',
                 templateUrl: 'views/mainModule/main.offers.html',
                 controller: 'trendiMainOffersController'
 

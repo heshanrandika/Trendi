@@ -13,17 +13,33 @@ function getPromotionList(req,callback){
     var skip =(params.skip)?params.skip:0;
     var limit  = (params.limit)?params.limit:10;
     var sorter = (params.sorter)?params.sorter:[];
+    var shopId = (params.shop)?params.shop:undefined;
+    var bank = (params.bank)?params.bank:undefined;
 
     var option = {skip:skip, limit:limit, sort:sorter};
     var query = {delete:0};
-    var data = [];
+    if(shopId)
+        query['shopId'] = shopId;
+    if(bank)
+        query['banks'] = { $elemMatch: { key:bank} };
+    var data = {list:[]};
     var dbCon = daf.FindWithPagination(query,CONSTANT.PROMOTION_COLLECTION,option);
     dbCon.on('data', function(doc){
-        data.push(doc);
+        data.list.push(doc);
     });
 
     dbCon.on('end', function(){
-        callback(null,data);
+        if(skip == 0){
+            daf.Count(query,CONSTANT.PROMOTION_COLLECTION,function(err , count){
+                if(count){
+                    data.count = count;
+                }
+                callback(null,data);
+            })
+        }else{
+            callback(null,data);
+        }
+
     });
 
 };

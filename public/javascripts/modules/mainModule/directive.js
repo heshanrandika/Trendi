@@ -473,7 +473,7 @@
                 selectedShopName : "="
             },
             link:function(scope, elm, attrs){
-                scope.shopList = [{name:'All', shopId:'all'}];
+                scope.shopList = [{shop:{name:'All'}, shopId:'all'}];
                 mainDataService.getShopList().then(function(response){
                     scope.shopList.push.apply(scope.shopList, response.data.responData.data.list);
                     scope.getShopName();
@@ -506,24 +506,15 @@
                 selctedBank : "="
             },
             link:function(scope, elm, attrs){
-                scope.bankList = [{name:'All', shopId:'all'}];
+                scope.bankList = [{name:'All-Banks'}];
                 mainDataService.getBankList().then(function(response){
                     scope.bankList.push.apply(scope.bankList, response.data.responData.data.list);
                     scope.getShopName();
                 },function(){
                 });
 
-                scope.clickMenu = function(shop){
-                    scope.selctedShop = shop.shopId;
-                    scope.getShopName();
-                }
-
-                scope.getShopName = function(){
-                    _.each( scope.shopList, function(k){
-                        if(k.shopId == scope.selctedShop){
-                            scope.selectedShopName = k.shop.name;
-                        }
-                    })
+                scope.clickMenu = function(bank){
+                    scope.selctedBank = bank.name;
                 }
 
             }

@@ -90,7 +90,7 @@
 
             gotoBank : function () {
                 $location.search({});
-                $location.path('main/offers');
+                $location.path('main/offers/All-Banks/all');
             },
 
             gotoContact : function () {
@@ -2079,24 +2079,11 @@
 
 
 
-
-        $scope.getCategoryMenuData = function () {
-            mainDataService.getTagList({shop : $scope.selectParams.shop}).then(function(response){
-                $scope.tags = response.data.responData.data;
-            },function(){
-            });
-        };
-        $scope.getCategoryMenuData();
-
-
         $scope.searchObj = {
             skip: 0,
-            limit:6,
-            item : $scope.selectParams.selected,
-            onSale : true,
+            limit:18,
             shop : $scope.selectParams.shop,
-            searchText:$location.search().searchTxt?$location.search().searchTxt:'',
-            filterMap:{}
+            bank : $scope.selectParams.bank
         };
 
 
@@ -2104,11 +2091,21 @@
         $scope.shopChange = function(){
             if($scope.selectedshop) {
                 $scope.searchObj.shop = $scope.selectedshop;
-                $location.path('main/deals/'+$scope.selectedshop+'/'+$scope.selectParams.selected);
+                $location.path('main/offers/'+$scope.selectParams.bank+'/'+$scope.selectedshop);
+            }
+        }; 
+
+        $scope.bankChange = function(){
+            if($scope.selectedbank) {
+                $scope.searchObj.bank = $scope.selectedbank;
+                $location.path('main/offers/'+$scope.selectedbank+'/'+$scope.selectParams.shop);
             }
         };
 
-        $scope.$watch(function() { return $scope.selectedshop;     },  $scope.shopChange);
+        $scope.$watch(function() { return $scope.selectedshop;     },  $scope.shopChange); 
+        $scope.$watch(function() { return $scope.selectedbank;     },  $scope.bankChange);
+
+
 
         $scope.loadData = function(init){
             if(init){
@@ -2117,7 +2114,7 @@
                 $scope.mainItemShow = false;
             }
             $scope.loading = true;
-            mainDataService.getSearchList($scope.searchObj).then(function(response){
+            mainDataService.getPromotionList($scope.searchObj).then(function(response){
                 $scope.mainItems.push.apply($scope.mainItems, response.data.responData.data.list);
                 if(response.data.responData.data.count){
                     $scope.count = response.data.responData.data.count;
