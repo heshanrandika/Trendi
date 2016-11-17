@@ -509,7 +509,6 @@
                 scope.bankList = [{name:'All-Banks'}];
                 mainDataService.getBankList().then(function(response){
                     scope.bankList.push.apply(scope.bankList, response.data.responData.data.list);
-                    scope.getShopName();
                 },function(){
                 });
 

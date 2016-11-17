@@ -17,11 +17,11 @@ function getPromotionList(req,callback){
     var bank = (params.bank)?params.bank:undefined;
 
     var option = {skip:skip, limit:limit, sort:sorter};
-    var query = {delete:0};
+    var query = {};
     if(shopId)
-        query['shopId'] = shopId;
+        query['shopId'] = parseInt(shopId);
     if(bank)
-        query['banks'] = { $elemMatch: { key:bank} };
+        query['banks'] = { $elemMatch: { name:bank} };
     var data = {list:[]};
     var dbCon = daf.FindWithPagination(query,CONSTANT.PROMOTION_COLLECTION,option);
     dbCon.on('data', function(doc){

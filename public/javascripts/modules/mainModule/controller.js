@@ -2082,8 +2082,8 @@
         $scope.searchObj = {
             skip: 0,
             limit:18,
-            shop : $scope.selectParams.shop,
-            bank : $scope.selectParams.bank
+            shop : ($scope.selectParams.shop == 'all')? undefined:$scope.selectParams.shop,
+            bank : ($scope.selectParams.bank == 'All-Banks')? undefined:$scope.selectParams.bank
         };
 
 

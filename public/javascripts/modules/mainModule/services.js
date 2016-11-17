@@ -15,8 +15,8 @@
             return Data_Comm.postPromise(angular.extend({params:d},mainServiceCalls.getMainItemListDao()));
         };
 
-        var _getPromotionList = function(){
-            return Data_Comm.postPromise(angular.extend({},mainServiceCalls.getPromotionListDao()));
+        var _getPromotionList = function(d){
+            return Data_Comm.postPromise(angular.extend({params:d},mainServiceCalls.getPromotionListDao()));
         };
 
         var _getMostTrendyItems = function(d){
