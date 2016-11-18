@@ -696,6 +696,7 @@ function setRating(req,callback){
                  itemId : id
             };
             table = CONSTANT.MAIN_ITEM_COLLECTION;
+            break;
 
         case 'shop':
          changeDoc = {
@@ -706,6 +707,7 @@ function setRating(req,callback){
                  "itemId": id
             };
             table = CONSTANT.SHOP_COLLECTION;
+            break;
 
         case 'blog':
          changeDoc = {
@@ -716,6 +718,18 @@ function setRating(req,callback){
                  "blogId": id
             };
             table = CONSTANT.BLOG_COLLECTION;
+            break;
+
+        case 'promotion':
+            changeDoc = {
+                $inc: { "rate.star": rate, "rate.hit": 1 }
+            };
+
+            query = {
+                "promotionId": id
+            };
+            table = CONSTANT.PROMOTION_COLLECTION;
+            break;
     }
 
     console.log("$$$$$$$  Item Menu $$$$$$ : ");

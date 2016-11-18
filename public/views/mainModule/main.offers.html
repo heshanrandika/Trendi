@@ -113,10 +113,9 @@
                     <!-- //end Product label -->
 
                     <!-- Description -->
-                    <div class="product-description"> <span class="rating"><trendi-star-bar rate-object="selectedItem.item.rate" category="item" object-id="selectedItem.itemId"></trendi-star-bar> </span> </span>
+                    <div class="product-description"> <span class="rating"><trendi-star-bar rate-object="selectedItem.item.rate" category="promotion" object-id="selectedItem.promotionId"></trendi-star-bar> </span> </span>
                         <form>
                             <div class="clearfix visible-xs"></div>
-                            <trendi-watch-list-add item-id="selectedItem.itemId"></trendi-watch-list-add>
                             <trendi-message-small></trendi-message-small>
                         </form>
                         <div class="panel-group accordion-simple" id="product-accordion">
@@ -139,7 +138,7 @@
                                 </div>
                             </div>
                             
-                            <trendi-comment ng-if="selectedItem.itemId" id="selectedItem.itemId" category="item"></trendi-comment>
+                            <trendi-comment ng-if="selectedItem.promotionId" id="selectedItem.promotionId" category="promotion"></trendi-comment>
                         </div>
                     </div>
                     <!-- //end Description -->
