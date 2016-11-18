@@ -91,14 +91,7 @@
             <div class="product-view row">
                 <div class="col-sm-6 col-md-6 col-lg-6">
                     <div class="hidden-xs flexslider-thumb-vertical-outer">
-                        <div class="flexslider flexslider-thumb-vertical vertical min">
-                            <ul class="previews-list slides" id="back-btn">
-                                <li ng-repeat="img in imageArray track by $index " ng-click="imageSelect($index)"><img class = 'cloudzoom-gallery' alt="#"  ng-src = "{{img}}"  ></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="hidden-xs flexslider-thumb-vertical-outer">
-                        <div ng-if="renderd" zoom2 big="selectedImage.big" tiny="selectedImage.tiny" small="selectedImage.small" alt="" title="{{selectedItem.item.name}}"></div>
+                        <div><img  ng-src="{{selectedItem.promotionPic}}" width="300" height="300" alt=""></div>
                     </div>
                 </div>
                 <div class="col-sm-6 col-md-6 col-lg-6">
@@ -111,8 +104,8 @@
                             <div class="box-wrap-center"></div>
                             <div class="box">
                                 <div class="box-content">
-                                    <h2>#{{selectedItem.itemId}} -  {{selectedItem.item.name}}</h2>
-                                    <span class="price old" ng-if="selectedItem.item.onSale">Rs {{selectedItem.item.price}}</span> <span class="price new">Rs {{(selectedItem.item.price)*(100-selectedItem.item.discount)/100}}</span> <br>
+                                    <h2>#{{selectedItem.promotionId}} -  {{selectedItem.title}}</h2>
+                                 <!--    <span class="price old" ng-if="selectedItem.item.onSale">Rs {{selectedItem.item.price}}</span> <span class="price new">Rs {{(selectedItem.item.price)*(100-selectedItem.item.discount)/100}}</span>  --><br>
                                 </div>
                             </div>
                         </div>
@@ -122,15 +115,6 @@
                     <!-- Description -->
                     <div class="product-description"> <span class="rating"><trendi-star-bar rate-object="selectedItem.item.rate" category="item" object-id="selectedItem.itemId"></trendi-star-bar> </span> </span>
                         <form>
-                            <div class="row">
-                                <div class="col-lg-6"> <strong>Colors</strong>
-                                    <div class="product-options"> <span ng-repeat="color in selectedItem.item.colors"> <i  class="icon icon-color" ng-style="{'background':color.color}"></i></span></div>
-                                </div>
-                                <div class="col-lg-6"> <strong>Sizes</strong>
-                                    <div class="product-options"> <span ng-repeat="size in selectedItem.item.sizes"> <i class="icon icon-size">{{size.value}}</i></span></div>
-                                </div>
-                            </div>
-                            <br>
                             <div class="clearfix visible-xs"></div>
                             <trendi-watch-list-add item-id="selectedItem.itemId"></trendi-watch-list-add>
                             <trendi-message-small></trendi-message-small>
@@ -139,7 +123,7 @@
                             <div class="panel">
                                 <div class="panel-heading"> <a ng-click="desopen = !desopen"> <span ng-class="desopen?'arrow-up icon-arrow-up-4':'arrow-up icon-arrow-down-4'"></span> Description </a> </div>
                                 <div id="product-description" ng-class="desopen?'panel-collapse collapse in':'panel-collapse collapse'">
-                                    <div class="panel-body"> {{selectedItem.item.description}}</div>
+                                    <div class="panel-body"> {{selectedItem.description}}</div>
                                 </div>
                             </div>
                             <div class="panel">

@@ -2055,7 +2055,7 @@
         $scope.mainItems = [];
         $scope.categoryMenu = {};
         $scope.count = 0;
-        $scope.uiRef = $location.search().itemId;
+        $scope.uiRef = $location.search().promotionId;
         $scope.catMenu = [];
         $scope.selectedItem = {};
         $scope.imageArray = [];
@@ -2102,8 +2102,8 @@
             }
         };
 
-        $scope.$watch(function() { return $scope.selectedshop;     },  $scope.shopChange); 
-        $scope.$watch(function() { return $scope.selectedbank;     },  $scope.bankChange);
+        $scope.$watch(function() { return $scope.selectedshop;},  $scope.shopChange); 
+        $scope.$watch(function() { return $scope.selectedbank;},  $scope.bankChange);
 
 
 
@@ -2120,8 +2120,9 @@
                     $scope.count = response.data.responData.data.count;
                 }
                 $scope.loading = false;
-                if($location.search().itemId){
+                if($location.search().promotionId){
                     $scope.mainItemShow = false;
+                    $scope.changeList(0);
                 }else{
                     $scope.mainItemShow = true;
                 }
@@ -2147,13 +2148,8 @@
             goto: function (item) {
                 $scope.selectedItem = item;
                 $scope.itemSelected = true;
-                $scope.imageArray = [];
-                $scope.imageArray.push($scope.selectedItem.item.image);
-                $scope.imageSelect(0);
-                $scope.loadSubItem(item.itemId);
-                $scope.uiRef = item.itemId;
-                $location.search('itemId', item.itemId);
-                $scope.scrollTo('back-btn');
+                $scope.uiRef = item.promotionId;
+                $location.search('promotionId', item.promotionId);
                 $scope.getDirection();
                 $scope.getRelatedItems($scope.selectedItem);
             }
@@ -2167,24 +2163,20 @@
 
 
         $rootScope.$on('$locationChangeSuccess', function(event){
-            if(!$location.search().itemId && $scope.itemSelected){
+            if(!$location.search().promotionId && $scope.itemSelected){
                 $scope.backTo();
             }
         });
 
 
         //get main item when there is no selected item
-        if($location.search().itemId){
-            var id = parseInt($location.search().itemId);
+        if($location.search().promotionId){
+            var id = parseInt($location.search().promotionId);
             $scope.mainItemShow = false;
-            if(!$scope.selectedItem.item){
+            if(!$scope.selectedItem.promotionId){
                 $scope.itemSelected = true;
-                $scope.imageArray = [];
-                mainDataService.getMainItem({itemId : id}).then(function(response){
-                    $scope.selectedItem =  response.data.responData.data;
-                    $scope.imageArray.push($scope.selectedItem.item.image);
-                    $scope.imageSelect(0);
-                    $scope.loadSubItem(id);
+                mainDataService.getPromotionList({promotionId : id}).then(function(response){
+                    $scope.selectedItem =  response.data.responData.data.list[0];
                     $scope.getDirection();
                     $scope.getRelatedItems($scope.selectedItem);
                 },function(){
@@ -2193,22 +2185,6 @@
         }else{
             $scope.itemSelected = false;
         }
-
-        var imageResize = function(url, width, height, callback) {
-            var sourceImage = new Image();
-
-            sourceImage.onload = function() {
-                var canvas = document.createElement("canvas");
-                var ratio= sourceImage.height/sourceImage.width;
-                canvas.width = width;
-                canvas.height = height*ratio;
-                canvas.getContext("2d").drawImage(sourceImage, 0, 0, width, height*ratio);
-                callback(canvas.toDataURL());
-            };
-
-            sourceImage.src = url;
-        };
-
 
         //back button click
         $scope.backTo = function(){

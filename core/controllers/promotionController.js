@@ -15,6 +15,7 @@ function getPromotionList(req,callback){
     var sorter = (params.sorter)?params.sorter:[];
     var shopId = (params.shop)?params.shop:undefined;
     var bank = (params.bank)?params.bank:undefined;
+    var promotionId = (params.promotionId)?params.promotionId:undefined;
 
     var option = {skip:skip, limit:limit, sort:sorter};
     var query = {};
@@ -22,6 +23,8 @@ function getPromotionList(req,callback){
         query['shopId'] = parseInt(shopId);
     if(bank)
         query['banks'] = { $elemMatch: { name:bank} };
+    if(promotionId)
+        query['promotionId'] = parseInt(promotionId);
     var data = {list:[]};
     var dbCon = daf.FindWithPagination(query,CONSTANT.PROMOTION_COLLECTION,option);
     dbCon.on('data', function(doc){
@@ -29,7 +32,7 @@ function getPromotionList(req,callback){
     });
 
     dbCon.on('end', function(){
-        if(skip == 0){
+        if(skip == 0 && promotionId == undefined){
             daf.Count(query,CONSTANT.PROMOTION_COLLECTION,function(err , count){
                 if(count){
                     data.count = count;
