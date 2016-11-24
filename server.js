@@ -24,7 +24,7 @@ var App = function(){
     self.app.use(bodyParser.json());
     self.app.use(methodOverride('_method'))
     self.app.use(express.static(__dirname + '/public'));
-    var server = require('http').createServer(self.app).listen(self.port);
+    var server = require('http').createServer(self.app);
     var io = require('socket.io').listen(server);
     itemCtrl.Invoke(io);
     //starting the nodejs server with express
@@ -32,7 +32,7 @@ var App = function(){
         self.app.listen(self.port, self.ipaddr, function(){
             console.log('%s: Node server started on %s:%d ...', Date(Date.now()), self.ipaddr, self.port);
         });
-    }
+    };
 
     // Destructors
     self.terminator = function(sig) {
