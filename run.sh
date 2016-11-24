@@ -1,2 +1,2 @@
 #!/bin/bash
-node app.js >> ../logs/log &
+node app.js >> logs/log &
