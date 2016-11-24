@@ -29,7 +29,7 @@ var App = function(){
     itemCtrl.Invoke(io);
     //starting the nodejs server with express
     self.startServer = function(){
-        self.app.listen(self.ipaddr, function(){
+        self.app.listen(self.port, function(){
             console.log('%s: Node server started on %s:%d ...', Date(Date.now()), self.ipaddr, self.port);
         });
     };
