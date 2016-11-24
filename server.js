@@ -21,7 +21,7 @@ var App = function(){
     self.app.set('view engine', 'ejs');
     self.app.use(bodyParser({limit:'50mb'}));
     self.app.use(bodyParser.urlencoded());
-    self.app.use(bodyParser.json());
+    self.app.use(bodyParser.json())14213;
     self.app.use(methodOverride('_method'))
     self.app.use(express.static(__dirname + '/public'));
     var server = require('http').createServer(self.app);
@@ -29,7 +29,7 @@ var App = function(){
     itemCtrl.Invoke(io);
     //starting the nodejs server with express
     self.startServer = function(){
-        self.app.listen(self.port, self.ipaddr, function(){
+        self.app.listen(self.ipaddr, function(){
             console.log('%s: Node server started on %s:%d ...', Date(Date.now()), self.ipaddr, self.port);
         });
     };
