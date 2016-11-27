@@ -426,55 +426,6 @@ function editItems(req,callback){
 
 };
 
-function updateItemOld(req,callback){
-    console.log("$$$$$$$  UpdateItem $$$$$$");
-    var params = (req.body.params) ? req.body.params : {};
-    var mainItem = (params.mainItem)? params.mainItem:{};
-    var subItem = (params.subItem)? params.subItem:{};
-    var itemId = (params.itemId)? params.itemId:0;
-    var query = {'itemId':itemId};
-    console.log("$$$$$$$  UpdateItem $$$$$$ : ");
-    if(params.mainItem && params.subItem){
-        daf.Remove(query,CONSTANT.MAIN_ITEM_COLLECTION,function(err,success){
-            if(success) {
-                daf.Remove(query, CONSTANT.SUB_ITEM_COLLECTION, function (err, success) {
-                    var doc = {itemId: itemId, date:new Date(), item: mainItem};
-                    doc.searchText = "";
-                    _.each(mainItem.types,function(val){
-                        doc.searchText += (val.key+" ");
-                    });
-                    doc.searchText += (mainItem.name+" ");
-                    if (success) {
-                        daf.Insert(doc, CONSTANT.MAIN_ITEM_COLLECTION, function (err, success) {
-                            if (success) {
-                                doc = {itemId: itemId, itemList: subItem};
-                                daf.Insert(doc, CONSTANT.SUB_ITEM_COLLECTION, function (err, success) {
-                                    if (success) {
-                                        callback(err, success);
-                                    } else {
-                                        callback(err, success);
-                                    }
-                                });
-                            } else {
-                                callback(err, success);
-                            }
-                        });
-                    }else{
-                        callback(err, success);
-                    }
-                });
-
-            }else{
-                callback(err, success);
-            }
-        });
-    }else{
-        var err = "Item details not available";
-        callback(err);
-    }
-};
-
-
 function updateItem(req,callback){
     console.log("$$$$$$$  UpdateItem $$$$$$");
     var params = (req.body.params) ? req.body.params : {};
@@ -512,7 +463,6 @@ function updateItem(req,callback){
         callback(err);
     }
 };
-
 
 function adminUpdateItem(req,callback){
     console.log("$$$$$$$  Admin UpdateItem $$$$$$");
@@ -553,7 +503,6 @@ function adminUpdateItem(req,callback){
         callback(err);
     }
 };
-
 
 function addItems(req,callback) {
     console.log("$$$$$$$  AddItems $$$$$$");
