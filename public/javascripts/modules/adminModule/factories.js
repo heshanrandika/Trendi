@@ -229,6 +229,34 @@
         serviceCalls.getMessageCountDao = function () {
             return angular.extend({functionId: ADMIN_MOD_CONFIG.REQ_CONFIG.FUNC_GetMessageCount}, _getCObj());
         };
+        //////////////////
+        serviceCalls.getAlbumItemListDao = function () {
+            return angular.extend({functionId: ADMIN_MOD_CONFIG.REQ_CONFIG.FUNC_GetAlbumItemList}, _getCObj());
+        };
+
+        serviceCalls.adminGetAlbumListDao = function () {
+            return angular.extend({functionId: ADMIN_MOD_CONFIG.REQ_CONFIG.FUNC_AdminGetAlbumList}, _getCObj());
+        };
+
+        serviceCalls.adminUpdateAlbumDao = function () {
+            return angular.extend({functionId: ADMIN_MOD_CONFIG.REQ_CONFIG.FUNC_AdminUpdateAlbum}, _getCObj());
+        };
+
+        serviceCalls.itemRemoveFromAlbumDao = function () {
+            return angular.extend({functionId: ADMIN_MOD_CONFIG.REQ_CONFIG.FUNC_ItemRemoveFromAlbum}, _getCObj());
+        };
+
+        serviceCalls.itemAddToAlbumDao = function () {
+            return angular.extend({functionId: ADMIN_MOD_CONFIG.REQ_CONFIG.FUNC_ItemAddToAlbum}, _getCObj());
+        };
+
+        serviceCalls.removeAlbumDao = function () {
+            return angular.extend({functionId: ADMIN_MOD_CONFIG.REQ_CONFIG.FUNC_RemoveAlbum}, _getCObj());
+        };
+
+        serviceCalls.addAlbumDao = function () {
+            return angular.extend({functionId: ADMIN_MOD_CONFIG.REQ_CONFIG.FUNC_AddAlbum}, _getCObj());
+        };
 
         serviceCalls.shopDataDao = function () {
             return $storage.user;

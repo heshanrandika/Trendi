@@ -14,6 +14,28 @@
 </div>
 <div class="row">
     <div class="col-md-12">
+        <div class="panel ">
+            <div class="panel-content">
+                <tabset class="tab-fade-in">
+                    <tab  ng-click="goto('item')">
+                        <tab-heading>
+                            Item
+                        </tab-heading>
+
+                    </tab>
+                    <tab ng-click="goto('album')">
+                        <tab-heading>
+                            Album
+                        </tab-heading>
+                    </tab>
+                </tabset>
+                <ui-view>
+
+                </ui-view>
+            </div>
+        </div>
+    </div>
+   <!-- <div class="col-md-12">
         <div class="panel">
             <div class="panel-header">
                 <button class="btn btn-success" ng-click="addNew()">
@@ -36,7 +58,7 @@
                             Price<input type="text" ng-keypress="searchPress($event)" class="form-control" placeholder="Filter By Price" ng-model="search['item.price']"></th>
                         <th class="sorting" rowspan="1" colspan="1"  style="width: 196px;">
                             Status <select ng-model="search['approved']" class="form-control form-filter srch-select-opt">
-                            <option value="">---All---</option>
+                            <option value="">-&#45;&#45;All-&#45;&#45;</option>
                             <option value=true>Approved</option>
                             <option value=undefined>Pending</option>
                             <option value=false>Rejected</option>
@@ -64,7 +86,7 @@
                 </table>
             </div>
         </div>
-    </div>
+    </div>-->
 </div>
 <div class="footer">
     <div class="copyright">

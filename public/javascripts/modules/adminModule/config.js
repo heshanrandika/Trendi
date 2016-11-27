@@ -15,15 +15,38 @@
                     requiresLogin: true
                 }
             },
+
             'main.products': {
                 url: '/products',
-                templateUrl: '/views/adminModule/admin.items.html',
+                templateUrl: '/views/adminModule/admin.products.html',
+                controller: 'adminProductController',
+                access: {
+                    requiresLogin: true
+                }
+
+            },
+
+            'main.products.album': {
+                url: '/album',
+                templateUrl: '/views/adminModule/admin.products.album.html',
+                controller: 'adminAlbumController',
+                access: {
+                    requiresLogin: true
+                }
+
+            },
+
+            'main.products.item': {
+                url: '/item',
+                templateUrl: '/views/adminModule/admin.products.item.html',
                 controller: 'adminItemController',
                 access: {
                     requiresLogin: true
                 }
 
             },
+
+
 
             'main.users': {
                 url: '/users',
@@ -111,7 +134,7 @@
 
             'main.sys_products': {
                 url: '/sys_products',
-                templateUrl: '/views/adminModule/sysAdmin/sys.admin.items.html',
+                templateUrl: '/views/adminModule/sysAdmin/sys.admin.products.html',
                 controller: 'sysAdminItemController',
                 access: {
                     requiresLogin: true
@@ -196,6 +219,13 @@
             FUNC_GetSizes:        1017,
             FUNC_ChangeSizes:     1018,
             FUNC_AdminUpdateItem: 1019,
+            FUNC_GetAlbumItemList:    1021,
+            FUNC_AdminGetAlbumList:   1022,
+            FUNC_AdminUpdateAlbum:    1023,
+            FUNC_ItemRemoveFromAlbum: 1024,
+            FUNC_ItemAddToAlbum:      1025,
+            FUNC_RemoveAlbum:         1026,
+            FUNC_AddAlbum:            1027,
             //++++++shop function list++++++++++++++++
             FUNC_GetShopList:     2008,
             FUNC_RegisterShop:    2009,
@@ -262,7 +292,7 @@
             },
             {
                 value:'Products',
-                key:'main.products',
+                key:'main.products.item',
                 authorization: 1010,
                 icon:'icon-bag'
             },

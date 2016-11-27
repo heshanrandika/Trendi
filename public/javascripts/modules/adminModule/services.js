@@ -204,6 +204,34 @@
             return Data_Comm.postPromise(angular.extend({params:d},adminServiceCalls.getShopListDao()));
         };
 
+        var _getAlbumItemList = function(d){
+            return Data_Comm.postPromise(angular.extend({params:d},adminServiceCalls.getAlbumItemListDao()));
+        };
+
+        var _adminGetAlbumList = function(d){
+            return Data_Comm.postPromise(angular.extend({params:d},adminServiceCalls.adminGetAlbumListDao()));
+        };
+
+        var _adminUpdateAlbum = function(d){
+            return Data_Comm.postPromise(angular.extend({params:d},adminServiceCalls.adminUpdateAlbumDao()));
+        };
+
+        var _itemRemoveFromAlbum = function(d){
+            return Data_Comm.postPromise(angular.extend({params:d},adminServiceCalls.itemRemoveFromAlbumDao()));
+        };
+
+        var _itemAddToAlbum = function(d){
+            return Data_Comm.postPromise(angular.extend({params:d},adminServiceCalls.itemAddToAlbumDao()));
+        };
+
+        var _removeAlbum = function(d){
+            return Data_Comm.postPromise(angular.extend({params:d},adminServiceCalls.removeAlbumDao()));
+        };
+
+        var _addAlbum = function(d){
+            return Data_Comm.postPromise(angular.extend({params:d},adminServiceCalls.addAlbumDao()));
+        };
+
         var _shopData = function(){
             return adminServiceCalls.shopDataDao();
         };
@@ -280,7 +308,15 @@
             getMessageCount:_getMessageCount,
             getSizes:_getSizes,
             changeSizes:_changeSizes,
-            logOutService:_logOutService
+            logOutService:_logOutService,
+            getAlbumItemList:_getAlbumItemList,
+            adminGetAlbumList:_adminGetAlbumList,
+            adminUpdateAlbum:_adminUpdateAlbum,
+            itemRemoveFromAlbum:_itemRemoveFromAlbum,
+            itemAddToAlbum:_itemAddToAlbum,
+            removeAlbum:_removeAlbum,
+            addAlbum:_addAlbum
+
         }
     }]);
 
