@@ -29,17 +29,17 @@
         </tr>
         </thead>
         <tbody infinite-scroll='paginationFuntion()' infinite-scroll-distance='0.01'>
-        <tr ng-repeat="item in itemList | searchFilter:search">
+        <tr ng-repeat="album in albumList | searchFilter:search">
             <td><span class="pull-left p-r-5">
-                                                <img alt="{{ item.item.name }}" ng-src="{{item.item.image}}" class="table-img-icon"/>
+                                                <img alt="{{ album.name }}" ng-src="{{item.item.image}}" class="table-img-icon"/>
                                                 </span></td>
-            <td>{{ item.itemId }}</td>
-            <td>{{ item.item.name }}</td>
-            <td>{{ item.item.price }}</td>
-            <td><span ng-if="item.approved == true"  class="label label-success">Approved</span>
-                <span ng-if="item.approved == false"  class="label label-danger">Rejected</span>
-                <span ng-if="item.approved == undefined"  class="label label-warning">Pending</span></td>
-            <td><div><a class="edit btn btn-sm btn-default" href="javascript:;" ng-click="open(item)"><i class="icon-note" ></i></a>  <a class="delete btn btn-sm btn-danger" href="javascript:;" ng-click="remove(item.itemId)"><i class="icons-office-52"></i></a></div></td>
+            <td>{{ album._id }}</td>
+            <td>{{ album.name }}</td>
+            <td>{{ album.price }}</td>
+            <td><span ng-if="album.approved == true"  class="label label-success">Approved</span>
+                <span ng-if="album.approved == false"  class="label label-danger">Rejected</span>
+                <span ng-if="album.approved == undefined"  class="label label-warning">Pending</span></td>
+            <td><div><a class="edit btn btn-sm btn-default" href="javascript:;" ng-click="open(album)"><i class="icon-note" ></i></a>  <a class="delete btn btn-sm btn-danger" href="javascript:;" ng-click="remove(album)"><i class="icons-office-52"></i></a></div></td>
         </tr>
         </tbody>
     </table>

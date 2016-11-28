@@ -237,7 +237,7 @@
 
 
     mod.controller('adminAlbumController', ['$scope', '$rootScope','$state','adminDataService','Data.Toast','MESSAGE_CONFIG','$modal','Confirmation', function ($scope, $rootScope, $state, adminDataService, Data_Toast, MESSAGE_CONFIG, uiModal, Confirmation) {
-        $scope.itemList = [];
+        $scope.albumList = [];
         $scope.count = 0;
         var shopDetails = {};
         var itemPerPage = 8;
@@ -245,7 +245,7 @@
 
         shopDetails = adminDataService.shopData();
         $scope.searchObj = {
-            skip: $scope.itemList.length,
+            skip: $scope.albumList.length,
             limit:itemPerPage,
             searchKey:'',
             searchValue:'',
@@ -295,18 +295,18 @@
 
         $scope.loadData = function(init){
             if(init){
-                $scope.itemList = [];
+                $scope.albumList = [];
                 $scope.searchObj.skip =0;
             }
             $scope.loading = true;
-            adminDataService.adminGetItemList($scope.searchObj).then(function(response){
-                $scope.itemList.push.apply($scope.itemList, response.data.responData.data.list);
+            adminDataService.adminGetAlbumList($scope.searchObj).then(function(response){
+                $scope.albumList.push.apply($scope.albumList, response.data.responData.data.list);
                 if(response.data.responData.data.count){
                     $scope.count = response.data.responData.data.count;
                 }
                 $scope.loading = false;
             },function(){
-                $scope.itemList = [];
+                $scope.albumList = [];
             });
 
 
@@ -314,8 +314,8 @@
 
         // Register event handler
         $scope.paginationFuntion = function() {
-            $scope.searchObj.skip = $scope.itemList.length;
-            if ($scope.count > $scope.itemList.length && !$scope.loading) {
+            $scope.searchObj.skip = $scope.albumList.length;
+            if ($scope.count > $scope.albumList.length && !$scope.loading) {
                 $scope.loadData();
             }
         };
