@@ -349,7 +349,7 @@
 
             var modalInstance = uiModal.open({
                 animation: true,
-                templateUrl: '/views/adminModule/models/admin.product.model.html',
+                templateUrl: '/views/adminModule/models/admin.album.model.html',
                 controller: 'productModel',
                 size: 'lg',
                 resolve:{
