@@ -312,8 +312,6 @@
             getAlbumItemList:_getAlbumItemList,
             adminGetAlbumList:_adminGetAlbumList,
             adminUpdateAlbum:_adminUpdateAlbum,
-            itemRemoveFromAlbum:_itemRemoveFromAlbum,
-            itemAddToAlbum:_itemAddToAlbum,
             removeAlbum:_removeAlbum,
             addAlbum:_addAlbum
 

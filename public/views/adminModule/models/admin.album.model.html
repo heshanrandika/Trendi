@@ -43,7 +43,7 @@
                                 <div class="row">
                                     <div class="col-sm-8">
                                         <div class="portfolioContainer grid" infinite-scroll='paginationFuntion()' infinite-scroll-distance='0.01'>
-                                            <figure class="animal effect-zoe magnific" ng-repeat="item in itemList">
+                                            <figure class="animal effect-zoe magnific" ng-repeat="item in itemList" ng-click="addItem(item)">
                                                 <img ng-src="{{item.item.image}}" alt="9" />
                                                 <figcaption>
                                                     <h2>#{{item.itemId}} <span>{{item.item.name}}</span></h2>
@@ -56,20 +56,31 @@
                                         </div>     
                                     </div>
                                     <div class="col-sm-4">
+                                        <div class="portfolioContainer grid" infinite-scroll='paginationFuntion()' infinite-scroll-distance='0.01'>
+                                            <figure class="animal effect-zoe magnific" ng-repeat="albumItem in viewList" ng-click="removeItem(albumItem)">
+                                                <img ng-src="{{albumItem.item.image}}" alt="9" />
+                                                <figcaption>
+                                                    <h2>#{{albumItem.itemId}} <span>{{albumItem.item.name}}</span></h2>
+                                                    <i class="fa fa-heart"></i>
+                                                    <i class="fa fa-eye"></i>
+                                                    <p></p>
+                                                </figcaption>
+                                            </figure>
 
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="text-center  m-t-20">
-                                    <div ng-if="addNewPromotion">
-                                        <button  class="btn btn-primary" ng-disabled="(itemForm.$invalid || uploadedImages.length == 0) || btnPressed" ng-click="save()">
+                                    <div ng-if="addNewAlbum">
+                                        <button  class="btn btn-primary" ng-disabled="(itemForm.$invalid || album.itemList.length == 0) || btnPressed" ng-click="save()">
                                             Save
                                         </button>
                                         <button ng-click="cancel()" class="btn btn-white">
                                             Close
                                         </button>
                                     </div>
-                                    <div ng-if="!addNewPromotion">
-                                        <button class="btn btn-primary" ng-disabled="(itemForm.$invalid || uploadedImages.length == 0) || btnPressed" ng-click="update()">
+                                    <div ng-if="!addNewAlbum">
+                                        <button class="btn btn-primary" ng-disabled="(itemForm.$invalid || album.itemList.length == 0) || btnPressed" ng-click="update()">
                                             Update
                                         </button>
                                         <button ng-click="cancel()" class="btn btn-white">

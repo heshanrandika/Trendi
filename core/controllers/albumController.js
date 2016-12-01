@@ -4,6 +4,7 @@
 var daf = require('../persistence/MongoPersistence');
 var CONSTANT = require('../utility/Constants');
 var UTIL = require('./utilController');
+var ObjectId = require('mongodb').ObjectID;
 var _ = require('lodash');
 
 
@@ -42,10 +43,14 @@ function getLatestAlbums(req,callback){
 function getAlbumItemList(req,callback){
     var params = (req.body.params) ? req.body.params : {};
     var album = (params.album)? params.album:{};
-    var query = { _id : { $in : album.itemList } };
+    var itemList=[];
+    _.each(album.itemList,function(k){
+        itemList.push(ObjectId(k));
+    });
+    var query = { _id : { $in : itemList } };
 
     var data=[];
-    var dbCon = daf.FindWithPagination(query,CONSTANT.MAIN_ITEM_COLLECTION,option);
+    var dbCon = daf.Find(query,CONSTANT.MAIN_ITEM_COLLECTION);
     dbCon.on('data', function(doc){
         data.push(doc);
     });
@@ -118,46 +123,45 @@ function adminGetAlbumList(req,callback){
 function adminUpdateAlbum(req,callback){
     var params = (req.body.params) ? req.body.params : {};
     var album = (params.album)? params.album:{};
+    var removed = (params.removed)? params.removed:[];
 
     var query = {'albumId':album.albumId};
     var changeDoc = {$set:{name: album.name, description: album.description, itemList:album.itemList}};
     console.log("$$$$$$$  Admin Update Album$$$$$$ : ");
 
     daf.Update(query,changeDoc,CONSTANT.ALBUM_COLLECTION,function(err,success){
-        callback(err,success)
+        if(success){
+            itemAddToAlbum(album);
+            itemRemoveFromAlbum(removed);
+        }
+        callback(err,success);
+
     });
 
 };
 
-function itemRemoveFromAlbum(req,callback){
-    var params = (req.body.params) ? req.body.params : {};
-    var album = (params.album)? params.album:{};
-    var itemId = (params.itemId)? params.itemId:0;
-    var query = {'_id': itemId};
-    var changeDoc = {$set:{ albumId:''}};
-    console.log("$$$$$$$  Remove item from Album  $$$$$$ : ");
+function itemRemoveFromAlbum(removed){
+    _.each(removed,function(k){
+        var query = {'_id': ObjectId(k)};
+        var changeDoc = {$set:{ albumId:null}};
+        console.log("$$$$$$$  Remove item from Album  $$$$$$ : ");
+        daf.Update(query, changeDoc,CONSTANT.MAIN_ITEM_COLLECTION,function(err,success){
 
-    daf.Update(query, changeDoc,CONSTANT.MAIN_ITEM_COLLECTION,function(err,success){
-        if(success)
-            adminUpdateAlbum(req,callback);
-        callback(err, success);
+        });
     });
+
 
 };
 
-function itemAddToAlbum(req,callback){
-    var params = (req.body.params) ? req.body.params : {};
-    var album = (params.album)? params.album:{};
-    var itemId = (params.itemId)? params.itemId:0;
-    var query = {'_id': itemId};
-    var changeDoc = {$set:{ albumId: album.albumId}};
-    console.log("$$$$$$$  Add item to Album  $$$$$$ : ");
+function itemAddToAlbum(album){
+    _.each(album.itemList,function(k){
+        var query = {'_id': ObjectId(k)};
+        var changeDoc = {$set:{ albumId: album.albumId}};
+        console.log("$$$$$$$  Add item to Album  $$$$$$ : ");
+        daf.Update(query, changeDoc,CONSTANT.MAIN_ITEM_COLLECTION,function(err,success){
 
-    daf.Update(query, changeDoc,CONSTANT.MAIN_ITEM_COLLECTION,function(err,success){
-        if(success)
-            adminUpdateAlbum(req,callback);
-        callback(err, success);
-    });
+        });
+    })
 
 };
 
@@ -167,14 +171,13 @@ function removeAlbum(req,callback){
     var query = {'albumId':album.albumId};
     console.log("$$$$$$$  Remove Album  $$$$$$ : ");
 
-    _.each(album.itemList,function(obj){
-        var subQuery = {'_id': obj};
-        var changeDoc = {$set:{ albumId:''}};
-        daf.Update(subQuery, changeDoc,CONSTANT.MAIN_ITEM_COLLECTION,function(err,success){});
-    });
+
 
     daf.Remove(query,CONSTANT.ALBUM_COLLECTION,function(err,success){
+        if(success)
+            itemRemoveFromAlbum(album.itemList);
         callback(err, success);
+
     });
 
 };
@@ -201,9 +204,12 @@ function addAlbum(req,callback) {
                 }
                 album['searchText'] += (album.name+" ");
 
-                daf.Insert(doc, CONSTANT.ALBUM_COLLECTION, function (err, success) {
+                daf.Insert(album, CONSTANT.ALBUM_COLLECTION, function (err, success) {
                     console.log("^^^^^^^  Add Album ^^^^^^^ : ");
+                    if(success)
+                        itemAddToAlbum(album);
                     callback(err, success);
+
                 })
             } else {
                 callback(err, null);

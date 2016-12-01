@@ -509,21 +509,32 @@
 
     mod.controller('albumModel',['$scope', '$modalInstance','item','adminDataService','Data.Toast','MESSAGE_CONFIG', function ($scope, uiModalInstance, selectedItem, adminDataService, Data_Toast, MESSAGE_CONFIG) {
         $scope.album = selectedItem? selectedItem : {};
-
-        if(selectedItem){
-          //need to get album data
-        }
+        $scope.tempList=[];
+        $scope.viewList=[];
         $scope.itemList = [];
+        $scope.removedList = [];
         $scope.count = 0;
         var shopDetails = {};
         var itemPerPage = 8;
 
+        if(selectedItem){
+            $scope.addNewAlbum = false;
+            $scope.tempList = angular.copy($scope.album.itemList);
+            adminDataService.getAlbumItemList({album:$scope.album}).then(function(response){
+                $scope.viewList.push.apply($scope.viewList, response.data.responData.data);
+            },function(){
+                $scope.viewList = [];
+            });
+        }else{
+            $scope.addNewAlbum = true;
+            $scope.album.itemList=[];
+        }
 
         shopDetails = adminDataService.shopData();
         $scope.searchObj = {
             skip: $scope.itemList.length,
             limit:itemPerPage,
-            searchArray:[],
+            searchArray:[{key:'albumId', value:null}],
             shopId : shopDetails.branch.shopId,
             branchId : shopDetails.branch.branchId
         };
@@ -557,25 +568,50 @@
 
         $scope.loadData(1);
 
-        var setData = function(){
-            if(($scope.uploadedImages.length <= 0)){
-                Data_Toast.warning(MESSAGE_CONFIG.ERROR_REQUIRED_IMAGE);
-                $scope.btnPressed = false;
-            }else {
-                for(var index in $scope.uploadedImages){
-                    $scope.banner[index].image = $scope.uploadedImages[index].image;
-                }
+
+        $scope.addItem = function(item){
+            if($scope.album.itemList.length<5){
+                $scope.album.itemList.push(item._id);
+                $scope.viewList.push(item);
+                $scope.itemList = _.without($scope.itemList, _.findWhere($scope.itemList, {_id: item._id}));
             }
+        };
+
+        $scope.removeItem = function(item){
+            $scope.viewList = _.without($scope.viewList, _.findWhere($scope.viewList, {_id:item._id}));
+            $scope.album.itemList = _.without($scope.album.itemList, _.findWhere($scope.album.itemList, item._id));
+            $scope.itemList.push(item);
+        };
+
+
+        $scope.setData = function(item){
+            _.each($scope.tempList, function(k){
+               if(_.indexOf($scope.album.itemList, k) == -1){
+                   $scope.removedList.push(k);
+               }
+            })
 
         };
 
+
         $scope.save = function(){
             $scope.btnPressed = true;
-            setData();
-            $scope.bannerObject.banner = $scope.banner;
-            adminDataService.setBanner($scope.bannerObject).then(function (response) {
-                Data_Toast.success(MESSAGE_CONFIG.SUCCESS_SAVED_SUCCESSFULLY);
+            $scope.album.shop = shopDetails.branch.shop;
+            adminDataService.addAlbum({album:$scope.album}).then(function (response) {
                 uiModalInstance.close();
+                $scope.btnPressed = false;
+            },function (error) {
+                Data_Toast.error(MESSAGE_CONFIG.ERROR_SAVE_FAIL,error.data.responData.Error);
+                $scope.btnPressed = false;
+            });
+        };
+
+        $scope.update = function(){
+            $scope.btnPressed = true;
+            $scope.setData();
+            var updateObj = {album:$scope.album,removed:$scope.removedList};
+            adminDataService.adminUpdateAlbum(updateObj).then(function (response) {
+                uiModalInstance.close($scope.album);
                 $scope.btnPressed = false;
             },function (error) {
                 Data_Toast.error(MESSAGE_CONFIG.ERROR_SAVE_FAIL,error.data.responData.Error);

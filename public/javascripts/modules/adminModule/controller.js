@@ -327,7 +327,7 @@
 
             var modalInstance = uiModal.open({
                 animation: true,
-                templateUrl: '/views/adminModule/models/admin.product.model.html',
+                templateUrl: '/views/adminModule/models/admin.album.model.html',
                 controller: 'albumModel',
                 size: 'lg',
                 resolve:{
@@ -338,8 +338,10 @@
                 }
             });
 
-            modalInstance.result.then(function (editedItem) {
-                selectedItem.item = editedItem;
+            modalInstance.result.then(function (updatedItem) {
+                selectedItem.name = updatedItem.name;
+                selectedItem.description = updatedItem.description;
+                selectedItem.itemList = updatedItem.itemList;
             }, function () {
 
             });

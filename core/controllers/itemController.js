@@ -96,7 +96,7 @@ function adminGetItemList(req,callback){
 
     var option = {skip:skip, limit:limit, sort:sorter};
 
-    if(searchKey != '')
+    if(searchKey != '' && searchKey != undefined)
         query[searchKey] = searchValue;
     if(searchArray && searchArray.length>0)
     _.each(searchArray,function(obj){
@@ -526,6 +526,7 @@ function addItems(req,callback) {
                     doc.searchText += (mainItem.brand.name+" ");
                 }
                 doc.searchText += (mainItem.name+" ");
+                doc.albumId = null;
 
                 daf.Insert(doc, CONSTANT.MAIN_ITEM_COLLECTION, function (err, success) {
                     console.log("^^^^^^^  Add Main Items ^^^^^^^ : ");

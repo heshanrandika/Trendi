@@ -13,8 +13,6 @@
                 Product Id<input type="text" ng-keypress="searchPress($event)" class="form-control" placeholder="Filter By Product Id" ng-model="search['itemId']"></th>
             <th class="sorting" rowspan="1" colspan="1" style="width: 196px;">
                 Product Name<input type="text" ng-keypress="searchPress($event)"  class="form-control" placeholder="Filter By Name" ng-model="search['item.name']"></th>
-            <th class="sorting"  rowspan="1" colspan="1"  style="width: 196px;">
-                Price<input type="text" ng-keypress="searchPress($event)" class="form-control" placeholder="Filter By Price" ng-model="search['item.price']"></th>
             <th class="sorting" rowspan="1" colspan="1"  style="width: 196px;">
                 Status <select ng-model="search['approved']" class="form-control form-filter srch-select-opt">
                 <option value="">---All---</option>
@@ -33,9 +31,8 @@
             <td><span class="pull-left p-r-5">
                                                 <img alt="{{ album.name }}" ng-src="{{item.item.image}}" class="table-img-icon"/>
                                                 </span></td>
-            <td>{{ album._id }}</td>
+            <td>{{ album.albumId }}</td>
             <td>{{ album.name }}</td>
-            <td>{{ album.price }}</td>
             <td><span ng-if="album.approved == true"  class="label label-success">Approved</span>
                 <span ng-if="album.approved == false"  class="label label-danger">Rejected</span>
                 <span ng-if="album.approved == undefined"  class="label label-warning">Pending</span></td>

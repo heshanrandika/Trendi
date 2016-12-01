@@ -222,10 +222,8 @@
             FUNC_GetAlbumItemList:    1021,
             FUNC_AdminGetAlbumList:   1022,
             FUNC_AdminUpdateAlbum:    1023,
-            FUNC_ItemRemoveFromAlbum: 1024,
-            FUNC_ItemAddToAlbum:      1025,
-            FUNC_RemoveAlbum:         1026,
-            FUNC_AddAlbum:            1027,
+            FUNC_RemoveAlbum:         1024,
+            FUNC_AddAlbum:            1025,
             //++++++shop function list++++++++++++++++
             FUNC_GetShopList:     2008,
             FUNC_RegisterShop:    2009,

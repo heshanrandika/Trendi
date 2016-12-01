@@ -242,14 +242,6 @@
             return angular.extend({functionId: ADMIN_MOD_CONFIG.REQ_CONFIG.FUNC_AdminUpdateAlbum}, _getCObj());
         };
 
-        serviceCalls.itemRemoveFromAlbumDao = function () {
-            return angular.extend({functionId: ADMIN_MOD_CONFIG.REQ_CONFIG.FUNC_ItemRemoveFromAlbum}, _getCObj());
-        };
-
-        serviceCalls.itemAddToAlbumDao = function () {
-            return angular.extend({functionId: ADMIN_MOD_CONFIG.REQ_CONFIG.FUNC_ItemAddToAlbum}, _getCObj());
-        };
-
         serviceCalls.removeAlbumDao = function () {
             return angular.extend({functionId: ADMIN_MOD_CONFIG.REQ_CONFIG.FUNC_RemoveAlbum}, _getCObj());
         };
