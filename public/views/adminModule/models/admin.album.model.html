@@ -42,15 +42,14 @@
 
                                 <div class="row">
                                     <div class="col-sm-8">
-                                        <div class="portfolioContainer grid">
-                                            <figure class="animal effect-zoe magnific" >
-                                                <img src="/admin/assets/global/images/gallery/1/1.jpg" alt="9" />
+                                        <div class="portfolioContainer grid" infinite-scroll='paginationFuntion()' infinite-scroll-distance='0.01'>
+                                            <figure class="animal effect-zoe magnific" ng-repeat="item in itemList">
+                                                <img ng-src="{{item.item.image}}" alt="9" />
                                                 <figcaption>
-                                                    <h2>Beautiful <span>Hover</span></h2>
+                                                    <h2>#{{item.itemId}} <span>{{item.item.name}}</span></h2>
                                                     <i class="fa fa-heart"></i>
                                                     <i class="fa fa-eye"></i>
-                                                    <i class="fa fa-paperclip"></i>
-                                                    <p>You can add many crazy hover effects.</p>
+                                                    <p></p>
                                                 </figcaption>
                                             </figure>
                                             

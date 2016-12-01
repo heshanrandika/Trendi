@@ -328,7 +328,7 @@
             var modalInstance = uiModal.open({
                 animation: true,
                 templateUrl: '/views/adminModule/models/admin.product.model.html',
-                controller: 'productModel',
+                controller: 'albumModel',
                 size: 'lg',
                 resolve:{
                     item : function(){
@@ -350,7 +350,7 @@
             var modalInstance = uiModal.open({
                 animation: true,
                 templateUrl: '/views/adminModule/models/admin.album.model.html',
-                controller: 'productModel',
+                controller: 'albumModel',
                 size: 'lg',
                 resolve:{
                     item : function(){

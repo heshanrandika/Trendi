@@ -507,4 +507,88 @@
         };
     }]);
 
+    mod.controller('albumModel',['$scope', '$modalInstance','item','adminDataService','Data.Toast','MESSAGE_CONFIG', function ($scope, uiModalInstance, selectedItem, adminDataService, Data_Toast, MESSAGE_CONFIG) {
+        $scope.album = selectedItem? selectedItem : {};
+
+        if(selectedItem){
+          //need to get album data
+        }
+        $scope.itemList = [];
+        $scope.count = 0;
+        var shopDetails = {};
+        var itemPerPage = 8;
+
+
+        shopDetails = adminDataService.shopData();
+        $scope.searchObj = {
+            skip: $scope.itemList.length,
+            limit:itemPerPage,
+            searchArray:[],
+            shopId : shopDetails.branch.shopId,
+            branchId : shopDetails.branch.branchId
+        };
+
+        $scope.loadData = function(init){
+            if(init){
+                $scope.itemList = [];
+                $scope.searchObj.skip =0;
+            }
+            $scope.loading = true;
+            adminDataService.adminGetItemList($scope.searchObj).then(function(response){
+                $scope.itemList.push.apply($scope.itemList, response.data.responData.data.list);
+                if(response.data.responData.data.count){
+                    $scope.count = response.data.responData.data.count;
+                }
+                $scope.loading = false;
+            },function(){
+                $scope.itemList = [];
+            });
+
+
+        };
+
+        // Register event handler
+        $scope.paginationFuntion = function() {
+            $scope.searchObj.skip = $scope.itemList.length;
+            if ($scope.count > $scope.itemList.length && !$scope.loading) {
+                $scope.loadData();
+            }
+        };
+
+        $scope.loadData(1);
+
+        var setData = function(){
+            if(($scope.uploadedImages.length <= 0)){
+                Data_Toast.warning(MESSAGE_CONFIG.ERROR_REQUIRED_IMAGE);
+                $scope.btnPressed = false;
+            }else {
+                for(var index in $scope.uploadedImages){
+                    $scope.banner[index].image = $scope.uploadedImages[index].image;
+                }
+            }
+
+        };
+
+        $scope.save = function(){
+            $scope.btnPressed = true;
+            setData();
+            $scope.bannerObject.banner = $scope.banner;
+            adminDataService.setBanner($scope.bannerObject).then(function (response) {
+                Data_Toast.success(MESSAGE_CONFIG.SUCCESS_SAVED_SUCCESSFULLY);
+                uiModalInstance.close();
+                $scope.btnPressed = false;
+            },function (error) {
+                Data_Toast.error(MESSAGE_CONFIG.ERROR_SAVE_FAIL,error.data.responData.Error);
+                $scope.btnPressed = false;
+            });
+        };
+
+
+
+        $scope.cancel = function () {
+            $scope.initWindow = false;
+            uiModalInstance.dismiss('cancel');
+        };
+    }]);
+
 })(com.TRENDI.ADMIN.modules.mainAdminModule);
