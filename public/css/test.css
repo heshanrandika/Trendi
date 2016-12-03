@@ -806,4 +806,8 @@ ul#wizardStatus li.completed:before{
   background-color:#a9a1a1
 }
 
-/*Imarsha*/
+/*Imarsha Custom styles*/
+
+.form-signin .username {
+    margin-bottom: 12px;
+}
