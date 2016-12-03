@@ -28,9 +28,7 @@
         </thead>
         <tbody infinite-scroll='paginationFuntion()' infinite-scroll-distance='0.01'>
         <tr ng-repeat="album in albumList | searchFilter:search">
-            <td><span class="pull-left p-r-5">
-                                                <img alt="{{ album.name }}" ng-src="{{item.item.image}}" class="table-img-icon"/>
-                                                </span></td>
+            <td><span class="pull-left p-r-5">{{ album.name }}</span></td>
             <td>{{ album.albumId }}</td>
             <td>{{ album.name }}</td>
             <td><span ng-if="album.approved == true"  class="label label-success">Approved</span>

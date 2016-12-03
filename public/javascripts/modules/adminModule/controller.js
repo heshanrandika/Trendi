@@ -367,11 +367,11 @@
             });
         };
 
-        $scope.remove = function (itemId) {
+        $scope.remove = function (album) {
             Confirmation.openConfirmation("Confirmation", "Are you sure you want to remove this?").then(function (result) {
                 if(result == 1){
-                    var itemDetail={'itemId':itemId};
-                    adminDataService.removeItem(itemDetail).then(function(response){
+                    var albumDetail={'album':album};
+                    adminDataService.removeAlbum(albumDetail).then(function(response){
                         Data_Toast.success(MESSAGE_CONFIG.SUCCESS_REMOVED_SUCCESSFULLY);
                         $scope.loadData(1);
                         $scope.btnPressed = false;

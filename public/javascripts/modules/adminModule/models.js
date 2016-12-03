@@ -534,10 +534,48 @@
         $scope.searchObj = {
             skip: $scope.itemList.length,
             limit:itemPerPage,
-            searchArray:[{key:'albumId', value:null}],
+            searchArray:[{key:'albumId', value:null},{key:'approved', value:true}],
             shopId : shopDetails.branch.shopId,
             branchId : shopDetails.branch.branchId
         };
+
+        $scope.search={};
+
+        $scope.searchPress = function(event, search){
+            if(event.keyCode == 13 || search){
+                var array = [];
+                for(var i in $scope.search) {
+                    if(i == "approved"){
+                        if($scope.search[i] == "undefined"){
+                            array.push({key:i, value:{$exists: false}})
+                        }else if($scope.search[i] == "true"){
+                            array.push({key:i, value:true})
+                        }else if($scope.search[i] == "false"){
+                            array.push({key:i, value:false})
+                        }
+
+                    }else if($scope.search[i] != ""){
+                        if(!isNaN(parseFloat($scope.search[i])) && isFinite($scope.search[i])){
+                            array.push({key:i, value:parseInt($scope.search[i])})
+                        }else{
+                            array.push({key:i, value:{'$regex': $scope.search[i]}})
+                        }
+                    }
+
+
+                }
+                $scope.searchObj.searchArray = array;
+                $scope.loadData(1);
+            }
+        };
+
+        $scope.refresh = function(){
+            $scope.searchObj.searchKey = '';
+            $scope.searchObj.searchValue = '';
+            $scope.searchObj.searchArray=[{key:'albumId', value:null},{key:'approved', value:true}],
+            $scope.search = {};
+            $scope.searchPress({},true);
+        }
 
         $scope.loadData = function(init){
             if(init){
@@ -579,7 +617,7 @@
 
         $scope.removeItem = function(item){
             $scope.viewList = _.without($scope.viewList, _.findWhere($scope.viewList, {_id:item._id}));
-            $scope.album.itemList = _.without($scope.album.itemList, _.findWhere($scope.album.itemList, item._id));
+            $scope.album.itemList = _.without($scope.album.itemList,item._id);
             $scope.itemList.push(item);
         };
 

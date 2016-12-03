@@ -772,4 +772,53 @@
         };
     }]);
 
+    mod.controller('sysAlbumModel',['$scope', '$modalInstance','item','adminDataService','Data.Toast','MESSAGE_CONFIG', function ($scope, uiModalInstance, selectedItem, adminDataService, Data_Toast, MESSAGE_CONFIG) {
+        $scope.album = selectedItem? selectedItem : {};
+        $scope.approved = selectedItem? selectedItem.approved : undefined;
+        $scope.viewList = [];
+
+
+        if(selectedItem) {
+            $scope.addNewAlbum = false;
+            adminDataService.getAlbumItemList({album: $scope.album}).then(function (response) {
+                $scope.viewList.push.apply($scope.viewList, response.data.responData.data);
+            }, function () {
+                $scope.viewList = [];
+            });
+        }
+
+
+        $scope.update = function(){
+            $scope.btnPressed = true;
+            var updateObj = {album:$scope.album,removed:$scope.removedList};
+            adminDataService.adminUpdateAlbum(updateObj).then(function (response) {
+                uiModalInstance.close($scope.album);
+                $scope.btnPressed = false;
+            },function (error) {
+                Data_Toast.error(MESSAGE_CONFIG.ERROR_SAVE_FAIL,error.data.responData.Error);
+                $scope.btnPressed = false;
+            });
+        };
+
+
+        $scope.approveReject = function(result){
+            $scope.btnPressed = true;
+            $scope.album.approved= result;
+            var updateObj = {album:$scope.album,approved:result};
+            adminDataService.adminUpdateAlbum(updateObj).then(function (response) {
+                uiModalInstance.close($scope.album);
+                $scope.btnPressed = false;
+            },function (error) {
+                Data_Toast.error(MESSAGE_CONFIG.ERROR_SAVE_FAIL,error.data.responData.Error);
+                $scope.btnPressed = false;
+            });
+        };
+
+
+        $scope.cancel = function () {
+            $scope.initWindow = false;
+            uiModalInstance.dismiss('cancel');
+        };
+    }]);
+
 })(com.TRENDI.ADMIN.modules.mainAdminModule);

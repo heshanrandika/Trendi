@@ -124,9 +124,16 @@ function adminUpdateAlbum(req,callback){
     var params = (req.body.params) ? req.body.params : {};
     var album = (params.album)? params.album:{};
     var removed = (params.removed)? params.removed:[];
+    var approved = params.approved;
 
     var query = {'albumId':album.albumId};
-    var changeDoc = {$set:{name: album.name, description: album.description, itemList:album.itemList}};
+    var changeDoc;
+    if(undefined != approved){
+        changeDoc = {$set:{approved: approved}};
+    }else{
+        changeDoc = {$set:{name: album.name, description: album.description, itemList:album.itemList}};
+    }
+
     console.log("$$$$$$$  Admin Update Album$$$$$$ : ");
 
     daf.Update(query,changeDoc,CONSTANT.ALBUM_COLLECTION,function(err,success){

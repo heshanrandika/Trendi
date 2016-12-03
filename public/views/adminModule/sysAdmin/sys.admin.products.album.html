@@ -1,7 +1,5 @@
 <div>
-    <button class="btn btn-success" ng-click="addNew()">
-        <i class="icon-plus"></i> Add New Album
-    </button>
+
     <table  class="table table-hover table-dynamic">
         <thead>
         <tr>
@@ -13,8 +11,6 @@
                 Product Id<input type="text" ng-keypress="searchPress($event)" class="form-control" placeholder="Filter By Product Id" ng-model="search['itemId']"></th>
             <th class="sorting" rowspan="1" colspan="1" style="width: 196px;">
                 Product Name<input type="text" ng-keypress="searchPress($event)"  class="form-control" placeholder="Filter By Name" ng-model="search['item.name']"></th>
-            <th class="sorting"  rowspan="1" colspan="1"  style="width: 196px;">
-                Price<input type="text" ng-keypress="searchPress($event)" class="form-control" placeholder="Filter By Price" ng-model="search['item.price']"></th>
             <th class="sorting" rowspan="1" colspan="1"  style="width: 196px;">
                 Status <select ng-model="search['approved']" class="form-control form-filter srch-select-opt">
                 <option value="">---All---</option>
@@ -29,17 +25,14 @@
         </tr>
         </thead>
         <tbody infinite-scroll='paginationFuntion()' infinite-scroll-distance='0.01'>
-        <tr ng-repeat="item in itemList | searchFilter:search">
-            <td><span class="pull-left p-r-5">
-                                                <img alt="{{ item.item.name }}" ng-src="{{item.item.image}}" class="table-img-icon"/>
-                                                </span></td>
-            <td>{{ item.itemId }}</td>
-            <td>{{ item.item.name }}</td>
-            <td>{{ item.item.price }}</td>
-            <td><span ng-if="item.approved == true"  class="label label-success">Approved</span>
-                <span ng-if="item.approved == false"  class="label label-danger">Rejected</span>
-                <span ng-if="item.approved == undefined"  class="label label-warning">Pending</span></td>
-            <td><div><a class="edit btn btn-sm btn-default" href="javascript:;" ng-click="open(item)"><i class="icon-note" ></i></a>  <a class="delete btn btn-sm btn-danger" href="javascript:;" ng-click="remove(item.itemId)"><i class="icons-office-52"></i></a></div></td>
+        <tr ng-repeat="album in albumList | searchFilter:search">
+            <td><span class="pull-left p-r-5">{{ album.name }}</span></td>
+            <td>{{ album.albumId }}</td>
+            <td>{{ album.name }}</td>
+            <td><span ng-if="album.approved == true"  class="label label-success">Approved</span>
+                <span ng-if="album.approved == false"  class="label label-danger">Rejected</span>
+                <span ng-if="album.approved == undefined"  class="label label-warning">Pending</span></td>
+            <td><div><a class="edit btn btn-sm btn-default" href="javascript:;" ng-click="open(album)"><i class="icon-note" ></i></a>  <a class="delete btn btn-sm btn-danger" href="javascript:;" ng-click="remove(album)"><i class="icons-office-52"></i></a></div></td>
         </tr>
         </tbody>
     </table>

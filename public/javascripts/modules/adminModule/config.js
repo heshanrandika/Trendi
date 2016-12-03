@@ -135,6 +135,26 @@
             'main.sys_products': {
                 url: '/sys_products',
                 templateUrl: '/views/adminModule/sysAdmin/sys.admin.products.html',
+                controller: 'sysAdminProductController',
+                access: {
+                    requiresLogin: true
+                }
+
+            },
+
+            'main.sys_products.album': {
+                url: '/album',
+                templateUrl: '/views/adminModule/sysAdmin/sys.admin.products.album.html',
+                controller: 'sysAdminAlbumController',
+                access: {
+                    requiresLogin: true
+                }
+
+            },
+
+            'main.sys_products.item': {
+                url: '/item',
+                templateUrl: '/views/adminModule/sysAdmin/sys.admin.products.item.html',
                 controller: 'sysAdminItemController',
                 access: {
                     requiresLogin: true
@@ -357,7 +377,7 @@
             },
             {
                 value:'Products',
-                key:'main.sys_products',
+                key:'main.sys_products.item',
                 authorization: 1010,
                 icon:'icon-bag'
             },

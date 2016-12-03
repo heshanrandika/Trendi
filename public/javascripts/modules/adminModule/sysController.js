@@ -144,6 +144,15 @@
 
     }]);
 
+
+    mod.controller('sysAdminProductController',['$state','$scope',function($state,$scope){
+        $scope.goto = function (category) {
+            var state = 'main.sys_products.'+category;
+            $state.go(state);
+        };
+    }]);
+
+
     mod.controller('sysAdminItemController', ['$scope', '$rootScope','$state','adminDataService','Data.Toast','MESSAGE_CONFIG','$modal','Confirmation', function ($scope, $rootScope, $state, adminDataService, Data_Toast, MESSAGE_CONFIG, uiModal, Confirmation) {
         $scope.itemList = [];
         $scope.count = 0;
@@ -289,6 +298,160 @@
                 }
             });
         };
+
+    }]);
+
+
+    mod.controller('sysAdminAlbumController', ['$scope', '$rootScope','$state','adminDataService','Data.Toast','MESSAGE_CONFIG','$modal','Confirmation', function ($scope, $rootScope, $state, adminDataService, Data_Toast, MESSAGE_CONFIG, uiModal, Confirmation) {
+        $scope.albumList = [];
+        $scope.count = 0;
+        var shopDetails = {};
+        var itemPerPage = 8;
+
+
+        shopDetails = adminDataService.shopData();
+        $scope.searchObj = {
+            skip: $scope.albumList.length,
+            limit:itemPerPage,
+            searchKey:'',
+            searchValue:'',
+            searchArray:[],
+            shopId : shopDetails.branch.shopId,
+            branchId : shopDetails.branch.branchId
+        };
+
+
+        $scope.search={};
+
+        $scope.searchPress = function(event, search){
+            if(event.keyCode == 13 || search){
+                var array = [];
+                for(var i in $scope.search) {
+                    if(i == "approved"){
+                        if($scope.search[i] == "undefined"){
+                            array.push({key:i, value:{$exists: false}})
+                        }else if($scope.search[i] == "true"){
+                            array.push({key:i, value:true})
+                        }else if($scope.search[i] == "false"){
+                            array.push({key:i, value:false})
+                        }
+
+                    }else if($scope.search[i] != ""){
+                        if(!isNaN(parseFloat($scope.search[i])) && isFinite($scope.search[i])){
+                            array.push({key:i, value:parseInt($scope.search[i])})
+                        }else{
+                            array.push({key:i, value:{'$regex': $scope.search[i]}})
+                        }
+                    }
+
+
+                }
+                $scope.searchObj.searchArray = array;
+                $scope.loadData(1);
+            }
+        };
+
+        $scope.refresh = function(){
+            $scope.searchObj.searchKey = '';
+            $scope.searchObj.searchValue = '';
+            $scope.searchObj.searchArray = [];
+            $scope.search = {};
+            $scope.searchPress({},true);
+        }
+
+        $scope.loadData = function(init){
+            if(init){
+                $scope.albumList = [];
+                $scope.searchObj.skip =0;
+            }
+            $scope.loading = true;
+            adminDataService.adminGetAlbumList($scope.searchObj).then(function(response){
+                $scope.albumList.push.apply($scope.albumList, response.data.responData.data.list);
+                if(response.data.responData.data.count){
+                    $scope.count = response.data.responData.data.count;
+                }
+                $scope.loading = false;
+            },function(){
+                $scope.albumList = [];
+            });
+
+
+        };
+
+        // Register event handler
+        $scope.paginationFuntion = function() {
+            $scope.searchObj.skip = $scope.albumList.length;
+            if ($scope.count > $scope.albumList.length && !$scope.loading) {
+                $scope.loadData();
+            }
+        };
+
+        $scope.loadData(1);
+
+
+        $scope.open = function (selectedItem) {
+
+            var modalInstance = uiModal.open({
+                animation: true,
+                templateUrl: '/views/adminModule/sysAdmin/sysModels/sys.admin.album.model.html',
+                controller: 'sysAlbumModel',
+                size: 'lg',
+                resolve:{
+                    item : function(){
+                        var editItem = angular.copy(selectedItem);
+                        return editItem;
+                    }
+                }
+            });
+
+            modalInstance.result.then(function (updatedItem) {
+                selectedItem.name = updatedItem.name;
+                selectedItem.description = updatedItem.description;
+                selectedItem.itemList = updatedItem.itemList;
+                selectedItem.approved = updatedItem.approved;
+            }, function () {
+
+            });
+        };
+
+/*        $scope.addNew = function () {
+
+            var modalInstance = uiModal.open({
+                animation: true,
+                templateUrl: '/views/adminModule/sysAdmin/sysModels/sys.admin.album.model.html',
+                controller: 'sysAlbumModel',
+                size: 'lg',
+                resolve:{
+                    item : function(){
+                        return undefined;
+                    }
+                }
+            });
+
+            modalInstance.result.then(function () {
+                $scope.loadData(1);
+            }, function () {
+            });
+        };*/
+
+        $scope.remove = function (album) {
+            Confirmation.openConfirmation("Confirmation", "Are you sure you want to remove this?").then(function (result) {
+                if(result == 1){
+                    var albumDetail={'album':album};
+                    adminDataService.removeAlbum(albumDetail).then(function(response){
+                        Data_Toast.success(MESSAGE_CONFIG.SUCCESS_REMOVED_SUCCESSFULLY);
+                        $scope.loadData(1);
+                        $scope.btnPressed = false;
+                    },function(error){
+                        Data_Toast.error(MESSAGE_CONFIG.ERROR_REMOVE_FAIL,error.data.responData.Error);
+                        $scope.btnPressed = false;
+                    });
+                }else{
+                    $scope.btnPressed = false;
+                }
+            });
+        };
+
 
     }]);
 
