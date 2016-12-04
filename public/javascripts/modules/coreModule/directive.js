@@ -1505,7 +1505,8 @@
             scope: {
                 rateObject: "=",
                 category:"@",
-                objectId:"="
+                objectId:"=",
+                oid:"="
             },
             template: '<div><rating ng-model="rate" max="10" readonly="isReadonly" on-hover="hoveringOver(value)" ng-click="rateChange()" on-leave="overStar = null" state-on="\'icon-star-3\'" state-off="\'icon-star-empty\'"></rating><span class="label" ng-class="{\'label-warning\': percent<30, \'label-info\': percent>=30 && percent<70, \'label-success\': percent>=70}" ng-show="overStar">{{percent}}%</span></div>',
             link: function(scope, elm, attrs) {
@@ -1523,7 +1524,7 @@
                 scope.rateChange = function(){
                     if(Login_Window.checkUser()){
                         if(!scope.isReadonly) {
-                            mainDataService.setRate({category:scope.category, id:scope.objectId, rate:scope.rate}).then(function(response){
+                            mainDataService.setRate({category:scope.category, id:scope.objectId, rate:scope.rate, _id:scope.oid}).then(function(response){
                                 scope.isReadonly = true;
                             },function(){
                             });

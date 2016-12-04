@@ -630,11 +630,13 @@ function getItemMenu(req,callback){
 function setRating(req,callback){
     var params = (req.body.params) ? req.body.params : {};
     var id = params.id;
+    var _id = params._id;
     var category = params.category;
     var rate = params.rate;
     var query = {};
     var changeDoc = {};
     var table = "";
+    var updatePost = false;
 
     switch(category){
         case 'item':
@@ -660,7 +662,8 @@ function setRating(req,callback){
             break;
 
         case 'blog':
-         changeDoc = {
+            updatePost = true;
+            changeDoc = {
                  $inc: { "rate.star": rate, "rate.hit": 1 } 
             };
 
@@ -671,6 +674,7 @@ function setRating(req,callback){
             break;
 
         case 'promotion':
+            updatePost = true;
             changeDoc = {
                 $inc: { "rate.star": rate, "rate.hit": 1 }
             };
@@ -684,7 +688,14 @@ function setRating(req,callback){
 
     console.log("$$$$$$$  Item Menu $$$$$$ : ");
     daf.Update(query,changeDoc,table,function(err,success){
-        callback(err, success);
+        if(updatePost){
+            UTIL.UpdatePost({collection:table,objectId:_id},function(err,success){
+                callback(err, success);
+            })
+        }else{
+            callback(err, success);
+        }
+
     });
 };
 

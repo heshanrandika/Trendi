@@ -140,8 +140,14 @@ function adminUpdateAlbum(req,callback){
         if(success){
             itemAddToAlbum(album);
             itemRemoveFromAlbum(removed);
+            callback(err,success);
+        }else if(approved){
+            UTIL.AddPost({collection:CONSTANT.ALBUM_COLLECTION, objectId:album._id, date:new Date()},function(err, success){
+                callback(err, success);
+            });
+        }else{
+            callback(err,success);
         }
-        callback(err,success);
 
     });
 

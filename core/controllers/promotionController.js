@@ -221,17 +221,25 @@ function updatePromotion(req,callback){
 function adminPromotionApproval(req,callback){
     console.log("$$$$$$$  Update Promotion $$$$$$");
     var params = (req.body.params) ? req.body.params : {};
-    var promotion = (params.promotionId)? params.promotionId : {};
+    var promotionId = params.promotionId;
+    var objectId = params.objectId;
     var approved = (params.approved)? params.approved:false;
 
     console.log("$$$$$$$  Update Promotion $$$$$$ : ");
     if(params.promotionId) {
-        var query = {promotionId:promotion.promotionId};
+        var query = {promotionId:promotionId};
         var doc = {$set:{
             approved:approved
         }};
         daf.Update(query, doc, CONSTANT.PROMOTION_COLLECTION, function (err, success) {
-            callback(err, success);
+            if(approved){
+                UTIL.AddPost({collection:CONSTANT.PROMOTION_COLLECTION, objectId:objectId, date:new Date()},function(err, success){
+                    callback(err, success);
+                })
+            }else{
+                callback(err, success);
+            }
+
         });
     }else{
         var err = "Promotion details not available";

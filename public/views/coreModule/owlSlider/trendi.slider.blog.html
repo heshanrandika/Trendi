@@ -3,7 +3,7 @@
         <div class="image-cell"><a><img ng-src="{{slide.img}}" class="img-responsive animate scale" alt=""><a class="title-slide-01" ng-href="#/main/shop?shopId={{slide.shop.shopId}}"> <span class="big">#{{slide.shop.shopId}}</span> <span class="middle">{{slide.shop.name}}</span> </a></a></div>
         <div class="offset-image">
             <h4><a>{{slide.title}}</a></h4>
-            <p> <span class="rating"><trendi-star-bar rate-object="slide.rate" category="blog" object-id="slide.blogId"></trendi-star-bar> </span> 
+            <p> <span class="rating"><trendi-star-bar rate-object="slide.rate" category="blog" object-id="slide.blogId" oid="slide._id"></trendi-star-bar> </span>
             &nbsp; 
             <p ng-bind-html="slide.contents" class="blog-text-color"></p>
         </div>

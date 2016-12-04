@@ -103,6 +103,10 @@
             return Data_Comm.postPromise(angular.extend({params:d},adminServiceCalls.updatePromotionDao()));
         };
 
+        var _adminUpdatePromotion = function(d){
+            return Data_Comm.postPromise(angular.extend({params:d},adminServiceCalls.AdminUpdatePromotionDao()));
+        };
+
         var _removePromotion = function(d){
             return Data_Comm.postPromise(angular.extend({params:d},adminServiceCalls.removePromotionDao()));
         };
@@ -282,6 +286,7 @@
             getAdminPromotionList:_getAdminPromotionList,
             addPromotion:_addPromotion,
             updatePromotion:_updatePromotion,
+            adminUpdatePromotion:_adminUpdatePromotion,
             removePromotion:_removePromotion,
             adminGetUser:_adminGetUser,
             adminUpdateUser:_adminUpdateUser,

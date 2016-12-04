@@ -2,19 +2,19 @@
     <li ng-repeat="slide in slides" on-finish-render="repeated">
         <div class="product"> <a ng-click="openItem(slide[0])"class="preview-image"><img class="img-responsive animate scale" ng-src="{{slide[0].item.image}}" alt=""></a>
             <p class="name"><a ng-click="openItem(slide[0])" class="preview-image">#{{slide[0].itemId}} {{slide[0].item.name}}</a></p>
-            <span class="rating"><trendi-star-bar rate-object="slide[0].item.rate" category="item" object-id="slide[0].itemId"></trendi-star-bar></span>
+            <span class="rating"><trendi-star-bar rate-object="slide[0].item.rate" category="item" object-id="slide[0].itemId" oid="slide[0]._id"></trendi-star-bar></span>
             <span class="price old" ng-if="x.item.onSale">Rs {{slide[0].item.price}}</span> <span class="price new">Rs {{(slide[0].item.price)*(100-slide[0].item.discount)/100}}</span>
             </div>
 
         <div class="product"> <a ng-click="openItem(slide[1])" class="preview-image"><img class="img-responsive animate scale" ng-src="{{slide[1].item.image}}" alt=""></a>
             <p class="name"><a ng-click="openItem(slide[1])" class="preview-image">#{{slide[1].itemId}} {{slide[1].item.name}}</a></p>
-            <span class="rating"><trendi-star-bar rate-object="slide[1].item.rate" category="item" object-id="slide[1].itemId"></trendi-star-bar></span>
+            <span class="rating"><trendi-star-bar rate-object="slide[1].item.rate" category="item" object-id="slide[1].itemId" oid="slide[1]._id"></trendi-star-bar></span>
             <span class="price old" ng-if="x.item.onSale">Rs {{slide[1].item.price}}</span> <span class="price new">Rs {{(slide[1].item.price)*(100-slide[1].item.discount)/100}}</span>
         </div>
 
          <div class="product"> <a ng-click="openItem(slide[2])" class="preview-image"><img class="img-responsive animate scale" ng-src="{{slide[2].item.image}}" alt=""></a>
             <p class="name"><a ng-click="openItem(slide[2])" class="preview-image">#{{slide[2].itemId}} {{slide[2].item.name}}</a></p>
-            <span class="rating"><trendi-star-bar rate-object="slide[2].item.rate" category="item" object-id="slide[2].itemId"></trendi-star-bar></span>
+            <span class="rating"><trendi-star-bar rate-object="slide[2].item.rate" category="item" object-id="slide[2].itemId" oid="slide[2]._id"></trendi-star-bar></span>
             <span class="price old" ng-if="x.item.onSale">Rs {{slide[2].item.price}}</span> <span class="price new">Rs {{(slide[2].item.price)*(100-slide[2].item.discount)/100}}</span>
         </div>
     </li>

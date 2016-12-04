@@ -549,8 +549,8 @@
         $scope.approveReject = function(result){
             $scope.btnPressed = true;
             setData();
-            var itemDetail = {promotionId: $scope.promotion.promotionId, approved:result};
-            adminDataService.adminUpdateItem(itemDetail).then(function (response) {
+            var promoDetail = {promotionId: $scope.promotion.promotionId, objectId:$scope.promotion._id, approved:result};
+            adminDataService.adminUpdatePromotion(promoDetail).then(function (response) {
                 Data_Toast.success(MESSAGE_CONFIG.SUCCESS_UPDATE_SUCCESSFULLY);
                 uiModalInstance.close($scope.item);
             },function(error){
