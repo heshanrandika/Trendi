@@ -93,8 +93,9 @@ function getAllPost(req,callback){
         var data = [];
         var dbCon = daf.FindWithPagination(query,CONSTANT.WALL_POST_COLLECTION,option);
         dbCon.on('data', function(doc){
-            daf.FindOne({_id:ObjectId(doc.objectId)},doc.collection,function(err,album){
-                data.push(doc);
+            daf.FindOne({_id:ObjectId(doc.objectId)},doc.collection,function(err,val){
+                if(val)
+                    data.push(val);
             }); 
         });
 
@@ -106,8 +107,9 @@ function getAllPost(req,callback){
         var data = [];
         var dbCon = daf.FindWithPagination(query,CONSTANT.WALL_POST_COLLECTION,option);
         dbCon.on('data', function(doc){
-            daf.FindOne({_id:ObjectId(doc.objectId)},doc.collection,function(err,album){
-                data.push(doc);
+            daf.FindOne({_id:ObjectId(doc.objectId)},doc.collection,function(err,val){
+                if(val)
+                    data.push(val);
             }); 
         });
 
