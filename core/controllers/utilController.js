@@ -3,6 +3,7 @@
  */
 var daf = require('../persistence/MongoPersistence');
 var CONSTANT = require('../utility/Constants');
+var ObjectId = require('mongodb').ObjectID;
 var _ = require('lodash');
 
 
@@ -78,31 +79,44 @@ function updatePost(post,callback){
 function getAllPost(req,callback){
     var params = (req.body.params) ? req.body.params : {};
 
-    var skip   = (params.skip)?params.skip:0;
-    var limit  = (params.limit)?params.limit:16;
-    var sorter = [['date',-1]];
-    var option = {skip:skip, limit:limit, sort:sorter};
+    var skip     =   (params.skip)?params.skip:0;
+    var limit    =   (params.limit)?params.limit:16;
+    var reqDate  =   (params.reqDate)?params.reqDate:new Date();
+    var pullReq  =   params.pullReq;
+    var sorter   =   [['date',-1]];
+    var option   =   {skip:skip, limit:limit, sort:sorter};
 
-    var query = {};
-    var data = {list:[]};
-    var dbCon = daf.FindWithPagination(query,CONSTANT.WALL_POST_COLLECTION,option);
-    dbCon.on('data', function(doc){
-        data.list.push(doc);
-    });
 
-    dbCon.on('end', function(){
-        if(skip == 0){
-            daf.Count(query,CONSTANT.WALL_POST_COLLECTION,function(err , count){
-                if(count){
-                    data.count = count;
-                }
-                callback(null,data);
-            })
-        }else{
+    if(pullReq){
+        option   =   {sort:sorter};
+        var query = { 'date' : { '$gt' : reqDate , '$lt' : new Date() } } ;
+        var data = [];
+        var dbCon = daf.FindWithPagination(query,CONSTANT.WALL_POST_COLLECTION,option);
+        dbCon.on('data', function(doc){
+            daf.FindOne({_id:ObjectId(doc.objectId)},doc.collection,function(err,album){
+                data.push(doc);
+            }); 
+        });
+
+        dbCon.on('end', function(){
             callback(null,data);
-        }
+        });
+    }else{
+        var query = {"date" : { $lt : reqDate }};
+        var data = [];
+        var dbCon = daf.FindWithPagination(query,CONSTANT.WALL_POST_COLLECTION,option);
+        dbCon.on('data', function(doc){
+            daf.FindOne({_id:ObjectId(doc.objectId)},doc.collection,function(err,album){
+                data.push(doc);
+            }); 
+        });
 
-    });
+        dbCon.on('end', function(){
+            callback(null,data);
+        });
+    }
+
+    
 }
 
 module.exports.UpdateCount = updateCount;
