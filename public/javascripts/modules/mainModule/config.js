@@ -64,6 +64,12 @@
                 templateUrl: 'views/mainModule/main.contact.html',
                 controller: 'trendiContactController'
 
+            },
+            'main.wall': {
+                url: '/wall',
+                templateUrl: 'views/mainModule/main.wall.html',
+                controller: 'trendiWallController'
+
             }
 
         },REQ_CONFIG: {
@@ -79,6 +85,7 @@
             FUNC_GetItemMenu:           1015,
             FUNC_SetRate:               1016,
             FUNC_GetSizes:              1017,
+            FUNC_GetAllPost:            1026,
             FUNC_GetShopList:           2000,
             FUNC_GetRatedShopList:      2001,
             FUNC_GetNearestShopList:    2002,

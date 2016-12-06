@@ -10,6 +10,7 @@ var TAG = require("../controllers/tagController");
 var BRAND = require("../controllers/brandController");
 var BANK = require("../controllers/bankController");
 var COMMENT = require("../controllers/commentController");
+var UTIL = require('../controllers/utilController');
 
 var normalRequestRoute = function(req,res){
     var functionId = parseInt(req.body.functionId);
@@ -223,6 +224,26 @@ var normalRequestRoute = function(req,res){
          case 1016:
 
             ITEM.SetRating(req, function (err, data) {//TODO need to remove this function
+                if (err) {
+                    resObject.resStatus = 0;
+                    resObject.responData.Error = err.toString();
+                    res.status(500);
+                    res.send(resObject);
+
+                } else if (data) {
+
+                    resObject.resStatus = 1;
+                    resObject.responData.data = data;
+                    res.send(resObject);
+
+                }
+
+            });
+            break;
+
+        case 1026:
+
+            UTIL.GetAllPost(req, function (err, data) {
                 if (err) {
                     resObject.resStatus = 0;
                     resObject.responData.Error = err.toString();

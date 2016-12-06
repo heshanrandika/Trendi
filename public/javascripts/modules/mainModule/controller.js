@@ -93,6 +93,11 @@
                 $location.path('main/offers/All-Banks/all');
             },
 
+            gotoWall : function () {
+                $location.search({});
+                $location.path('main/wall');
+            }, 
+
             gotoContact : function () {
                 $location.search({});
                 $location.path('main/contact');
@@ -2045,6 +2050,30 @@
 
     mod.controller('trendiContactController', ['$scope', '$rootScope','mainDataService', function ($scope, $rootScope, mainDataService) {
 
+    }]);
+
+    mod.controller('trendiWallController', ['$scope', '$rootScope','mainDataService', function ($scope, $rootScope, mainDataService) {
+         $scope.allPost = [];
+         $scope.loadData = function(init){
+            if(init){
+                $scope.allPost = [];
+            }
+            $scope.loading = true;
+            mainDataService.getAllPost($scope.searchObj).then(function(response){
+               $scope.allPost.push.apply($scope.allPost, response.data.responData.data);
+            },function(){
+            });
+        };
+
+        // Register event handler
+        $scope.paginationFuntion = function() {
+            $scope.searchObj.skip = $scope.searchObj.limit;
+            if ($scope.count > $scope.allPost.length && !$scope.loading) {
+                $scope.loadData();
+            }
+        };
+
+        $scope.loadData(1);
     }]);
 
     mod.controller('trendiMainOffersController', ['$scope', '$rootScope','$state','mainDataService','$timeout','$stateParams','$location','$anchorScroll', function ($scope, $rootScope, $state, mainDataService, $timeout, $stateParams, $location, $anchorScroll) {

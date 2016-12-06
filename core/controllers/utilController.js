@@ -93,28 +93,45 @@ function getAllPost(req,callback){
         var data = [];
         var dbCon = daf.FindWithPagination(query,CONSTANT.WALL_POST_COLLECTION,option);
         dbCon.on('data', function(doc){
-            daf.FindOne({_id:ObjectId(doc.objectId)},doc.collection,function(err,val){
-                if(val)
-                    data.push(val);
-            }); 
+            data.push(doc);
         });
 
         dbCon.on('end', function(){
-            callback(null,data);
+            var count = data.length;
+            for(index in data){
+                daf.FindOne({_id:ObjectId(data[index].objectId)},data[index].collection,function(err,val){
+                    count--;
+                    if(val)
+                        results.push(val);
+                    if(count == 0)
+                        callback(null,results);
+                });
+                
+            }
+           
         });
     }else{
         var query = {"date" : { $lt : reqDate }};
         var data = [];
+        var results = [];
         var dbCon = daf.FindWithPagination(query,CONSTANT.WALL_POST_COLLECTION,option);
         dbCon.on('data', function(doc){
-            daf.FindOne({_id:ObjectId(doc.objectId)},doc.collection,function(err,val){
-                if(val)
-                    data.push(val);
-            }); 
+            data.push(doc);
         });
 
         dbCon.on('end', function(){
-            callback(null,data);
+            var count = data.length;
+            for(index in data){
+                daf.FindOne({_id:ObjectId(data[index].objectId)},data[index].collection,function(err,val){
+                    count--;
+                    if(val)
+                        results.push(val);
+                    if(count == 0)
+                        callback(null,results);
+                });
+                
+            }
+           
         });
     }
 
