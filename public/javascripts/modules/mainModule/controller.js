@@ -160,7 +160,6 @@
                     $scope.menuFunc.unreadCount = 0;
                 });
 
-
             },
 
 
@@ -173,9 +172,9 @@
         $scope.menuFunc.homeClick();
         $scope.menuFunc.getShopList();
         $scope.menuFunc.getBankList();
-        $scope.menuFunc.getCounts();
         $scope.menuFunc.loadMenu();
         $scope.menuFunc.searchKey =  '';
+        setInterval(function(){ $scope.menuFunc.getCounts(); }, 60000); //if socket is working change this method
     }]);
 
     mod.controller('trendiMainHomeController', ['$scope', '$rootScope','$state','mainDataService','$location', function ($scope, $rootScope, $state, mainDataService, $location) {

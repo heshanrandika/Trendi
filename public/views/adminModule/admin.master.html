@@ -144,8 +144,8 @@
                             <li class="dropdown" id="messages-header">
                                 <a href="#" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
                                 <i class="icon-paper-plane"></i>
-                                <span class="badge badge-primary badge-header">
-                                8
+                                <span class="badge badge-primary badge-header" ng-if="unreadCount > 0">
+                                {{unreadCount}}
                                 </span>
                                 </a>
                                 <ul class="dropdown-menu">
