@@ -1,6 +1,6 @@
 <div>
     <section class="filters-by-category clearfix" ng-hide="selector">
-        <div class="container">
+        <div class="">
             <div class="row">
                 <uib-rating ng-model="rate" max="max" readonly="isReadonly" on-hover="hoveringOver(value)" on-leave="overStar = null" titles="['one','two','three']" aria-labelledby="default-rating"></uib-rating>
                 <div class="text-center">
@@ -15,10 +15,7 @@
         </div>
     </section>
 
-   <section class="container content slider-products">
-    <div class="row">
-
-        <div ng-class="views == true ? 'products-list-in-row':'products-list-isotope'" id="isotopeContainer" isotope-container ng-cloak class="ng-cloak" infinite-scroll='paginationFunction()' infinite-scroll-distance='0.01'>
+        <div ng-class="views == true ? 'products-list-in-row':'products-list-in-column'" id="isotopeContainer" isotope-container ng-cloak class="ng-cloak content slider-products products-list products-list-small row " infinite-scroll='paginationFunction()' infinite-scroll-distance='0.01'>
             <div class="kindling {{x.class}} product-preview " ng-repeat="x in xList " isotope-item  on-finish-render="repeated">
 
                     <div id="{{x.itemId}}" class="preview animate scale"> <a class="preview-image"><img ng-click="openItem(x)" class="img-responsive animate scale" ng-src="{{x.item.image}}" width="270" height="328" alt=""></a>
@@ -49,9 +46,5 @@
             </div>
 
         </div>
-       </div>
-
-   </section>
-
 
 </div>
