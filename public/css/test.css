@@ -811,3 +811,12 @@ ul#wizardStatus li.completed:before{
 .form-signin .username {
     margin-bottom: 12px;
 }
+
+.user-image{
+    margin-right: 6px;
+    width: 36px;
+    height: 36px;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+}
