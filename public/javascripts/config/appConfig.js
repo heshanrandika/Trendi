@@ -23,7 +23,8 @@ window.com = {TRENDI:{CATEGORY:{modules:{}}}};
             'ui-rangeSlider',
             'angular-web-notification',
             'google.plus.auth',
-            'djds4rce.angular-socialshare'
+            'djds4rce.angular-socialshare',
+            'summernote'
         ]
     };
 })(com.TRENDI.CATEGORY);

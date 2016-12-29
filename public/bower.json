@@ -1,7 +1,7 @@
 {
-  "name": "DirectFN Integration Platform Admin Client",
+  "name": "Dressup Client",
   "version": "0.0.1",
-  "description": "Handles all the functionalities of the DIP",
+  "description": "Dressup client view",
   "keywords": [
     "angular",
     "bower"

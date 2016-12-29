@@ -21,7 +21,8 @@ window.com = {TRENDI:{ADMIN:{modules:{}}}};
             'ngStorage',
             'ui.select',
             'textAngular',
-            'uiGmapgoogle-maps'
+            'uiGmapgoogle-maps',
+            'summernote'
         ]
     };
 })(com.TRENDI.ADMIN);
