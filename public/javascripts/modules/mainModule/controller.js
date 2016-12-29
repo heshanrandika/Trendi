@@ -93,6 +93,11 @@
                 $location.path('main/offers/All-Banks/all');
             },
 
+            gotoWall : function () {
+                $location.search({});
+                $location.path('main/wall');
+            }, 
+
             gotoContact : function () {
                 $location.search({});
                 $location.path('main/contact');
@@ -155,7 +160,6 @@
                     $scope.menuFunc.unreadCount = 0;
                 });
 
-
             },
 
 
@@ -168,9 +172,9 @@
         $scope.menuFunc.homeClick();
         $scope.menuFunc.getShopList();
         $scope.menuFunc.getBankList();
-        $scope.menuFunc.getCounts();
         $scope.menuFunc.loadMenu();
         $scope.menuFunc.searchKey =  '';
+        setInterval(function(){ $scope.menuFunc.getCounts(); }, 60000); //if socket is working change this method
     }]);
 
     mod.controller('trendiMainHomeController', ['$scope', '$rootScope','$state','mainDataService','$location', function ($scope, $rootScope, $state, mainDataService, $location) {
@@ -2045,6 +2049,30 @@
 
     mod.controller('trendiContactController', ['$scope', '$rootScope','mainDataService', function ($scope, $rootScope, mainDataService) {
 
+    }]);
+
+    mod.controller('trendiWallController', ['$scope', '$rootScope','mainDataService', function ($scope, $rootScope, mainDataService) {
+         $scope.allPost = [];
+         $scope.loadData = function(init){
+            if(init){
+                $scope.allPost = [];
+            }
+            $scope.loading = true;
+            mainDataService.getAllPost($scope.searchObj).then(function(response){
+               $scope.allPost.push.apply($scope.allPost, response.data.responData.data);
+            },function(){
+            });
+        };
+
+        // Register event handler
+        $scope.paginationFuntion = function() {
+            $scope.searchObj.skip = $scope.searchObj.limit;
+            if ($scope.count > $scope.allPost.length && !$scope.loading) {
+                $scope.loadData();
+            }
+        };
+
+        $scope.loadData(1);
     }]);
 
     mod.controller('trendiMainOffersController', ['$scope', '$rootScope','$state','mainDataService','$timeout','$stateParams','$location','$anchorScroll', function ($scope, $rootScope, $state, mainDataService, $timeout, $stateParams, $location, $anchorScroll) {

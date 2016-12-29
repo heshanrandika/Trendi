@@ -143,6 +143,10 @@
             return Data_Comm.postPromise(angular.extend({params:d},mainServiceCalls.getMessageCountDao()));
         };
 
+        var _getAllPost = function(d){
+            return Data_Comm.postPromise(angular.extend({params:d},mainServiceCalls.getAllPostDao()));
+        };
+
         return{
             getLatestItem:_getLatestItem,
             getRelatedItem:_getRelatedItem,
@@ -178,7 +182,8 @@
             replyMessage:_replyMessage,
             updateMessage:_updateMessage,
             getUnreadMessageList:_getUnreadMessageList,
-            getMessageCount:_getMessageCount
+            getMessageCount:_getMessageCount,
+            getAllPost:_getAllPost
         }
     }]);
 })(com.TRENDI.CATEGORY.modules.mainTrendiModule);

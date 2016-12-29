@@ -134,6 +134,10 @@
             return angular.extend({functionId: ADMIN_MOD_CONFIG.REQ_CONFIG.FUNC_UpdatePromotion}, _getCObj());
         };
 
+        serviceCalls.AdminUpdatePromotionDao = function () {
+            return angular.extend({functionId: ADMIN_MOD_CONFIG.REQ_CONFIG.FUNC_AdminPromotionApproval}, _getCObj());
+        };
+
         serviceCalls.removePromotionDao = function () {
             return angular.extend({functionId: ADMIN_MOD_CONFIG.REQ_CONFIG.FUNC_RemovePromotion}, _getCObj());
         };

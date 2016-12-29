@@ -1,33 +1,27 @@
 <div>
-    <section class="container content slider-products">
-        <div class="row">
 
-            <div ng-class="views == true ? 'products-list-in-row':'products-list-isotope'" id="isotopeContainer" isotope-container ng-cloak class="ng-cloak" infinite-scroll='paginationFunction()' infinite-scroll-distance='0.01'>
-                <div class="kindling product-preview " ng-repeat="x in xList " isotope-item  on-finish-render="repeated" ng-click="openItem(x)">
+    <div ng-class="views == true ? 'products-list-in-row':'products-list-in-column'" id="isotopeContainer" isotope-container ng-cloak class="ng-cloak content slider-products products-list products-list-small row " infinite-scroll='paginationFunction()' infinite-scroll-distance='0.01'>
+        <div class="kindling product-preview " ng-repeat="x in xList " isotope-item  on-finish-render="repeated" ng-click="openItem(x)">
 
-                    <div id="{{x.shopId}}" class="preview animate scale"> <a class="preview-image"><img ng-click="openItem(x)" class="img-responsive animate scale" ng-src="{{x.shop.iconImage}}" width="100" height="200" alt=""></a>
-                        <ul class="product-controls-list right hide-right">
-                            <li class="top-out"></li>
-                            <li><a class="circle"><span class="icon-facebook"></span></a></li>
-                            <li><a class="circle"><span class="icon-justice"></span></a></li>
-                            <li><a class="circle"><span class="icon-basket"></span></a></li>
-                        </ul>
-                        <a class="quick-view  fancybox fancybox.ajax hidden-xs"> <span class="rating"><trendi-star-bar rate-object="x.shop.rate" category="shop" object-id="x.shopId"></trendi-star-bar> </span> <span class="icon-zoom-in-2" ng-click="openItem(x)"></span> Quick View </a>
-                    </div>
-                    <h3 class="title"><a>#{{x.shopId}} {{x.shop.name}}</a></h3>
-                    <h3 class="title"><a>Hotline : {{x.shop.hotline}}</a></h3>
-                    <div class="list_description">{{x.shop.description}}</div>
-                    <!--buttons-->
-                    <div class="list_buttons"> <a class="btn btn-mega pull-left">More...</a>
-
-                    </div>
-
-                </div>
+            <div id="{{x.shopId}}" class="preview animate scale"> <a class="preview-image"><img ng-click="openItem(x)" class="img-responsive animate scale" ng-src="{{x.shop.iconImage}}" width="100" height="200" alt=""></a>
+                <ul class="product-controls-list right hide-right">
+                    <li class="top-out"></li>
+                    <li><a class="circle"><span class="icon-facebook"></span></a></li>
+                    <li><a class="circle"><span class="icon-justice"></span></a></li>
+                    <li><a class="circle"><span class="icon-basket"></span></a></li>
+                </ul>
+                <a class="quick-view  fancybox fancybox.ajax hidden-xs"> <span class="rating"><trendi-star-bar rate-object="x.shop.rate" category="shop" object-id="x.shopId" oid="x._id"></trendi-star-bar> </span> <span class="icon-zoom-in-2" ng-click="openItem(x)"></span> Quick View </a>
+            </div>
+            <h3 class="title"><a>#{{x.shopId}} {{x.shop.name}}</a></h3>
+            <h3 class="title"><a>Hotline : {{x.shop.hotline}}</a></h3>
+            <div class="list_description">{{x.shop.description}}</div>
+            <!--buttons-->
+            <div class="list_buttons"> <a class="btn btn-mega pull-left">More...</a>
 
             </div>
+
         </div>
 
-    </section>
-
+    </div>
 
 </div>

@@ -88,9 +88,9 @@
                     var completeUser = response.data.responData.data;
                     $scope.$storage.user = completeUser;
                     if(completeUser.title.value >= 20){
-                        $state.go('main.sys_products');
+                        $state.go('main.sys_products.item');
                     }else{
-                        $state.go('main.products');
+                        $state.go('main.products.item');
                     }
                     
 

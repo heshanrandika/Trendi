@@ -172,6 +172,10 @@
             return angular.extend({functionId: MAIN_MOD_CONFIG.REQ_CONFIG.FUNC_GetMessageCount}, _getCObj());
         };
 
+        serviceCalls.getAllPostDao = function () {
+            return angular.extend({functionId: MAIN_MOD_CONFIG.REQ_CONFIG.FUNC_GetAllPost}, _getCObj());
+        };
+
         serviceCalls.getSocketLogoutDao = function () {
             return _getCObj();
         };

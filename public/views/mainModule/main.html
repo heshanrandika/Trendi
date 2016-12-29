@@ -16,11 +16,17 @@
                         <div class="container">
                             <!-- Logo -->
                             <div class="navbar-logo pull-left"> <a><img src="images/header-logo.png" alt="Trendi"></a></div>
-                            <div class="navbar-welcome pull-left compact-hidden hidden-xs"><div><img ng-if="user.image" ng-src="{{user.image}}" class="md-avatar" height="42" width="42"></div> {{user.name?'Welcome '+user.name:''}} </div>
-                            <div class="clearfix visible-sm"></div>
+                             <div class="clearfix visible-sm"></div>
                             <!-- //end Logo -->
                             <!-- Secondary menu -->
                             <div class="navbar-secondary-menu pull-right hidden-xs">
+                                <div class="btn-group compact-hidden">
+                                    <a  data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                                        <img ng-if="user.image" ng-src="{{user.image}}" alt="user image" class="user-image">
+                                        <span class="username">{{user.name?'Welcome '+user.name:''}}</span>
+                                    </a>
+                                </div>
+
                                 <div class="btn-group compact-hidden"> <a  class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown"> <span class="icon icon-vcard"></span> Account </a>
                                 </div>
 
@@ -75,6 +81,7 @@
                                 <dt class="item compact-hidden"> <a ng-click="menuFunc.gotoBank()" class="btn-main line">OFFERS</a> </dt>
                                 <trendi-wide-menu-bar objectlist="menuFunc.bankList" ng-if="menuFunc.bankList" template="trendi.offer.menu" sequence="1"></trendi-wide-menu-bar>
                                 <dt class="item"> <a ng-click="menuFunc.gotoContact()" class="btn-main line">Contacts</a> </dt>
+                                <dt class="item"> <a ng-click="menuFunc.gotoWall()" class="btn-main line">Wall</a> </dt>
                                 <dd></dd>
                             </dl>
                             <!-- //end Main menu -->

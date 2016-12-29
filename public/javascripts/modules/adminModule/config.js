@@ -268,6 +268,7 @@
             FUNC_AddPromotion:    3003,
             FUNC_UpdatePromotion: 3004,
             FUNC_RemovePromotion: 3005,
+            FUNC_AdminPromotionApproval: 3007,
             //++++++Extra function list+++++++++++++++
             FUNC_AdminGetUser :   2015,
             FUNC_AdminResetPwd :  4002,

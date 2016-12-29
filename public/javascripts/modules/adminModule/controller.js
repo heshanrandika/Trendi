@@ -31,6 +31,7 @@
 
             });
         }, 0);
+        $scope.messageList = [];
         $scope.isActive = function (viewLocation) {
             return (viewLocation.split('.')[0] === $state.current.name.split('.')[0] && viewLocation.split('.')[1] === $state.current.name.split('.')[1]);
         };
@@ -74,6 +75,16 @@
         $scope.logout = function(){
             adminDataService.logOutService();
         }
+
+        $scope.getMessageCount= function (){
+            adminDataService.getMessageCount({type:'INBOX', read:true}).then(function(response){
+                $scope.unreadCount = response.data.responData.data.count;
+                $scope.messageList.push.apply($scope.messageList, response.data.responData.data.list);
+            },function(){
+                $scope.unreadCount = 0;
+            });
+        }
+        setInterval(function(){ $scope.getMessageCount(); }, 30000);
 
 
     }]);

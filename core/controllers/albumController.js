@@ -24,19 +24,27 @@ function getLatestAlbums(req,callback){
     if(!(shopId == '' || undefined == shopId))
         query= {'shop.shopId': parseInt(shopId)};
     var data = [];
+    var result = [];
     var dbCon = daf.FindWithPagination(query,CONSTANT.ALBUM_COLLECTION,option);
     dbCon.on('data', function(doc){
-        req.body.params['album'] = doc; //need to check whether it assigning only last item
-        getAlbumItemList(req,function(error, data){
-            if(data && data.length>0){
-                doc['itemDetails'] = data;
-                data.push(doc);
-            }
-        })
+        data.push(doc);  
     });
 
     dbCon.on('end', function(){
-        callback(null,data);
+        var count = data.length;
+        for(index in data){
+            req.body.params['album'] = data[index];
+            getAlbumItemList(req,function(error, dataArray){
+                if(dataArray && dataArray.length>0){
+                    data[index]['itemDetails'] = dataArray;
+                    result.push(data[index]);
+                }
+                count--;
+                if(count == 0)
+                    callback(null,result);
+            })
+        }
+        
     });
 };
 
@@ -141,7 +149,13 @@ function adminUpdateAlbum(req,callback){
             itemAddToAlbum(album);
             itemRemoveFromAlbum(removed);
         }
-        callback(err,success);
+        if(approved){
+            UTIL.AddPost({collection:CONSTANT.ALBUM_COLLECTION, objectId:album._id, date:new Date()},function(err, success){
+                callback(err, success);
+            });
+        }else{
+            callback(err,success);
+        }
 
     });
 

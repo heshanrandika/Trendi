@@ -141,17 +141,17 @@
                             </li>
                             <!-- END NOTIFICATION DROPDOWN -->
                             <!-- BEGIN MESSAGES DROPDOWN -->
-                            <li class="dropdown" id="messages-header">
-                                <a href="#" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                            <li class="dropdown" id="messages-header" ng-mouseover="msgOpen = true" ng-mouseleave="msgOpen = false">
+                                <a data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
                                 <i class="icon-paper-plane"></i>
-                                <span class="badge badge-primary badge-header">
-                                8
+                                <span class="badge badge-primary badge-header" ng-if="unreadCount > 0">
+                                {{unreadCount}}
                                 </span>
                                 </a>
-                                <ul class="dropdown-menu">
+                                <ul class="dropdown-menu" ng-style="msgOpen && {'display':'block'}">
                                     <li class="dropdown-header clearfix">
                                         <p class="pull-left">
-                                            You have 8 Messages
+                                            You have {{unreadCount}} Messages
                                         </p>
                                     </li>
                                     <li class="dropdown-body">
@@ -225,7 +225,7 @@
                             <!-- END MESSAGES DROPDOWN -->
                             <!-- BEGIN USER DROPDOWN -->
                             <li class="dropdown" id="user-header" ng-mouseover="liOpen = true" ng-mouseleave="liOpen = false">
-                                <a href="#" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                                <a  data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
                                 <img ng-src="{{userData.profilePic}}" alt="user image">
                                 <span class="username">Hi, {{userData.name}}</span>
                                 </a>
@@ -246,7 +246,7 @@
                             </li>
                             <!-- END USER DROPDOWN -->
                             <!-- CHAT BAR ICON -->
-                            <li id="quickview-toggle"><a href="#"><i class="icon-bubbles"></i></a></li>
+                            <li id="quickview-toggle"><a ng-click="chatOpen = !chatOpen"><i class="icon-bubbles"></i></a></li>
                         </ul>
                     </div>
                     <!-- header-right -->
@@ -357,12 +357,12 @@
             <!-- END BUILDER -->
         </section>
         <!-- BEGIN QUICKVIEW SIDEBAR -->
-        <div id="quickview-sidebar">
+        <div id="quickview-sidebar" ng-class="chatOpen && 'open'">
             <div class="quickview-header">
                 <ul class="nav nav-tabs">
                     <li class="active"><a href="#chat" data-toggle="tab">Chat</a></li>
                     <li><a href="#notes" data-toggle="tab">Notes</a></li>
-                    <li><a href="#settings" data-toggle="tab" class="settings-tab">Settings</a></li>
+                    <li><a href="#settings" data-toggle="tab" class="settings-tab" ng-click="chatOpen = false">Close</a></li>
                 </ul>
             </div>
             <div class="quickview">

@@ -31,11 +31,24 @@ function updateBlog(req,callback){
     console.log("$$$$$$$  AddBlog $$$$$$");
     var params = (req.body.params) ? req.body.params : {};
     var blog = params.blog;
+    var approved = params.approved;
+    var _id = blog._id;
+    if(undefined != approved){
+        blog.approved = approved;
+    }
+
     delete blog._id;
     var shopId = blog.shop.shopId;
     var query = {'shop.shopId':shopId, blogId : blog.blogId};
     daf.Update(query, blog, CONSTANT.BLOG_COLLECTION, function(err , dataList){
-        callback(err ,dataList);
+        if(blog.approved){
+            UTIL.AddPost({collection:CONSTANT.BLOG_COLLECTION, objectId:_id, date:new Date()},function(err, success){
+                callback(err, success);
+            });
+        }else{
+            callback(err ,dataList);
+        }
+
     });
 };
 

@@ -29,7 +29,7 @@
 
                 </aside>
                 <section class="col-sm-8 col-md-9 col-lg-9 content-center" id="content-center-id">
-                    <div class="filters-panel">
+                    <div class="filters-panel"></div>
                     <div class="divider"></div>
                         <div class="row">
                             <div class="col-sm-6 col-md-4 col-lg-4"> Sort by
@@ -46,7 +46,7 @@
                     <div ng-if="mainItemShow">
                         <trendi-isotop-product items="mainItems" selector="true" views="true" action="isotopPagination" template="trendi.product.isotop"></trendi-isotop-product>
                     </div>
-                    <div class="filters-panel hidden-xs">
+                    <div class="filters-panel hidden-xs"></div>
                         <div class="row">
                             <div class="col-sm-6 col-md-4 col-lg-4"> Sort by
                                 <div class="btn-group btn-select sort-select"> <a class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown"> <span class="value">Position</span> <span class="caret min"></span> </a>
@@ -60,6 +60,7 @@
                         </div>
                         <div class="clearfix"></div>
                     </div>
+
                 </section>
             </div>
         </section>
@@ -91,7 +92,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="product-description"> <span class="rating"><trendi-star-bar rate-object="selectedItem.item.rate" category="item" object-id="selectedItem.itemId"></trendi-star-bar> </span>
+                    <div class="product-description"> <span class="rating"><trendi-star-bar rate-object="selectedItem.item.rate" category="item" object-id="selectedItem.itemId" oid="selectedItem._id"></trendi-star-bar> </span>
                         <form>
                             <div class="row">
                                 <div class="col-lg-6"> <strong>Colors</strong>
