@@ -811,3 +811,7 @@ ul#wizardStatus li.completed:before{
 .form-signin .username {
     margin-bottom: 12px;
 }
+
+.breadcrumb {
+    margin-right: 50px;
+}

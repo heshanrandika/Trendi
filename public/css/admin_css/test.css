@@ -173,7 +173,7 @@
 
 .message-container{
     padding-top: 5px;
-    border-top: solid 1px #fdfcbc;
+    /*border-top: solid 1px #fdfcbc;*/
 }
 
 .ta-editor {
@@ -1021,3 +1021,13 @@ body {
     position: relative;
     z-index: 10000; /* The select2 dropdown has a z-index of 9999 */
 }
+
+/* = Imarsha Custom styles */
+
+.breadcrumb {
+    margin-right: 50px;
+}
+
+.message-container .message button { margin-bottom: 20px; }
+.message-container .message .list-group { font-size: 14px; }
+.message-container .col-md-9 span { font-size: 16px; }
