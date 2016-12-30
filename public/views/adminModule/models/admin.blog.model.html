@@ -1,6 +1,6 @@
 <div class="modal-header">
     <div class="panel-header">
-        <h3> <strong>Promotion</strong> Details </h3><span ng-if="promotionId">Promotion Id #{{promotionId}}</span>
+        <h3> <strong>Blog</strong> Details </h3><span ng-if="blogId">Blog Id #{{blogId}}</span>
     </div>
 </div>
 <div class="modal-body">
@@ -37,7 +37,7 @@
                                     <div class="col-sm-12">
                                         <div class="form-group">
                                             <label class="control-label">Description</label>
-                                            <div><div text-angular="text-angular" ng-model="blog.contents" ta-disabled='false'></div></div>
+                                            <summernote ng-model="blog.contents" height="200"></summernote>
                                         </div>
                                     </div>
                                 </div>
