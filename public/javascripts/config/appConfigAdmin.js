@@ -22,7 +22,8 @@ window.com = {TRENDI:{ADMIN:{modules:{}}}};
             'ui.select',
             'textAngular',
             'uiGmapgoogle-maps',
-            'summernote'
+            'summernote',
+            'gapi'
         ]
     };
 })(com.TRENDI.ADMIN);

@@ -8,6 +8,7 @@ var PWD = require('../utility/GeneralFunctions');
 var SHOP = require('../controllers/shopController');
 var UTIL = require('./utilController');
 var _ = require('lodash');
+var googleAuth = require('google-oauth-jwt');
 
 
 function sendMessage(message, callback) {
@@ -481,6 +482,23 @@ function authorization(req, callback) {
 }
 
 
+function reqestToken(req, callback) {
+    googleAuth.authenticate({
+        // use the email address of the service account, as seen in the API console
+        email: 'dresup@api-project-387595319953.iam.gserviceaccount.com',
+        // use the PEM file we generated from the downloaded key
+        keyFile: 'Key/dressupkey.pem',
+        // specify the scopes you wish to access
+        scopes: ['https://www.googleapis.com/auth/drive.readonly']
+    }, function (err, token) {
+        callback(null, token);
+    });
+
+}
+
+
+
+
 
 
 module.exports.Login = login;
@@ -491,3 +509,4 @@ module.exports.AddShopUser = addShopUser;
 module.exports.ShopRegistration = shopRegistration;
 module.exports.GetEntitlements = getEntitlements;
 module.exports.AdminUpdateShop = adminUpdateShop;
+module.exports.ReqestToken = reqestToken;

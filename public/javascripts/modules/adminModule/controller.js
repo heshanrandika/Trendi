@@ -97,12 +97,17 @@
         };
     }]);
 
-    mod.controller('adminItemController', ['$scope', '$rootScope','$state','adminDataService','Data.Toast','MESSAGE_CONFIG','$modal','Confirmation', function ($scope, $rootScope, $state, adminDataService, Data_Toast, MESSAGE_CONFIG, uiModal, Confirmation) {
+    mod.controller('adminItemController', ['$scope', '$rootScope','$state','adminDataService','Data.Toast','MESSAGE_CONFIG','$modal','Confirmation','GAPI', 'Drive','$timeout', function ($scope, $rootScope, $state, adminDataService, Data_Toast, MESSAGE_CONFIG, uiModal, Confirmation, GAPI, Drive, $timeout) {
         $scope.itemList = [];
         $scope.count = 0;
         var shopDetails = {};
         var itemPerPage = 8;
 
+      //  GAPI.init();
+
+        $timeout(function () {
+            $scope.list = Drive.listFiles();
+        },10000);
 
         shopDetails = adminDataService.shopData();
         $scope.searchObj = {

@@ -2,6 +2,13 @@
  * Created by Heshanr on 5/24/2015.
  */
 (function (ns) {
+/*
+    var initrr = function() {
+        console.log("+++++++++++++++++++++init GAPI");
+        window.initGapi();
+    };
+*/
+
     'use strict';
     ns.mainAdminModule = angular.module('mainAdminModule', com.TRENDI.ADMIN.config.MODULES);
 
@@ -27,6 +34,16 @@
 
     ns.mainAdminModule.value("rndAddToLatLon", function () {
         return Math.floor(((Math.random() < 0.5 ? -1 : 1) * 2) + 1);
+    });
+
+    ns.mainAdminModule.value('GoogleApp', {
+            apiKey: 'AIzaSyDqsZTcZjSDUQvmLbjBis0wa0I88lXhUyI',
+            clientId: '387595319953-pv91tedcvc33c868kursqris777ter5e.apps.googleusercontent.com',
+            scopes: [
+                'https://www.googleapis.com/auth/drive',
+                'https://www.googleapis.com/auth/youtube',
+                'https://www.googleapis.com/auth/userinfo.profile'
+            ]
     });
 
     ns.mainAdminModule.config(['uiGmapGoogleMapApiProvider', function (GoogleMapApi) {
