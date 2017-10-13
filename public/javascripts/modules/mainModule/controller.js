@@ -2051,7 +2051,7 @@
 
     }]);
 
-    mod.controller('trendiWallController', ['$scope', '$rootScope','mainDataService', function ($scope, $rootScope, mainDataService) {
+    mod.controller('trendiWallController', ['$scope', '$rootScope','$state','mainDataService','$location', function ($scope, $rootScope, $state, mainDataService, $location) {
          $scope.allPost = [];
          $scope.loadData = function(init){
             if(init){
@@ -2073,6 +2073,90 @@
         };
 
         $scope.loadData(1);
+
+
+
+        $scope.slider ;
+        $scope.showSlider = true;
+        $scope.latestItemShow = false;
+        $scope.mainItemShow = false;
+        $scope.trendItemsShow = false;
+        $scope.blogShow = false;
+        $scope.brandsShow = false;
+        $scope.brands = [];
+
+        $scope.initWindow = function(){
+
+            mainDataService.getLatestItem({skip:0,limit:16}).then(function(response){
+                $scope.latestItems = response.data.responData.data;
+                $scope.latestItemShow = true;
+            }, function(error){
+                $scope.latestItemShow = false;
+            });
+
+            mainDataService.getMainItemList({skip:0,limit:10}).then(function(response){
+                $scope.mainItems = response.data.responData.data;
+                $scope.mainItemShow = true;
+            }, function(error){
+                $scope.mainItemShow = false;
+            });
+
+            mainDataService.getMostTrendyItems({skip:10,limit:18}).then(function(response){
+                $scope.trendItems = response.data.responData.data;
+                $scope.trendItemsShow = true;
+            }, function(error){
+                $scope.trendItemsShow = false;
+            });
+
+            mainDataService.getNewProductList({skip:0, limit:18, type:2}).then(function(response){
+                $scope.newProductList = response.data.responData.data;
+            }, function(error){
+            });
+
+            mainDataService.getOnSaleList({skip:0, limit:18, type:1}).then(function(response){
+                $scope.onSaleList = response.data.responData.data;
+            }, function(error){
+            });
+
+            mainDataService.getMostSeen({skip:0,limit:18, type:3}).then(function(response){
+                $scope.mostSeenList = response.data.responData.data;
+            }, function(error){
+            });
+
+            mainDataService.getBlogList({skip:0,limit:10}).then(function(response){
+                $scope.blogList = response.data.responData.data;
+                $scope.blogShow = true;
+            }, function(error){
+                $scope.blogShow = false;
+            });
+
+            mainDataService.getBrandList({skip:0,limit:10}).then(function(response){
+                $scope.brands = response.data.responData.data.list;
+                $scope.brandsShow = true;
+            }, function(error){
+                $scope.brandsShow = false;
+            });
+        };
+
+        $scope.initWindow();
+
+
+        $scope.moduleClick = {
+            itemClicked: function (selected) {
+                var shopId = selected.item.shop.shopId;
+                var category = "Women";
+                if(selected.item.group.women){
+                    category = "Women";
+                }else if(selected.item.group.men){
+                    category = "Men";
+                }else if(selected.item.group.kids){
+                    category = "Kids";
+                }
+                $location.path('main/products/'+shopId+'/'+category+'/'+'all');
+                $location.search('itemId', selected.itemId);
+            }
+        };
+
     }]);
 
     mod.controller('trendiMainOffersController', ['$scope', '$rootScope','$state','mainDataService','$timeout','$stateParams','$location','$anchorScroll', function ($scope, $rootScope, $state, mainDataService, $timeout, $stateParams, $location, $anchorScroll) {

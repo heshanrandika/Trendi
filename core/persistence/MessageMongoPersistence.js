@@ -31,9 +31,9 @@ mdbc.dbm = new mongodb.Db('message', mdbc.dbServer, {auto_reconnect: true});
 mdbc.connectDbm = function(){
     mdbc.dbm.open(function(err, dbm){
         if(err){ throw err };
-        mdbc.dbm.authenticate('admin', '19891222', function(err, result) {
+       /* mdbc.dbm.authenticate('admin', '19891222', function(err, result) {
           if(err){ throw err };
-        });
+        });*/
     });
 };
 mdbc.connectDbm();

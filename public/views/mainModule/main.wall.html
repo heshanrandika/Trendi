@@ -4,3 +4,143 @@
 		#{{post._id}}
 	</div>
 </div>
+<section id="slider"> <a class="scroll-down animate-move-down" > <span class="icon icon-arrow-down-5"></span> scroll to view content </a>
+
+    <div class="tp-banner-container">
+        <div revolutionslider="images"></div>
+    </div>
+</section>
+
+<section class="social-widgets hidden-xs">
+    <ul class="items">
+        <li class="item item-01 facebook"> <a class="tab-icon"><span class="icon-facebook-3"></span></a>
+            <div class="tab-content">
+                <div class="title">FACEBOOK</div>
+                <div class="loading"><img src="images/ajax-loader.gif" class="ajaxloader" alt="loader"></div>
+            </div>
+        </li>
+        <li class="item item-02 twitter"> <a class="tab-icon"><span class="icon-twitter-3"></span></a>
+            <div class="tab-content">
+                <div class="title">TWITTER FEEDS</div>
+                <div class="loading"><img src="images/ajax-loader.gif" class="ajaxloader" alt="loader"></div>
+            </div>
+        </li>
+        <li class="item item-03 youtube"> <a class="tab-icon"><span class="icon icon-youtube-3"></span></a>
+            <div class="tab-content">
+                <div class="title">Video</div>
+                <div class="loading"><img src="images/ajax-loader.gif" class="ajaxloader" alt="loader"></div>
+            </div>
+        </li>
+    </ul>
+</section>
+
+
+<div class="container" ng-if="latestItemShow">
+    <section class="content slider-products">
+        <h3>Today's Featured </h3>
+
+        <div class="row">
+            <div class="product-carousel">
+                <trendi-owl-slider images="latestItems" items="4" stop-on-hover="true"  auto-play="true" navigation-display="true" action="moduleClick"></trendi-owl-slider>
+            </div>
+        </div>
+
+    </section>
+</div>
+
+<div ng-if="mainItemShow">
+    <trendi-isotop items="mainItems" action="moduleClick"></trendi-isotop>
+</div>
+
+
+
+<div class="container">
+    <section class="content" ng-if="brandsShow">
+        <h3>BRANDS</h3>
+        <div class="brands carouFredSel row">
+            <div class="carouFredSel-controls">
+                <div class="carouFredSel-buttons"><a id="brands-carousel-prev" class="prev"></a><a id="brands-carousel-next" class="next"></a></div>
+            </div>
+            <div class="brands-carousel">
+                <trendi-owl-slider images="brands" items="4" stop-on-hover="true" template="trendi.slider.brand" auto-play="true" navigation-display="true"></trendi-owl-slider>
+            </div>
+        </div>
+    </section>
+</div>
+
+
+<section class="blog-widget parallax">
+    <div class="container content" ng-if="blogShow">
+        <h3>From the BLOG</h3>
+        <div class="posts flexslider">
+            <trendi-owl-slider navigation-display="true" images="blogList" items="1" stop-on-hover="true" template="trendi.slider.blog" auto-play="false" item-display="1"></trendi-owl-slider>
+        </div>
+    </div>
+</section>
+
+<section class="container content nopad-bottom hidden-xs">
+    <div class="row">
+        <div class="col-sm-6 col-md-3 col-lg-3">
+            <h3><a>ON SALE</a></h3>
+            <div class="products-widget jcarousel-skin-previews vertical" ng-if="onSaleList">
+                <trendi-vertical-slider images="onSaleList" action="moduleClick"></trendi-vertical-slider>
+            </div>
+        </div>
+        <div class="col-sm-6 col-md-3 col-lg-3">
+            <h3><a>NEW PRODUCTS</a></h3>
+            <div class="products-widget jcarousel-skin-previews vertical" ng-if="newProductList">
+                <trendi-vertical-slider images="newProductList" action="moduleClick"></trendi-vertical-slider>
+            </div>
+        </div>
+        <section class="col-sm-6 col-md-3 col-lg-3  slider-products module">
+            <h3><a>Trending Now</a></h3>
+
+            <div class="row" ng-if="trendItemsShow">
+                <trendi-owl-slider images="trendItems" items="1" stop-on-hover="true" auto-play="true" item-display="1" navigation-display="true" action="moduleClick"></trendi-owl-slider>
+            </div>
+
+        </section>
+        <div class="col-sm-6 col-md-3 col-lg-3">
+            <h3><a>MOST SEEN</a></h3>
+            <div class="products-widget jcarousel-skin-previews vertical" ng-if="mostSeenList">
+                <trendi-vertical-slider images="mostSeenList" action="moduleClick"></trendi-vertical-slider>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="content content-border nopad-xs social-widget">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6 col-md-6  col-lg-6 newsletter collapsed-block">
+                <div class="row">
+                    <div class="col-lg-5  col-md-12 col-sm-12 ">
+                        <h3>NEWSLETTER SIGNUP <a class="expander visible-xs">+</a></h3>
+                    </div>
+                    <div class="col-sm-12 col-md-12 col-lg-6 tabBlock" id="TabBlock-1">
+                        <p>Enter your email and we'll send you a coupons</p>
+                        <form class="form-inline" role="form">
+                            <div class="form-group input-control">
+                                <button type="submit" class="button"><span class="icon-envelop"></span></button>
+                                <input type="text" class="form-control" value="Your E-mail..." onblur="if (this.value == '') {this.value = 'Your E-mail...';}" onfocus="if(this.value == 'Your E-mail...') {this.value = '';}">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-6 col-lg-6 collapsed-block">
+                <h3>FIND US ON<a class="expander visible-xs">+</a></h3>
+                <div  class="tabBlock" id="TabBlock-2">
+                    <ul class="find-us">
+                        <li class="divider"><a  class="animate-scale"><span class="icon icon-facebook-3"></span></a></li>
+                        <li class="divider"><a  class="animate-scale"><span class="icon icon-twitter-3"></span></a></li>
+                        <li class="divider"><a  class="animate-scale"><span class="icon icon-linkedin-2"></span></a></li>
+                        <li class="divider"><a  class="animate-scale"><span class="icon icon-youtube-3"></span></a></li>
+                        <li class="divider"><a  class="animate-scale"><span class="icon icon-pinterest-2"></span></a></li>
+                        <li class="divider"><a  class="animate-scale"><span class="icon icon-googleplus-2"></span></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
