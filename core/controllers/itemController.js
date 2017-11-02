@@ -6,6 +6,8 @@ var CONSTANT = require('../utility/Constants');
 var UTIL = require('./utilController');
 var _ = require('lodash');
 var createdSocket = '';
+var fs = require('fs');
+var path = require('path');
 
 function getLatestItems(req,callback){
     console.log("$$$$$$$  GetLatestItems $$$$$$");
@@ -517,6 +519,8 @@ function addItems(req,callback) {
             if (count) {
                 console.log("$$$$$$$  AddItems $$$$$$ Count : " + count);
                 itemId = count;
+                var pathString = "public/Item_images/"+mainItem.shop.shopId+"/"+mainItem.shop.branchId+"/"+itemId;
+                ensureDirectoryExistence(pathString+"/0");
                 var doc = {itemId: itemId, date: new Date(), item: mainItem};
                 doc.searchText = "";
                 _.each(mainItem.types,function(val){
@@ -528,22 +532,27 @@ function addItems(req,callback) {
                 doc.searchText += (mainItem.name+" ");
                 doc.albumId = null;
 
-                daf.Insert(doc, CONSTANT.MAIN_ITEM_COLLECTION, function (err, success) {
-                    console.log("^^^^^^^  Add Main Items ^^^^^^^ : ");
-                    if (success && params.subItem) {
-                        console.log("^^^^^^^  Add Sub Items ^^^^^^^ : ");
-                        doc = {itemId: itemId, itemList: subItem};
-                        daf.Insert(doc, CONSTANT.SUB_ITEM_COLLECTION, function (err, success) {
-                            if (success) {
-                                callback(err, success);
+                imageSaver(params,pathString, function(success){
+                    if(success){
+                        daf.Insert(doc, CONSTANT.MAIN_ITEM_COLLECTION, function (err, success) {
+                            console.log("^^^^^^^  Add Main Items ^^^^^^^ : ");
+                            if (success && params.subItem) {
+                                console.log("^^^^^^^  Add Sub Items ^^^^^^^ : ");
+                                doc = {itemId: itemId, itemList: subItem};
+                                daf.Insert(doc, CONSTANT.SUB_ITEM_COLLECTION, function (err, success) {
+                                    if (success) {
+                                        callback(err, success);
+                                    } else {
+                                        callback(err, success);
+                                    }
+                                });
                             } else {
                                 callback(err, success);
                             }
-                        });
-                    } else {
-                        callback(err, success);
+                        })
                     }
                 })
+                
             } else {
                 callback(err, null);
             }
@@ -555,6 +564,36 @@ function addItems(req,callback) {
         callback(err);
     }
 };
+
+function imageSaver(data, pathString, callback){
+    var imagePath = pathString+"/0.png"
+    saveImage(data.mainItem.image, imagePath);
+    data.mainItem.image = imagePath;
+
+    for (var i =  0; i < data.subItem.length; i++) {
+        imagePath = pathString+"/"+(i+1)+".png"
+        saveImage(data.subItem[i].image, imagePath);
+        data.subItem[i].image = imagePath;
+    }
+    callback(1);
+}
+
+function saveImage(data, imagePath){
+    var base64Data = data.replace(/^data:image\/png;base64,/, "");
+    base64Data = base64Data.replace(/^data:image\/jpeg;base64,/, "");
+    fs.writeFile(imagePath, base64Data, 'base64', function(err) {
+        console.log(err);
+    });
+}
+
+function ensureDirectoryExistence(filePath) {
+  var dirname = path.dirname(filePath);
+  if (fs.existsSync(dirname)) {
+    return true;
+  }
+  ensureDirectoryExistence(dirname);
+  fs.mkdirSync(dirname);
+}
 
 function removeItem(req,callback){
     var params = (req.body.params) ? req.body.params : {};
@@ -610,6 +649,7 @@ function getMainItem(req,callback){
     var itemId = (params.itemId)? params.itemId:0;
     var query = {'itemId':itemId};
     console.log("$$$$$$$  main Item  $$$$$$ : ");
+
     daf.FindOne(query,CONSTANT.MAIN_ITEM_COLLECTION,function(err,success){
         callback(err, success);
     });
