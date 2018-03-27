@@ -141,6 +141,7 @@
         $scope.itemId = selectedItem? selectedItem.itemId: undefined;
         $scope.addNewItem = selectedItem? false:true;
         $scope.uploadedImages = [];
+        $scope.removedItems = [];
         $scope.imageSize = {value:1000000, text:'1MB'};
         $scope.imageCount = 5;
         $scope.availableSizes = [];
@@ -225,7 +226,7 @@
         $scope.update = function(){
             $scope.btnPressed = true;
             setData();
-            var itemDetail = {mainItem: $scope.item, subItem: $scope.subItem, itemId:$scope.itemId, approved:$scope.approved};
+            var itemDetail = {mainItem: $scope.item, subItem: $scope.subItem, itemId:$scope.itemId, approved:$scope.approved, removed:$scope.removedItems};
             adminDataService.updateItem(itemDetail).then(function (response) {
                 Data_Toast.success(MESSAGE_CONFIG.SUCCESS_UPDATE_SUCCESSFULLY);
                 uiModalInstance.close($scope.item);
@@ -238,7 +239,7 @@
         $scope.approveReject = function(result){
             $scope.btnPressed = true;
             setData();
-            var itemDetail = {mainItem: $scope.item, subItem: $scope.subItem, itemId:$scope.itemId, approved:result};
+            var itemDetail = {mainItem: $scope.item, subItem: $scope.subItem, itemId:$scope.itemId, approved:result, removed:$scope.removedItems};
             adminDataService.adminUpdateItem(itemDetail).then(function (response) {
                 Data_Toast.success(MESSAGE_CONFIG.SUCCESS_UPDATE_SUCCESSFULLY);
                 uiModalInstance.close($scope.item);

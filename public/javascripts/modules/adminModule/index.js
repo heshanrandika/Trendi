@@ -12,8 +12,9 @@
     'use strict';
     ns.mainAdminModule = angular.module('mainAdminModule', com.TRENDI.ADMIN.config.MODULES);
 
-    ns.mainAdminModule.run(['$rootScope', 'adminDataService', '$state', function ($rootScope, adminDataService, $state) {
+    ns.mainAdminModule.run(['$rootScope', 'adminDataService', '$state','$location', function ($rootScope, adminDataService, $state, $location) {
 
+    	$rootScope.baseUrl = new window.URL($location.absUrl()).origin;
         $rootScope.$on('$stateChangeStart', function (e, n) {
             if (n.access) {
                 if (n.access.requiresLogin) {

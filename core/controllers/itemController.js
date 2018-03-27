@@ -439,7 +439,10 @@ function updateItem(req,callback){
     if(params.mainItem && params.subItem){
         var query = {itemId: itemId}
         var searchText = "";
-
+        deleteImages(params.removed);
+        var pathString = "public/Item_images/"+mainItem.shop.shopId+"/"+mainItem.shop.branchId+"/"+itemId;
+        ensureDirectoryExistence(pathString+"/0");
+        
         _.each(mainItem.types,function(val){
             searchText += (val.key+" ");
         });
@@ -448,18 +451,24 @@ function updateItem(req,callback){
         }
         searchText += (mainItem.name+" ");
         var changeDoc = {$set:{date:new Date(), item: mainItem, approved:undefined, searchText:searchText}};
-
-        daf.Update(query, changeDoc, CONSTANT.MAIN_ITEM_COLLECTION, function(err , dataList){
-            if(!err){
-                changeDoc = {$set:{itemList: subItem}};
-                daf.Update(query, changeDoc, CONSTANT.SUB_ITEM_COLLECTION, function(err , dataList){
-                    callback(err ,dataList);
-                });
-            }else{
-               callback(err ,dataList); 
-            }
-            
-        });
+        imageSaver(params, pathString, function(success){
+        	if(success){
+		        daf.Update(query, changeDoc, CONSTANT.MAIN_ITEM_COLLECTION, function(err , dataList){
+		            if(!err){
+		                changeDoc = {$set:{itemList: subItem}};
+		                daf.Update(query, changeDoc, CONSTANT.SUB_ITEM_COLLECTION, function(err , dataList){
+		                    callback(err ,dataList);
+		                });
+		            }else{
+		               callback(err ,dataList); 
+		            }
+		            
+		        });
+        	}else{
+        		var err = "Image Saving Failed";
+                callback(err);
+        	}
+        })
     }else{
         var err = "Item details not available";
         callback(err);
@@ -478,7 +487,10 @@ function adminUpdateItem(req,callback){
     if(params.mainItem && params.subItem && (req.user.title.value == 20)){
         var query = {itemId: itemId}
         var searchText = "";
-
+        deleteImages(params.removed);
+        var pathString = "public/Item_images/"+mainItem.shop.shopId+"/"+mainItem.shop.branchId+"/"+itemId;
+        ensureDirectoryExistence(pathString+"/0");
+        
         _.each(mainItem.types,function(val){
             searchText += (val.key+" ");
         });
@@ -488,18 +500,24 @@ function adminUpdateItem(req,callback){
         searchText += (mainItem.name+" ");
 
         var changeDoc = {$set:{ item: mainItem, approved:approved, searchText:searchText}};
-
-        daf.Update(query, changeDoc, CONSTANT.MAIN_ITEM_COLLECTION, function(err , dataList){
-            if(!err){
-                changeDoc = {$set:{itemList: subItem}};
-                daf.Update(query, changeDoc, CONSTANT.SUB_ITEM_COLLECTION, function(err , dataList){
-                    callback(err ,dataList);
-                });
-            }else{
-               callback(err ,dataList); 
-            }
-            
-        });
+        imageSaver(params, pathString, function(success){
+        	if(success){
+		        daf.Update(query, changeDoc, CONSTANT.MAIN_ITEM_COLLECTION, function(err , dataList){
+		            if(!err){
+		                changeDoc = {$set:{itemList: subItem}};
+		                daf.Update(query, changeDoc, CONSTANT.SUB_ITEM_COLLECTION, function(err , dataList){
+		                    callback(err ,dataList);
+		                });
+		            }else{
+		               callback(err ,dataList); 
+		            }
+		            
+		        });
+        	}else{
+        		var err = "Image Saving Failed";
+                callback(err);
+        	}
+        })
     }else{
         var err = "Item details not available";
         callback(err);
@@ -550,6 +568,9 @@ function addItems(req,callback) {
                                 callback(err, success);
                             }
                         })
+                    }else{
+                    	var err = "Image Saving Failed";
+                        callback(err);
                     }
                 })
                 
@@ -566,14 +587,20 @@ function addItems(req,callback) {
 };
 
 function imageSaver(data, pathString, callback){
-    var imagePath = pathString+"/0.png"
-    saveImage(data.mainItem.image, imagePath);
-    data.mainItem.image = imagePath;
+    var imagePath = pathString+"/"+Date.now()+".png"
+    if(!(data.mainItem.image.indexOf("/Item_images") == 0)){
+    	saveImage(data.mainItem.image, imagePath);
+        data.mainItem.image = imagePath.replace('public','');
+    }
+    
 
     for (var i =  0; i < data.subItem.length; i++) {
-        imagePath = pathString+"/"+(i+1)+".png"
-        saveImage(data.subItem[i].image, imagePath);
-        data.subItem[i].image = imagePath;
+        imagePath = pathString+"/"+(Date.now()+i+1)+".png"
+        if(!(data.subItem[i].image.indexOf("/Item_images") == 0)){
+        	 saveImage(data.subItem[i].image, imagePath);
+             data.subItem[i].image = imagePath.replace('public','');
+        }
+       
     }
     callback(1);
 }
@@ -593,6 +620,16 @@ function ensureDirectoryExistence(filePath) {
   }
   ensureDirectoryExistence(dirname);
   fs.mkdirSync(dirname);
+}
+
+function deleteImages(images){
+	 for (var i =  0; i < images.length; i++) {
+	        imagePath = 'public'+images[i].image; 
+	        fs.unlink(imagePath,function(err){
+	            if(err) return console.log(err);
+	            console.log('file deleted successfully');
+	       });  
+	 }
 }
 
 function removeItem(req,callback){

@@ -84,7 +84,8 @@
             scope: {
                 files : '=',
                 imageSize:'=',
-                imageCount:'='
+                imageCount:'=',
+                removedItems:'='
             },
             templateUrl: function(elem,attrs) {
                 var url = '/views/coreModule/fileUpload/'+(attrs.template? attrs.template : 'trendi.fileupload.main')+'.html';
@@ -105,6 +106,8 @@
                         scope.dropClass = '';
                     });
                 }
+                console.log(scope.files);
+                console.log(scope.removedItems);
 
                 dropbox.addEventListener("dragenter", dragEnterLeave, false);
                 dropbox.addEventListener("dragleave", dragEnterLeave, false);
@@ -183,6 +186,9 @@
 
 
                 scope.removeFile = function (index) {
+                	if(!scope.files[index].type && !scope.files[index].name){
+                		scope.removedItems.push(scope.files[index]);
+                	}
                     if(scope.files[index].default){
                         scope.clickedDefault = false;
                         scope.files.splice(index, 1);
