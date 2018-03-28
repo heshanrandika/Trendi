@@ -9,6 +9,7 @@
 		$scope.itemId = selectedItem? selectedItem.itemId: undefined;
 		$scope.addNewItem = selectedItem? false:true;
 		$scope.uploadedImages = [];
+        $scope.removedItems = [];
 		$scope.imageSize = {value:1000000, text:'1MB'};
 		$scope.imageCount = 5;
 		$scope.availableSizes = [];
@@ -93,7 +94,7 @@
 		$scope.update = function(){
 			$scope.btnPressed = true;
 			setData();
-			var itemDetail = {mainItem: $scope.item, subItem: $scope.subItem, itemId:$scope.itemId};
+			var itemDetail = {mainItem: $scope.item, subItem: $scope.subItem, itemId:$scope.itemId, removed:$scope.removedItems};
             adminDataService.updateItem(itemDetail).then(function (response) {
                 Data_Toast.success(MESSAGE_CONFIG.SUCCESS_UPDATE_SUCCESSFULLY);
                 uiModalInstance.close($scope.item);
@@ -113,6 +114,7 @@
 		$scope.regUser = selectedItem? selectedItem : {};
 		$scope.addNewuser = selectedItem? false:true;
 		$scope.uploadedImages = [];
+		$scope.removedItems = [];
 		$scope.profilePicSize = {value:100000, text:'100kB'};
 		$scope.profilePicCount = 1;
 		$scope.loadEntitlements = false;
@@ -227,7 +229,7 @@
 		$scope.update = function(){
 			$scope.btnPressed = true;
 			setData();
-			var userDetails = {regUser:$scope.regUser, profileUpdate:false};
+			var userDetails = {regUser:$scope.regUser, profileUpdate:false, removed:$scope.removedItems};
             adminDataService.updateShopUser(userDetails).then(function (response) {
                 Data_Toast.success(MESSAGE_CONFIG.SUCCESS_UPDATE_SUCCESSFULLY);
                 uiModalInstance.close($scope.regUser);
@@ -249,6 +251,7 @@
 		$scope.addNewBranch = selectedItem? false:true;
         $scope.tmp = {};
         $scope.tmp.iconImage = []; 
+        $scope.removedItems = [];
         $scope.userList = [];
 
 		$scope.initMap = false;
@@ -299,7 +302,7 @@
 		$scope.update = function(){
 			$scope.btnPressed = true;
 			setData();
-			var  branchDetails = {shopId:shopDetails.shopId, branchId:$scope.branchId, shop: $scope.branch};
+			var  branchDetails = {shopId:shopDetails.shopId, branchId:$scope.branchId, shop: $scope.branch, removed:$scope.removedItems};
             adminDataService.updateBranch(branchDetails).then(function (response) {
                 Data_Toast.success(MESSAGE_CONFIG.SUCCESS_UPDATE_SUCCESSFULLY);
                 uiModalInstance.close();
@@ -320,6 +323,7 @@
         $scope.promotionId = selectedItem? selectedItem.promotionId: undefined;
         $scope.addNewPromotion = selectedItem? false:true;
         $scope.uploadedImages = [];
+        $scope.removedItems = [];
         $scope.promotionPicSize = {value:500000, text:'500kB'};
         $scope.promotionPicCount = 1;
 
@@ -374,7 +378,7 @@
         $scope.update = function(){
             $scope.btnPressed = true;
             setData();
-            var promotionDetails = {promotion:$scope.promotion};
+            var promotionDetails = {promotion:$scope.promotion, removed:$scope.removedItems};
             adminDataService.updatePromotion(promotionDetails).then(function (response) {
                 Data_Toast.success(MESSAGE_CONFIG.SUCCESS_UPDATE_SUCCESSFULLY);
                 uiModalInstance.close();
@@ -396,6 +400,7 @@
         $scope.blogId = selectedItem? selectedItem.blogId: undefined;
         $scope.addNewBlog = selectedItem? false:true;
         $scope.uploadedImages = [];
+        $scope.removedItems = [];
         $scope.blogImageSize = {value:500000, text:'500kB'};
         $scope.blogImageCount = 1;
 
@@ -439,7 +444,7 @@
         $scope.update = function(){
             $scope.btnPressed = true;
             setData();
-            var blogDetails = {blog:$scope.blog};
+            var blogDetails = {blog:$scope.blog, removed:$scope.removedItems};
             adminDataService.updateBlog(blogDetails).then(function (response) {
                 Data_Toast.success(MESSAGE_CONFIG.SUCCESS_UPDATE_SUCCESSFULLY);
                 uiModalInstance.close();
@@ -462,6 +467,7 @@
         $scope.banner = $scope.bannerObject.banner;
 
         $scope.uploadedImages = [];
+        $scope.removedItems = [];
         $scope.bannerImageSize = {value:1000000, text:'1Mb'};
         $scope.bannerImageCount = 3;
 

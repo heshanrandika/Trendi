@@ -440,7 +440,7 @@ function updateItem(req,callback){
         var query = {itemId: itemId}
         var searchText = "";
         deleteImages(params.removed);
-        var pathString = "public/Item_images/"+mainItem.shop.shopId+"/"+mainItem.shop.branchId+"/"+itemId;
+        var pathString = "public/App_Images/Product_Images/"+mainItem.shop.shopId+"/"+mainItem.shop.branchId+"/"+itemId;
         ensureDirectoryExistence(pathString+"/0");
         
         _.each(mainItem.types,function(val){
@@ -488,7 +488,7 @@ function adminUpdateItem(req,callback){
         var query = {itemId: itemId}
         var searchText = "";
         deleteImages(params.removed);
-        var pathString = "public/Item_images/"+mainItem.shop.shopId+"/"+mainItem.shop.branchId+"/"+itemId;
+        var pathString = "public/App_Images/Product_Images/"+mainItem.shop.shopId+"/"+mainItem.shop.branchId+"/"+itemId;
         ensureDirectoryExistence(pathString+"/0");
         
         _.each(mainItem.types,function(val){
@@ -537,7 +537,7 @@ function addItems(req,callback) {
             if (count) {
                 console.log("$$$$$$$  AddItems $$$$$$ Count : " + count);
                 itemId = count;
-                var pathString = "public/Item_images/"+mainItem.shop.shopId+"/"+mainItem.shop.branchId+"/"+itemId;
+                var pathString = "public/App_Images/Product_Images/"+mainItem.shop.shopId+"/"+mainItem.shop.branchId+"/"+itemId;
                 ensureDirectoryExistence(pathString+"/0");
                 var doc = {itemId: itemId, date: new Date(), item: mainItem};
                 doc.searchText = "";
@@ -588,15 +588,15 @@ function addItems(req,callback) {
 
 function imageSaver(data, pathString, callback){
     var imagePath = pathString+"/"+Date.now()+".png"
-    if(!(data.mainItem.image.indexOf("/Item_images") == 0)){
+    if(!(data.mainItem.image.indexOf("/App_Images") == 0)){
     	saveImage(data.mainItem.image, imagePath);
         data.mainItem.image = imagePath.replace('public','');
     }
     
 
     for (var i =  0; i < data.subItem.length; i++) {
-        imagePath = pathString+"/"+(Date.now()+i+1)+".png"
-        if(!(data.subItem[i].image.indexOf("/Item_images") == 0)){
+        imagePath = pathString+"/"+(Date.now()+i+1)+".png"   
+        if(!(data.subItem[i].image.indexOf("/App_Images") == 0)){
         	 saveImage(data.subItem[i].image, imagePath);
              data.subItem[i].image = imagePath.replace('public','');
         }

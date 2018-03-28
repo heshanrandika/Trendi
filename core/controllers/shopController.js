@@ -5,6 +5,8 @@ var daf = require('../persistence/MongoPersistence');
 var CONSTANT = require('../utility/Constants');
 var PWD = require('../utility/GeneralFunctions');
 var _ = require('lodash');
+var fs = require('fs');
+var path = require('path');
 
 function getShopList(req,callback){
     console.log("$$$$$$$  GetShopList $$$$$$");
@@ -87,16 +89,25 @@ function addBranch(req,callback){
             if (count) {
                 console.log("$$$$$$$  Add Shop $$$$$$ Count : " + count);
                 branchId = count;
-                var doc = {
-                    shopId: shopId,
-                    branchId:branchId,
-                    addDate: new Date(),
-                    delete: 0,
-                    shop:shop
-                };
-                daf.Insert(doc, CONSTANT.SHOP_BRANCH, function (err, success) {
-                    console.log("^^^^^^^  branch Added ^^^^^^^ : ");
-                    callback(err, success);
+                var pathString = "public/App_Images/Shop_Images/"+shopId+"/"+branchId;
+                ensureDirectoryExistence(pathString+"/0");
+                imageSaver(shop, pathString, function(success){
+                	if(success){
+		                var doc = {
+		                    shopId: shopId,
+		                    branchId:branchId,
+		                    addDate: new Date(),
+		                    delete: 0,
+		                    shop:shop
+		                };
+		                daf.Insert(doc, CONSTANT.SHOP_BRANCH, function (err, success) {
+		                    console.log("^^^^^^^  branch Added ^^^^^^^ : ");
+		                    callback(err, success);
+		                })
+                	}else{
+                		var err = "Image Saving Failed";
+                        callback(err);
+                	}
                 })
             } else {
                 callback(err, count);
@@ -125,17 +136,28 @@ function updateBranch(req,callback){
     console.log("$$$$$$$  UpdateItem $$$$$$");
     var params = (req.body.params) ? req.body.params : {};
     var shopId = (params.shopId)? params.shopId:0;
+    var branchId = params.branchId;
     var query = {shopId:shopId,branchId:params.branchId};
     var shop = (params.shop)? params.shop : {};
     var changeDoc ={$set:{shop: shop}};
     if(params.shop) {
         console.log("$$$$$$$  Update Branch $$$$$$ : ");
-        daf.Update(query,changeDoc, CONSTANT.SHOP_BRANCH, function (err, success) {
-            callback(err, success);
-            if(success){
-                updateAll(shop, query.shopId, query.branchId);
-            }
-        });
+        deleteImages(params.removed);
+        var pathString = "public/App_Images/Shop_Images/"+shopId+"/"+branchId;
+        ensureDirectoryExistence(pathString+"/0");
+        imageSaver(shop, pathString, function(success){
+        	if(success){
+		        daf.Update(query,changeDoc, CONSTANT.SHOP_BRANCH, function (err, success) {
+		            callback(err, success);
+		            if(success){
+		                updateAll(shop, query.shopId, query.branchId);
+		            }
+		        });
+        	}else{
+        		var err = "Image Saving Failed";
+                callback(err);
+        	}
+        })
     }else{
         var err = "Shop details not available";
         callback(err);
@@ -559,6 +581,41 @@ function getMapMarkers(req,callback){
     });
 }
 
+function imageSaver(data, pathString, callback){
+    var imagePath = pathString+"/"+Date.now()+".png"
+    if(!(data.iconImage.indexOf("/App_Images") == 0)){
+    	saveImage(data.iconImage, imagePath);
+        data.iconImage = imagePath.replace('public','');
+    }
+    callback(1);
+}
+
+function saveImage(data, imagePath){
+    var base64Data = data.replace(/^data:image\/png;base64,/, "");
+    base64Data = base64Data.replace(/^data:image\/jpeg;base64,/, "");
+    fs.writeFile(imagePath, base64Data, 'base64', function(err) {
+        console.log(err);
+    });
+}
+
+function ensureDirectoryExistence(filePath) {
+  var dirname = path.dirname(filePath);
+  if (fs.existsSync(dirname)) {
+    return true;
+  }
+  ensureDirectoryExistence(dirname);
+  fs.mkdirSync(dirname);
+}
+
+function deleteImages(images){
+	 for (var i =  0; i < images.length; i++) {
+	        imagePath = 'public'+images[i].image; 
+	        fs.unlink(imagePath,function(err){
+	            if(err) return console.log(err);
+	            console.log('file deleted successfully');
+	       });  
+	 }
+}
 
 
 

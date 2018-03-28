@@ -1285,6 +1285,7 @@
         $scope.temp = {};
         $scope.changePwd = false;
         $scope.user.profilePic =[];
+        $scope.removedItems = [];
         $scope.profilePicSize = {value:500000, text:'500kB'};
         $scope.profilePicCount = 1;
 
@@ -1321,7 +1322,7 @@
         $scope.updateProfile = function(){
             $scope.btnPressed = true;
             $scope.regUser.profilePic = $scope.user.profilePic[0]?$scope.user.profilePic[0].image:'';
-            adminDataService.adminUpdateUser({regUser:$scope.regUser , profileUpdate:true}).then(function(response){
+            adminDataService.adminUpdateUser({regUser:$scope.regUser , profileUpdate:true, removed:$scope.removedItems}).then(function(response){
                 Data_Toast.success(MESSAGE_CONFIG.SUCCESS_SAVED_SUCCESSFULLY);
                 $scope.regUser ={};
                 $scope.edit = true;

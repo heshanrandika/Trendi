@@ -106,8 +106,6 @@
                         scope.dropClass = '';
                     });
                 }
-                console.log(scope.files);
-                console.log(scope.removedItems);
 
                 dropbox.addEventListener("dragenter", dragEnterLeave, false);
                 dropbox.addEventListener("dragleave", dragEnterLeave, false);
