@@ -5,8 +5,6 @@ var daf = require('../persistence/MongoPersistence');
 var CONSTANT = require('../utility/Constants');
 var UTIL = require('./utilController');
 var _ = require('lodash');
-var fs = require('fs');
-var path = require('path');
 
 function insertBlog(req,callback){
     console.log("$$$$$$$  AddBlog $$$$$$");
@@ -17,16 +15,13 @@ function insertBlog(req,callback){
             console.log("$$$$$$$  blog $$$$$$ Count : " + count);
             blog.blogId = count;
             var pathString = "public/App_Images/Blog_Images/"+blog.shop.shopId+"/"+blog.blogId;
-            ensureDirectoryExistence(pathString+"/0");
-            imageSaver(blog, pathString, function(success){
+            UTIL.ImageSaver(blog.img, pathString, function(success){
             	if(success){
-		            daf.Insert(blog, CONSTANT.BLOG_COLLECTION, function(err , dataList){
+            		blog.img = success;
+            	}
+            	 daf.Insert(blog, CONSTANT.BLOG_COLLECTION, function(err , dataList){
 		                callback(err ,dataList);
 		            });
-            	}else{
-            		var err = "Image Saving Failed";
-                    callback(err);
-            	}
             })
         } else {
             callback(err, null);
@@ -51,63 +46,25 @@ function updateBlog(req,callback){
     var shopId = blog.shop.shopId;
     var query = {'shop.shopId':shopId, blogId : blog.blogId};
     
-    deleteImages(params.removed);
+    UTIL.DeleteImages(params.removed);
     var pathString = "public/App_Images/Blog_Images/"+blog.shop.shopId+"/"+blog.blogId;
-    ensureDirectoryExistence(pathString+"/0");
-    imageSaver(blog, pathString, function(success){
+    UTIL.ImageSaver(blog.img, pathString, function(success){
     	if(success){
-		    daf.Update(query, blog, CONSTANT.BLOG_COLLECTION, function(err , dataList){
-		        if(blog.approved){
-		            UTIL.AddPost({collection:CONSTANT.BLOG_COLLECTION, objectId:_id, date:new Date()},function(err, success){
-		                callback(err, success);
-		            });
-		        }else{
-		            callback(err ,dataList);
-		        }
-		
-		    });
-    	}else{
-    		var err = "Image Saving Failed";
-            callback(err);
+    		blog.img = success;
     	}
+    	daf.Update(query, blog, CONSTANT.BLOG_COLLECTION, function(err , dataList){
+	        if(blog.approved){
+	            UTIL.AddPost({collection:CONSTANT.BLOG_COLLECTION, objectId:_id, date:new Date()},function(err, success){
+	                callback(err, success);
+	            });
+	        }else{
+	            callback(err ,dataList);
+	        }
+	
+	    });
     })
 };
 
-function imageSaver(data, pathString, callback){
-    var imagePath = pathString+"/"+Date.now()+".png"
-    if(!(data.img.indexOf("/App_Images") == 0)){
-    	saveImage(data.img, imagePath);
-        data.img = imagePath.replace('public','');
-    }
-    callback(1);
-}
-
-function saveImage(data, imagePath){
-    var base64Data = data.replace(/^data:image\/png;base64,/, "");
-    base64Data = base64Data.replace(/^data:image\/jpeg;base64,/, "");
-    fs.writeFile(imagePath, base64Data, 'base64', function(err) {
-        console.log(err);
-    });
-}
-
-function ensureDirectoryExistence(filePath) {
-  var dirname = path.dirname(filePath);
-  if (fs.existsSync(dirname)) {
-    return true;
-  }
-  ensureDirectoryExistence(dirname);
-  fs.mkdirSync(dirname);
-}
-
-function deleteImages(images){
-	 for (var i =  0; i < images.length; i++) {
-	        imagePath = 'public'+images[i].image; 
-	        fs.unlink(imagePath,function(err){
-	            if(err) return console.log(err);
-	            console.log('file deleted successfully');
-	       });  
-	 }
-}
 
 function getBlogList(req,callback){
     console.log("$$$$$$$  GetBlogList $$$$$$");

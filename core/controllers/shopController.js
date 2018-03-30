@@ -4,9 +4,8 @@
 var daf = require('../persistence/MongoPersistence');
 var CONSTANT = require('../utility/Constants');
 var PWD = require('../utility/GeneralFunctions');
+var UTIL = require('./utilController');
 var _ = require('lodash');
-var fs = require('fs');
-var path = require('path');
 
 function getShopList(req,callback){
     console.log("$$$$$$$  GetShopList $$$$$$");
@@ -90,24 +89,21 @@ function addBranch(req,callback){
                 console.log("$$$$$$$  Add Shop $$$$$$ Count : " + count);
                 branchId = count;
                 var pathString = "public/App_Images/Shop_Images/"+shopId+"/"+branchId;
-                ensureDirectoryExistence(pathString+"/0");
-                imageSaver(shop, pathString, function(success){
+                UTIL.ImageSaver(shop.iconImage, pathString, function(success){
                 	if(success){
-		                var doc = {
-		                    shopId: shopId,
-		                    branchId:branchId,
-		                    addDate: new Date(),
-		                    delete: 0,
-		                    shop:shop
-		                };
-		                daf.Insert(doc, CONSTANT.SHOP_BRANCH, function (err, success) {
-		                    console.log("^^^^^^^  branch Added ^^^^^^^ : ");
-		                    callback(err, success);
-		                })
-                	}else{
-                		var err = "Image Saving Failed";
-                        callback(err);
+                		shop.iconImage = success;
                 	}
+                	  var doc = {
+  		                    shopId: shopId,
+  		                    branchId:branchId,
+  		                    addDate: new Date(),
+  		                    delete: 0,
+  		                    shop:shop
+  		                };
+  		                daf.Insert(doc, CONSTANT.SHOP_BRANCH, function (err, success) {
+  		                    console.log("^^^^^^^  branch Added ^^^^^^^ : ");
+  		                    callback(err, success);
+  		                })
                 })
             } else {
                 callback(err, count);
@@ -142,21 +138,18 @@ function updateBranch(req,callback){
     var changeDoc ={$set:{shop: shop}};
     if(params.shop) {
         console.log("$$$$$$$  Update Branch $$$$$$ : ");
-        deleteImages(params.removed);
+        UTIL.DeleteImages(params.removed);
         var pathString = "public/App_Images/Shop_Images/"+shopId+"/"+branchId;
-        ensureDirectoryExistence(pathString+"/0");
-        imageSaver(shop, pathString, function(success){
+        UTIL.ImageSaver(shop.iconImage, pathString, function(success){
         	if(success){
-		        daf.Update(query,changeDoc, CONSTANT.SHOP_BRANCH, function (err, success) {
-		            callback(err, success);
-		            if(success){
-		                updateAll(shop, query.shopId, query.branchId);
-		            }
-		        });
-        	}else{
-        		var err = "Image Saving Failed";
-                callback(err);
+        		shop.iconImage = success;
         	}
+        	daf.Update(query,changeDoc, CONSTANT.SHOP_BRANCH, function (err, success) {
+	            callback(err, success);
+	            if(success){
+	                updateAll(shop, query.shopId, query.branchId);
+	            }
+	        });
         })
     }else{
         var err = "Shop details not available";
@@ -477,14 +470,21 @@ function updateShopUser(req,callback) {
         var HashPWD = PWD.GetHashedPassword(regUser.password,CONSTANT.HASHING_ALGO);
         changeDoc.$set['password'] = HashPWD;
     }
-
-    daf.Update(query,changeDoc, CONSTANT.SHOP_USER, function (err, success) {
-        if(err){
-            callback(("Failed to Update:"+err),null);
-        }else {
-            callback(err,("Successfully Updated :"+success));
-        }
-    })
+    UTIL.DeleteImages(params.removed);
+    var pathString = "public/App_Images/Shop_User_Images/"+regUser.branch.shopId;
+    UTIL.ImageSaver(changeDoc.$set.profilePic, pathString, function(success){
+    	if(success){
+    		changeDoc.$set.profilePic = success;
+    	}
+    	daf.Update(query,changeDoc, CONSTANT.SHOP_USER, function (err, success) {
+            if(err){
+                callback(("Failed to Update:"+err),null);
+            }else {
+                callback(err,("Successfully Updated :"+success));
+            }
+        })
+    });
+    
 
 }
 
@@ -580,43 +580,6 @@ function getMapMarkers(req,callback){
         callback(null,shops);
     });
 }
-
-function imageSaver(data, pathString, callback){
-    var imagePath = pathString+"/"+Date.now()+".png"
-    if(!(data.iconImage.indexOf("/App_Images") == 0)){
-    	saveImage(data.iconImage, imagePath);
-        data.iconImage = imagePath.replace('public','');
-    }
-    callback(1);
-}
-
-function saveImage(data, imagePath){
-    var base64Data = data.replace(/^data:image\/png;base64,/, "");
-    base64Data = base64Data.replace(/^data:image\/jpeg;base64,/, "");
-    fs.writeFile(imagePath, base64Data, 'base64', function(err) {
-        console.log(err);
-    });
-}
-
-function ensureDirectoryExistence(filePath) {
-  var dirname = path.dirname(filePath);
-  if (fs.existsSync(dirname)) {
-    return true;
-  }
-  ensureDirectoryExistence(dirname);
-  fs.mkdirSync(dirname);
-}
-
-function deleteImages(images){
-	 for (var i =  0; i < images.length; i++) {
-	        imagePath = 'public'+images[i].image; 
-	        fs.unlink(imagePath,function(err){
-	            if(err) return console.log(err);
-	            console.log('file deleted successfully');
-	       });  
-	 }
-}
-
 
 
 module.exports.GetShopList = getShopList;

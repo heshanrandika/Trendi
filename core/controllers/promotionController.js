@@ -5,8 +5,6 @@ var daf = require('../persistence/MongoPersistence');
 var CONSTANT = require('../utility/Constants');
 var UTIL = require('./utilController');
 var _ = require('lodash');
-var fs = require('fs');
-var path = require('path');
 
 function getPromotionList(req,callback){
     console.log("$$$$$$$  GetPromotionList $$$$$$");
@@ -162,17 +160,14 @@ function addPromotion(req,callback){
                 promotion.promotionId = promotionId;
                 var doc = promotion;
                 var pathString = "public/App_Images/Promotion_Images/"+promotion.shopId+"/"+promotion.promotionId;
-                ensureDirectoryExistence(pathString+"/0");
-                imageSaver(promotion, pathString, function(success){
+                UTIL.ImageSaver(doc.promotionPic, pathString, function(success){
                 	if(success){
-		                daf.Insert(doc, CONSTANT.PROMOTION_COLLECTION, function (err, success) {
+                		doc.promotionPic = success;
+                	}
+                	 daf.Insert(doc, CONSTANT.PROMOTION_COLLECTION, function (err, success) {
 		                    console.log("^^^^^^^  Promotion Added ^^^^^^^ : ");
 		                    callback(err, success);
 		                })
-                	}else{
-                		var err = "Image Saving Failed";
-                        callback(err);
-                	}
                 })
             } else {
                 callback(err, count);
@@ -184,44 +179,6 @@ function addPromotion(req,callback){
         callback(err);
     }
 };
-
-
-function imageSaver(data, pathString, callback){
-    var imagePath = pathString+"/"+Date.now()+".png"
-    if(!(data.promotionPic.indexOf("/App_Images") == 0)){
-    	saveImage(data.promotionPic, imagePath);
-        data.promotionPic = imagePath.replace('public','');
-    }
-    callback(1);
-}
-
-function saveImage(data, imagePath){
-    var base64Data = data.replace(/^data:image\/png;base64,/, "");
-    base64Data = base64Data.replace(/^data:image\/jpeg;base64,/, "");
-    fs.writeFile(imagePath, base64Data, 'base64', function(err) {
-        console.log(err);
-    });
-}
-
-function ensureDirectoryExistence(filePath) {
-  var dirname = path.dirname(filePath);
-  if (fs.existsSync(dirname)) {
-    return true;
-  }
-  ensureDirectoryExistence(dirname);
-  fs.mkdirSync(dirname);
-}
-
-function deleteImages(images){
-	 for (var i =  0; i < images.length; i++) {
-	        imagePath = 'public'+images[i].image; 
-	        fs.unlink(imagePath,function(err){
-	            if(err) return console.log(err);
-	            console.log('file deleted successfully');
-	       });  
-	 }
-}
-
 
 function removePromotion(req,callback){
     console.log("$$$$$$$  RemovePromotion $$$$$$");
@@ -249,12 +206,13 @@ function updatePromotion(req,callback){
     console.log("$$$$$$$  Update Promotion $$$$$$ : ");
     if(params.promotion) {
         var query = {promotionId:promotion.promotionId};
-        deleteImages(params.removed);
+        UTIL.DeleteImages(params.removed);
         var pathString = "public/App_Images/Promotion_Images/"+promotion.shopId+"/"+promotion.promotionId;
-        ensureDirectoryExistence(pathString+"/0");
-        imageSaver(promotion, pathString, function(success){
+        UTIL.ImageSaver(promotion.promotionPic, pathString, function(success){
         	if(success){
-		        var doc = {$set:{
+        		promotion.promotionPic = success;
+        	}
+        	 var doc = {$set:{
 		            title : promotion.title,
 		            promotionPic: promotion.promotionPic,
 		            tags: promotion.tags,
@@ -266,10 +224,6 @@ function updatePromotion(req,callback){
 		        daf.Update(query, doc, CONSTANT.PROMOTION_COLLECTION, function (err, success) {
 		            callback(err, success);
 		        });
-        	}else{
-        		var err = "Image Saving Failed";
-                callback(err);
-        	}
         })
     }else{
         var err = "Promotion details not available";

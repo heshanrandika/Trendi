@@ -245,34 +245,49 @@ function shopRegistration(req,callback) {
                                 read : true,
                                 tag : 'INBOX'
                         };
+                        var pathString = "public/App_Images/Shop_User_Images/"+userDoc.shopId;
+                        UTIL.ImageSaver(userDoc.profilePic, pathString, function(success){
+                        	if(success){
+                        		userDoc.profilePic = success;
+                        	}
+                        	daf.Insert(userDoc, CONSTANT.SHOP_USER, function (err, success) {
+                                if(err){
+                                    callback(("Shop User Registration Failed :"+err),null);
+                                }else {
+                                	
+                                	 var pathString = "public/App_Images/Shop_Images/"+shop.shopId+"/"+branchDoc.branchId;
+                                     UTIL.ImageSaver(shop.iconImage, pathString, function(success){
+                                     	if(success){
+                                     		shop.iconImage = success;
+                                     	}
+                                     	 daf.Insert(shop, CONSTANT.SHOP_COLLECTION, function (err, success) {
+                                             if(err){
+                                                 callback(("Shop Registration Failed :"+err),null);
+                                             }else {
+                                                 daf.Insert(branchDoc, CONSTANT.SHOP_BRANCH, function (err, success) {
+                                                     if(err){
+                                                         callback(("Branch Registration Failed :"+err),null);
+                                                     }else {
+                                                         console.log("^^^^^^^  Shop Added ^^^^^^^ : ");
+                                                         sendMessage(messageDoc, function (err, success) {
+                                                             if(err){
+                                                                 callback(("Message Adding Failed :"+err),null);
+                                                             }else{
+                                                                 callback(err,("Successfully Registered :"+success));
+                                                             }
 
-                        daf.Insert(userDoc, CONSTANT.SHOP_USER, function (err, success) {
-                            if(err){
-                                callback(("Shop User Registration Failed :"+err),null);
-                            }else {
-                                daf.Insert(shop, CONSTANT.SHOP_COLLECTION, function (err, success) {
-                                    if(err){
-                                        callback(("Shop Registration Failed :"+err),null);
-                                    }else {
-                                        daf.Insert(branchDoc, CONSTANT.SHOP_BRANCH, function (err, success) {
-                                            if(err){
-                                                callback(("Branch Registration Failed :"+err),null);
-                                            }else {
-                                                console.log("^^^^^^^  Shop Added ^^^^^^^ : ");
-                                                sendMessage(messageDoc, function (err, success) {
-                                                    if(err){
-                                                        callback(("Message Adding Failed :"+err),null);
-                                                    }else{
-                                                        callback(err,("Successfully Registered :"+success));
-                                                    }
-
-                                                })
-                                            }
-                                        });
-                                    }
-                                });
-                            }
+                                                         })
+                                                     }
+                                                 });
+                                             }
+                                         });
+                                     });
+                                	
+                                   
+                                }
+                            })
                         })
+                        
                     } else {
                         callback(err, count);
                     }
@@ -312,52 +327,62 @@ function adminUpdateShop(req,callback) {
             delete: 0,
             shop:shop
         };
-        daf.Upsert(query,changeDoc,CONSTANT.SHOP_COLLECTION,function(err, success){
-            if(err){
-                callback(("Shop Collection Updating Failed :"+err),null);
-            }else{
-                query = {'email':regUser.email};
-                changeDoc = {
-                    shopId: shop.shopId,
-                    name : regUser.name,
-                    password:regUser.password,
-                    profilePic:regUser.profilePic,
-                    hotline:regUser.hotline,
-                    mobile:regUser.mobile,
-                    email:regUser.email,
-                    session:'',
-                    branch:branchDoc,
-                    userType:userType,
-                    entitlements:regUser.entitlements,
-                    superAdmin:true,
-                    title:regUser.title
-                };
-                daf.Upsert(query,changeDoc,CONSTANT.SHOP_USER,function(err, success){
-                    if(err){
-                        callback(("Shop User Updating Failed :"+err),null);
-                    }else{
-                        query = {shopId : shop.shopId};
-                        changeDoc = {shopId : shop.shopId, image : bannerImage};
-                        daf.Upsert(query,changeDoc,CONSTANT.BANNER_IMAGE,function(err, success){
-                            if(err){
-                                callback(("Shop User Registration Failed :"+err),null);
-                            }else{
-                                SHOP.UpdateBranches(shop, function(err, success){
-                                    if(err){
-                                        callback(("Shop User Updating Failed :"+err), null);
-                                    }else{
-                                        callback(err,("Successfully Updated :"+success));
-                                    }
+        
+        UTIL.DeleteImages(params.removed);
+        var pathString = "public/App_Images/Shop_Images/"+shop.shopId+"/"+branchDoc.branchId;
+        UTIL.ImageSaver(shop.iconImage, pathString, function(success){
+        	if(success){
+        		shop.iconImage = success;
+        	}
+            daf.Upsert(query,changeDoc,CONSTANT.SHOP_COLLECTION,function(err, success){
+                if(err){
+                    callback(("Shop Collection Updating Failed :"+err),null);
+                }else{
+                    query = {'email':regUser.email};
+                    changeDoc = {
+                        shopId: shop.shopId,
+                        name : regUser.name,
+                        password:regUser.password,
+                        profilePic:regUser.profilePic,
+                        hotline:regUser.hotline,
+                        mobile:regUser.mobile,
+                        email:regUser.email,
+                        session:'',
+                        branch:branchDoc,
+                        userType:userType,
+                        entitlements:regUser.entitlements,
+                        superAdmin:true,
+                        title:regUser.title
+                    };
+                    
+                    daf.Upsert(query,changeDoc,CONSTANT.SHOP_USER,function(err, success){
+                        if(err){
+                            callback(("Shop User Updating Failed :"+err),null);
+                        }else{
+                            query = {shopId : shop.shopId};
+                            changeDoc = {shopId : shop.shopId, image : bannerImage};
+                            daf.Upsert(query,changeDoc,CONSTANT.BANNER_IMAGE,function(err, success){
+                                if(err){
+                                    callback(("Shop User Registration Failed :"+err),null);
+                                }else{
+                                    SHOP.UpdateBranches(shop, function(err, success){
+                                        if(err){
+                                            callback(("Shop User Updating Failed :"+err), null);
+                                        }else{
+                                            callback(err,("Successfully Updated :"+success));
+                                        }
 
-                                });
+                                    });
 
 
-                            }
-                        })
-                    }
-                })
-            }
+                                }
+                            })
+                        }
+                    })
+                }
+            });
         });
+
 
     }else{
         callback(("User Type Error : value : "+ userType),null);
@@ -393,16 +418,20 @@ function addShopUser(req,callback) {
                     hotline: regUser.hotline,
                     mobile: regUser.mobile,
                 };
-                daf.Insert(doc, CONSTANT.SHOP_USER, function (err, success) {
-                    if(err){
-                        callback(("Registration Failed :"+err),null);
-                    }else {
-                        callback(err,("Successfully Registered :"+success));
-                    }
+                var pathString = "public/App_Images/Shop_User_Images/"+doc.shopId;
+                UTIL.ImageSaver(doc.profilePic, pathString, function(success){
+                	if(success){
+                		doc.profilePic = success;
+                	}
+                	daf.Insert(doc, CONSTANT.SHOP_USER, function (err, success) {
+                        if(err){
+                            callback(("Registration Failed :"+err),null);
+                        }else {
+                            callback(err,("Successfully Registered :"+success));
+                        }
+                    })
                 })
-
-
-
+                
             }else{
                 callback(err,"Already Registered : Value : "+ regUser.email);
             }
@@ -412,8 +441,6 @@ function addShopUser(req,callback) {
     }
 
 }
-
-
 
 function authentication(req, callback) {
     // var params = (req.body) ? req.body : {};

@@ -5,6 +5,8 @@ var daf = require('../persistence/MongoPersistence');
 var CONSTANT = require('../utility/Constants');
 var ObjectId = require('mongodb').ObjectID;
 var _ = require('lodash');
+var fs = require('fs');
+var path = require('path');
 
 
 function updateCount(type, callback){
@@ -138,6 +140,45 @@ function getAllPost(req,callback){
     
 }
 
+
+function imageSaver(data, pathString, callback){
+	ensureDirectoryExistence(pathString+"/0");
+    var imagePath = pathString+"/"+Date.now()+".png"
+    if(!(data.indexOf("/App_Images") == 0)){
+    	saveImage(data, imagePath);
+    	callback(imagePath.replace('public',''));
+    }else{
+    	callback(0);
+    }
+}
+
+function saveImage(data, imagePath){
+    var base64Data = data.replace(/^data:image\/png;base64,/, "");
+    base64Data = base64Data.replace(/^data:image\/jpeg;base64,/, "");
+    fs.writeFile(imagePath, base64Data, 'base64', function(err) {
+        console.log(err);
+    });
+}
+
+function ensureDirectoryExistence(filePath) {
+  var dirname = path.dirname(filePath);
+  if (fs.existsSync(dirname)) {
+    return true;
+  }
+  ensureDirectoryExistence(dirname);
+  fs.mkdirSync(dirname);
+}
+
+function deleteImages(images){
+	 for (var i =  0; i < images.length; i++) {
+	        imagePath = 'public'+images[i].image; 
+	        fs.unlink(imagePath,function(err){
+	            if(err) return console.log(err);
+	            console.log('file deleted successfully');
+	       });  
+	 }
+}
+
 module.exports.UpdateCount = updateCount;
 module.exports.ChangeSizes = changeSizes;
 module.exports.GetSizes = getSizes;
@@ -145,3 +186,7 @@ module.exports.AddPost = addPost;
 module.exports.RemovePost = removePost;
 module.exports.UpdatePost = updatePost;
 module.exports.GetAllPost = getAllPost;
+module.exports.ImageSaver = imageSaver;
+module.exports.SaveImage  = saveImage;
+module.exports.EnsureDirectoryExistence = ensureDirectoryExistence;
+module.exports.DeleteImages = deleteImages;
