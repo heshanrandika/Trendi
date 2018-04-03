@@ -144,9 +144,9 @@
             loadMenu: function () {
                 mainDataService.getItemMenu().then(function(response){
                     var allMenu  = response.data.responData.data;
-                    $scope.menuFunc.womenMenu = allMenu.womenMenu;
-                    $scope.menuFunc.menMenu = allMenu.menMenu;
-                    $scope.menuFunc.kidsMenu = allMenu.kidsMenu;
+                    $scope.menuFunc.phoneMenu = allMenu.phoneMenu;
+                    $scope.menuFunc.tabletMenu = allMenu.tabletMenu;
+                    $scope.menuFunc.accessoryMenu = allMenu.accessoryMenu;
                 },function(){
                 });
             },
