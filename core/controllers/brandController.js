@@ -11,7 +11,7 @@ function addBrand(req,callback){
     var brand = params.brand;
     var query = {name: brand.name};
 
-    var changeDoc = {$set:{img: brand.img, description: brand.description}};
+    var changeDoc = {$set:{img: brand.img, description: brand.description, models:brand.models}};
 
     daf.Upsert(query,changeDoc,CONSTANT.BRAND_COLLECTION,function(err,success){
         callback(err,success)

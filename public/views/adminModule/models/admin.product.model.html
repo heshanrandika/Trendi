@@ -17,7 +17,7 @@
                                         <div class="form-group">
                                             <label>Select Brand</label>
                                             <ui-select ng-model="item.brand" theme="selectize">
-                                                <ui-select-match placeholder="Select or search a person in the list...">{{$select.selected.name}}</ui-select-match>
+                                                <ui-select-match placeholder="Select or search the Brand in the list...">{{$select.selected.name}}</ui-select-match>
                                                 <ui-select-choices repeat="brand in brands | filter: $select.search">
                                                     <img alt="{{ brand.name }}" ng-src="{{brand.img}}" class="table-img-icon"/>
                                                     <div ng-bind-html="brand.name | highlight: $select.search"></div>
@@ -29,8 +29,8 @@
                                         <div class="form-group">
                                             <label class="control-label">Model</label>
                                             <div >
-                                                <select ng-model="item.model" ng-options="data.shop.name for data in branchList"
-                                                    class="form-control form-filter srch-select-opt"></select>
+                                                <select ng-model="item.model" ng-options="data for data in item.brand.models"
+                                                    class="form-control form-filter srch-select-opt"><option value="">- Please Choose -</option></select>
                                             </div>
                                         </div>
                                     </div>
@@ -145,6 +145,24 @@
                                             <div class="append-icon">
                                                 <input type="number" name="discount" id="discount" ng-model="item.discount" class="form-control" placeholder="10" ng-disabled="!item.onSale">
                                                 <i class="icon-emoticon-smile"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                  	<div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="control-label">Select Category</label>
+                                            <div class="input-group">
+                                                <div class="icheck-inline">
+                                                    <label>
+                                                        <input type="checkbox" ng-model="item.group.phone" class="icheckbox_square-blue"> Phones
+                                                    </label>
+                                                    <label>
+                                                        <input type="checkbox"  ng-model="item.group.tablet" class="icheckbox_square-blue"> Tablets
+                                                    </label>
+                                                    <label>
+                                                        <input type="checkbox" ng-model="item.group.accessories" class="icheckbox_square-blue"> Accessories
+                                                    </label>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

@@ -5,14 +5,13 @@
 	"use strict";
 
 	mod.controller('productModel',['$scope', '$modalInstance','item','adminDataService','Data.Toast','MESSAGE_CONFIG', function ($scope, uiModalInstance, selectedItem, adminDataService, Data_Toast, MESSAGE_CONFIG) {
-		$scope.item = selectedItem? selectedItem.item : {'group':{'men':false, 'women':false, 'kids':false}, 'types':[], 'sizes':[]};
+		$scope.item = selectedItem? selectedItem.item : {'group':{'phone':false, 'tablet':false, 'accessories':false}, 'types':[]};
 		$scope.itemId = selectedItem? selectedItem.itemId: undefined;
 		$scope.addNewItem = selectedItem? false:true;
 		$scope.uploadedImages = [];
         $scope.removedItems = [];
 		$scope.imageSize = {value:1000000, text:'1MB'};
 		$scope.imageCount = 5;
-		$scope.availableSizes = [];
 		$scope.availableTypes = [];
         $scope.brands = [];
 		$scope.subItem = [];
@@ -30,12 +29,6 @@
 			});
 		}
 
-
-
-		adminDataService.getSizes({}).then(function(response){
-			$scope.availableSizes = response.data.responData.data[0].sizes;
-		});
-
 		adminDataService.getTagList({}).then(function(response){
 			$scope.availableTypes = response.data.responData.data;
 		});
@@ -46,8 +39,7 @@
 
 
 		var setData = function(){
-			 if(($scope.item.name == '' || $scope.item.name == undefined) ||
-                    ($scope.item.price == '' || $scope.item.price == undefined) ||
+			 if(($scope.item.price == '' || $scope.item.price == undefined) ||
                     ($scope.item.description == '' || $scope.item.description == undefined) ||
                     $scope.uploadedImages.length == 0){
                     Data_Toast.warning(MESSAGE_CONFIG.ERROR_REQUIRED_FIELDS);
@@ -65,10 +57,6 @@
                     $scope.item.rate = {rate:0, star:0, hit:0};
 
                     _.each($scope.item.types, function (k) {
-                        delete k.$$hashKey
-                    });
-
-                    _.each($scope.item.sizes, function (k) {
                         delete k.$$hashKey
                     });
 

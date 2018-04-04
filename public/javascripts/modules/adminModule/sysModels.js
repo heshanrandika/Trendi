@@ -657,7 +657,7 @@
     }]);
 
     mod.controller('sysBrandModel',['$scope', '$modalInstance','item','adminDataService','Data.Toast','MESSAGE_CONFIG', function ($scope, uiModalInstance, selectedItem, adminDataService, Data_Toast, MESSAGE_CONFIG) {
-        $scope.brand = selectedItem? selectedItem : {};
+        $scope.brand = selectedItem? selectedItem : {models:[]};
         $scope.approved = selectedItem? selectedItem.approved : undefined;
         $scope.addNewBrand = selectedItem? false:true;
         $scope.uploadedImages = [];
@@ -716,6 +716,63 @@
             $scope.initWindow = false;
             uiModalInstance.dismiss('cancel');
         };
+        
+        
+        
+        
+        $scope.typed = '';
+        $scope.tracker = 1;
+        $scope.tags =[];
+
+
+        $scope.$watch('typed', function(current, old){
+            if(current != old){
+                $scope.tracker = 2;
+                _.each($scope.brand.models, function(tg){
+                    if(current.toLowerCase() == tg.toLowerCase()){
+                            $scope.tracker = 1;
+                            return false;
+                    }
+                });
+            }
+        });
+
+
+        $scope.answer = function(){
+            switch($scope.tracker){
+                case 2:
+                	$scope.brand.models.push($scope.typed);
+                	$scope.typed = '';
+                    break;
+
+                case 1:
+                    for(var index=0; index<$scope.brand.models.length; index++){
+                    	if($scope.brand.models[index].toLowerCase() == $scope.typed.toLowerCase()){
+                    		$scope.brand.models.splice(index, 1);
+                    		$scope.typed = '';
+                    		break;
+                    	}
+                    }
+                    break;
+
+                default :
+                    console.log('cannot find tracker value');
+            }
+        };
+
+
+        $scope.removeTag = function(tag){
+        	for(var index=0; index<$scope.brand.models.length; index++){
+            	if($scope.brand.models[index].toLowerCase() == tag.toLowerCase()){
+            		$scope.brand.models.splice(index, 1);
+            		break;
+            	}
+            }
+        };
+
+        
+        
+        
     }]);
 
     mod.controller('sysBankModel',['$scope', '$modalInstance','item','adminDataService','Data.Toast','MESSAGE_CONFIG', function ($scope, uiModalInstance, selectedItem, adminDataService, Data_Toast, MESSAGE_CONFIG) {
