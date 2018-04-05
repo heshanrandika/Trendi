@@ -123,17 +123,19 @@
                                 <div class="row">
                                     <div class="col-sm-6">
                                         <div class="form-group">
-                                            <label class="control-label">Like </label>
+                                            <label class="control-label">Hardware Warranty </label>
                                             <div class="append-icon">
-                                                <label class="form-control">{{item.like}}  <i class="fa fa-thumbs-o-up"></i></label>
+                                             <input class="form-control" placeholder="1 Year" ng-model="item.hdwareWarranty" type="text"  name="price">
+                                                <i class="fa fa-shield"></i>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="form-group">
-                                            <label class="control-label">Seen</label>
+                                            <label class="control-label">Software Warranty </label>
                                             <div class="append-icon">
-                                                <label class="form-control">{{item.seen}}  <i class="fa fa-eye"></i></label>
+                                                <input class="form-control" placeholder="1 Year" ng-model="item.softWarranty" type="text"  name="price">
+                                                <i class="fa fa-shield"></i>
                                             </div>
                                         </div>
                                     </div>
@@ -163,6 +165,24 @@
                                                         <input type="checkbox" ng-model="item.group.accessories" class="icheckbox_square-blue"> Accessories
                                                     </label>
                                                 </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                 <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="control-label">Like </label>
+                                            <div class="append-icon">
+                                                <label class="form-control">{{item.like}}  <i class="fa fa-thumbs-o-up"></i></label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="control-label">Seen</label>
+                                            <div class="append-icon">
+                                                <label class="form-control">{{item.seen}}  <i class="fa fa-eye"></i></label>
                                             </div>
                                         </div>
                                     </div>
