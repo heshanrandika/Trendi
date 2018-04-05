@@ -14,6 +14,7 @@ var BANK = require("../controllers/bankController");
 var COMMENT = require("../controllers/commentController");
 var AuthCtrl = require('../controllers/authController');
 var USER = require('../controllers/userController');
+var COLOR = require('../controllers/colorController');
 var UTIL = require('../controllers/utilController');
 
 var requestRoute = function(req,res){
@@ -1013,7 +1014,7 @@ var requestRoute = function(req,res){
             });
             break;
 
-        case 3000:
+        
 
             PROMOTION.GetAdminPromotionList(req, function (err, data) {
                 if (err) {
@@ -1639,6 +1640,48 @@ var requestRoute = function(req,res){
 
             });
             break;
+            
+        case 7023:
+
+        	COLOR.AddColors(req, function (err, data) {
+                if (err) {
+                    resObject.resStatus = 0;
+                    resObject.responData.Error = err.toString();
+                    res.status(500);
+                    res.send(resObject);
+
+                } else if (data) {
+
+                    resObject.resStatus = 1;
+                    resObject.responData.data = data;
+                    res.send(resObject);
+
+                }
+
+            });
+            break;
+    
+        case 7024:
+
+        	COLOR.GetColorList(req, function (err, data) {
+                if (err) {
+                    resObject.resStatus = 0;
+                    resObject.responData.Error = err.toString();
+                    res.status(500);
+                    res.send(resObject);
+
+                } else if (data) {
+
+                    resObject.resStatus = 1;
+                    resObject.responData.data = data;
+                    res.send(resObject);
+
+                }
+
+            });
+            break;
+        
+        case 3000:
 
         case 8000:
 

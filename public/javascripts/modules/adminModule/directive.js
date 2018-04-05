@@ -441,6 +441,28 @@
             }
         };
     }]);
+    
+    mod.directive('trendiColorpicker',[function() {
+        return {
+            restrict: 'E',
+            replace: true,
+            scope: {
+            	colors: '=',
+                selected: '='
+            },
+            templateUrl:'/views/coreModule/colorpicker/trendi.colorpicker.html',
+            link: function(scope, elm, attrs) {
+            	scope.colorArray = [];
+            	 _.each(scope.colors,function(k){
+            		 var clr = {value:k, selected:false}
+                     if(scope.selected.indexOf(k) < 0){
+                    	 clr.selected = true;
+                     }
+            		 scope.colorArray.push(clr);
+                 });
+            }
+        };
+    }]);
 
     mod.directive('onFinishRender', ['$timeout',function ($timeout) {
         return {

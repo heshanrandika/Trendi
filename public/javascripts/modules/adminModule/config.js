@@ -286,6 +286,8 @@
             FUNC_GetBankList :    7020,
             FUNC_AddBank     :    7021,
             FUNC_RemoveBank  :    7022,
+            FUNC_AddColor:        7023,
+            FUNC_GetColors:       7024,
             FUNC_GetMessageList : 5000,
             FUNC_SendMessage:     5001,
             FUNC_ReplyMessage  :  5002,

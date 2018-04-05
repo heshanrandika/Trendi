@@ -209,6 +209,14 @@
         serviceCalls.removeBankDao = function () {
             return angular.extend({functionId: ADMIN_MOD_CONFIG.REQ_CONFIG.FUNC_RemoveBank}, _getCObj());
         };
+        
+        serviceCalls.getColorDao = function () {
+            return angular.extend({functionId: ADMIN_MOD_CONFIG.REQ_CONFIG.FUNC_GetColors}, _getCObj());
+        };
+        
+        serviceCalls.addColorDao = function () {
+            return angular.extend({functionId: ADMIN_MOD_CONFIG.REQ_CONFIG.FUNC_AddColor}, _getCObj());
+        };
 
         serviceCalls.getMessageListDao = function () {
             return angular.extend({functionId: ADMIN_MOD_CONFIG.REQ_CONFIG.FUNC_GetMessageList}, _getCObj());

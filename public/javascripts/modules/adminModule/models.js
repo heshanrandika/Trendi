@@ -16,6 +16,8 @@
 		$scope.availableTypes = [];
         $scope.brands = [];
 		$scope.subItem = [];
+		$scope.selectedColors = ['#ffffff'];
+		$scope.colors = [];
 		var shopDetails = adminDataService.shopData();
 
 		if(selectedItem){
@@ -42,6 +44,10 @@
 
         adminDataService.getBrandList({}).then(function(response){
             $scope.brands = response.data.responData.data.list;
+        });
+        
+        adminDataService.getColors({}).then(function(response){
+            $scope.colors = response.data.responData.data.colors;
         });
 
 
