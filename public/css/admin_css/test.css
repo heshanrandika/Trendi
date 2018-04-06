@@ -1031,3 +1031,26 @@ body {
 .message-container .message button { margin-bottom: 20px; }
 .message-container .message .list-group { font-size: 14px; }
 .message-container .col-md-9 span { font-size: 16px; }
+
+.grid-container {
+  display: grid;
+  grid-template-columns: auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto;
+  padding: 10px;
+}
+.grid-item {
+    text-align: center;
+    border-radius: 50%;
+    padding: 0;
+    margin: 3px;
+    border: 1px solid rgba(0, 0, 0, 0.8);
+    color: #f5f5dc00;
+}
+
+.grid-item-select {
+    text-align: center;
+    padding: 0;
+    margin: 2px;
+    border: 2px solid rgba(0, 0, 0, 0.8);
+    color: #f5f5dc00;
+}
+

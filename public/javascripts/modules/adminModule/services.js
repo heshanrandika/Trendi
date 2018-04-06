@@ -59,6 +59,8 @@
         var _getBanner = function(d){
             return Data_Comm.postPromise(angular.extend({params:d},adminServiceCalls.getBannerDao()));
         };
+        
+
 
         var _setBanner = function(d){
             return Data_Comm.postPromise(angular.extend({params:d},adminServiceCalls.setBannerDao()));
@@ -178,6 +180,14 @@
 
         var _removeBank = function(d){
             return Data_Comm.postPromise(angular.extend({params:d},adminServiceCalls.removeBankDao()));
+        };
+        
+        var _getColors = function(d){
+            return Data_Comm.postPromise(angular.extend({params:d},adminServiceCalls.getColorDao()));
+        };
+        
+        var _addColor = function(d){
+            return Data_Comm.postPromise(angular.extend({params:d},adminServiceCalls.addColorDao()));
         };
 
         var _getMessageList = function(d){
@@ -305,6 +315,8 @@
             getBankList:_getBankList,
             addBank:_addBank,
             removeBank:_removeBank,
+            addColor:_addColor,
+            getColors:_getColors,
             getMessageList:_getMessageList,
             sendMessage:_sendMessage,
             replyMessage:_replyMessage,

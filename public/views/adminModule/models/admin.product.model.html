@@ -74,49 +74,8 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-sm-6">
-                                        <div class="form-group">
-                                            <label class="control-label">Select Colours</label>
-                                            <div class="input-group">
-                                                <ul class="icheck-colors">
-                                                    <li class="red " ng-class="{'active': redSelect}" ng-click="redSelect = !redSelect" ng-init="redSelect = false">
-                                                    </li>
-                                                    <li class="green active">
-                                                    </li>
-                                                    <li class="blue active">
-                                                    </li>
-                                                    <li class="aero active">
-                                                    </li>
-                                                    <li class="grey active">
-                                                    </li>
-                                                    <li class="orange active">
-                                                    </li>
-                                                    <li class="pink active">
-                                                    </li>
-                                                    <li class="purple active">
-                                                    </li>
-                                                </ul>
-                                                <ul class="icheck-colors">
-                                                    <li class="red ">
-                                                    </li>
-                                                    <li class="green">
-                                                    </li>
-                                                    <li class="blue">
-                                                    </li>
-                                                    <li class="aero active">
-                                                    </li>
-                                                    <li class="grey">
-                                                    </li>
-                                                    <li class="orange">
-                                                    </li>
-                                                    <li class="pink">
-                                                    </li>
-                                                    <li class="purple">
-                                                    </li>
-                                                </ul>
-                                            </div>
-
-                                        </div>
+                                    <div class="col-sm-6" ng-if="colors.length>0">
+                                        <trendi-colorpicker selected="item.colors" colors="colors" ></trendi-colorpicker>
                                     </div>
                                 </div>
                               
