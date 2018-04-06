@@ -17,14 +17,36 @@
                                 <div class="row">
                                     <div class="col-sm-6">
                                         <div class="form-group">
-                                            <label class="control-label">Item Name</label>
-                                            <div class="append-icon">
-                                                <input type="text"  class="form-control" placeholder="Ex : Maxi dress.." ng-model="item.name" name="name"  ng-required="true">
-                                                <i class="icons-shopping-13"></i>
-                                                <div ng-messages="itemForm.name.$error">
-                                                    <div ng-message="required">This is required.</div>
-                                                </div>
+                                            <label>Select Brand</label>
+                                            <ui-select ng-model="item.brand" theme="selectize">
+                                                <ui-select-match placeholder="Select or search the Brand in the list...">{{$select.selected.name}}</ui-select-match>
+                                                <ui-select-choices repeat="brand in brands | filter: $select.search">
+                                                    <img alt="{{ brand.name }}" ng-src="{{brand.img}}" class="table-img-icon"/>
+                                                    <div ng-bind-html="brand.name | highlight: $select.search"></div>
+                                                </ui-select-choices>
+                                            </ui-select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="control-label">Model</label>
+                                            <div >
+                                                <select ng-model="item.model" ng-options="data for data in item.brand.models"
+                                                    class="form-control form-filter srch-select-opt"><option value="">- Please Choose -</option></select>
                                             </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label>Item Tagging</label>
+                                            <ui-select multiple ng-model="item.types" theme="bootstrap" sortable="true" title="Choose a Tag">
+                                                <ui-select-match placeholder="Select tags...">{{$item.key}}</ui-select-match>
+                                                <ui-select-choices repeat="type in availableTypes | filter:$select.search">
+                                                    {{type.key}}
+                                                </ui-select-choices>
+                                            </ui-select>
                                         </div>
                                     </div>
                                     <div class="col-sm-6">
@@ -64,24 +86,20 @@
                                 <div class="row">
                                     <div class="col-sm-6">
                                         <div class="form-group">
-                                            <label>Item Tagging</label>
-                                            <ui-select multiple ng-model="item.types" theme="bootstrap" sortable="true" title="Choose a Tag">
-                                                <ui-select-match placeholder="Select tags...">{{$item.key}}</ui-select-match>
-                                                <ui-select-choices repeat="type in availableTypes | filter:$select.search">
-                                                    {{type.key}}
-                                                </ui-select-choices>
-                                            </ui-select>
+                                            <label class="control-label">Hardware Warranty </label>
+                                            <div class="append-icon">
+                                             <input class="form-control" placeholder="1 Year" ng-model="item.hdwareWarranty" type="text"  name="price">
+                                                <i class="fa fa-shield"></i>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="form-group">
-                                            <label>Select Sizes</label>
-                                            <ui-select multiple ng-model="item.sizes" theme="bootstrap" sortable="true" title="Choose a Size">
-                                                <ui-select-match placeholder="Select sizes...">{{$item.value}}</ui-select-match>
-                                                <ui-select-choices repeat="size in availableSizes | filter:$select.search">
-                                                    {{size.value}}
-                                                </ui-select-choices>
-                                            </ui-select>
+                                            <label class="control-label">Software Warranty </label>
+                                            <div class="append-icon">
+                                                <input class="form-control" placeholder="1 Year" ng-model="item.softWarranty" type="text"  name="price">
+                                                <i class="fa fa-shield"></i>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -100,14 +118,14 @@
                                             <label class="control-label">Select Category</label>
                                             <div class="input-group">
                                                 <div class="icheck-inline">
-                                                    <label>
-                                                        <input type="checkbox" ng-model="item.group.men" class="icheckbox_square-blue"> Gents
+                                                      <label>
+                                                        <input type="checkbox" ng-model="item.group.phone" class="icheckbox_square-blue"> Phones
                                                     </label>
                                                     <label>
-                                                        <input type="checkbox"  ng-model="item.group.women" class="icheckbox_square-blue"> Ladies
+                                                        <input type="checkbox"  ng-model="item.group.tablet" class="icheckbox_square-blue"> Tablets
                                                     </label>
                                                     <label>
-                                                        <input type="checkbox" ng-model="item.group.kids" class="icheckbox_square-blue"> Kids
+                                                        <input type="checkbox" ng-model="item.group.accessories" class="icheckbox_square-blue"> Accessories
                                                     </label>
                                                 </div>
                                             </div>
@@ -130,23 +148,6 @@
                                                 <label class="form-control">{{item.seen}}  <i class="fa fa-eye"></i></label>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-6">
-                                        <div class="form-group">
-                                            <label>Select Brand</label>
-                                            <ui-select ng-model="item.brand" theme="selectize">
-                                                <ui-select-match placeholder="Select or search a person in the list...">{{$select.selected.name}}</ui-select-match>
-                                                <ui-select-choices repeat="brand in brands | filter: $select.search">
-                                                    <img alt="{{ brand.name }}" ng-src="{{brand.img}}" class="table-img-icon"/>
-                                                    <div ng-bind-html="brand.name | highlight: $select.search"></div>
-                                                </ui-select-choices>
-                                            </ui-select>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6">
-
                                     </div>
                                 </div>
                                 <div class="row">

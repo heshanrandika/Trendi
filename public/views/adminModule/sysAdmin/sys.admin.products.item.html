@@ -12,7 +12,9 @@
             <th class="sorting"  rowspan="1" colspan="1"  style="width: 196px;">
                 Product Id<input type="text" ng-keypress="searchPress($event)" class="form-control" placeholder="Filter By Product Id" ng-model="search['itemId']"></th>
             <th class="sorting" rowspan="1" colspan="1" style="width: 196px;">
-                Product Name<input type="text" ng-keypress="searchPress($event)"  class="form-control" placeholder="Filter By Name" ng-model="search['item.name']"></th>
+                Brand<input type="text" ng-keypress="searchPress($event)"  class="form-control" placeholder="Filter By Name" ng-model="search['item.brand.name']"></th>
+            <th class="sorting" rowspan="1" colspan="1" style="width: 196px;">
+                Model<input type="text" ng-keypress="searchPress($event)"  class="form-control" placeholder="Filter By Brand" ng-model="search['item.model']"></th>
             <th class="sorting"  rowspan="1" colspan="1"  style="width: 196px;">
                 Price<input type="text" ng-keypress="searchPress($event)" class="form-control" placeholder="Filter By Price" ng-model="search['item.price']"></th>
             <th class="sorting" rowspan="1" colspan="1"  style="width: 196px;">
@@ -31,10 +33,11 @@
         <tbody infinite-scroll='paginationFuntion()' infinite-scroll-distance='0.01'>
         <tr ng-repeat="item in itemList | searchFilter:search">
             <td><span class="pull-left p-r-5">
-                                                <img alt="{{ item.item.name }}" ng-src="{{item.item.image}}" class="table-img-icon"/>
+                                                <img alt="{{ item.item.model }}" ng-src="{{item.item.image}}" class="table-img-icon"/>
                                                 </span></td>
-            <td>{{ item.itemId }}</td>
-            <td>{{ item.item.name }}</td>
+             <td>{{ item.itemId }}</td>
+            <td>{{ item.item.brand.name }}</td>
+            <td>{{ item.item.model }}</td>
             <td>{{ item.item.price }}</td>
             <td><span ng-if="item.approved == true"  class="label label-success">Approved</span>
                 <span ng-if="item.approved == false"  class="label label-danger">Rejected</span>
