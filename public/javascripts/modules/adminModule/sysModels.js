@@ -137,7 +137,7 @@
     }]);
 
     mod.controller('sysProductModel',['$scope', '$modalInstance','item','adminDataService','Data.Toast','MESSAGE_CONFIG', function ($scope, uiModalInstance, selectedItem, adminDataService, Data_Toast, MESSAGE_CONFIG) {
-        $scope.item = selectedItem? selectedItem.item : {'group':{'men':false, 'women':false, 'kids':false}, 'types':[], 'sizes':[]};
+        $scope.item = selectedItem? selectedItem.item : {'group':{'men':false, 'women':false, 'kids':false}, 'types':[], 'sizes':[], 'colors':[]};
         $scope.approved = selectedItem? selectedItem.approved : undefined;
         $scope.itemId = selectedItem? selectedItem.itemId: undefined;
         $scope.addNewItem = selectedItem? false:true;
@@ -149,6 +149,7 @@
         $scope.availableTypes = [];
         $scope.brands = [];
         $scope.subItem = [];
+        $scope.colors = [];
         var shopDetails = adminDataService.shopData();
 
         if(selectedItem){
@@ -176,6 +177,11 @@
         adminDataService.getBrandList({}).then(function(response){
             $scope.brands = response.data.responData.data.list;
         });
+        
+        adminDataService.getColors({}).then(function(response){
+            $scope.colors = response.data.responData.data.colors;
+        });
+
 
 
         var setData = function(){
@@ -194,7 +200,7 @@
                     }
                 });
                 $scope.item.shop = shopDetails.branch;
-                $scope.item.colors = [];
+                $scope.item.colors = $scope.item.colors?$scope.item.colors:[];
                 $scope.item.rate = {rate:0, star:0, hit:0};
 
                 _.each($scope.item.types, function (k) {

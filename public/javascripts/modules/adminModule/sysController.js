@@ -1703,8 +1703,42 @@
                 }
             });
         };
-
-
+        
+        
+        /*+++++++++++++++++++++++ Color Functions +++++++++++++++++++++++++*/
+        $scope.colors =[];
+        var data = null;
+        $scope.coloTyped = {};
+        
+        adminDataService.getColors({}).then(function(response){
+        	data = response.data.responData.data;
+            $scope.colors = response.data.responData.data.colors;
+        });
+        
+        $scope.addColor = function(value){
+        	$scope.colors.push(value);
+        	data.colors = $scope.colors;
+        	 adminDataService.addColor(data).then(function(response){
+             });
+        	 $scope.coloTyped.value = "";
+        }
+        
+        $scope.removeColor = function(colorValue){
+        	var index = $scope.colors.indexOf(colorValue);
+        	$scope.colors.splice(index,1);
+        	data.colors = $scope.colors;
+        	 adminDataService.addColor(data).then(function(response){
+                 
+             });
+        }
+        
+        $scope.checkValue = function(value){
+        	if(value != "" && value.includes("#")){
+        		return false;
+        	}else{
+        		return true;
+        	}
+        }
 
     }]);
 

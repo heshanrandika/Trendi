@@ -8,11 +8,10 @@ var CONSTANT = require('../utility/Constants');
 function addColors(req,callback){
     console.log("$$$$$$$  Add Brand $$$$$$");
     var params = (req.body.params) ? req.body.params : {};
-    var colors = params.colors;
-    var query = {id: 1};
+    var colorsarray = params.colors;
+    var query = {name: 'x'};
 
-    var changeDoc = {$set:{colors: colors}};
-
+    var changeDoc = {$set:{colors: colorsarray}};
     daf.Upsert(query,changeDoc,CONSTANT.COLOR_COLLECTION,function(err,success){
         callback(err,success)
     });
