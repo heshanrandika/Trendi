@@ -452,14 +452,28 @@
             },
             templateUrl:'/views/coreModule/colorpicker/trendi.colorpicker.html',
             link: function(scope, elm, attrs) {
-            	scope.colorArray = [];
-            	 _.each(scope.colors,function(k){
-            		 var clr = {value:k, selected:false}
-                     if(scope.selected.indexOf(k) < 0){
-                    	 clr.selected = true;
+            	function init(){
+            		scope.colorArray = [];
+            		_.each(scope.colors,function(k){
+               		 var clr = {value:k, selected:false}
+                        if(scope.selected.indexOf(k) < 0){
+                       	 clr.selected = true;
+                        }
+               		 scope.colorArray.push(clr);
+                    });
+            	}
+            	 
+            	init();
+            	 scope.addColor = function(color){
+            		 var index = scope.selected.indexOf(color);
+            		 if(index < 0){
+            			 scope.selected.push(color);
+                     }else{
+                    	 scope.selected.splice(index,1)
                      }
-            		 scope.colorArray.push(clr);
-                 });
+            		 
+            		 init();
+            	 }
             }
         };
     }]);

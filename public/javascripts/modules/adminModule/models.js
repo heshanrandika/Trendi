@@ -5,7 +5,7 @@
 	"use strict";
 
 	mod.controller('productModel',['$scope', '$modalInstance','item','adminDataService','Data.Toast','MESSAGE_CONFIG', function ($scope, uiModalInstance, selectedItem, adminDataService, Data_Toast, MESSAGE_CONFIG) {
-		$scope.item = selectedItem? selectedItem.item : {'group':{'men':false, 'women':false, 'kids':false}, 'types':[], 'sizes':[]};
+		$scope.item = selectedItem? selectedItem.item : {'group':{'men':false, 'women':false, 'kids':false}, 'types':[], 'sizes':[], 'colors':[]};
 		$scope.itemId = selectedItem? selectedItem.itemId: undefined;
 		$scope.addNewItem = selectedItem? false:true;
 		$scope.uploadedImages = [];
@@ -16,7 +16,6 @@
 		$scope.availableTypes = [];
         $scope.brands = [];
 		$scope.subItem = [];
-		$scope.selectedColors = ['#ffffff'];
 		$scope.colors = [];
 		var shopDetails = adminDataService.shopData();
 
@@ -67,7 +66,7 @@
                         }
                     });
                     $scope.item.shop = shopDetails.branch;
-                    $scope.item.colors = [];
+                    $scope.item.colors = $scope.item.colors?$scope.item.colors:[];
                     $scope.item.rate = {rate:0, star:0, hit:0};
 
                     _.each($scope.item.types, function (k) {
