@@ -152,6 +152,43 @@
                                 </div>
                             </div>
                         </tab>
+                    	<tab>
+                            <tab-heading>
+                                <i class="icon-tag"></i> COLORS
+                            </tab-heading>
+                            <div class="panel">
+                                <div class="panel-header">
+                                    <h3><i class="icon-layers"></i> Add your <strong>Colors</strong></h3>
+                                </div>
+                                <div class="panel-content">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="row">
+                                                <div class="col-md-8">
+                                                    <div class="form-group">
+                                                        <div class="append-icon">
+                                                            <input type="text"  class="form-control" placeholder="Type your color here" ng-model="coloTyped.value">
+                                                            <i class="fa fa-paint-brush" ng-style="{'color':coloTyped.value}"></i>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <button  class="btn btn-primary" ng-click="addColor(coloTyped.value)" ng-disabled="checkValue(coloTyped.value)" ng-if="coloTyped.value">
+                                                        Add   <i class="icon-plus"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <h3><strong>Click to</strong> Remove</h3>
+                                            <div class="grid-container">
+												<div  ng-repeat="color in colors | filter:coloTyped.value" ng-style="{'background-color':color}" 
+												class="grid-item" ng-click="removeColor(color)">0</div>
+											</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </tab>
                     </tabset>
                 </div>
             </div>
