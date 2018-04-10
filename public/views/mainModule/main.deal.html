@@ -1,4 +1,10 @@
 <div id="outer">
+	<section id="slider" ng-hide="uiRef"> <a class="scroll-down animate-move-down" > <span class="icon icon-arrow-down-5"></span> scroll to view content </a>
+				
+				    <div class="tp-banner-container">
+				        <div revolutionslider="images"></div>
+				    </div>
+				</section>
     <div id="outer-canvas">
 
         <section class="container">
@@ -6,7 +12,30 @@
         </section>
         <section ng-hide="uiRef" class="container">
             <div class="row">
-
+			
+				
+				<section class="social-widgets hidden-xs">
+				    <ul class="items">
+				        <li class="item item-01 facebook"> <a class="tab-icon"><span class="icon-facebook-3"></span></a>
+				            <div class="tab-content">
+				                <div class="title">FACEBOOK</div>
+				                <div class="loading"><img src="images/ajax-loader.gif" class="ajaxloader" alt="loader"></div>
+				            </div>
+				        </li>
+				        <li class="item item-02 twitter"> <a class="tab-icon"><span class="icon-twitter-3"></span></a>
+				            <div class="tab-content">
+				                <div class="title">TWITTER FEEDS</div>
+				                <div class="loading"><img src="images/ajax-loader.gif" class="ajaxloader" alt="loader"></div>
+				            </div>
+				        </li>
+				        <li class="item item-03 youtube"> <a class="tab-icon"><span class="icon icon-youtube-3"></span></a>
+				            <div class="tab-content">
+				                <div class="title">Video</div>
+				                <div class="loading"><img src="images/ajax-loader.gif" class="ajaxloader" alt="loader"></div>
+				            </div>
+				        </li>
+				    </ul>
+				</section>
                 <!-- Left column -->
                 <aside class="col-sm-4 col-md-3 col-lg-3 content-aside" id="content-aside-id">
 
@@ -44,6 +73,13 @@
                     <!-- //end Price -->
 
                     <div class="section-divider"></div>
+                    <section class="blog-widget parallax">
+					    <div class="container content" ng-if="blogShow">
+					        <div class="posts flexslider">
+					            <trendi-owl-slider navigation-display="true" images="blogList" items="1" stop-on-hover="true" template="trendi.slider.blog" auto-play="false" item-display="1"></trendi-owl-slider>
+					        </div>
+					    </div>
+					</section>
 
                 </aside>
                 <!-- //end Left column -->

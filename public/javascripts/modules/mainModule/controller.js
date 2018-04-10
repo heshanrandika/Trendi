@@ -640,6 +640,7 @@
         $scope.searchOption = {};
         $scope.selectedshop = $scope.selectParams.shop;
         $scope.selectedShopName ='all';
+        $scope.blogShow = false;
 
 
 
@@ -666,7 +667,12 @@
         };
         $scope.getCategoryMenuData();
 
-
+        mainDataService.getBlogList({skip:0,limit:10}).then(function(response){
+            $scope.blogList = response.data.responData.data;
+            $scope.blogShow = true;
+        }, function(error){
+            $scope.blogShow = false;
+        });
 
 
 
@@ -675,7 +681,6 @@
             skip: 0,
             limit:6,
             item : $scope.selectParams.selected,
-            onSale : true,
             shop : $scope.selectParams.shop,
             searchText:$location.search().searchTxt?$location.search().searchTxt:'',
             filterMap:{}
@@ -783,7 +788,7 @@
                 $scope.loadSubItem(item.itemId);
                 $scope.uiRef = item.itemId;
                 $location.search('itemId', item.itemId);
-                $scope.scrollTo('back-btn');
+                $scope.scrollTo('outer-canvas');
                 $scope.getDirection();
                 $scope.getRelatedItems($scope.selectedItem);
             }
