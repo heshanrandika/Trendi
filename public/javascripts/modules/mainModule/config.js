@@ -12,9 +12,9 @@
                 controller: 'trendiMainController'
             },
             'main.home': {
-                url: '/home',
-                templateUrl: 'views/mainModule/main.home.html',
-                controller: 'trendiMainHomeController'
+                url: '/home/:shop/:selected',
+                templateUrl: 'views/mainModule/main.deal.html',//'views/mainModule/main.home.html',
+                controller: 'trendiMainDealController'//'trendiMainHomeController'
 
             },
             'main.products': {
@@ -35,12 +35,12 @@
                 controller: 'trendiShopProductsController'
 
             },
-            'main.deals': {
+/*            'main.deals': {
                 url: '/deals/:shop/:selected',
                 templateUrl: 'views/mainModule/main.deal.html',
                 controller: 'trendiMainDealController'
 
-            },
+            },*/
             'main.bag': {
                 url: '/bag',
                 templateUrl: 'views/mainModule/main.bag.html',
@@ -129,7 +129,7 @@
         _.each(defs.URL_CONFIG, function (e, k) {
             $stateProvider.state(k, e);
         });
-        $urlRouterProvider.otherwise('/main/home');
+        $urlRouterProvider.otherwise('/main/home/all/all');
     }]);
 
 })(com.TRENDI.CATEGORY.modules.mainTrendiModule);

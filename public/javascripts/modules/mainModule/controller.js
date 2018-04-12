@@ -165,7 +165,7 @@
 
             clickMenu : function(path){
                 delete $location.$$search.itemId;
-                $location.path('main/deals/all/all');
+                $location.path('main/home/all/all');
             }
         };
 
@@ -713,7 +713,7 @@
         $scope.shopChange = function(){
             if($scope.selectedshop) {
                 $scope.searchObj.shop = $scope.selectedshop;
-                $location.path('main/deals/'+$scope.selectedshop+'/'+$scope.selectParams.selected);
+                $location.path('main/home/'+$scope.selectedshop+'/'+$scope.selectParams.selected);
             }
         };
         $scope.$watch(function() { return $scope.searchOption.priceChange; },  $scope.priceChange);
@@ -755,7 +755,7 @@
 
 
         $scope.clickTag = function(val){
-            $location.path('main/deals/'+$scope.selectParams.shop+'/'+val.key);
+            $location.path('main/home/'+$scope.selectParams.shop+'/'+val.key);
         };
 
 

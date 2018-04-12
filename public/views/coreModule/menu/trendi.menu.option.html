@@ -12,12 +12,6 @@
          </ul>
     </div>
     <br>
-    <div ng-show="sizePalletShow">
-        <span class="option-name" ng-click="clickExpand(sizeMenu)"><span class="option-expande">{{sizeMenu.expand?'-':'+'}}</span><a><strong>Size</strong> </a></span>
-        <ul ng-show="sizeMenu.expand" class="expande-list check-element sample-show-hide">
-            <li ng-repeat="size in sizeMenu.sizes" ng-click="clickItem(size , 'size')"> <a>   - {{size.value}}</a></li>
-        </ul>
-    </div>
     <div>
         <span class="option-name"><strong>Price Range</strong></span>
         <div class="row">

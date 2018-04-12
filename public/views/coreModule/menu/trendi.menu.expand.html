@@ -1,24 +1,6 @@
 <ul class="expander-list" >
     <li> <span class="name"> <a ng-click="menuFunc.homeClick(0)">Home</a></span>
     </li>
-    <li> <span class="name"><span class="expander">-</span> <a ng-click="clickParentMenu(menuFunc.womenMenu[0])">Women</a></span>
-        <ul>
-            <li ng-repeat="menu in menuFunc.womenMenu"> <span class="name"><a ng-click="clickMenu(menu)">{{menu.value}}</a></span></li>
-        </ul>
-    </li>
-    <li> <span class="name"><span class="expander">-</span> <a ng-click="clickParentMenu(menuFunc.menMenu[0])">Men </a></span>
-        <ul>
-            <li ng-repeat="menu in menuFunc.menMenu"> <span class="name"><a ng-click="clickMenu(menu)">{{menu.value}}</a></span></li>
-        </ul>
-    </li>
-    <li> <span class="name"><span class="expander">-</span> <a ng-click="clickParentMenu(menuFunc.kidsMenu[0])">Kids</a></span>
-        <ul>
-            <li ng-repeat="menu in menuFunc.kidsMenu"> <span class="name"><a ng-click="clickMenu(menu)">{{menu.value}}</a></span></li>
-
-        </ul>
-    </li>
-    <li> <span class="name"> <a ng-click="menuFunc.clickMenu('main.deals')">Today's deals</a></span>
-    </li>
     <li> <span class="name"><span class="expander">-</span> <a ng-click="menuFunc.gotoShop()">Shops</a></span>
         <ul>
             <li ng-repeat="shop in menuFunc.shopList"> <span class="name"><a ng-href="#/main/shop?shopId={{shop.shopId}}">{{shop.name}}</a></span></li>
